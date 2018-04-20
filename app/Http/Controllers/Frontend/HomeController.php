@@ -1,0 +1,318 @@
+<?php
+
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
+use App\Setting;
+use App\Category;
+use App\CategoryLanguage;
+use App\Product;
+use App\ProductLanguage;
+use App\Post;
+use App\PostLanguage;
+use App\Attribute;
+use App\AttributeLanguage;
+use App\Photo;
+use App\PhotoLanguage;
+use App\MediaLibrary;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
+
+use Cache;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    private $_data;
+
+    public function __construct(Request $request){
+        $this->_data = set_type($request->type);
+        $this->middleware(function($request,$next){
+            $this->_data['lang'] = (session('lang')) ? session('lang') : config('settings.language');
+            App::setLocale($this->_data['lang']);
+            $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
+            View::share('siteconfig', config('siteconfig'));
+
+            $cart = is_array($cart = json_decode($request->cookie('cart'), true)) ? $cart : [];
+            if (count($cart) > 0) {
+                $this->_data['countCart'] = count($cart);
+                
+            }else{
+                $this->_data['countCart'] = 0;
+            }
+            return $next($request);
+        });
+    }
+
+    public function index(Request $request){
+        $this->_data['new_products'] = DB::table('products as A')
+            ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+            ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
+            ->where('B.language',$this->_data['lang'])
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status) AND FIND_IN_SET(\'new\',A.status)')
+            ->where('A.type','san-pham')
+            ->orderBy('A.priority','asc')
+            ->orderBy('A.id','desc')
+            ->limit(8)
+            ->get();
+
+        $this->_data['customers'] = DB::table('posts as A')
+            ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')
+            ->select('A.id','A.link','A.image','A.alt','B.title','B.description')
+            ->where('B.language',$this->_data['lang'])
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status) and FIND_IN_SET(\'index\',A.status)')
+            ->where('A.type','khach-hang')
+            ->orderBy('A.priority','asc')
+            ->orderBy('A.id','desc')
+            ->limit(5)
+            ->get();
+
+        $this->_data['new_posts'] = DB::table('posts as A')
+            ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')
+            ->select('A.id','A.link','A.image','A.alt','A.updated_at','B.title','B.slug','B.description')
+            ->where('B.language',$this->_data['lang'])
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status) and FIND_IN_SET(\'new\',A.status)')
+            ->where('A.type','tin-tuc')
+            ->orderBy('A.priority','asc')
+            ->orderBy('A.id','desc')
+            ->limit(3)
+            ->get();
+        return view('frontend.default.index', $this->_data);
+    }
+
+    public function contact(){
+        $this->_data['page_title'] = __('site.contact');
+        $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
+        $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
+        $this->_data['contact'] = get_pages('lien-he',$this->_data['lang']);
+        return view('frontend.default.contact',$this->_data);
+    }
+
+    public function category($type,$slug){
+
+        $this->_data['category'] = DB::table('categories as A')
+            ->leftjoin('category_languages as B', 'A.id','=','B.category_id')
+            ->select('A.*', 'B.title', 'B.slug', 'B.meta_seo')
+            ->where('B.language', $this->_data['lang'])
+            ->where('B.slug',$slug)
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+            ->where('A.type',$type)
+            ->first();
+        if( $this->_data['category'] ){
+            $category_id = $this->_data['category']->id;
+
+            $this->_data['breadcrumb'] .= '<li class="active"> '.$this->_data['category']->title.' </li>';
+            if($this->_data['template'] == 'product'){
+                $this->_data['products'] = DB::table('products as A')
+                    ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+                    ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
+                    ->where('B.language',$this->_data['lang'])
+                    ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                    ->where('A.category_id',$category_id)
+                    ->where('A.type',$type)
+                    ->orderBy('A.priority','asc')
+                    ->orderBy('A.id','desc')
+                    ->paginate(config('settings.product_per_page'));
+
+                return view('frontend.default.products',$this->_data);
+            }elseif($this->_data['template'] == 'post'){
+                $this->_data['posts'] = DB::table('posts as A')
+                    ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')
+                    ->select('A.id','A.link','A.image','A.alt','A.updated_at','B.title','B.slug','B.description')
+                    ->where('B.language',$this->_data['lang'])
+                    ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                    ->where('A.category_id',$category_id)
+                    ->where('A.type',$type)
+                    ->orderBy('A.priority','asc')
+                    ->orderBy('A.id','desc')
+                    ->paginate(config('settings.post_per_page'));
+                return view('frontend.default.posts',$this->_data);
+            }
+        }
+        return redirect()->route('frontend.home.index');
+    }
+
+    public function archive(Request $request,$type){
+        $params['type'] = $type;
+        if($this->_data['template'] == 'product'){
+            $whereRaw = 'FIND_IN_SET(\'publish\',A.status)';
+
+            if($request->keyword !=''){
+                $whereRaw .= ' AND B.title LIKE \'%'.$request->keyword.'%\'';
+                $params['keyword'] = $request->keyword;
+            }
+            if($request->tag){
+                $this->_data['tag'] = DB::table('attributes as A')
+                    ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
+                    ->select('A.*','B.title','B.slug')
+                    ->where('B.slug', $request->tag)
+                    ->where('B.language', $this->_data['lang'])
+                    ->where('A.type','product_tags')
+                    ->first();
+                $idProducts = DB::table('product_attribute')->where('attribute_id',$this->_data['tag']->id)->pluck('product_id')->toArray();
+                if($idProducts) $whereRaw .= ' AND A.id IN ('.implode(',', $idProducts).')';
+                else $whereRaw .= ' AND A.id IN (0)';
+                $params['tag'] = $request->tag;
+            }
+
+            if($request->color){
+                $this->_data['color'] = DB::table('attributes as A')
+                    ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
+                    ->select('A.*','B.title','B.slug')
+                    ->where('B.slug', $request->color)
+                    ->where('B.language', $this->_data['lang'])
+                    ->where('A.type','product_colors')
+                    ->first();
+                $idProducts = DB::table('product_attribute')->where('attribute_id',$this->_data['color']->id)->pluck('product_id')->toArray();
+                if($idProducts) $whereRaw .= ' AND A.id IN ('.implode(',', $idProducts).')';
+                else $whereRaw .= ' AND A.id IN (0)';
+                $params['color'] = $request->color;
+            }
+
+            $this->_data['products'] = DB::table('products as A')
+                ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+                ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
+                ->where('B.language',$this->_data['lang'])
+                ->whereRaw($whereRaw)
+                ->where('A.type',$type)
+                ->orderBy('A.priority','asc')
+                ->orderBy('A.id','desc')
+                ->paginate(config('settings.product_per_page'));
+            $this->_data['products']->withPath( route('frontend.home.archive', $params ) );
+            return view('frontend.default.products',$this->_data);
+        }elseif($this->_data['template'] == 'post'){
+            $this->_data['posts'] = DB::table('posts as A')
+                ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')
+                ->select('A.id','A.link','A.image','A.alt','A.updated_at','B.title','B.slug','B.description')
+                ->where('B.language',$this->_data['lang'])
+                ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                ->where('A.type',$type)
+                ->orderBy('A.priority','asc')
+                ->orderBy('A.id','desc')
+                ->paginate(config('settings.post_per_page'));
+            return view('frontend.default.posts',$this->_data);
+        }elseif($this->_data['template'] == 'page'){
+            $this->_data['page'] = get_pages($type);
+            return view('frontend.default.page',$this->_data);
+        }
+        return redirect()->route('frontend.home.index');
+    }
+
+    public function page(Request $request, $type,$slug){
+        if($this->_data['template'] == 'product'){
+            $this->_data['product'] = DB::table('products as A')
+                ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+                ->select('A.*','B.title','B.description','B.contents','B.attributes','B.meta_seo')
+                ->where('B.language',$this->_data['lang'])
+                ->where('B.slug',$slug)
+                ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                ->where('A.type',$type)
+                ->first();
+            if( $this->_data['product'] ){
+                $client_ip = $request->getClientIp();
+                if(!Cache::has($client_ip.'_product_view_'.$this->_data['product']->id)){
+                    $this->_data['product']->viewed += 1;
+                    DB::table('products')->where('id',$this->_data['product']->id)->increment('viewed',1);
+                    Cache::add($client_ip.'_product_view_'.$this->_data['product']->id,$this->_data['product']->viewed,5);
+                }
+                $viewed = is_array($viewed = json_decode($request->cookie('viewed'), true)) ? $viewed : [];
+                if( !in_array($this->_data['product']->id,$viewed) ){
+                    array_unshift($viewed,$this->_data['product']->id);
+                }
+                $cookieViewed = cookie('viewed', json_encode($viewed), 1440);
+
+                $this->_data['images'] = get_media($this->_data['product']->attachments);
+                $this->_data['attributes'] = $this->_data['product']->attributes ? json_decode($this->_data['product']->attributes,true) : [];
+                $this->_data['colors'] = get_attributes('product_colors');
+                $this->_data['sizes'] = get_attributes('product_sizes');
+                $this->_data['tags'] = get_attributes('product_tags');
+
+                $this->_data['products'] = DB::table('products as A')
+                    ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+                    ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
+                    ->where('B.language',$this->_data['lang'])
+                    ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                    ->where('A.id','!=',$this->_data['product']->id)
+                    ->where('A.category_id',$this->_data['product']->category_id)
+                    ->where('A.type',$type)
+                    ->orderBy('A.priority','asc')
+                    ->orderBy('A.id','desc')
+                    ->limit(15)
+                    ->get();
+                return response()->view('frontend.default.page-product',$this->_data)->cookie($cookieViewed);
+            }
+        }elseif($this->_data['template'] == 'post'){
+            $this->_data['post'] = DB::table('posts as A')
+                ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')
+                ->select('A.*','B.title','B.description','B.contents','B.meta_seo')
+                ->where('B.language',$this->_data['lang'])
+                ->where('B.slug',$slug)
+                ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                ->where('A.type',$type)
+                ->first();
+            if( $this->_data['post'] ){
+                $client_ip = $request->getClientIp();
+                if(!Cache::has($client_ip.'_post_view_'.$this->_data['post']->id)){
+                    $this->_data['post']->viewed += 1;
+                    DB::table('posts')->where('id',$this->_data['post']->id)->increment('viewed',1);
+                    Cache::add($client_ip.'_post_view_'.$this->_data['post']->id,$this->_data['post']->viewed,5);
+                }
+                
+                $this->_data['author'] = User::find( $this->_data['post']->user_id )->first()->name;
+                $this->_data['category'] = CategoryLanguage::where('language',$this->_data['lang'])
+                    ->where('category_id',$this->_data['post']->category_id )->first();
+
+                $this->_data['posts'] = DB::table('posts as A')
+                    ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')
+                    ->select('A.id','A.link','A.image','A.alt','A.updated_at','B.title','B.slug','B.description')
+                    ->where('B.language',$this->_data['lang'])
+                    ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                    ->where('A.id','!=',$this->_data['post']->id)
+                    ->where('A.category_id',$this->_data['post']->category_id)
+                    ->where('A.type',$type)
+                    ->orderBy('A.priority','asc')
+                    ->orderBy('A.id','desc')
+                    ->limit(15)
+                    ->get();
+                return view('frontend.default.page-post',$this->_data);
+            }
+        }
+
+        return redirect()->route('frontend.home.index');
+    }
+
+    public function viewed(Request $request){
+        $this->_data['page_title'] = __('site.viewed');
+        $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
+        $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
+
+        $viewed = is_array($viewed = json_decode($request->cookie('viewed'), true)) ? $viewed : [];
+        if( count($viewed) > 0 ){
+            $this->_data['products'] = DB::table('products as A')
+                ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+                ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
+                ->where('B.language',$this->_data['lang'])
+                ->whereIn('A.id',$viewed)
+                ->orderBy('A.priority','asc')
+                ->orderBy('A.id','desc')
+                ->paginate(config('settings.product_per_page'));
+        }else{
+            $this->_data['products'] = [];
+        }
+        return view('frontend.default.products', $this->_data);
+    }
+    
+}
