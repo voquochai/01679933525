@@ -39,14 +39,14 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/uploads/photos/'.config('settings.favicon')) }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
-    <link rel="stylesheet" href="{{ asset('public/themes/default/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/packages/bootstrap-toastr/toastr.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/themes/default/assets/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/themes/default/assets/css/pe-icon-7-stroke.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/themes/default/assets/css/plugins.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/themes/default/css/pe-icon-7-stroke.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/themes/default/css/plugins.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/themes/default/assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/themes/default/assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/themes/default/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/themes/default/css/responsive.css') }}">
     @yield('custom_css')
 
     {{ config('settings.script_head') }}
@@ -96,13 +96,13 @@
     </script>
     <script src="{{ asset('public/jsons/province.json') }}"></script>
     <script src="{{ asset('public/jsons/district.json') }}"></script>
-    <script src="{{ asset('public/themes/default/assets/js/modernizr-2.8.3.min.js') }}"></script>
-	<script src="{{ asset('public/themes/default/assets/js/jquery-3.1.1.min.js') }}"></script>
-    <script src="{{ asset('public/themes/default/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/js/modernizr-2.8.3.min.js') }}"></script>
+	<script src="{{ asset('public/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('public/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('public/packages/bootstrap-toastr/toastr.min.js') }}"></script>
-	<script src="{{ asset('public/themes/default/assets/js/plugins.js') }}"></script>
+	<script src="{{ asset('public/themes/default/js/plugins.js') }}"></script>
 	<script src="{{ asset('public/js/app.js') }}"></script>
-	<script src="{{ asset('public/themes/default/assets/js/main.js') }}"></script>
+	<script src="{{ asset('public/themes/default/js/main.js') }}"></script>
 	@yield('custom_script')
 
     {{ config('settings.script_body') }}
