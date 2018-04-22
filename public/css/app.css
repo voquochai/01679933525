@@ -78,6 +78,9 @@ a {
   a:active {
     outline: 0; }
 
+.btn:focus,
+.btn:active{ outline: 0; }
+
 /* Horizontal break */
 hr {
   margin: 20px 0;
