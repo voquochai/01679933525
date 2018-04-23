@@ -74,10 +74,15 @@ if (!function_exists('get_media')) {
     }
 }
 
-// Order
 if (!function_exists('update_code')) {
     function update_code($id,$prefix) {
         return Tool::updateCode($id,$prefix);
+    }
+}
+
+if (!function_exists('nice_time')) {
+    function nice_time($date) {
+        return Tool::niceTime($date);
     }
 }
 

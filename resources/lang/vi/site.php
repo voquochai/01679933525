@@ -59,4 +59,8 @@ return [
     'viewed' => 'Sản phẩm đã xem',
     'wishlist' => 'Sản phẩm yêu thích',
 
+    /* Comment */
+    'leave_a_comment'   =>  'Nhận xét của bạn',
+    'send_comment'   =>  'Gửi nhận xét của bạn',
+
 ];

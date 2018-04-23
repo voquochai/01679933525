@@ -45,9 +45,9 @@
                                     </label>
                                 </th>
                                 <th width="3%"> Thứ tự </th>
-                                <th width="7%"> Họ và tên </th>
-                                <th width="7%"> Email </th>
-                                <th width="20%"> Nội dung </th>
+                                <th width="7%"> Người gửi </th>
+                                <th width="20%"> Bình luận </th>
+                                <th width="7%"> Gửi từ </th>
                                 <th width="7%"> Ngày tạo </th>
 								<th width="7%"> Tình trạng </th>
                                 <th width="5%"> Thực thi </th>
@@ -63,10 +63,10 @@
                                     </label>
                                 </td>
                                 <td align="center"> <input type="text" name="priority" class="form-control input-mini input-priority" value="{{ $item->priority }}" data-ajax="act=update_priority|table=comments|id={{ $item->id }}|col=priority"> </td>
-                                <td align="center">{{$item->name}}</td>
-                                <td align="center">{{$item->email}}</td>
-                                <td align="center">{{$item->description}}</td>
-                                <td align="center"> {{ $item->created_at }} </td>
+                                <td align="center">{{ $item->name }}<br/>{{ $item->email }}</td>
+                                <td align="center">{{ $item->description }}</td>
+                                <td align="center">{{ $item->product_name ? $item->product_name : $item->post_name }}</td>
+                                <td align="center">{{ $item->created_at }}</td>
                                 <td align="center">
                                     @foreach($siteconfig[$type]['status'] as $keyS => $valS)
                                         <button class="btn btn-sm btn-status btn-status-{{ $keyS}} btn-status-{{ $keyS.'-'.$item->id.' '.((strpos($item->status,$keyS) !== false)?'blue':'default') }}" data-loading-text="<i class='fa fa-spinner fa-pulse'></i>" data-ajax="act=update_status|table=comments|id={{ $item->id }}|col=status|val={{ $keyS }}"> {{ $valS }} </button>

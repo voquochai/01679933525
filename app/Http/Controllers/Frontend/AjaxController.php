@@ -16,7 +16,7 @@ class AjaxController extends Controller
 {
 
 	public function index(Request $request){
-
+        
         switch($request->act){
             case 'newsletter':
                 $data = $this->newsletter($request);

@@ -3,19 +3,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Setting;
-use App\Category;
-use App\CategoryLanguage;
-use App\Product;
-use App\ProductLanguage;
-use App\Post;
-use App\PostLanguage;
-use App\Attribute;
-use App\AttributeLanguage;
-use App\Photo;
-use App\PhotoLanguage;
-use App\MediaLibrary;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
@@ -240,6 +227,11 @@ class HomeController extends Controller
                 $this->_data['sizes'] = get_attributes('product_sizes');
                 $this->_data['tags'] = get_attributes('product_tags');
 
+                $this->_data['comments'] = DB::table('comments')
+                    ->where('product_id',$this->_data['product']->id)
+                    ->orderBy('id','desc')
+                    ->get();
+
                 $this->_data['products'] = DB::table('products as A')
                     ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
                     ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
@@ -271,9 +263,15 @@ class HomeController extends Controller
                     Cache::add($client_ip.'_post_view_'.$this->_data['post']->id,$this->_data['post']->viewed,5);
                 }
                 
-                $this->_data['author'] = User::find( $this->_data['post']->user_id )->first()->name;
-                $this->_data['category'] = CategoryLanguage::where('language',$this->_data['lang'])
+                $this->_data['author'] = DB::table('users')->select('name')->where( 'id',$this->_data['post']->user_id )->first();
+
+                $this->_data['category'] = DB::table('category_languages')->select('title','slug')->where('language',$this->_data['lang'])
                     ->where('category_id',$this->_data['post']->category_id )->first();
+
+                $this->_data['comments'] = DB::table('comments')
+                    ->where('post_id',$this->_data['post']->id)
+                    ->orderBy('id','desc')
+                    ->get();
 
                 $this->_data['posts'] = DB::table('posts as A')
                     ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')

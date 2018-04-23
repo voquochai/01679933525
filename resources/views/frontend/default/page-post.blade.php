@@ -13,8 +13,8 @@
                     <div class="blog-info">
                         <h3 class="title">{{ $post->title }}</h3>
                         <div class="blog-meta">
-                            <span><a href="#"><i class="fa fa-user"></i> {{ $author }} </a></span>
-                            <span><a href="{{ url('/'.$type.'/'.$category->slug) }}"><i class="fa fa-tags"></i> {{ $category->title }} </a></span>
+                            <span><a href="#"><i class="fa fa-user"></i> {{ @$author->name }} </a></span>
+                            <span><a href="{{ url('/'.$type.'/'.$category->slug) }}"><i class="fa fa-tags"></i> {{ @$category->title }} </a></span>
                             <span><a href="#"><i class="fa fa-eye"></i> {{ __('site.view') }} ({{ $post->viewed }})</a></span>
                         </div>
                         {!! $post->contents !!}						

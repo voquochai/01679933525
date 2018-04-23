@@ -59,4 +59,8 @@ return [
     'viewed' => 'Viewed products',
     'wishlist' => 'Wishlist',
 
+    /* Comment */
+    'leave_a_comment'   =>  'Leave a comment',
+    'send_comment'   =>  'Send comment',
+
 ];

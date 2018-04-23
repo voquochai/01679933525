@@ -36,6 +36,11 @@ class CommentController extends Controller
 
     public function index(){
         $this->_data['items'] = DB::table('comments as A')
+            ->leftjoin('product_languages as B', 'A.product_id','=','B.product_id')
+            ->leftjoin('post_languages as C', 'A.post_id','=','C.post_id')
+            ->select('A.*', 'B.title as product_name', 'C.title as post_name')
+            ->orWhere('B.language', $this->_data['default_language'])
+            ->orWhere('C.language', $this->_data['default_language'])
             ->where('A.type',$this->_data['type'])
             ->orderBy('A.priority','asc')
             ->orderBy('A.id','desc')
