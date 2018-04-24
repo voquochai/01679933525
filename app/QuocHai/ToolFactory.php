@@ -247,6 +247,37 @@ class ToolFactory {
         return "$difference $periods[$j] {$tense}";
     }
 
+    public function getComments($data,$parent=0,$lvl=0){
+        $result = '';
+        if( isset($data[$parent]) ){
+            if( $parent==0 ) $result .= '<ul class="comment-list">';
+            else $result .= '<ul>';
+            foreach($data[$parent] as $k=>$v){
+                $id=$v->id;
+                $result .= '<li>';
+                $result .= '
+                    <div class="single-comment fix" data-lvl="'.$id.'"">
+                        <div class="image float-left"><img src="'.asset('noimage/50x50').'" alt="" class="img-circle"></div>
+                        <div class="content fix">
+                            <div class="head fix">
+                                <div class="author-time">
+                                    <h4>'.$v->name.'</h4>
+                                    <span>'.self::niceTime($v->created_at).'</span>
+                                </div>
+                                '.($lvl < 1 ? '<a href="#" class="replay" data-id="'.$id.'">Replay</a>' : '').'
+                            </div>
+                            <p>'.$v->description.'</p>
+                        </div>
+                    </div>
+                ';
+                $result .= self::getComments($data,$id,++$lvl);
+                $result .= '</li>';
+            }
+            $result .= '</ul>';
+        }
+        return $result;
+    }
+
     public function getProductInWarehouses($type = 'default'){
         $items = DB::table('wms_imports')
             ->select('product_id','product_code','product_size','product_color','product_qty')

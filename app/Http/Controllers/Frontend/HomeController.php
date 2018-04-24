@@ -227,10 +227,20 @@ class HomeController extends Controller
                 $this->_data['sizes'] = get_attributes('product_sizes');
                 $this->_data['tags'] = get_attributes('product_tags');
 
-                $this->_data['comments'] = DB::table('comments')
+                $comments = DB::table('comments')
                     ->where('product_id',$this->_data['product']->id)
+                    ->orderBy('parent','asc')
                     ->orderBy('id','desc')
                     ->get();
+                if($comments !== null){
+                    foreach($comments as $value){
+                        $parent=$value->parent;
+                        $this->_data['comments'][$parent][]=$value;
+                    }
+                }else{
+                    $this->_data['comments'] = [];
+                }
+                $this->_data['countComment'] = count($comments);
 
                 $this->_data['products'] = DB::table('products as A')
                     ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
@@ -268,10 +278,20 @@ class HomeController extends Controller
                 $this->_data['category'] = DB::table('category_languages')->select('title','slug')->where('language',$this->_data['lang'])
                     ->where('category_id',$this->_data['post']->category_id )->first();
 
-                $this->_data['comments'] = DB::table('comments')
+                $comments = DB::table('comments')
                     ->where('post_id',$this->_data['post']->id)
+                    ->orderBy('parent','asc')
                     ->orderBy('id','desc')
                     ->get();
+                if($comments !== null){
+                    foreach($comments as $value){
+                        $parent=$value->parent;
+                        $this->_data['comments'][$parent][]=$value;
+                    }
+                }else{
+                    $this->_data['comments'] = [];
+                }
+                $this->_data['countComment'] = count($comments);
 
                 $this->_data['posts'] = DB::table('posts as A')
                     ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')

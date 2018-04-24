@@ -134,6 +134,7 @@ class AjaxController extends Controller
             $data['message'] = $valid->errors()->first();
             return $data;
         } else {
+            $data_insert['parent'] = (int)$request->parent;
             $data_insert['product_id'] = ($request->product_id) ? $request->product_id : null ;
             $data_insert['post_id'] = ($request->post_id) ? $request->post_id : null ;
             $data_insert['member_id'] = auth()->guard('member')->check() ? auth()->guard('member')->id() : null ;

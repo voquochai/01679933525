@@ -8,7 +8,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
                     <div class="pro-large-img tab-pane active" id="pro-large-img-0">
-                        <img src="{{ asset('public/uploads/products/'.$product->image) }}" alt="{{ $product->alt }}" />
+                        <img src="{{ ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/600x600') ) }}" alt="{{ $product->alt }}" />
                     </div>
                     @forelse($images as $key=> $image)
                     <div class="pro-large-img tab-pane" id="pro-large-img-{{ ++$key }}">

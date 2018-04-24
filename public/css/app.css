@@ -82,6 +82,7 @@ code {
   display: flex;
   flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Disabled Navigation Link */

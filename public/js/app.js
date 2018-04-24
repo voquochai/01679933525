@@ -426,6 +426,24 @@ var App = function() {
         });
     }
 
+    var handleComment = function(){
+        $('.comment-list').on('click','.replay', function(e){
+            e.preventDefault();
+            var container = $(this).closest('li');
+            if( container.find('.comment-form').length > 0 ) return false;
+            var parentID = $(this).attr('data-id');
+            var form = $('.comment-form.main-form').clone().removeClass('main-form').addClass('display-hide');
+            
+            form.find('input[name="parent"]').val(parentID);
+            $('.comment-list .comment-form').slideUp('fast', function(){
+                $(this).remove();
+            });
+            container.append(form);
+            form.slideDown('fast');
+            App.scrollTo(form);
+        })
+    }
+
     var handleRegister = function(){
         $('body').on('click', '.btn-ajax', function(e){
             e.preventDefault();
@@ -479,6 +497,7 @@ var App = function() {
             handlePlaces();
             handleCart();
             handleWishList();
+            handleComment();
             handleRegister();
         },
 
@@ -503,7 +522,7 @@ var App = function() {
 
         // wrApper function to scroll(focus) to an element
         scrollTo: function(el, offeset) {
-            var pos = (el && el.size() > 0) ? el.offset().top : 0;
+            var pos = (el && el.length > 0) ? el.offset().top : 0;
 
             if (el) {
                 if ($('body').hasClass('page-header-fixed')) {
@@ -635,12 +654,12 @@ var App = function() {
             }
 
             if (!options.container) {
-                if ($('.page-fixed-main-content').size() === 1) {
+                if ($('.page-fixed-main-content').length === 1) {
                     $('.page-fixed-main-content').prepend(html);
-                } else if (($('body').hasClass("page-container-bg-solid") || $('body').hasClass("page-content-white")) && $('.page-head').size() === 0) {
+                } else if (($('body').hasClass("page-container-bg-solid") || $('body').hasClass("page-content-white")) && $('.page-head').length === 0) {
                     $('.page-title').after(html);
                 } else {
-                    if ($('.page-bar').size() > 0) {
+                    if ($('.page-bar').length > 0) {
                         $('.page-bar').after(html);
                     } else {
                         $('.page-breadcrumb, .breadcrumbs').after(html);

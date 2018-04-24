@@ -7,7 +7,7 @@
                 <!-- Tab panes -->
                 <div class="tab-content mb-10">
                     <div class="pro-large-img tab-pane active" id="pro-large-img-0">
-                        <img src="<?php echo e(asset('public/uploads/products/'.$product->image)); ?>" alt="<?php echo e($product->alt); ?>" />
+                        <img src="<?php echo e(( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/600x600') )); ?>" alt="<?php echo e($product->alt); ?>" />
                     </div>
                     <?php $__empty_1 = true; $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=> $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <div class="pro-large-img tab-pane" id="pro-large-img-<?php echo e(++$key); ?>">

@@ -86,6 +86,12 @@ if (!function_exists('nice_time')) {
     }
 }
 
+if (!function_exists('get_comments')) {
+    function get_comments($data) {
+        return Tool::getComments($data);
+    }
+}
+
 if (!function_exists('get_product_in_warehouses')) {
     function get_product_in_warehouses($type='default') {
         return Tool::getProductInWarehouses($type);

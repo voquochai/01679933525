@@ -66,7 +66,7 @@ class MenuFactory{
 				$slug=$v->slug;
 				if( $id == $self ) $isActive = 'class="active"'; else $isActive = '';
 				$this->_result.= "<a href='$this->_baseurl/$slug' data-lvl='$lvl' $isActive >".$icon.$v->title."</a>";
-				$this->getMenu($id,++$lvl);
+				$this->getMenu($self,$id,++$lvl);
 				$this->_result.= $this->_closeitem;
 			}
 			if( is_array($this->_close) ){
