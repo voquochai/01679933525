@@ -44,6 +44,12 @@ if (!function_exists('get_categories')) {
     }
 }
 
+if (!function_exists('get_posts')) {
+    function get_posts($type,$lang='vi') {
+        return Tool::getPosts($type, $lang);
+    }
+}
+
 if (!function_exists('get_photos')) {
     function get_photos($type,$lang='vi') {
         return Tool::getPhotos($type, $lang);

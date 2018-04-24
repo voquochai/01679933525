@@ -141,6 +141,18 @@ class ToolFactory {
             ->get();
     }
 
+    public function getPosts($type,$lang='vi'){
+        return DB::table('posts as A')
+            ->leftjoin('post_languages as B', 'A.id','=','B.post_id' )
+            ->select('A.*','B.title','B.description')
+            ->where('B.language',$lang)
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+            ->where('A.type',$type)
+            ->orderBy('A.priority','asc')
+            ->orderBy('A.id','desc')
+            ->get();
+    }
+
     public function getPhotos($type,$lang='vi'){
         return DB::table('photos as A')
             ->leftjoin('photo_languages as B', 'A.id','=','B.photo_id' )
