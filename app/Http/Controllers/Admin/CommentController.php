@@ -45,7 +45,7 @@ class CommentController extends Controller
             ->orderBy('A.priority','asc')
             ->orderBy('A.id','desc')
             ->paginate(25);
-        if($comments !== null){
+        if( count($comments) > 0 ){
             foreach($comments as $value){
                 $parent=$value->parent;
                 $this->_data['items'][$parent][]=$value;
@@ -53,7 +53,6 @@ class CommentController extends Controller
         }else{
             $this->_data['items'] = [];
         }
-
         return view('admin.comments.index',$this->_data);
     }
     

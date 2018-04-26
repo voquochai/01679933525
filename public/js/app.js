@@ -427,7 +427,7 @@ var App = function() {
     }
 
     var handleComment = function(){
-        $('.comment-list').on('click','.replay', function(e){
+        $('.comment-list').on('click','.reply', function(e){
             e.preventDefault();
             var container = $(this).closest('li');
             if( container.find('.comment-form').length > 0 ) return false;
@@ -439,8 +439,10 @@ var App = function() {
                 $(this).remove();
             });
             container.append(form);
-            form.slideDown('fast');
-            App.scrollTo(form);
+            form.slideDown('fast', function(){
+                App.scrollTo(form);
+            });
+            
         })
     }
 
@@ -460,7 +462,7 @@ var App = function() {
             }).done(function(response){
                 btn.button('reset');
                 if(response.type == 'success'){
-                    frm.find('*').val('');
+                    frm.find('*:not([type="hidden"])').val('');
                 }
                 App.alert({
                     container: frm, // alerts parent container(by default placed after the page breadcrumbs)

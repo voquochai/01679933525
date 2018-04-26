@@ -92,7 +92,7 @@ class TemplateFactory {
                                     <h4>'.$v->name.'</h4>
                                     <span>'.Tool::niceTime($v->created_at).'</span>
                                 </div>
-                                '.($lvl < 1 ? '<a href="#" class="replay" data-id="'.$id.'">Trả lời</a>' : '').'
+                                '.($lvl < 1 ? '<a href="#" class="reply" data-id="'.$id.'">Trả lời</a>' : '').'
                             </div>
                             <p>'.$v->description.'</p>
                         </div>
