@@ -72,7 +72,7 @@ return [
 	'category' => [
 		'san-pham'	=>	[
 			'page-title'	=>	'Danh mục',
-			'level' =>	3,
+			'level' =>	1,
 			'icon'	=>	false,
 			'description' =>	false,
 			'contents'    =>	false,

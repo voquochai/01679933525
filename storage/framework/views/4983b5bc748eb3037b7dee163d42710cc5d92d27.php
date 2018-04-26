@@ -30,6 +30,7 @@
 
     <link rel="stylesheet" href="<?php echo e(asset('public/admin/css/components.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/admin/css/plugins.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/admin/css/profile.min.css')); ?>">
 
     <link rel="stylesheet" href="<?php echo e(asset('public/admin/css/layout.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/admin/css/themes/darkblue.css')); ?>">

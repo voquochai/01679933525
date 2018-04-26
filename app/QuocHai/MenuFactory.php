@@ -103,7 +103,7 @@ class MenuFactory{
 				if( $id != $self ){
 					if( $id == $select ) $selected = "selected"; else $selected = "";
 					if( $this->_siteconfig[$_GET['type']]['level'] > 0 && $this->_siteconfig[$_GET['type']]['level'] < $level ) $disabled = "disabled"; else $disabled = "";
-					$this->_result .= "<option value='$id' $selected $disabled > $prefix $name </option>";
+					$this->_result .= "<option value='$id' $selected $disabled data-lvl='$level' > $prefix $name </option>";
 					// unset($this->_data[$key]);
 					$this->getMenuSelectLimit($self,$id,$prefix.'--|',$select,$level+1);
 				}

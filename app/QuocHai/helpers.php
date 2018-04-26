@@ -123,3 +123,9 @@ if (!function_exists('get_template_post')) {
     }
 }
 
+if (!function_exists('get_template_comment')) {
+    function get_template_comment($data) {
+        return Template::getTemplateComment($data);
+    }
+}
+

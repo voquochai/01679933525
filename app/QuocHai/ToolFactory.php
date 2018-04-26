@@ -262,30 +262,63 @@ class ToolFactory {
     public function getComments($data,$parent=0,$lvl=0){
         $result = '';
         if( isset($data[$parent]) ){
-            if( $parent==0 ) $result .= '<ul class="comment-list">';
-            else $result .= '<ul>';
+            if( $parent==0 ) $result .= '<div class="timeline">';
+            else $result .= '<div class="timeline">';
             foreach($data[$parent] as $k=>$v){
                 $id=$v->id;
-                $result .= '<li>';
+                $result .= '<div class="timeline-item" id="record-'.$v->id.'">';
                 $result .= '
-                    <div class="single-comment fix" data-lvl="'.$id.'"">
-                        <div class="image float-left"><img src="'.asset('noimage/50x50').'" alt="" class="img-circle"></div>
-                        <div class="content fix">
-                            <div class="head fix">
-                                <div class="author-time">
-                                    <h4>'.$v->name.'</h4>
-                                    <span>'.self::niceTime($v->created_at).'</span>
-                                </div>
-                                '.($lvl < 1 ? '<a href="#" class="replay" data-id="'.$id.'">Replay</a>' : '').'
-                            </div>
-                            <p>'.$v->description.'</p>
+                    <div class="timeline-badge">
+                        <div class="timeline-icon">
+                            <i class="icon-user-following font-green-haze"></i>
                         </div>
                     </div>
-                ';
-                $result .= self::getComments($data,$id,++$lvl);
-                $result .= '</li>';
+                    <div class="timeline-wrap">
+                        <div class="timeline-body">
+                            <div class="timeline-body-arrow"> </div>
+                            <div class="timeline-body-head">
+                                <div class="timeline-body-head-caption">
+                                    <a href="javascript:;" class="timeline-body-title font-blue-madison">'.$v->name.'</a>
+                                    <span class="timeline-body-time font-grey-cascade">'.self::niceTime($v->created_at).'</span>
+                                    <div class="font-grey-cascade">'.$v->email.'</div>
+                                </div>
+                                <div class="timeline-body-head-actions">
+                                    <a href="#" class="btn btn-circle green btn-outline btn-sm btn-comment-expand"> <i class="fa fa-angle-down"></i> </a>
+                                    <div class="btn-group">
+                                        <button class="btn btn-circle green btn-outline btn-sm dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false"> Hành động
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="#" class="btn-comment-reply">Trả lời</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="btn-status btn-status-publish btn-status-publish-'.$v->id.' '.(($v->status=='publish') ? 'blue' : 'default').'" data-loading-text="<i class=\'fa fa-spinner fa-pulse\'></i>" data-ajax="act=update_status|table=comments|id='.$v->id.'|col=status|val=publish"> Hiển thị </a>
+                                            </li>
+                                            <li>
+                                                
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="#" onclick="event.preventDefault(); document.getElementById(\'frm-comment-delete-'.$v->id.'\').submit();"> Xóa </a>
+                                                <form action="'.route('admin.comment.delete',['id'=>$v->id, 'type'=>'default']).'" method="post" id="frm-comment-delete-'.$v->id.'">
+                                                    '.csrf_field().'
+                                                    '.method_field('DELETE').'
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-body-content">
+                                <span class="font-grey-cascade">'.$v->description.'</span>
+                            </div>
+                        </div>';
+                        $result .= self::getComments($data,$id,$lvl+1);
+                $result .= '</div>';
+                $result .= '</div>';
             }
-            $result .= '</ul>';
+            $result .= '</div>';
         }
         return $result;
     }

@@ -114,7 +114,7 @@
                                             "id":"<?php echo e($image->id); ?>",
                                             "alt":"<?php echo e($image->alt); ?>",
                                             "priority":"<?php echo e($image->priority); ?>",
-                                            "url":"<?php echo e(route('admin.download.file',$path.'/'.$image->image)); ?>",
+                                            "url":"<?php echo e(route('download.file',$path.'/'.$image->image)); ?>",
                                             "config":"product",
                                             "type":"<?php echo e($type); ?>"
                                         }

@@ -35,7 +35,7 @@ class CommentController extends Controller
      */
 
     public function index(){
-        $this->_data['items'] = DB::table('comments as A')
+        $comments = DB::table('comments as A')
             ->leftjoin('product_languages as B', 'A.product_id','=','B.product_id')
             ->leftjoin('post_languages as C', 'A.post_id','=','C.post_id')
             ->select('A.*', 'B.title as product_name', 'C.title as post_name')
@@ -45,6 +45,14 @@ class CommentController extends Controller
             ->orderBy('A.priority','asc')
             ->orderBy('A.id','desc')
             ->paginate(25);
+        if($comments !== null){
+            foreach($comments as $value){
+                $parent=$value->parent;
+                $this->_data['items'][$parent][]=$value;
+            }
+        }else{
+            $this->_data['items'] = [];
+        }
 
         return view('admin.comments.index',$this->_data);
     }

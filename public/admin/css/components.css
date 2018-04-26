@@ -14514,11 +14514,13 @@ Timeline
     padding-left: 22px; }
   .timeline .timeline-icon i {
     font-size: 34px; }
+  .timeline .timeline-wrap {
+    margin-left: 110px;
+  }
   .timeline .timeline-body {
     position: relative;
     padding: 20px;
     margin-top: 20px;
-    margin-left: 110px;
     background-color: #f5f6fa;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;

@@ -229,6 +229,7 @@ class HomeController extends Controller
 
                 $comments = DB::table('comments')
                     ->where('product_id',$this->_data['product']->id)
+                    ->whereRaw('FIND_IN_SET(\'publish\',status)')
                     ->orderBy('parent','asc')
                     ->orderBy('id','desc')
                     ->get();
@@ -280,6 +281,7 @@ class HomeController extends Controller
 
                 $comments = DB::table('comments')
                     ->where('post_id',$this->_data['post']->id)
+                    ->whereRaw('FIND_IN_SET(\'publish\',status)')
                     ->orderBy('parent','asc')
                     ->orderBy('id','desc')
                     ->get();

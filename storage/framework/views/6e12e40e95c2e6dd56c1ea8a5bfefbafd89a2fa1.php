@@ -1,7 +1,7 @@
 <div class="comment-wrapper mt-40 mb-40">
     <?php if( $countComment > 0 ): ?>
     <h3><?php echo e(__('site.comment').' ('.$countComment.')'); ?></h3>
-    <?php echo get_comments($comments); ?>
+    <?php echo get_template_comment($comments); ?>
 
     <?php endif; ?>
     <h3><?php echo e(__('site.leave_a_comment')); ?></h3>

@@ -1,5 +1,45 @@
 var Admin = function(){
 
+    var handleCkeditors = function(){
+        $('.ck-editor').each(function(index, el) {
+            var id = $(this).find('textarea').attr('id');
+            CKEDITOR.replace( id, {
+                on: {
+                    instanceReady: function() {
+                        // Show textarea for dev purposes.
+                        // this.element.show();
+                    },
+                    change: function() {
+                        // Sync textarea.
+                        this.updateElement();    
+                        
+                        // Fire keyup on <textarea> here?
+                    }
+                },
+                height : 400,
+                entities: false,
+                basicEntities: false,
+                entities_greek: false,
+                entities_latin: false,
+                filebrowserBrowseUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/ckfinder.html',
+                filebrowserImageBrowseUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/ckfinder.html?type=Images',
+                filebrowserFlashBrowseUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/ckfinder.html?type=Flash',
+                filebrowserUploadUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFlashUploadUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
+                allowedContent:
+                    'h1 h2 h3 p blockquote strong em;' +
+                    'a[!href];' +
+                    'img(left,right)[!src,alt,width,height];' +
+                    'table tr th td caption;' +
+                    'span{!font-family};' +
+                    'span{!color};' +
+                    'span(!marker);' +
+                    'del ins'
+            });
+        });
+    }
+
     var handleSideBarActive = function(){
         $('ul.page-sidebar-menu .nav-item .nav-link[data-route="'+Laravel.routeName+'"]').parents('.nav-item').addClass('active open');
     }
@@ -42,6 +82,50 @@ var Admin = function(){
             $(this).val(str);
         });
 	}
+
+    var handleComment = function(){
+        // $('.btn-status:enabled').on('click', function(e){
+        //     e.preventDefault();
+        //     var btn = $(this);
+        //     if( typeof btn.data('ajax') === 'undefined' ) return;
+        //     var dataAjax = btn.data('ajax').replace(/\|/g,'&')+'&_token='+Laravel.csrfToken;
+        //     $.ajax({
+        //         type: 'POST',
+        //         url : Laravel.baseUrl+'/admin/ajax',
+        //         data: dataAjax,
+        //         beforeSend: function(){
+        //             btn.button('loading');
+        //         }
+        //     }).fail(function(response) {
+        //         alert( response.statusText );
+        //         btn.button('reset');
+        //     }).done(function(response){
+        //         btn.button('reset').toggleClass('blue');
+        //     });
+        // });
+
+        $('.btn-comment-reply').on('click', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var wrap = btn.closest('.timeline-wrap');
+            var form = $('<form action="{{ URL::current() }}" method="post">'+
+                    '<input type="hidden" name="parent" value="0">'+
+                    '<input type="hidden" name="product_id" value="{{ $product->id }}">'+
+                    '<div class="form-group"><textarea name="contents" class="form-control" rows="6"></textarea></div>'+
+                    '<div class="form-group"><button type="submit" class="btn btn-primary btn-ajax" data-ajax="act=comment|type=default"> Gửi đi </button></div>'+
+                '</form>')
+            form.appendTo(wrap);
+        });
+
+        $('.btn-comment-expand').on('click', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var wrap = btn.closest('.timeline-wrap');
+            wrap.find('.timeline').toggle('slow');
+            btn.toggleClass('active');
+        });
+        
+    }
 
     var handleAjax = function(){
         // Change Status
@@ -497,9 +581,11 @@ var Admin = function(){
 
 	return{
 		init: function(){
+            handleCkeditors();
             handleSideBarActive();
 			handleGroupCheckable();
 			handleStrToSlug();
+            handleComment();
             handleAjax();
             handleFileuploader();
             handleSelect2();

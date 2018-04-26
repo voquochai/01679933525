@@ -113,7 +113,7 @@
                                             "id":"{{ $image->id }}",
                                             "alt":"{{ $image->alt }}",
                                             "priority":"{{ $image->priority }}",
-                                            "url":"{{ route('admin.download.file',$path.'/'.$image->image) }}",
+                                            "url":"{{ route('download.file',$path.'/'.$image->image) }}",
                                             "config":"post",
                                             "type":"{{ $type }}"
                                         }

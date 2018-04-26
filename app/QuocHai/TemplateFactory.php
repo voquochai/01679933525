@@ -1,5 +1,6 @@
 <?php
 namespace App\QuocHai;
+use App\QuocHai\Facades\Tool;
 class TemplateFactory {
 	public function getTemplateProductPrice($regular_price, $sale_price){
 		if( $regular_price > 0 && $sale_price == 0){
@@ -72,5 +73,36 @@ class TemplateFactory {
         ';
 
         return $template;
+    }
+
+    public function getTemplateComment($data,$parent=0,$lvl=0){
+        $result = '';
+        if( isset($data[$parent]) ){
+            if( $parent==0 ) $result .= '<ul class="comment-list">';
+            else $result .= '<ul>';
+            foreach($data[$parent] as $k=>$v){
+                $id=$v->id;
+                $result .= '<li>';
+                $result .= '
+                    <div class="single-comment fix" data-lvl="'.$id.'"">
+                        <div class="image float-left"><img src="'.asset('noimage/50x50').'" alt="" class="img-circle"></div>
+                        <div class="content fix">
+                            <div class="head fix">
+                                <div class="author-time">
+                                    <h4>'.$v->name.'</h4>
+                                    <span>'.Tool::niceTime($v->created_at).'</span>
+                                </div>
+                                '.($lvl < 1 ? '<a href="#" class="replay" data-id="'.$id.'">Trả lời</a>' : '').'
+                            </div>
+                            <p>'.$v->description.'</p>
+                        </div>
+                    </div>
+                ';
+                $result .= self::getTemplateComment($data,$id,$lvl+1);
+                $result .= '</li>';
+            }
+            $result .= '</ul>';
+        }
+        return $result;
     }
 }

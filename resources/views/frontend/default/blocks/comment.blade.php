@@ -1,7 +1,7 @@
 <div class="comment-wrapper mt-40 mb-40">
     @if( $countComment > 0 )
     <h3>{{ __('site.comment').' ('.$countComment.')' }}</h3>
-    {!! get_comments($comments) !!}
+    {!! get_template_comment($comments) !!}
     @endif
     <h3>{{ __('site.leave_a_comment') }}</h3>
     <div class="comment-form main-form">

@@ -88,46 +88,6 @@ var App = function() {
         }
     };
 
-    var handleCkeditors = function(){
-        $('.ck-editor').each(function(index, el) {
-            var id = $(this).find('textarea').attr('id');
-            CKEDITOR.replace( id, {
-                on: {
-                    instanceReady: function() {
-                        // Show textarea for dev purposes.
-                        // this.element.show();
-                    },
-                    change: function() {
-                        // Sync textarea.
-                        this.updateElement();    
-                        
-                        // Fire keyup on <textarea> here?
-                    }
-                },
-                height : 400,
-                entities: false,
-                basicEntities: false,
-                entities_greek: false,
-                entities_latin: false,
-                filebrowserBrowseUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : Laravel.baseUrl+'/public/packages/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash',
-                allowedContent:
-                    'h1 h2 h3 p blockquote strong em;' +
-                    'a[!href];' +
-                    'img(left,right)[!src,alt,width,height];' +
-                    'table tr th td caption;' +
-                    'span{!font-family};' +
-                    'span{!color};' +
-                    'span(!marker);' +
-                    'del ins'
-            });
-        });
-    }
-
     // Handles portlet tools & actions
     var handlePortletTools = function() {
         // handle portlet remove
@@ -636,8 +596,7 @@ var App = function() {
 
             //Core handlers
             handleInit(); // initialize core variables
-            handleOnResize(); // set and handle responsive    
-            handleCkeditors();
+            handleOnResize(); // set and handle responsive
             //UI Component handlers     
             handleMaterialDesign(); // handle material design       
             handleUniform(); // hanfle custom radio & checkboxes
