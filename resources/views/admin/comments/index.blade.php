@@ -18,10 +18,10 @@
                     <button type="button" class="btn btn-circle default btn-sm">Chưa duyệt</button>
                 </div>
                 <div class="profile-usermenu">
-                    <ul class="nav">
+                    <ul class="nav nav-list-item-comment">
                         @forelse($items as $item)
-                        <li id="record-{{ $item->product_id }}">
-                            <a href="#">{{ $item->title }} <span class="badge badge-success">{{ $item->sum }}</span></a>
+                        <li>
+                            <a href="#" data-ajax="table=products|id={{ $item->product_id }}">{{ $item->title }} <span class="badge badge-success">{{ $item->sum }}</span></a>
                         </li>
                         @empty
                         <li> <a href="#">Không có bản dữ liệu trong bảng</a> </li>
@@ -41,7 +41,7 @@
                         <button type="button" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa </button>
                     </div>
                 </div>
-                <div class="portlet-body">
+                <div class="portlet-body" id="portlet-load-ajax">
                 </div>
             </div>
         </div>

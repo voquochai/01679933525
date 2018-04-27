@@ -84,8 +84,28 @@ var Admin = function(){
 	}
 
     var handleComment = function(){
+
+        $('.nav-list-item-comment').on('click', 'a', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var li = btn.parent('li');
+            var result = $('#portlet-load-ajax');
+            if(li.hasClass('active')) return false;
+            li.addClass('active');
+            var dataAjax = btn.attr('data-ajax').replace(/\|/g,'&')+'&_token='+Laravel.csrfToken;
+            $.ajax({
+                type: 'POST',
+                url : Laravel.baseUrl+'/admin/comments/ajax',
+                data: dataAjax,
+                beforeSend: function(){
+                    result.html('loading...');
+                }
+            }).done(function(response){
+                result.html(response.data);
+            });
+        })
         
-        $('.btn-comment-reply').on('click', function(e){
+        $('body').on('click', '.btn-comment-reply', function(e){
             e.preventDefault();
             var btn = $(this);
             var wrap = btn.closest('.timeline-wrap');
@@ -105,7 +125,7 @@ var Admin = function(){
 
         });
 
-        $('.btn-comment-expand').on('click', function(e){
+        $('body').on('click', '.btn-comment-expand', function(e){
             e.preventDefault();
             var btn = $(this);
             var wrap = btn.closest('.timeline-wrap');

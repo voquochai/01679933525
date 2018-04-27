@@ -163,6 +163,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 		Route::group(['middleware' => ['checkRoles:comments']], function(){
 	        // Comments
 	        Route::get('/comments', 'CommentController@index')->name('comment.index');
+	        Route::post('/comments/ajax', 'CommentController@ajax')->name('comment.ajax');
 	        Route::get('/comments/create', 'CommentController@create')->name('comment.create');
 	        Route::post('/comments', 'CommentController@store')->name('comment.store');
 	        Route::get('/comments/{id}', 'CommentController@edit')->where('id','[0-9]+')->name('comment.edit');

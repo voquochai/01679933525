@@ -47,25 +47,25 @@ class CommentController extends Controller
     }
 
     public function ajax(Request $request){
-        $comments = DB::table('comments as A')
-            ->leftjoin('product_languages as B', 'A.product_id','=','B.product_id')
-            ->leftjoin('post_languages as C', 'A.post_id','=','C.post_id')
-            ->select('A.*', 'B.title as product_name', 'C.title as post_name')
-            ->orWhere('B.language', $this->_data['default_language'])
-            ->orWhere('C.language', $this->_data['default_language'])
-            ->where('A.type',$this->_data['type'])
-            ->orderBy('A.priority','asc')
-            ->orderBy('A.id','desc')
-            ->paginate(25);
-        if( count($comments) > 0 ){
-            foreach($comments as $value){
+        if($request->table == 'products'){
+            $items = DB::table('comments as A')
+                ->where('product_id',$request->id)
+                ->where('type',$this->_data['type'])
+                ->orderBy('priority','asc')
+                ->orderBy('id','desc')
+                ->get();
+        }
+        
+        if( count($items) > 0 ){
+            foreach($items as $value){
                 $parent=$value->parent;
-                $this->_data['items'][$parent][]=$value;
+                $data[$parent][]=$value;
             }
         }else{
-            $this->_data['items'] = [];
+            $data = [];
         }
-        return view('admin.comments.index',$this->_data);
+        $comments = get_comments($data);
+        return response()->json(['data'=>$comments]);
     }
     
     public function create(){
