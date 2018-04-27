@@ -70,6 +70,9 @@
     margin-right: 8px;
     font-size: 16px
 }
+.profile-usermenu ul li a span{
+    float: right;
+}
 .profile-usermenu ul li a:hover {
     background-color: #fafcfd;
     color: #5b9bd1

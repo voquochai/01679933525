@@ -35,6 +35,18 @@ class CommentController extends Controller
      */
 
     public function index(){
+        $this->_data['items'] = DB::table('product_languages')
+            ->select('title', 'product_id')
+            ->whereIn('product_id', DB::table('comments')->pluck('product_id') )
+            ->where('language', $this->_data['default_language'])
+            ->get();
+        foreach( $this->_data['items'] as $key => $item ){
+            $this->_data['items'][$key]->sum = DB::table('comments')->where('product_id',$item->product_id)->count();
+        }
+        return view('admin.comments.index',$this->_data);
+    }
+
+    public function ajax(Request $request){
         $comments = DB::table('comments as A')
             ->leftjoin('product_languages as B', 'A.product_id','=','B.product_id')
             ->leftjoin('post_languages as C', 'A.post_id','=','C.post_id')

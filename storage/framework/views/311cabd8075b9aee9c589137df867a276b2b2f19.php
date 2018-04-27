@@ -18,18 +18,13 @@
                 </div>
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="active">
-                            <a href="page_user_profile_1.html">
-                                <i class="icon-home"></i> Overview </a>
+                        <?php $__empty_1 = true; $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                        <li id="record-<?php echo e($item->product_id); ?>">
+                            <a href="#"><?php echo e($item->title); ?> <span class="badge badge-success"><?php echo e($item->sum); ?></span></a>
                         </li>
-                        <li>
-                            <a href="page_user_profile_1_account.html">
-                                <i class="icon-settings"></i> Account Settings </a>
-                        </li>
-                        <li>
-                            <a href="page_user_profile_1_help.html">
-                                <i class="icon-info"></i> Help </a>
-                        </li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                        <li> <a href="#">Không có bản dữ liệu trong bảng</a> </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
@@ -46,8 +41,6 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <?php echo get_comments($items); ?>
-
                 </div>
             </div>
         </div>

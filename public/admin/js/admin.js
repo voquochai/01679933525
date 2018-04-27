@@ -84,26 +84,7 @@ var Admin = function(){
 	}
 
     var handleComment = function(){
-        // $('.btn-status:enabled').on('click', function(e){
-        //     e.preventDefault();
-        //     var btn = $(this);
-        //     if( typeof btn.data('ajax') === 'undefined' ) return;
-        //     var dataAjax = btn.data('ajax').replace(/\|/g,'&')+'&_token='+Laravel.csrfToken;
-        //     $.ajax({
-        //         type: 'POST',
-        //         url : Laravel.baseUrl+'/admin/ajax',
-        //         data: dataAjax,
-        //         beforeSend: function(){
-        //             btn.button('loading');
-        //         }
-        //     }).fail(function(response) {
-        //         alert( response.statusText );
-        //         btn.button('reset');
-        //     }).done(function(response){
-        //         btn.button('reset').toggleClass('blue');
-        //     });
-        // });
-
+        
         $('.btn-comment-reply').on('click', function(e){
             e.preventDefault();
             var btn = $(this);

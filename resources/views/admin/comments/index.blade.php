@@ -19,18 +19,13 @@
                 </div>
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="active">
-                            <a href="page_user_profile_1.html">
-                                <i class="icon-home"></i> Overview </a>
+                        @forelse($items as $item)
+                        <li id="record-{{ $item->product_id }}">
+                            <a href="#">{{ $item->title }} <span class="badge badge-success">{{ $item->sum }}</span></a>
                         </li>
-                        <li>
-                            <a href="page_user_profile_1_account.html">
-                                <i class="icon-settings"></i> Account Settings </a>
-                        </li>
-                        <li>
-                            <a href="page_user_profile_1_help.html">
-                                <i class="icon-info"></i> Help </a>
-                        </li>
+                        @empty
+                        <li> <a href="#">Không có bản dữ liệu trong bảng</a> </li>
+                        @endforelse
                     </ul>
                 </div>
             </div>
@@ -47,7 +42,6 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    {!! get_comments($items) !!}
                 </div>
             </div>
         </div>

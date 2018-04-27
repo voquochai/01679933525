@@ -1,5 +1,9 @@
 <?php
 session_start();
+require __DIR__.'/../../../../bootstrap/autoload.php';
+$app = require_once __DIR__.'/../../../../bootstrap/app.php';
+$app->make('Illuminate\Contracts\Http\Kernel')->handle(Illuminate\Http\Request::capture());
+
 /*
  * ### CKFinder : Configuration File - Basic Instructions
  *
@@ -30,8 +34,7 @@ function CheckAuthentication()
 	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
-	$_SESSION['isLoggedIn'] = true ;
-	return $_SESSION['isLoggedIn'];
+	return Auth::check();
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be

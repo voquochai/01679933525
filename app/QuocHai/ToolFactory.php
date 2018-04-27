@@ -273,7 +273,7 @@ class ToolFactory {
                             <i class="icon-user-following font-green-haze"></i>
                         </div>
                     </div>
-                    <div class="timeline-wrap">
+                    <div class="timeline-wrap" id="'.$v->id.'">
                         <div class="timeline-body">
                             <div class="timeline-body-arrow"> </div>
                             <div class="timeline-body-head">
