@@ -84,7 +84,6 @@ var Admin = function(){
 	}
 
     var handleComment = function(){
-
         $('.nav-list-item-comment').on('click', 'a', function(e){
             e.preventDefault();
             var btn = $(this);
@@ -98,7 +97,7 @@ var Admin = function(){
                 url : Laravel.baseUrl+'/admin/comments/ajax',
                 data: dataAjax,
                 beforeSend: function(){
-                    result.html('loading...');
+                    result.html('Loading...');
                 }
             }).done(function(response){
                 result.html(response.data);
@@ -109,15 +108,19 @@ var Admin = function(){
             e.preventDefault();
             var btn = $(this);
             var wrap = btn.closest('.timeline-wrap');
-            if( wrap.find('.comment-form').length > 0 ) return false;
+            if( wrap.find('> .comment-form').length > 0 ) return false;
+            var parentID = btn.attr('data-parent');
+            var productID = btn.attr('data-product');
+            var postID = btn.attr('data-post');
             $('.timeline .comment-form').slideUp('fast', function(){
                 $(this).remove();
             });
-            var form = $('<form action="{{ URL::current() }}" method="post" class="comment-form display-hide">'+
-                    '<input type="hidden" name="parent" value="0">'+
-                    '<input type="hidden" name="product_id" value="{{ $product->id }}">'+
-                    '<div class="form-group"><textarea name="contents" class="form-control" rows="6"></textarea></div>'+
-                    '<div class="form-group"><button type="submit" class="btn btn-info btn-comment-submit" data-ajax="act=comment|type=default"> Trả lời </button></div>'+
+            var form = $('<form action="#" method="post" class="comment-form display-hide">'+
+                    '<input type="hidden" name="parent" value="'+parentID+'">'+
+                    '<input type="hidden" name="product_id" value="'+productID+'">'+
+                    '<input type="hidden" name="post_id" value="'+postID+'">'+
+                    '<div class="form-group"><textarea name="description" class="form-control" rows="6"></textarea></div>'+
+                    '<div class="form-group"><button type="submit" class="btn btn-info btn-comment-submit" data-ajax="type=default"> Trả lời </button></div>'+
                 '</form>');
             form.appendTo(wrap).slideDown('fast', function(){
                 App.scrollTo(form);
@@ -137,29 +140,20 @@ var Admin = function(){
             e.preventDefault();
             var btn = $(this);
             var frm = btn.parents('form');
+            var wrap = btn.closest('.timeline-wrap');
             var dataAjax = frm.serialize()+'&'+btn.data('ajax').replace(/\|/g,'&')+'&_token='+Laravel.csrfToken;
             $.ajax({
                 type: 'POST',
-                url : Laravel.baseUrl+'/admin/ajax',
+                url : Laravel.baseUrl+'/admin/comments',
                 data: dataAjax,
                 beforeSend: function(){
                     btn.button('loading');
                 }
             }).done(function(response){
                 btn.button('reset');
-                if(response.type == 'success'){
-                    frm.find('*:not([type="hidden"])').val('');
-                }
-                App.alert({
-                    container: frm, // alerts parent container(by default placed after the page breadcrumbs)
-                    place: 'prepend', // "append" or "prepend" in container
-                    type: response.type, // alert's type
-                    message: response.message, // alert's message
-                    close: true, // make alert closable
-                    reset: true, // close all previouse alerts first
-                    focus: false, // auto scroll to the alert after shown
-                    closeInSeconds: 5, // auto close after defined seconds
-                    icon: response.icon // put icon before the message
+                frm.slideUp('fast', function(){
+                    $(this).remove();
+                    wrap.append(response.data);
                 });
             });
         });

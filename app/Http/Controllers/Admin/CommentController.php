@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Comment;
 
 use DateTime;
@@ -75,29 +76,31 @@ class CommentController extends Controller
     public function store(Request $request){
         // dd($request);
         $valid = Validator::make($request->all(), [
-            'image'            => 'image|max:2048'
+            'description' => 'required',
+            // 'score' => 'required|between:1,5'
         ], [
-            'image.image'               => 'Không đúng chuẩn hình ảnh cho phép',
-            'image.max'                 => 'Dung lượng vượt quá giới hạn cho phép là :max KB'
+            'description.required' => __('validation.required', ['attribute'=>__('site.content')]),
+            // 'score.required' => 'Yêu cầu nhập vào điểm số',
+            // 'score.between' => 'Vui lòng chỉ nhập từ :min tới :max khi chấm điểm'
         ]);
         if ($valid->fails()) {
             return redirect()->back()->withErrors($valid)->withInput();
         } else {
             $comment  = new Comment;
-
-            if($request->data){
-                foreach($request->data as $field => $value){
-                    $comment->$field = $value;
-                }
-            }
-            
-            $comment->priority       = (int)str_replace('.', '', $request->priority);
-            $comment->status         = ($request->status) ? implode(',',$request->status) : '';
-            $comment->type           = $this->_data['type'];
-            $comment->created_at     = new DateTime();
-            $comment->updated_at     = new DateTime();
+            $comment->parent = (int)$request->parent;
+            $comment->product_id = ($request->product_id) ? $request->product_id : null ;
+            $comment->post_id = ($request->post_id) ? $request->post_id : null ;
+            $comment->member_id = null;
+            $comment->name = Auth::user()->name;
+            $comment->email = Auth::user()->email;
+            $comment->description = $request->description;
+            $comment->type = $request->type;
+            $comment->created_at = new DateTime();
+            $comment->updated_at = new DateTime();
             $comment->save();
-            return redirect()->route('admin.comment.index',['type'=>$this->_data['type']])->with('success','Thêm dữ liệu <b>'.$comment->name.'</b> thành công');
+            $data[0][] = $comment;
+            $comments = get_comments($data);
+            return response()->json(['data'=>$comments]);
         }
         
     }

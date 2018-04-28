@@ -266,14 +266,14 @@ class ToolFactory {
             else $result .= '<div class="timeline">';
             foreach($data[$parent] as $k=>$v){
                 $id=$v->id;
-                $result .= '<div class="timeline-item" id="record-'.$v->id.'">';
+                $result .= '<div class="timeline-item">';
                 $result .= '
                     <div class="timeline-badge">
                         <div class="timeline-icon">
                             <i class="icon-user-following font-green-haze"></i>
                         </div>
                     </div>
-                    <div class="timeline-wrap" id="'.$v->id.'">
+                    <div class="timeline-wrap">
                         <div class="timeline-body">
                             <div class="timeline-body-arrow"> </div>
                             <div class="timeline-body-head">
@@ -290,13 +290,10 @@ class ToolFactory {
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="#" class="btn-comment-reply">Trả lời</a>
+                                                <a href="#" class="btn-comment-reply" data-parent="'.$v->id.'" data-product="'.( @$v->product_id ? $v->product_id : '0' ).'" data-post="'.( @$v->post_id ? $v->post_id : '0' ).'">Trả lời</a>
                                             </li>
                                             <li>
                                                 <a href="#" class="btn-status btn-status-publish btn-status-publish-'.$v->id.' '.(($v->status=='publish') ? 'blue' : 'default').'" data-loading-text="<i class=\'fa fa-spinner fa-pulse\'></i>" data-ajax="act=update_status|table=comments|id='.$v->id.'|col=status|val=publish"> Hiển thị </a>
-                                            </li>
-                                            <li>
-                                                
                                             </li>
                                             <li class="divider"> </li>
                                             <li>

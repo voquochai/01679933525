@@ -116,13 +116,13 @@ class AjaxController extends Controller
         $valid = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'contents' => 'required',
+            'description' => 'required',
             // 'score' => 'required|between:1,5'
         ], [
             'name.required' => __('validation.required', ['attribute'=>__('site.name')]),
             'email.required' => __('validation.required', ['attribute'=>'Email']),
             'email.email' => __('validation.email', ['attribute'=>'Email']),
-            'contents.required' => __('validation.required', ['attribute'=>__('site.content')]),
+            'description.required' => __('validation.required', ['attribute'=>__('site.content')]),
             // 'score.required' => 'Yêu cầu nhập vào điểm số',
             // 'score.between' => 'Vui lòng chỉ nhập từ :min tới :max khi chấm điểm'
         ]);
@@ -140,7 +140,7 @@ class AjaxController extends Controller
             $data_insert['member_id'] = auth()->guard('member')->check() ? auth()->guard('member')->id() : null ;
             $data_insert['name'] = $request->name;
             $data_insert['email'] = $request->email;
-            $data_insert['description'] = $request->contents;
+            $data_insert['description'] = $request->description;
             $data_insert['type'] = $request->type;
             $data_insert['created_at'] = new DateTime();
             $data_insert['updated_at'] = new DateTime();

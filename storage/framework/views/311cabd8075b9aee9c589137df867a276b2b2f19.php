@@ -17,10 +17,10 @@
                     <button type="button" class="btn btn-circle default btn-sm">Chưa duyệt</button>
                 </div>
                 <div class="profile-usermenu">
-                    <ul class="nav">
+                    <ul class="nav nav-list-item-comment">
                         <?php $__empty_1 = true; $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <li id="record-<?php echo e($item->product_id); ?>">
-                            <a href="#"><?php echo e($item->title); ?> <span class="badge badge-success"><?php echo e($item->sum); ?></span></a>
+                        <li>
+                            <a href="#" data-ajax="table=products|id=<?php echo e($item->product_id); ?>"><?php echo e($item->title); ?> <span class="badge badge-success"><?php echo e($item->sum); ?></span></a>
                         </li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <li> <a href="#">Không có bản dữ liệu trong bảng</a> </li>
@@ -40,7 +40,7 @@
                         <button type="button" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa </button>
                     </div>
                 </div>
-                <div class="portlet-body">
+                <div class="portlet-body" id="portlet-load-ajax">
                 </div>
             </div>
         </div>

@@ -22,8 +22,8 @@
 	                <input name="email" type="text">
 	            </div>
 	            <div class="col-xs-12">
-					<label for="contents">{{ __('site.content') }}</label>
-					<textarea name="contents"></textarea>
+					<label for="description">{{ __('site.content') }}</label>
+					<textarea name="description"></textarea>
 				</div>
 	            <div class="col-xs-12">
 	                <button type="submit" class="btn btn-primary btn-ajax" data-ajax="act=comment|type=default"> {{ __('site.send_comment') }} </button>
