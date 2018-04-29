@@ -141,6 +141,7 @@ class AjaxController extends Controller
             $data_insert['name'] = $request->name;
             $data_insert['email'] = $request->email;
             $data_insert['description'] = $request->description;
+            $data_insert['status'] = '';
             $data_insert['type'] = $request->type;
             $data_insert['created_at'] = new DateTime();
             $data_insert['updated_at'] = new DateTime();

@@ -34,7 +34,7 @@
     30 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     31 => 'Milon\\Barcode\\BarcodeServiceProvider',
     32 => 'Laravel\\Socialite\\SocialiteServiceProvider',
-    33 => 'App\\QuocHai\\Providers\\MenuServiceProvider',
+    33 => 'App\\Functions\\Providers\\MenuServiceProvider',
   ),
   'eager' => 
   array (
@@ -57,7 +57,7 @@
     16 => 'Zizaco\\Entrust\\EntrustServiceProvider',
     17 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     18 => 'Milon\\Barcode\\BarcodeServiceProvider',
-    19 => 'App\\QuocHai\\Providers\\MenuServiceProvider',
+    19 => 'App\\Functions\\Providers\\MenuServiceProvider',
   ),
   'deferred' => 
   array (

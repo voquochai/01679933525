@@ -59,3 +59,8 @@ body{font-size: 13px;}
 .btn-comment-expand.active{ border-color: #32c5d2;color: #FFFFFF;background-color: #32c5d2; }
 .btn-comment-expand.active .fa{ transform: rotate(-180deg); }
 
+.timeline .timeline-item .timeline-icon .icon-user-following::before{ content:'\e003'; color: #44b6ae !important; }
+.timeline .timeline-item .timeline-icon .icon-user-unfollow::before{ content:'\e003'; color: #44b6ae !important; }
+.timeline .timeline-item.disabled .timeline-icon .icon-user-following::before{ content:'\e004'; color: #f36a5a !important; }
+.timeline .timeline-item.disabled .timeline-icon .icon-user-unfollow::before{ content:'\e004'; color: #f36a5a !important; }
+

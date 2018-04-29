@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\CategoryLanguage;
-use App\QuocHai\Facades\Menu;
+use App\Functions\Facades\Menu;
 use DateTime;
 
 class CategoryController extends Controller

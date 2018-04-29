@@ -128,6 +128,28 @@ var Admin = function(){
 
         });
 
+        $('body').on('click', '.btn-comment-status', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            if( typeof btn.attr('data-ajax') === 'undefined' ) return;
+            var wrap = btn.closest('.timeline-item');
+            var dataAjax = btn.attr('data-ajax').replace(/\|/g,'&')+'&_token='+Laravel.csrfToken;
+            $.ajax({
+                type: 'POST',
+                url : Laravel.baseUrl+'/admin/ajax',
+                data: dataAjax,
+                beforeSend: function(){
+                    btn.button('loading');
+                }
+            }).fail(function(response) {
+                alert( response.statusText );
+                btn.button('reset');
+            }).done(function(response){
+                btn.button('reset');
+                wrap.toggleClass('disabled');
+            });
+        });
+
         $('body').on('click', '.btn-comment-expand', function(e){
             e.preventDefault();
             var btn = $(this);
