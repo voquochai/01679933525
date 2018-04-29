@@ -78,8 +78,12 @@ class TemplateFactory {
     public function getTemplateComment($data,$parent=0,$lvl=0){
         $result = '';
         if( isset($data[$parent]) ){
-            if( $parent==0 ) $result .= '<ul class="comment-list">';
-            else $result .= '<ul>';
+            if( $parent==0 ){
+                $result .= '<ul class="comment-list">';
+            }else{
+                $result .= '<ul>';
+                krsort($data[$parent]);
+            }
             foreach($data[$parent] as $k=>$v){
                 $id=$v->id;
                 $result .= '<li>';

@@ -108,11 +108,11 @@ var Admin = function(){
             e.preventDefault();
             var btn = $(this);
             var wrap = btn.closest('.timeline-wrap');
-            if( wrap.find('> .comment-form').length > 0 ) return false;
+            if( wrap.find(' > .comment-form').length > 0 ) return false;
             var parentID = btn.attr('data-parent');
             var productID = btn.attr('data-product');
             var postID = btn.attr('data-post');
-            $('.timeline .comment-form').slideUp('fast', function(){
+            $('.timeline .comment-form').slideUp(function(){
                 $(this).remove();
             });
             var form = $('<form action="#" method="post" class="comment-form display-hide">'+
@@ -122,7 +122,7 @@ var Admin = function(){
                     '<div class="form-group"><textarea name="description" class="form-control" rows="6"></textarea></div>'+
                     '<div class="form-group"><button type="submit" class="btn btn-info btn-comment-submit" data-ajax="type=default"> Trả lời </button></div>'+
                 '</form>');
-            form.appendTo(wrap).slideDown('fast', function(){
+            form.appendTo(wrap).slideDown(function(){
                 App.scrollTo(form);
             });
 
@@ -151,10 +151,26 @@ var Admin = function(){
                 }
             }).done(function(response){
                 btn.button('reset');
-                frm.slideUp('fast', function(){
-                    $(this).remove();
-                    wrap.append(response.data);
-                });
+                if(response.type == 'success'){
+                    var data = response.data.replace('timeline','timeline display-hide');
+                    wrap.append(data);
+                    frm.slideUp(function(){
+                        $(this).remove();
+                        wrap.find('.timeline').slideDown();
+                    });
+                }else{
+                    App.alert({
+                        container: frm, // alerts parent container(by default placed after the page breadcrumbs)
+                        place: 'prepend', // "append" or "prepend" in container 
+                        type: response.type, // alert's type
+                        message: response.message, // alert's message
+                        close: true, // make alert closable
+                        reset: true, // close all previouse alerts first
+                        focus: true, // auto scroll to the alert after shown
+                        closeInSeconds: 5, // auto close after defined seconds
+                        icon: response.icon // put icon before the message
+                    });
+                }
             });
         });
         

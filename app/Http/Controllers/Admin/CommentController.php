@@ -84,7 +84,7 @@ class CommentController extends Controller
             // 'score.between' => 'Vui lòng chỉ nhập từ :min tới :max khi chấm điểm'
         ]);
         if ($valid->fails()) {
-            return redirect()->back()->withErrors($valid)->withInput();
+            return response()->json(['type'=>'danger', 'icon'=>'warning', 'message'=>$valid->errors()->first()]);
         } else {
             $comment  = new Comment;
             $comment->parent = (int)$request->parent;
@@ -100,7 +100,7 @@ class CommentController extends Controller
             $comment->save();
             $data[0][] = $comment;
             $comments = get_comments($data);
-            return response()->json(['data'=>$comments]);
+            return response()->json(['type'=>'success', 'data'=>$comments]);
         }
         
     }

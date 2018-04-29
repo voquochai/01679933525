@@ -262,8 +262,12 @@ class ToolFactory {
     public function getComments($data,$parent=0,$lvl=0){
         $result = '';
         if( isset($data[$parent]) ){
-            if( $parent==0 ) $result .= '<div class="timeline">';
-            else $result .= '<div class="timeline">';
+            if( $parent==0 ){
+                $result .= '<div class="timeline">';
+            }else{
+                $result .= '<div class="timeline">';
+                krsort($data[$parent]);
+            }
             foreach($data[$parent] as $k=>$v){
                 $id=$v->id;
                 $result .= '<div class="timeline-item">';
