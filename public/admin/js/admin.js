@@ -84,13 +84,17 @@ var Admin = function(){
 	}
 
     var handleComment = function(){
+        var targetComment = localStorage.getItem("targetComment");
+
         $('.nav-list-item-comment').on('click', 'a', function(e){
             e.preventDefault();
             var btn = $(this);
             var li = btn.parent('li');
             var result = $('#portlet-load-ajax');
             if(li.hasClass('active')) return false;
+            $('.nav-list-item-comment li').removeClass('active');
             li.addClass('active');
+            localStorage.setItem("targetComment",btn.attr('href'));
             var dataAjax = btn.attr('data-ajax').replace(/\|/g,'&')+'&_token='+Laravel.csrfToken;
             $.ajax({
                 type: 'POST',
@@ -103,7 +107,13 @@ var Admin = function(){
                 result.html(response.data);
             });
         })
-        
+
+        if(targetComment && $('.nav-list-item-comment a[href="'+targetComment+'"]').length > 0){
+            $('.nav-list-item-comment a[href="'+targetComment+'"]').trigger('click');
+        }else{
+            $('.nav-list-item-comment a:first').trigger('click');
+        }
+
         $('body').on('click', '.btn-comment-reply', function(e){
             e.preventDefault();
             var btn = $(this);
@@ -192,6 +202,31 @@ var Admin = function(){
                         closeInSeconds: 5, // auto close after defined seconds
                         icon: response.icon // put icon before the message
                     });
+                }
+            });
+        });
+
+        $('body').on('click', '.btn-comment-delete', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var frm = $(btn.attr('href'));
+            swal({
+                title: 'Bạn muốn xóa dữ liệu này?',
+                text: '',
+                type: '',
+                allowOutsideClick: true,
+                showConfirmButton: true,
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                confirmButtonClass: 'btn-primary',
+                cancelButtonClass: 'btn-default',
+                closeOnConfirm: false,
+                closeOnCancel: true,
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Bỏ qua',
+            },function(isConfirm){
+                if (isConfirm){
+                    frm.submit();
                 }
             });
         });

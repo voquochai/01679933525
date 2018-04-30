@@ -149,6 +149,7 @@ class CommentController extends Controller
         $deleted = $comment->name;
         if ($comment !== null) {
             if( $comment->delete() ){
+                Comment::whereIn('id',$comment->children()->pluck('id')->toArray())->delete();
                 return redirect()->route('admin.comment.index',['type'=>$this->_data['type']])->with('success', 'Xóa dữ liệu <b>'.$deleted.'</b> thành công');
             }else{
                 return redirect()->route('admin.comment.index',['type'=>$this->_data['type']])->with('danger', 'Xóa dữ liệu bị lỗi');

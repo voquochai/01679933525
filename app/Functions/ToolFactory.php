@@ -301,7 +301,7 @@ class ToolFactory {
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="#" onclick="event.preventDefault(); document.getElementById(\'frm-comment-delete-'.$v->id.'\').submit();"> Xóa </a>
+                                                <a href="#frm-comment-delete-'.$v->id.'" class="btn-comment-delete"> Xóa </a>
                                                 <form action="'.route('admin.comment.delete',['id'=>$v->id, 'type'=>'default']).'" method="post" id="frm-comment-delete-'.$v->id.'">
                                                     '.csrf_field().'
                                                     '.method_field('DELETE').'

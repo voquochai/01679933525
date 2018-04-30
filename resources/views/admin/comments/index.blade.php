@@ -21,7 +21,7 @@
                     <ul class="nav nav-list-item-comment">
                         @forelse($items as $item)
                         <li>
-                            <a href="#" data-ajax="table=products|id={{ $item->product_id }}">{{ $item->title }} <span class="badge badge-success">{{ $item->sum }}</span></a>
+                            <a href="#comment-{{ $item->product_id }}" data-ajax="table=products|id={{ $item->product_id }}">{{ $item->title }} <span class="badge badge-success">{{ $item->sum }}</span></a>
                         </li>
                         @empty
                         <li> <a href="#">Không có bản dữ liệu trong bảng</a> </li>
@@ -38,7 +38,7 @@
                         <span class="caption-subject bold font-green uppercase"> Bình luận</span>
                     </div>
                     <div class="actions">
-                        <button type="button" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa </button>
+                        <button type="button" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa tất cả </button>
                     </div>
                 </div>
                 <div class="portlet-body" id="portlet-load-ajax">
