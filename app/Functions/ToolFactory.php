@@ -270,7 +270,7 @@ class ToolFactory {
             }
             foreach($data[$parent] as $k=>$v){
                 $id=$v->id;
-                $result .= '<div class="timeline-item '.($v->status == '' ? 'disabled' : '').'">';
+                $result .= '<div id="record-'.$v->id.'" class="timeline-item '.($v->status == '' ? 'disabled' : '').'">';
                 $result .= '
                     <div class="timeline-badge">
                         <div class="timeline-icon">
@@ -301,11 +301,7 @@ class ToolFactory {
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="#frm-comment-delete-'.$v->id.'" class="btn-comment-delete"> Xóa </a>
-                                                <form action="'.route('admin.comment.delete',['id'=>$v->id, 'type'=>'default']).'" method="post" id="frm-comment-delete-'.$v->id.'">
-                                                    '.csrf_field().'
-                                                    '.method_field('DELETE').'
-                                                </form>
+                                                <a href="#" class="btn-comment-delete" data-id="'.$v->id.'"> Xóa </a>
                                             </li>
                                         </ul>
                                     </div>

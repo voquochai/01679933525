@@ -23,7 +23,6 @@
                             <a href="#comment-<?php echo e($item->product_id); ?>" data-ajax="table=products|id=<?php echo e($item->product_id); ?>"><?php echo e($item->title); ?> <span class="badge badge-success"><?php echo e($item->sum); ?></span></a>
                         </li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                        <li> <a href="#">Không có bản dữ liệu trong bảng</a> </li>
                         <?php endif; ?>
                     </ul>
                 </div>
@@ -37,11 +36,10 @@
                         <span class="caption-subject bold font-green uppercase"> Bình luận</span>
                     </div>
                     <div class="actions">
-                        <button type="button" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa tất cả </button>
+                        <a href="#" id="btn-comment-delete-all" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa tất cả </a>
                     </div>
                 </div>
-                <div class="portlet-body" id="portlet-load-ajax">
-                </div>
+                <div class="portlet-body" id="portlet-load-ajax">Không có dữ liệu trong bảng</div>
             </div>
         </div>
     </div>

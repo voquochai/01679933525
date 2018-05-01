@@ -24,7 +24,6 @@
                             <a href="#comment-{{ $item->product_id }}" data-ajax="table=products|id={{ $item->product_id }}">{{ $item->title }} <span class="badge badge-success">{{ $item->sum }}</span></a>
                         </li>
                         @empty
-                        <li> <a href="#">Không có bản dữ liệu trong bảng</a> </li>
                         @endforelse
                     </ul>
                 </div>
@@ -38,11 +37,10 @@
                         <span class="caption-subject bold font-green uppercase"> Bình luận</span>
                     </div>
                     <div class="actions">
-                        <button type="button" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa tất cả </button>
+                        <a href="#" id="btn-comment-delete-all" class="btn btn-sm btn-circle red"> <i class="icon-trash"></i> Xóa tất cả </a>
                     </div>
                 </div>
-                <div class="portlet-body" id="portlet-load-ajax">
-                </div>
+                <div class="portlet-body" id="portlet-load-ajax">Không có dữ liệu trong bảng</div>
             </div>
         </div>
     </div>

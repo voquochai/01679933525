@@ -74,7 +74,6 @@ class CommentController extends Controller
     }
 
     public function store(Request $request){
-        // dd($request);
         $valid = Validator::make($request->all(), [
             'description' => 'required',
             // 'score' => 'required|between:1,5'
@@ -95,6 +94,7 @@ class CommentController extends Controller
             $comment->email = Auth::user()->email;
             $comment->description = $request->description;
             $comment->type = $request->type;
+            $comment->status = 'publish';
             $comment->created_at = new DateTime();
             $comment->updated_at = new DateTime();
             $comment->save();

@@ -209,7 +209,12 @@ var Admin = function(){
         $('body').on('click', '.btn-comment-delete', function(e){
             e.preventDefault();
             var btn = $(this);
-            var frm = $(btn.attr('href'));
+            var id = btn.attr('data-id');
+            var listID = btn.attr('data-id');
+            var wrap = btn.closest('.timeline-item');
+            wrap.find('.btn-comment-delete').each(function(){
+                listID = listID+","+$(this).attr('data-id');
+            });
             swal({
                 title: 'Bạn muốn xóa dữ liệu này?',
                 text: '',
@@ -226,11 +231,61 @@ var Admin = function(){
                 cancelButtonText: 'Bỏ qua',
             },function(isConfirm){
                 if (isConfirm){
-                    frm.submit();
+                    $.ajax({
+                        type: 'POST',
+                        url : Laravel.baseUrl+'/admin/ajax',
+                        data: {'act':'delete_record', 'table':'comments', 'id':listID, '_token':Laravel.csrfToken}
+                    }).fail(function(response) {
+                        alert( response.statusText );
+                    }).done(function(response){
+                        $('#record-'+id).slideUp(function(){
+                            $(this).remove();
+                        });
+                        swal('Đã thực thi', '', "success");
+                    });
                 }
             });
         });
         
+        $('body').on('click', '#btn-comment-delete-all', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var listID = '';
+            var wrap = btn.closest('.profile-content');
+            wrap.find('.btn-comment-delete').each(function(){
+                listID = listID+","+$(this).attr('data-id');
+            });
+            swal({
+                title: 'Bạn muốn xóa dữ liệu này?',
+                text: '',
+                type: '',
+                allowOutsideClick: true,
+                showConfirmButton: true,
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                confirmButtonClass: 'btn-primary',
+                cancelButtonClass: 'btn-default',
+                closeOnConfirm: false,
+                closeOnCancel: true,
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Bỏ qua',
+            },function(isConfirm){
+                if (isConfirm){
+                    $.ajax({
+                        type: 'POST',
+                        url : Laravel.baseUrl+'/admin/ajax',
+                        data: {'act':'delete_record', 'table':'comments', 'id':listID, '_token':Laravel.csrfToken}
+                    }).fail(function(response) {
+                        alert( response.statusText );
+                    }).done(function(response){
+                        wrap.find('.portlet-body').slideUp(function(){
+                            $(this).remove();
+                        });
+                        swal('Đã thực thi', '', "success");
+                    });
+                }
+            });
+        });
     }
 
     var handleAjax = function(){
@@ -333,7 +388,7 @@ var Admin = function(){
             var listID = '';
             var sa_title = 'Bạn muốn thực hiện hành động này?';
             var sa_message = '';
-            var sa_type = 'info';
+            var sa_type = 'warning';
             var sa_allowOutsideClick = true;
             var sa_showConfirmButton = true;
             var sa_showCancelButton = true;
@@ -393,7 +448,9 @@ var Admin = function(){
                     }).done(function(response){
                         if( dataType === 'delete' ){
                             $.each(listID.split(','), function(i,v){
-                                $('#record-'+v).slideUp();
+                                $('#record-'+v).slideUp(function(){
+                                    $(this).remove();
+                                });
                             });
                         }else{
                             $.each(listID.split(','), function(i,v){
