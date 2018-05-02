@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactInformation;
 use App\Register;
 
+use Cache;
 use DateTime;
+
+
 class AjaxController extends Controller
 {
 
@@ -49,17 +52,19 @@ class AjaxController extends Controller
         $data['type'] = 'danger';
         $data['icon'] = 'warning';
 
-        $client_ip = $request->getClientIp();
-        if(!Cache::has($client_ip.'_'.$request->act.'_'.$this->_data['product']->id)){
-            $this->_data['product']->viewed += 1;
-            DB::table('products')->where('id',$this->_data['product']->id)->increment('viewed',1);
-            Cache::add($client_ip.'_product_view_'.$this->_data['product']->id,$this->_data['product']->viewed,5);
-        }
-
         if ($valid->fails()) {
             $data['message'] = $valid->errors()->first();
             return $data;
         } else {
+
+            $client_ip = $request->getClientIp();
+            if(Cache::has($client_ip.'_newsletter') && Cache::get($client_ip.'_newsletter') == $request->email){
+                $data['message'] = "Email này đã đăng ký trước đó. Vui lòng nhập email khác";
+                return $data;
+            }else{
+                Cache::add($client_ip.'_newsletter',$request->email,10);
+            }
+
             $data_insert['title'] = "Đăng ký nhận bản tin";
             $data_insert['email'] = $request->email;
             $data_insert['type'] = $request->type;
@@ -98,6 +103,14 @@ class AjaxController extends Controller
             $data['message'] = $valid->errors()->first();
             return $data;
         } else {
+
+            $client_ip = $request->getClientIp();
+            if(Cache::has($client_ip.'_contact')){
+                $data['message'] = "Bạn đã gửi mail liên hệ. Vui lòng thử lại sau ít phút";
+                return $data;
+            }else{
+                Cache::add($client_ip.'_contact',$request->email,10);
+            }
 
             $data_insert['title'] = $request->subject;
             $data_insert['name'] = $request->name;
@@ -141,6 +154,7 @@ class AjaxController extends Controller
             $data['message'] = $valid->errors()->first();
             return $data;
         } else {
+
             $data_insert['parent'] = (int)$request->parent;
             $data_insert['product_id'] = ($request->product_id) ? $request->product_id : null ;
             $data_insert['post_id'] = ($request->post_id) ? $request->post_id : null ;

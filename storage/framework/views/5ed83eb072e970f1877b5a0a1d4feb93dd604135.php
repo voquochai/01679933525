@@ -21,7 +21,7 @@
                         <a href="#tab-email" data-toggle="tab" aria-expanded="false"> Cấu hình Email </a>
                     </li>
                     <li>
-                        <a href="#tab-script" data-toggle="tab" aria-expanded="false"> Script </a>
+                        <a href="#tab-script" data-toggle="tab" aria-expanded="false"> Api key & Script </a>
                     </li>
                     <li>
                         <a href="#tab-files" data-toggle="tab" aria-expanded="false"> Logo & Favicon </a>
@@ -264,7 +264,6 @@
                                         <span class="help-block"> Script nằm trong thẻ head </span>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-lg-2">Body script</label>
                                     <div class="col-md-9 col-lg-9">
@@ -272,6 +271,21 @@
                                         <span class="help-block"> Script nằm trong thẻ body </span>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-lg-2">Google reCaptcha key</label>
+                                    <div class="col-md-9 col-lg-9">
+                                        <input type="text" name="data[google_recaptcha_key]" value="<?php echo e(@$item['google_recaptcha_key']); ?>" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-lg-2">Google reCaptcha secret</label>
+                                    <div class="col-md-9 col-lg-9">
+                                        <input type="text" name="data[google_recaptcha_secret]" value="<?php echo e(@$item['google_recaptcha_secret']); ?>" class="form-control">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="tab-pane" id="tab-files">

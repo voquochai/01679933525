@@ -118,3 +118,9 @@ Stack trace:
 #57 E:\xampp\htdocs\laravel\01679933525\public\index.php(54): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #58 E:\xampp\htdocs\laravel\01679933525\index.php(21): require_once('E:\\xampp\\htdocs...')
 #59 {main}  
+[2018-05-02 23:59:35] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Http\Controllers\Frontend\Cache' not found' in E:\xampp\htdocs\laravel\01679933525\app\Http\Controllers\Frontend\AjaxController.php:91
+Stack trace:
+#0 {main}  
+[2018-05-03 00:00:02] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Http\Controllers\Frontend\Cache' not found' in E:\xampp\htdocs\laravel\01679933525\app\Http\Controllers\Frontend\AjaxController.php:91
+Stack trace:
+#0 {main}  
