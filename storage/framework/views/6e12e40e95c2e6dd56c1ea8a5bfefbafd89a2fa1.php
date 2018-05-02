@@ -23,8 +23,11 @@
 	                <input name="email" type="text">
 	            </div>
 	            <div class="col-xs-12">
-					<label for="contents"><?php echo e(__('site.content')); ?></label>
-					<textarea name="contents"></textarea>
+					<label for="description"><?php echo e(__('site.content')); ?></label>
+					<textarea name="description"></textarea>
+				</div>
+				<div class="col-xs-12">
+					<div class="g-recaptcha" data-sitekey="6LdDrVYUAAAAADPYRpzcCx5ssIHhIawcg8cqkSTq"></div>
 				</div>
 	            <div class="col-xs-12">
 	                <button type="submit" class="btn btn-primary btn-ajax" data-ajax="act=comment|type=default"> <?php echo e(__('site.send_comment')); ?> </button>

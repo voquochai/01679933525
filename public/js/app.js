@@ -442,8 +442,7 @@ var App = function() {
             form.slideDown('fast', function(){
                 App.scrollTo(form);
             });
-            
-        })
+        });
     }
 
     var handleRegister = function(){

@@ -49,6 +49,13 @@ class AjaxController extends Controller
         $data['type'] = 'danger';
         $data['icon'] = 'warning';
 
+        $client_ip = $request->getClientIp();
+        if(!Cache::has($client_ip.'_'.$request->act.'_'.$this->_data['product']->id)){
+            $this->_data['product']->viewed += 1;
+            DB::table('products')->where('id',$this->_data['product']->id)->increment('viewed',1);
+            Cache::add($client_ip.'_product_view_'.$this->_data['product']->id,$this->_data['product']->viewed,5);
+        }
+
         if ($valid->fails()) {
             $data['message'] = $valid->errors()->first();
             return $data;
