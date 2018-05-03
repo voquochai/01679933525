@@ -21,7 +21,7 @@
                         <a href="#tab-email" data-toggle="tab" aria-expanded="false"> Cấu hình Email </a>
                     </li>
                     <li>
-                        <a href="#tab-script" data-toggle="tab" aria-expanded="false"> Script </a>
+                        <a href="#tab-script" data-toggle="tab" aria-expanded="false"> Api key & Script </a>
                     </li>
                     <li>
                         <a href="#tab-files" data-toggle="tab" aria-expanded="false"> Logo & Favicon </a>
@@ -201,7 +201,8 @@
                                         <div id="map"></div>
                                         <div id="infowindow-content">
                                             <img src="" width="16" height="16" id="place-icon">
-                                            <span id="place-name"  class="title"></span><br>
+                                            <span id="place-name"></span><br>
+                                            <span id="place-id"></span><br>
                                             <span id="place-address"></span>
                                         </div>
                                     </div>
@@ -264,7 +265,6 @@
                                         <span class="help-block"> Script nằm trong thẻ head </span>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-lg-2">Body script</label>
                                     <div class="col-md-9 col-lg-9">
@@ -272,6 +272,21 @@
                                         <span class="help-block"> Script nằm trong thẻ body </span>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-lg-2">Google reCaptcha key</label>
+                                    <div class="col-md-9 col-lg-9">
+                                        <input type="text" name="data[google_recaptcha_key]" value="<?php echo e(@$item['google_recaptcha_key']); ?>" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-lg-2">Google reCaptcha secret</label>
+                                    <div class="col-md-9 col-lg-9">
+                                        <input type="text" name="data[google_recaptcha_secret]" value="<?php echo e(@$item['google_recaptcha_secret']); ?>" class="form-control">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="tab-pane" id="tab-files">
@@ -488,6 +503,10 @@ function initAutocomplete() {
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+    var infowindow = new google.maps.InfoWindow();
+    var infowindowContent = document.getElementById('infowindow-content');
+    infowindow.setContent(infowindowContent);
+
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
@@ -505,7 +524,6 @@ function initAutocomplete() {
     // more details for that place.
     searchBox.addListener('places_changed', function() {
         var places = searchBox.getPlaces();
-
         if (places.length == 0) {
             return;
         }
@@ -516,6 +534,7 @@ function initAutocomplete() {
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function(place) {
+            console.log(place);
             if (!place.geometry) {
                 console.log("Returned place contains no geometry");
                 return;
@@ -545,6 +564,12 @@ function initAutocomplete() {
             } else {
                 bounds.extend(place.geometry.location);
             }
+
+            infowindowContent.children['place-icon'].src = place.icon;
+            infowindowContent.children['place-name'].textContent = place.name;
+            infowindowContent.children['place-id'].textContent = place.place_id;
+            infowindowContent.children['place-address'].textContent = place.formatted_address;
+            infowindow.open(map, marker);
         });
         map.fitBounds(bounds);
     });

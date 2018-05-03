@@ -98,7 +98,6 @@
     </script>
     <script src="<?php echo e(asset('public/jsons/province.json')); ?>"></script>
     <script src="<?php echo e(asset('public/jsons/district.json')); ?>"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="<?php echo e(asset('public/js/modernizr-2.8.3.min.js')); ?>"></script>
 	<script src="<?php echo e(asset('public/js/jquery.min.js')); ?>"></script>
     <script src="<?php echo e(asset('public/js/bootstrap.min.js')); ?>"></script>

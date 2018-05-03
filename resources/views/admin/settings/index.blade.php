@@ -201,7 +201,8 @@
                                         <div id="map"></div>
                                         <div id="infowindow-content">
                                             <img src="" width="16" height="16" id="place-icon">
-                                            <span id="place-name"  class="title"></span><br>
+                                            <span id="place-name"></span><br>
+                                            <span id="place-id"></span><br>
                                             <span id="place-address"></span>
                                         </div>
                                     </div>
@@ -526,6 +527,10 @@ function initAutocomplete() {
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
+    var infowindow = new google.maps.InfoWindow();
+    var infowindowContent = document.getElementById('infowindow-content');
+    infowindow.setContent(infowindowContent);
+
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
@@ -543,7 +548,6 @@ function initAutocomplete() {
     // more details for that place.
     searchBox.addListener('places_changed', function() {
         var places = searchBox.getPlaces();
-
         if (places.length == 0) {
             return;
         }
@@ -554,6 +558,7 @@ function initAutocomplete() {
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
         places.forEach(function(place) {
+            console.log(place);
             if (!place.geometry) {
                 console.log("Returned place contains no geometry");
                 return;
@@ -583,6 +588,12 @@ function initAutocomplete() {
             } else {
                 bounds.extend(place.geometry.location);
             }
+
+            infowindowContent.children['place-icon'].src = place.icon;
+            infowindowContent.children['place-name'].textContent = place.name;
+            infowindowContent.children['place-id'].textContent = place.place_id;
+            infowindowContent.children['place-address'].textContent = place.formatted_address;
+            infowindow.open(map, marker);
         });
         map.fitBounds(bounds);
     });

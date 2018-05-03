@@ -306,7 +306,7 @@ class CartController extends Controller
                 $cookieCart = cookie('cart', '', 720);
                 $cookieCoupon = cookie('coupon', '', 720);
 
-                Mail::to($order->email)->send(new OrderConfirmation($order));
+                if(@config('settings.email_username') !='') Mail::to($order->email)->send(new OrderConfirmation($order));
 
                 return redirect()->route('frontend.cart.thankyou')->with('orderCode', $order->code)->withCookie($cookieCart)->withCookie($cookieCoupon);
             }

@@ -57,14 +57,6 @@ class AjaxController extends Controller
             return $data;
         } else {
 
-            $client_ip = $request->getClientIp();
-            if(Cache::has($client_ip.'_newsletter') && Cache::get($client_ip.'_newsletter') == $request->email){
-                $data['message'] = "Email này đã đăng ký trước đó. Vui lòng nhập email khác";
-                return $data;
-            }else{
-                Cache::add($client_ip.'_newsletter',$request->email,10);
-            }
-
             $data_insert['title'] = "Đăng ký nhận bản tin";
             $data_insert['email'] = $request->email;
             $data_insert['type'] = $request->type;
@@ -124,7 +116,7 @@ class AjaxController extends Controller
                 $data['type'] = 'success';
                 $data['icon'] = 'check';
                 $data['message'] = __('site.contact_success');
-                Mail::to(config('settings.email_to'))->send(new ContactInformation($contact));
+                if(@config('settings.email_username') !='') Mail::to(config('settings.email_to'))->send(new ContactInformation($contact));
             }else{
                 $data['message'] = __('site.contact_fail');
             }
@@ -154,6 +146,17 @@ class AjaxController extends Controller
             $data['message'] = $valid->errors()->first();
             return $data;
         } else {
+
+            $client_ip = $request->getClientIp();
+            $table = $request->product_id ? 'product' : 'post' ;
+            $id = $request->product_id ? $request->product_id : $request->post_id ;
+
+            if(Cache::has($client_ip.'_comment_'.$table.'_'.$id)){
+                $data['message'] = "Bạn đã bình luận cho ".( $table == 'product' ? 'sản phẩm' : 'bài viết' )." này. Vui lòng thử lại sau ít phút";
+                return $data;
+            }else{
+                Cache::add($client_ip.'_comment_'.$table.'_'.$id,$id,10);
+            }
 
             $data_insert['parent'] = (int)$request->parent;
             $data_insert['product_id'] = ($request->product_id) ? $request->product_id : null ;
