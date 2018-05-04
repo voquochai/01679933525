@@ -129,7 +129,7 @@ class HomeController extends Controller
                 return view('frontend.default.posts',$this->_data);
             }
         }
-        return redirect()->route('frontend.home.index');
+        return abort(404);
     }
 
     public function archive(Request $request,$type){
@@ -195,7 +195,7 @@ class HomeController extends Controller
             $this->_data['page'] = get_pages($type);
             return view('frontend.default.page',$this->_data);
         }
-        return redirect()->route('frontend.home.index');
+        return abort(404);
     }
 
     public function page(Request $request, $type,$slug){
@@ -310,8 +310,7 @@ class HomeController extends Controller
                 return view('frontend.default.page-post',$this->_data);
             }
         }
-
-        return redirect()->route('frontend.home.index');
+        return abort(404);
     }
 
     public function viewed(Request $request){

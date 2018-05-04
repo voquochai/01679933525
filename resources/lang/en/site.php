@@ -5,6 +5,7 @@ return [
     'home' => 'Home',
     'about' => 'About us',
     'product' => 'Products',
+    'post' => 'Posts',
     'news' => 'News',
     'contact' => 'Contact',
     'cart' => 'Cart',
@@ -51,8 +52,10 @@ return [
     'sign_up_fail'   =>  'Failed',
     'contact_success'   =>  'Sending successful',
     'contact_fail'   =>  'Sending failed',
+    'contact_wait'   =>  'You have sent a contact email. Please try again in a few minutes',
     'comment_success'   =>  'Successful',
     'comment_fail'   =>  'Failed',
+    'comment_wait'   =>  'You have commented this :attribute. Please try again in a few minutes',
 
     'no_data'   =>  'No data not found',
 
@@ -62,5 +65,11 @@ return [
     /* Comment */
     'leave_a_comment'   =>  'Leave a comment',
     'send_comment'   =>  'Send comment',
+
+    /* 404 */
+    'oops'   =>  'Oops! You\'re lost',
+    'return_home'   =>  'Return home',
+    'or_try'   =>  'or try the search bar below',
+    'can_not_find'   =>  'We can not find the page you\'re looking for',
 
 ];

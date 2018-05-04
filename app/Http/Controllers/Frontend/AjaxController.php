@@ -98,7 +98,7 @@ class AjaxController extends Controller
 
             $client_ip = $request->getClientIp();
             if(Cache::has($client_ip.'_contact')){
-                $data['message'] = "Bạn đã gửi mail liên hệ. Vui lòng thử lại sau ít phút";
+                $data['message'] = __('site.contact_wait');
                 return $data;
             }else{
                 Cache::add($client_ip.'_contact',$request->email,10);
@@ -152,7 +152,7 @@ class AjaxController extends Controller
             $id = $request->product_id ? $request->product_id : $request->post_id ;
 
             if(Cache::has($client_ip.'_comment_'.$table.'_'.$id)){
-                $data['message'] = "Bạn đã bình luận cho ".( $table == 'product' ? 'sản phẩm' : 'bài viết' )." này. Vui lòng thử lại sau ít phút";
+                $data['message'] = __('site.comment_wait', ['attribute'=>( $table == 'product' ? __('site.product') : __('site.post') )] );
                 return $data;
             }else{
                 Cache::add($client_ip.'_comment_'.$table.'_'.$id,$id,10);
