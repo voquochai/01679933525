@@ -29,7 +29,7 @@
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link rel="stylesheet" href="<?php echo e(asset('public/admin/css/login.css')); ?>">
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link href="<?php echo e(asset('public/uploads/photos/'.config('settings.favicon'))); ?>" rel="shortcut icon" type="image/x-icon" />
 </head>
 <body class="login">
     <div class="logo">

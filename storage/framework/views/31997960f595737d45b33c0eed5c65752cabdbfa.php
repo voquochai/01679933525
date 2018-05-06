@@ -62,14 +62,9 @@
         js.src = 'https://connect.facebook.net/<?php echo e(config('siteconfig.social.'.app()->getLocale())); ?>/sdk.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-    
-	<!-- Body main wrapper start -->
-	<div class="wrapper">
-		<!-- START HEADER SECTION -->
-		<?php echo $__env->make('frontend.default.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-		<!-- END HEADER SECTION -->
 
-		<!-- Search Modal -->
+	<div class="wrapper">
+		<?php echo $__env->make('frontend.default.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make('frontend.default.layouts.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 		<?php if(Route::currentRouteName() == 'frontend.home.index'): ?>
@@ -77,15 +72,11 @@
 		<?php else: ?>
 			<?php echo $__env->make('frontend.default.layouts.breadcrumb', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php endif; ?>
-		
+        
 		<?php echo $__env->yieldContent('content'); ?>
-	    
-		<!-- SERVICE SECTION START -->
-		<?php echo $__env->make('frontend.default.layouts.brand', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-		<!-- SERVICE SECTION END -->
-	    
-		<?php echo $__env->make('frontend.default.layouts.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
+		<?php echo $__env->make('frontend.default.layouts.brand', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo $__env->make('frontend.default.layouts.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	</div>
 	<!-- Body main wrapper end -->
     

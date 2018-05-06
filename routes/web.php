@@ -120,7 +120,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 		});
 
 		
-		Route::group(['middleware' => ['checkRoles:pages']], function(){
+		Route::group(['middleware' => ['checkRoles:page']], function(){
 			// Pages
 			Route::get('/pages', 'PageController@index')->name('page.index');
 			Route::get('/pages/create', 'PageController@create')->name('page.create');
@@ -130,7 +130,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 			Route::delete('/pages/{id}', 'PageController@delete')->name('page.delete');
 		});
 
-		Route::group(['middleware' => ['checkRoles:photos']], function(){
+		Route::group(['middleware' => ['checkRoles:photo']], function(){
 	        // Images
 	        Route::get('/photos', 'PhotoController@index')->name('photo.index');
 	        Route::get('/photos/create', 'PhotoController@create')->name('photo.create');
@@ -140,7 +140,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 	        Route::delete('/photos/{id}', 'PhotoController@delete')->name('photo.delete');
 	    });
 
-	    Route::group(['middleware' => ['checkRoles:links']], function(){
+	    Route::group(['middleware' => ['checkRoles:link']], function(){
 	        // Links
 	        Route::get('/links', 'LinkController@index')->name('link.index');
 	        Route::get('/links/create', 'LinkController@create')->name('link.create');
@@ -150,7 +150,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 	        Route::delete('/links/{id}', 'LinkController@delete')->name('link.delete');
 	    });
 
-	    Route::group(['middleware' => ['checkRoles:registers']], function(){
+	    Route::group(['middleware' => ['checkRoles:register']], function(){
 	        // Registers
 	        Route::get('/registers', 'RegisterController@index')->name('register.index');
 	        Route::get('/registers/create', 'RegisterController@create')->name('register.create');
@@ -160,7 +160,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 	        Route::delete('/registers/{id}', 'RegisterController@delete')->name('register.delete');
 	    });
 
-		Route::group(['middleware' => ['checkRoles:comments']], function(){
+		Route::group(['middleware' => ['checkRoles:comment']], function(){
 	        // Comments
 	        Route::get('/comments', 'CommentController@index')->name('comment.index');
 	        Route::post('/comments/ajax', 'CommentController@ajax')->name('comment.ajax');
@@ -171,7 +171,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 	        Route::delete('/comments/{id}', 'CommentController@delete')->name('comment.delete');
 		});
 
-		Route::group(['middleware' => ['checkRoles:sales']], function(){
+		Route::group(['middleware' => ['checkRoles:order']], function(){
 	        // Orders
 	        Route::get('/orders', 'OrderController@index')->name('order.index');
 	        Route::get('/orders/create', 'OrderController@create')->name('order.create');

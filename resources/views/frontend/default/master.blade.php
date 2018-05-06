@@ -61,14 +61,9 @@
         js.src = 'https://connect.facebook.net/{{ config('siteconfig.social.'.app()->getLocale()) }}/sdk.js#xfbml=1&version=v2.12&autoLogAppEvents=1';
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-    
-	<!-- Body main wrapper start -->
-	<div class="wrapper">
-		<!-- START HEADER SECTION -->
-		@include('frontend.default.layouts.header')
-		<!-- END HEADER SECTION -->
 
-		<!-- Search Modal -->
+	<div class="wrapper">
+		@include('frontend.default.layouts.header')
 		@include('frontend.default.layouts.search')
 
 		@if(Route::currentRouteName() == 'frontend.home.index')
@@ -76,15 +71,11 @@
 		@else
 			@include('frontend.default.layouts.breadcrumb')
 		@endif
-		
+        
 		@yield('content')
-	    
-		<!-- SERVICE SECTION START -->
-		@include('frontend.default.layouts.brand')
-		<!-- SERVICE SECTION END -->
-	    
-		@include('frontend.default.layouts.footer')
 
+		@include('frontend.default.layouts.brand')
+		@include('frontend.default.layouts.footer')
 	</div>
 	<!-- Body main wrapper end -->
     

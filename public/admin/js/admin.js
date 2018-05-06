@@ -114,6 +114,14 @@ var Admin = function(){
             $('.nav-list-item-comment a:first').trigger('click');
         }
 
+        $('body').on('click', '.btn-comment-unapproved', function(e){
+            $('.timeline-item:not(.disabled)').slideUp();
+        });
+
+        $('body').on('click', '.btn-comment-approved', function(e){
+            $('.timeline-item:hidden').slideDown();
+        });
+
         $('body').on('click', '.btn-comment-reply', function(e){
             e.preventDefault();
             var btn = $(this);

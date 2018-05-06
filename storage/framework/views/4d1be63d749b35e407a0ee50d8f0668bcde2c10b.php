@@ -1,4 +1,39 @@
-<header class="header-section section sticker header-transparent">
+<header class="header-section">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-top-left">
+                <ul>
+                    <li> <a href="tel:<?php echo e(config('settings.site_hotline')); ?>"> <i class="fa fa-phone"></i> <span class="hidden-xs"><?php echo e(config('settings.site_hotline')); ?></span> </a> </li>
+                    <li> <a href="mailto:<?php echo e(config('settings.site_email')); ?>"> <i class="fa fa-envelope"></i> <span class="hidden-xs"><?php echo e(config('settings.site_email')); ?></span> </a> </li>
+                </ul>
+            </div>
+            <div class="header-top-right">
+                <ul>
+                    <li><a href="#"><i class="fa fa-user"></i> <?php echo e(__('account.account')); ?> </a>
+                        <ul>
+                            <?php if( auth()->guard('member')->check() ): ?>
+                            <li>
+                                <a href="<?php echo e(route('frontend.member.profile')); ?>">
+                                    <i class="icon-user"></i> Thông tin </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="javascript:;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="icon-key"></i> Thoát </a>
+                                <form id="logout-form" action="<?php echo e(route('frontend.logout')); ?>" method="POST" style="display: none;">
+                                    <?php echo e(csrf_field()); ?>
+
+                                </form>
+                            </li>
+                            <?php else: ?>
+                            <li><a href="<?php echo e(url('/login')); ?>"> <?php echo e(__('account.login')); ?> </a></li>
+                            <li><a href="<?php echo e(url('/register')); ?>">  <?php echo e(__('account.register')); ?> </a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <!-- logo -->

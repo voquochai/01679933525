@@ -63,6 +63,5 @@ class checkRoles
             
         }
         return abort(403, 'Unauthorized action.');
-        // return redirect()->route('frontend.home.index');
     }
 }

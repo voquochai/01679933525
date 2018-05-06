@@ -10,13 +10,14 @@
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown">
-                    <a href="{{ url('/') }}" class="dropdown-toggle" target="_blank"> <i class="icon-globe"></i> </a>
+                    <a href="{{ url('/') }}" class="dropdown-toggle tooltips" target="_blank" data-style="default" data-container="body" data-placement="bottom" data-original-title="Xem website" > <i class="icon-globe"></i> </a>
                 </li>
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <a href="javascript:;" class="dropdown-toggle tooltips" data-style="default" data-container="body" data-placement="bottom" data-original-title="Thông báo" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-bell"></i>
-                        <span class="badge badge-default"> 7 </span>
+                        {{--<span class="badge badge-default"> 0 </span>--}}
                     </a>
+                    {{--
                     <ul class="dropdown-menu">
                         <li class="external">
                             <h3>
@@ -109,9 +110,10 @@
                             </ul>
                         </li>
                     </ul>
+                    --}}
                 </li>
                 <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <a href="javascript:;" class="dropdown-toggle tooltips" data-style="default" data-container="body" data-placement="bottom" data-original-title="Bình luận" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                         <i class="icon-envelope-open"></i>
                         <span class="badge badge-default"> 4 </span>
                     </a>

@@ -14,8 +14,8 @@
                     <div class="profile-usertitle-name"> Bình luận </div>
                 </div>
                 <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-circle green btn-sm">Mới nhất</button>
-                    <button type="button" class="btn btn-circle default btn-sm">Chưa duyệt</button>
+                    <button type="button" class="btn btn-circle green btn-sm btn-comment-approved">Tất cả</button>
+                    <button type="button" class="btn btn-circle default btn-sm btn-comment-unapproved">Chưa duyệt</button>
                 </div>
                 <div class="profile-usermenu">
                     <ul class="nav nav-list-item-comment">

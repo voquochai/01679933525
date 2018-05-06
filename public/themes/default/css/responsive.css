@@ -179,7 +179,6 @@
     /*-- Header --*/
     .header-section {
         background-color: #fff;
-        padding: 0 15px;
         position: static;
     }
     .header-section.stick {
