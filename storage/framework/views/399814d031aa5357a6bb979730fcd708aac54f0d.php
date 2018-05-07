@@ -1,8 +1,8 @@
 <nav class="main-menu text-center">
     <ul>
         <li <?php echo (Route::currentRouteName() == 'home.index') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/')); ?>"> <?php echo e(__('site.home')); ?> </a></li>
-        <li <?php echo ($type == 'gioi-thieu') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/gioi-thieu')); ?>"> <?php echo e(__('site.about')); ?> </a></li>
-        <li <?php echo ($type == 'san-pham') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/san-pham')); ?>"> <?php echo e(__('site.product')); ?> </a>
+        <li <?php echo ($type == 'hosting') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/hosting')); ?>"> Hosting </a></li>
+        <li <?php echo ($type == 'san-pham') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/san-pham')); ?>"> Kho web </a>
             <?php 
                 Menu::resetMenu();
                 Menu::setOption([
@@ -13,14 +13,25 @@
                 echo Menu::getMenu();
              ?>
         </li>
-        <li <?php echo ($type == 'tin-tuc') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/tin-tuc')); ?>"> <?php echo e(__('site.news')); ?> </a>
+        <li <?php echo ($type == 'dich-vu') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/dich-vu')); ?>"> Dịch vụ </a>
             <?php 
                 Menu::resetMenu();
                 Menu::setOption([
                     'open'=>['<ul class="sub-menu">'],
-                    'baseurl' => url('/tin-tuc')
+                    'baseurl' => url('/dich-vu')
                 ]);
-                Menu::setMenu(get_categories('tin-tuc',$lang));
+                Menu::setMenu(get_categories('dich-vu',$lang));
+                echo Menu::getMenu();
+             ?>
+        </li>
+        <li <?php echo ($type == 'thu-thuat') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/thu-thuat')); ?>"> Thủ thuật </a>
+            <?php 
+                Menu::resetMenu();
+                Menu::setOption([
+                    'open'=>['<ul class="sub-menu">'],
+                    'baseurl' => url('/thu-thuat')
+                ]);
+                Menu::setMenu(get_categories('thu-thuat',$lang));
                 echo Menu::getMenu();
              ?>
         </li>

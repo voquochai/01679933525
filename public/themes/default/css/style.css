@@ -152,48 +152,6 @@ h6 a {
 .page-banner-content .breadcrumb li.active {
     color: #ffae00;
 }
-/*-- Product Slider --*/
-.product-slider {
-    float: left;
-    width: 100%;
-}
-/*-- Product Slider Arrow --*/
-.product-slider .slick-arrow {
-    background-color: transparent;
-    border: medium none;
-    color: #666;
-    height: 38px;
-    margin-top: -18px;
-    opacity: 0;
-    padding: 0;
-    position: absolute;
-    top: 50%;
-    z-index: -99;
-}
-.product-slider:hover .slick-arrow {
-    opacity: 1;
-    z-index: 99;
-}
-.product-slider .slick-arrow:hover {
-    color: #ffae00;
-}
-.product-slider .arrow-prev {
-    left: -50px;
-}
-.product-slider .arrow-next {
-    right: -50px;
-}
-.product-slider:hover .arrow-prev {
-    left: -7px;
-}
-.product-slider:hover .arrow-next {
-    right: -7px;
-}
-.product-slider .slick-arrow i {
-    display: block;
-    font-size: 44px;
-    line-height: 38px;
-}
 
 .header-section {
     float: left;
@@ -301,14 +259,12 @@ h6 a {
     color: #666;
     padding: 3px 10px;
 }
-
 .header-top ul li:hover ul{
     top: 100%;
     opacity: 1;
     visibility: visible;
     z-index: 100;
 }
-
 .header-top-left{
     float: left;
 }
@@ -787,211 +743,74 @@ a.meanmenu-reveal i {
 .cart-bottom a:hover {
     background-color: #ffae00;
 }
-/* -----------------------------------
-  03. Home Slider Section
---------------------------------------*/
-.home-slider-section {
+
+.slider-section {
+    background-image: url(../images/bg/flake-slider-header.jpg);
+    background-size: cover;
+    background-position: center;
+    background-color: #ddd;
     position: relative;
-}
-/*-- Home Slider --*/
-#home-slider {}
-#home-slider img {}
-/*-- Nivo Slider Caption --*/
-.nivo-caption,
-.hero-static-caption {
-    background-color: transparent;
-    bottom: auto;
-    box-sizing: border-box;
-    left: 0;
-    padding: 0;
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 100%;
-    z-index: 8;
-}
-/*-- Hero Video Content --*/
-.hero-video-caption {
-    background-color: rgba(240, 240, 240, 0.8);
-    padding: 250px 0;
-}
-/*-- Slider Content --*/
-.hero-slider-content {}
-.hero-slider-content h4 {
-    font-weight: 500;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-.hero-slider-content h1 {
-    font-size: 50px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    margin-left: -3px;
-    text-transform: uppercase;
-}
-.hero-slider-content p {
-    color: #282828;
-    line-height: 28px;
-    margin-bottom: 30px;
-    padding: 0;
-}
-.hero-slider-content a {
-    background-color: #282828;
-    color: #fff;
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 500;
-    height: 40px;
-    line-height: 24px;
-    padding: 8px 30px;
-    text-transform: uppercase;
-}
-.hero-slider-content a:hover {
-    background-color: #ffae00;
-}
-/*-- Slider Content 2 --*/
-.hero-slider-content-2 {}
-.hero-slider-content-2 h1 {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 30px;
-    margin-left: -3px;
-    text-transform: uppercase;
-}
-.hero-slider-content-2 h1 span {
-    font-size: 60px;
-    text-transform: uppercase;
-    display: block;
-}
-.hero-slider-content-2 a {
-    background-color: #282828;
-    color: #fff;
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 500;
-    height: 40px;
-    line-height: 24px;
-    padding: 8px 30px;
-    text-transform: uppercase;
-}
-.hero-slider-content-2 a:hover {
-    background-color: #ffae00;
-}
-/*-- Nivo Direction Nav --*/
-.nivo-directionNav {}
-.nivo-directionNav a {
-    display: block;
-    height: 40px;
-    margin-top: -20px;
-    text-align: center;
-    top: 50%;
-}
-.nivo-directionNav a i {
-    display: block;
-    font-size: 48px;
-    line-height: 40px;
-}
-.nivo-prevNav {
-    left: 50px;
-}
-.nivo-nextNav {
-    right: 50px;
-}
-/* -----------------------------------
-  04. Banner Section
---------------------------------------*/
-.banner-section {}
-/*-- Single Banner --*/
-.single-banner {}
-.single-banner a {
-    display: block;
+    z-index: 1;
     overflow: hidden;
-    position: relative;
+    padding: 70px 0px;
 }
-.single-banner a::before {
-    background-color: #fff;
-    content: "";
-    height: 100%;
+
+.bg-animation {
+    position: absolute;
+    width: 150%;
+    top: 0;
     left: 0;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    -webkit-transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0px, -120%, 0px);
-    transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0px, -120%, 0px);
-    -webkit-transition: -webkit-transform 0.6s ease 0s;
-    transition: -webkit-transform 0.6s ease 0s;
-    transition: transform 0.6s ease 0s;
-    transition: transform 0.6s ease 0s, -webkit-transform 0.6s ease 0s;
+}
+.bg-animation ul {
     width: 100%;
-    z-index: 4;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    animation: bganimation 30s linear both 0s infinite;
 }
-.single-banner a:hover::before {
-    -webkit-transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0px, 120%, 0px);
-    transform: scale3d(1.9, 1.4, 1) rotate3d(0, 0, 1, 45deg) translate3d(0px, 120%, 0px);
+.bg-animation ul img {
+    list-style: none;
+    display: inline-block;
+    padding: 35px;
+    opacity: 1;
 }
-.single-banner a img {
-    width: 100%;
+@keyframes bganimation {
+    100% {
+        -webkit-transform: translate3d(-720px, 0, 0);
+        transform: translate3d(-720px, 0, 0);
+    }
+    120% {
+        -webkit-transform: translate3d(720px, 0, 0);
+        transform: translate3d(720px, 0, 0);
+    }
 }
-/*-- Single Banner 2 --*/
-.single-banner-2 {
-    overflow: hidden;
+
+.domain-section{
+    position: relative;
+    z-index: 1;
+}
+.domain-section .domain-inner {
+    padding: 30px 100px 50px;
+    background: #fff;
+    box-shadow: 0px 10px 35px 0px rgba(1, 68, 137, 0.1);
+    top: 100px;
+    border-radius: 5px;
+}
+.domain-checkup {
+    background: #5dafef;
+    border-radius: 5px;
+    padding: 30px;
+}
+.domain-checkup-left {
+    width: 76%;
+    float: left;
+    margin-right: 3%;
     position: relative;
 }
-.single-banner-2::before {
-    background-color: #000;
-    content: "";
-    height: 100%;
-    opacity: 0.5;
-    position: absolute;
-    right: 0;
-    top: 0;
-    -webkit-transform: rotate(20deg) scale(1.65);
-    -ms-transform: rotate(20deg) scale(1.65);
-    transform: rotate(20deg) scale(1.65);
-    width: 450px;
-    z-index: 2;
+.domain-checkup-left select{
+    min-width: 100px;
 }
-.single-banner-2 img {
-    width: 100%;
-}
-.single-banner-2 .content {
-    max-width: 440px;
-    padding-left: 30px;
-    position: absolute;
-    right: 70px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    z-index: 3;
-}
-.single-banner-2 .content h1 {
-    color: #ffffff;
-    font-size: 36px;
-    font-weight: 400;
-    margin-bottom: 20px;
-    text-transform: capitalize;
-}
-.single-banner-2 .content p {
-    color: #ffffff;
-    font-weight: 300;
-    margin-bottom: 30px;
-}
-.single-banner-2 .content a {
-    background-color: #ffffff;
-    color: #333333;
-    display: inline-block;
-    font-size: 14px;
-    height: 40px;
-    padding: 8px 30px;
-    text-transform: uppercase;
-}
-.single-banner-2 .content a:hover {
-    background-color: #ffae00;
-    color: #ffffff;
-}
+
 /* -----------------------------------
   05. Product Section
 --------------------------------------*/
