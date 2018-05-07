@@ -1,9 +1,9 @@
 <nav class="main-menu text-center">
     <ul>
-        <li {!! (Route::currentRouteName() == 'home.index') ? 'class="active"' : '' !!} ><a href="{{ url('/') }}"> {{ __('site.home') }} </a></li>
-        <li {!! ($type == 'hosting') ? 'class="active"' : '' !!} ><a href="{{ url('/hosting') }}"> Hosting </a></li>
-        <li {!! ($type == 'san-pham') ? 'class="active"' : '' !!} ><a href="{{ url('/san-pham') }}"> Kho web </a>
-            @php
+        <li <?php echo (Route::currentRouteName() == 'home.index') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/')); ?>"> <?php echo e(__('site.home')); ?> </a></li>
+        <li <?php echo ($type == 'hosting') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/hosting')); ?>"> Hosting </a></li>
+        <li <?php echo ($type == 'san-pham') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/san-pham')); ?>"> Kho web </a>
+            <?php 
                 Menu::resetMenu();
                 Menu::setOption([
                     'open'=>['<ul class="mega-menu">','<ul>'],
@@ -11,10 +11,10 @@
                 ]);
                 Menu::setMenu(get_categories('san-pham',$lang));
                 echo Menu::getMenu();
-            @endphp
+             ?>
         </li>
-        <li {!! ($type == 'dich-vu') ? 'class="active"' : '' !!} ><a href="{{ url('/dich-vu') }}"> Dịch vụ </a>
-            @php
+        <li <?php echo ($type == 'dich-vu') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/dich-vu')); ?>"> Dịch vụ </a>
+            <?php 
                 Menu::resetMenu();
                 Menu::setOption([
                     'open'=>['<ul class="sub-menu">'],
@@ -22,10 +22,10 @@
                 ]);
                 Menu::setMenu(get_categories('dich-vu',$lang));
                 echo Menu::getMenu();
-            @endphp
+             ?>
         </li>
-        <li {!! ($type == 'thu-thuat') ? 'class="active"' : '' !!} ><a href="{{ url('/thu-thuat') }}"> Thủ thuật </a>
-            @php
+        <li <?php echo ($type == 'thu-thuat') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/thu-thuat')); ?>"> Thủ thuật </a>
+            <?php 
                 Menu::resetMenu();
                 Menu::setOption([
                     'open'=>['<ul class="sub-menu">'],
@@ -33,9 +33,9 @@
                 ]);
                 Menu::setMenu(get_categories('thu-thuat',$lang));
                 echo Menu::getMenu();
-            @endphp
+             ?>
         </li>
-        <li {!! (Route::currentRouteName() == 'home.contact') ? 'class="active"' : '' !!} ><a href="{{ url('/lien-he') }}"> {{ __('site.contact') }} </a></li>
+        <li <?php echo (Route::currentRouteName() == 'home.contact') ? 'class="active"' : ''; ?> ><a href="<?php echo e(url('/lien-he')); ?>"> <?php echo e(__('site.contact')); ?> </a></li>
     </ul>
 </nav>
 <div class="mobile-menu"></div>
