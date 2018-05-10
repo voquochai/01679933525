@@ -18,13 +18,6 @@ textarea,
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
 }
-.btn {
-    border-radius: 0px;
-    font-size: 14px;
-    padding: 0px 15px;
-    height: 30px;
-    line-height: 30px;
-}
 a:focus,
 .btn:focus {
     text-decoration: none;
@@ -801,14 +794,105 @@ a.meanmenu-reveal i {
     border-radius: 5px;
     padding: 30px;
 }
+.domain-checkup:after{
+    content: '';
+    display: block;
+    clear: both;
+}
 .domain-checkup-left {
     width: 76%;
     float: left;
     margin-right: 3%;
     position: relative;
 }
+.domain-checkup-left input{
+    height: 65px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    border: none;
+    padding-right: 145px;
+    color: #536d87;
+    font-size: 15px;
+    box-shadow: none;
+}
 .domain-checkup-left select{
-    min-width: 100px;
+    display: none;   
+}
+.domain-checkup-left .bootstrap-select{
+    position: absolute;
+    right: 10px;
+    top: 17px;
+    width: 100px !important;
+}
+.domain-checkup-left .bootstrap-select .btn{
+    border: 0px;
+    border-left: 1px solid #ccc;
+    border-radius: 0px;
+    font-size: 15px;
+    color: #536d87;
+}
+.domain-checkup-left .bootstrap-select .btn:hover,
+.domain-checkup-left .bootstrap-select .btn:focus,
+.domain-checkup-left .bootstrap-select .btn:active{
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.domain-checkup-right .btn{
+    height: 65px;
+    padding: 20px;
+    border-radius: 5px;
+    width: 21%;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    background: #3CEEDB;
+    outline: none;
+}
+.domain-checkup-right i{
+    float: left;
+    font-size: 25px;
+    margin-left: 20px;
+}
+
+.domain-tld-prices ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.domain-tld-prices li {
+    display: inline-block;
+    padding: 10px 39px;
+    color: #5dafef;
+    font-weight: 500;
+    position: relative;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.domain-tld-prices li:first-child{
+    padding-left: 0px;
+}
+.domain-tld-prices li:last-child{
+    padding-right: 0px;
+}
+
+.domain-tld-prices {
+    margin-top: 30px;
+    padding-left: 45px;
+}
+.domain-tld-prices li:after {
+    position: absolute;
+    top: 32%;
+    left: 0;
+    width: 1px;
+    height: 14px;
+    content: "";
+    background: #5DAFEF;
+}
+.domain-tld-prices li:first-child:after{
+    display: none;
 }
 
 /* -----------------------------------

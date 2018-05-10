@@ -45,15 +45,26 @@ class HomeController extends Controller
     }
 
     public function index(Request $request){
+        $this->_data['criteria'] = DB::table('posts as A')
+            ->leftjoin('post_languages as B', 'A.id', '=', 'B.post_id')
+            ->select('A.id','A.link','A.image','A.alt','B.title','B.slug','B.description')
+            ->where('B.language',$this->_data['lang'])
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+            ->where('A.type','tieu-chi')
+            ->orderBy('A.priority','asc')
+            ->orderBy('A.id','desc')
+            ->limit(5)
+            ->get();
+
         $this->_data['new_products'] = DB::table('products as A')
             ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
             ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
             ->where('B.language',$this->_data['lang'])
-            ->whereRaw('FIND_IN_SET(\'publish\',A.status) AND FIND_IN_SET(\'new\',A.status)')
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status) and FIND_IN_SET(\'new\',A.status)')
             ->where('A.type','san-pham')
             ->orderBy('A.priority','asc')
             ->orderBy('A.id','desc')
-            ->limit(8)
+            ->limit(10)
             ->get();
 
         $this->_data['customers'] = DB::table('posts as A')

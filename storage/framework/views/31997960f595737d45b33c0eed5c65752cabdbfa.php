@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=vietnamese">
     <link rel="stylesheet" href="<?php echo e(asset('public/css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/packages/bootstrap-toastr/toastr.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/packages/bootstrap-select/css/bootstrap-select.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/css/font-awesome.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/themes/default/css/pe-icon-7-stroke.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/themes/default/css/plugins.css')); ?>">
@@ -73,7 +74,10 @@
 			<?php echo $__env->make('frontend.default.layouts.breadcrumb', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php endif; ?>
         
-		
+		<?php echo $__env->yieldContent('content'); ?>
+
+		<?php echo $__env->make('frontend.default.layouts.brand', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo $__env->make('frontend.default.layouts.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 	</div>
 	<!-- Body main wrapper end -->
     
@@ -89,7 +93,8 @@
     <script src="<?php echo e(asset('public/js/modernizr-2.8.3.min.js')); ?>"></script>
 	<script src="<?php echo e(asset('public/js/jquery.min.js')); ?>"></script>
     <script src="<?php echo e(asset('public/js/bootstrap.min.js')); ?>"></script>
-	<script src="<?php echo e(asset('public/packages/bootstrap-toastr/toastr.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('public/packages/bootstrap-toastr/toastr.min.js')); ?>"></script>
+	<script src="<?php echo e(asset('public/packages/bootstrap-select/js/bootstrap-select.min.js')); ?>"></script>
 	<script src="<?php echo e(asset('public/themes/default/js/plugins.js')); ?>"></script>
 	<script src="<?php echo e(asset('public/js/app.js')); ?>"></script>
 	<script src="<?php echo e(asset('public/themes/default/js/main.js')); ?>"></script>

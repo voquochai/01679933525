@@ -180,6 +180,27 @@ return [
 		'path'    =>	'uploads/products'
 	],
 	'post' => [
+		'tieu-chi' 	=>	[
+			'page-title'	=>	'Tiêu chí',
+			'category'    =>	false,
+			'description' =>	true,
+			'contents'    =>	false,
+			'link'    =>	true,
+			'seo'	=>	false,
+			'attributes'    =>	false,
+			'image'       =>	true,
+			'images'      =>	false,
+			'thumbs'	=>	[
+				'_small' => [
+					'width'  =>	130,
+					'height' =>	130,
+				],
+			],
+			'status'      => [
+				'publish'     => 'Hiển thị',
+			],
+			'post_tags'	=>	false,
+		],
 		'tin-tuc' 	=>	[
 			'page-title'	=>	'Tin tức',
 			'category'    =>	true,

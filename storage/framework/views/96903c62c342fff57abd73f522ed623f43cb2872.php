@@ -100,18 +100,14 @@
                         <div class="domain-checkup">
                             <form action="#">
                                 <div class="domain-checkup-left">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Enter your domain here">
-                                        <div class="input-group-addon">
-                                            <select class="form-control" name="TLD">
-                                                <option value="">.com</option>
-                                                <option value="">.net</option>
-                                                <option value="">.net</option>
-                                                <option value="">.net</option>
-                                                <option value="">.net</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <input type="text" class="form-control" placeholder="Enter your domain here">
+                                    <select class="form-control selectpicker" name="TLD">
+                                        <option value="">.com</option>
+                                        <option value="">.net</option>
+                                        <option value="">.net</option>
+                                        <option value="">.net</option>
+                                        <option value="">.net</option>
+                                    </select>
                                 </div>
                                 <div class="domain-checkup-right">
                                     <button type="button" class="btn btn-lg"><i class="pe-7s-search"></i>Search</button>

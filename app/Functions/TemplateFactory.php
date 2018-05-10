@@ -75,6 +75,27 @@ class TemplateFactory {
         return $template;
     }
 
+    public function getTemplateSinglePost($post,$type='bai-viet',$show=4){
+        if($type == '') $type = $post->type;
+        $link = ($post->link) ? $post->link : route('frontend.home.page',['type' => $type, 'slug' => $post->slug]);
+        if($show==6){ $cls = "col-lg-2 col-md-3 col-sm-4 col-xs-6 col-xs-wide"; }
+        elseif($show==4){ $cls = "col-md-3 col-sm-4 col-xs-6 col-xs-wide"; }
+        elseif($show==3){ $cls = "col-md-4 col-sm-6 col-xs-12"; }
+        elseif($show==2){ $cls = "col-sm-6 col-xs-12"; }
+        elseif($show==1){ $cls = "col-xs-12"; }
+        $template = '
+            <div class="'.$cls.' mb-40">
+                <div class="single-blog">
+                    <img src="'. ( $post->image && file_exists(public_path('/uploads/posts/'.$post->image)) ? asset( 'public/uploads/posts/'.get_thumbnail($post->image) ) : asset('noimage/330x220') ) .'" alt="'.$post->alt.'" />
+                    <h2 class="title">'.$post->title.'</h2>
+                    <p>'.substr($post->description,0,100).'</p>
+                </div>
+            </div>
+        ';
+
+        return $template;
+    }
+
     public function getTemplateComment($data,$parent=0,$lvl=0){
         $result = '';
         if( isset($data[$parent]) ){

@@ -101,6 +101,11 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item">
+                        <a href="{{ route('admin.post.index',['type'=>'tieu-chi']) }}" data-route="post.tieu-chi" class="nav-link ">
+                            <span class="title"> Tiêu chí </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.category.index',['type'=>'tin-tuc']) }}" data-route="category.tin-tuc" class="nav-link ">
                             <span class="title"> Danh mục</span>
                         </a>
