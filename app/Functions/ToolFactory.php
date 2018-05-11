@@ -95,7 +95,7 @@ class ToolFactory {
                 if($width <= 0) $width = 300;
                 if($height <= 0) $height = 200;
                 Image::make(public_path($path.'/'.$imageName))
-                    ->fit($width, $height, function ($c) {
+                    ->resize($width, $height, function ($c) {
                         $c->aspectRatio();
                         $c->upsize();
                     })

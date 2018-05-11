@@ -1,4 +1,4 @@
-<header class="header-section">
+<header class="header-section section">
     <div class="header-top">
         <div class="container">
             <div class="header-top-left">

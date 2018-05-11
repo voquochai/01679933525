@@ -100,30 +100,30 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
+                    
+                    <li class="nav-item">
+                        <a href="{{ route('admin.post.index',['type'=>'dich-vu']) }}" data-route="post.dich-vu" class="nav-link ">
+                            <span class="title"> Dịch vụ </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.post.index',['type'=>'thu-thuat']) }}" data-route="post.thu-thuat" class="nav-link ">
+                            <span class="title"> Thủ thuật </span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.post.index',['type'=>'tieu-chi']) }}" data-route="post.tieu-chi" class="nav-link ">
                             <span class="title"> Tiêu chí </span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.category.index',['type'=>'tin-tuc']) }}" data-route="category.tin-tuc" class="nav-link ">
-                            <span class="title"> Danh mục</span>
+                        <a href="{{ route('admin.post.index',['type'=>'chinh-sach-quy-dinh']) }}" data-route="post.chinh-sach-quy-dinh" class="nav-link ">
+                            <span class="title"> Chính sách &amp; Quy định </span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.post.index',['type'=>'tin-tuc']) }}" data-route="post.tin-tuc" class="nav-link ">
-                            <span class="title"> Tin tức </span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.post.index',['type'=>'dich-vu']) }}" data-route="post.dich-vu" class="nav-link ">
-                            <span class="title"> Dịch vụ </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('admin.post.index',['type'=>'khach-hang']) }}" data-route="post.khach-hang" class="nav-link ">
-                            <span class="title"> Khách hàng </span>
+                        <a href="{{ route('admin.post.index',['type'=>'ho-tro-khach-hang']) }}" data-route="post.ho-tro-khach-hang" class="nav-link ">
+                            <span class="title"> Hỗ trợ khách hàng </span>
                         </a>
                     </li>
                     <li class="nav-item">

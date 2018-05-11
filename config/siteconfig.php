@@ -127,7 +127,7 @@ return [
 		'san-pham' 	=>	[
 			'page-title'	=>	'Sản phẩm',
 			'category'    =>	true,
-			'supplier'    =>	true,
+			'supplier'    =>	false,
 			'description' =>	true,
 			'contents'    =>	true,
 			'link'    =>	true,
@@ -150,8 +150,8 @@ return [
 				'new'     => 'Mới',
 				'publish'     => 'Hiển thị',
 			],
-			'product_colors'	=>	true,
-			'product_sizes'	=>	true,
+			'product_colors'	=>	false,
+			'product_sizes'	=>	false,
 			'product_tags'	=>	true,
 		],
 		'default' 	=>	[
@@ -201,28 +201,6 @@ return [
 			],
 			'post_tags'	=>	false,
 		],
-		'tin-tuc' 	=>	[
-			'page-title'	=>	'Tin tức',
-			'category'    =>	true,
-			'description' =>	true,
-			'contents'    =>	true,
-			'link'    =>	true,
-			'seo'	=>	true,
-			'attributes'    =>	false,
-			'image'       =>	true,
-			'images'      =>	true,
-			'thumbs'	=>	[
-				'_small' => [
-					'width'  =>	330,
-					'height' =>	220,
-				],
-			],
-			'status'      => [
-				'new'     => 'Mới',
-				'publish'     => 'Hiển thị',
-			],
-			'post_tags'	=>	true,
-		],
 		'dich-vu' 	=>	[
 			'page-title'	=>	'Dịch vụ',
 			'category'    =>	false,
@@ -240,38 +218,36 @@ return [
 				],
 			],
 			'status'      => [
-				'new'     => 'Mới',
 				'publish'     => 'Hiển thị',
 			],
 			'post_tags'	=>	true,
 		],
-		'khach-hang' 	=>	[
-			'page-title'	=>	'Khách hàng',
+		'thu-thuat' 	=>	[
+			'page-title'	=>	'Thủ thuật',
 			'category'    =>	false,
 			'description' =>	true,
-			'contents'    =>	false,
-			'link'    =>	false,
-			'seo'	=>	false,
+			'contents'    =>	true,
+			'link'    =>	true,
+			'seo'	=>	true,
 			'attributes'    =>	false,
 			'image'       =>	true,
-			'images'      =>	false,
+			'images'      =>	true,
 			'thumbs'	=>	[
 				'_small' => [
-					'width'  =>	200,
+					'width'  =>	300,
 					'height' =>	200,
-				]
+				],
 			],
 			'status'      => [
-				'index'     => 'Trang chủ',
-				'publish'     => 'Hiển thị'
+				'publish'     => 'Hiển thị',
 			],
-			'post_tags'	=>	false,
+			'post_tags'	=>	true,
 		],
-		'payment' 	=>	[
-			'page-title'	=>	'Hình thức thanh toán',
+		'chinh-sach-quy-dinh' 	=>	[
+			'page-title'	=>	'Chính sách & Quy định',
 			'category'    =>	false,
-			'description' =>	true,
-			'contents'    =>	false,
+			'description' =>	false,
+			'contents'    =>	true,
 			'link'    =>	false,
 			'seo'	=>	false,
 			'attributes'    =>	false,
@@ -279,8 +255,29 @@ return [
 			'images'      =>	false,
 			'thumbs'	=>	[
 				'_small' => [
-					'width'  =>	200,
-					'height' =>	200,
+					'width'  =>	130,
+					'height' =>	130,
+				]
+			],
+			'status'      => [
+				'publish'     => 'Hiển thị'
+			],
+			'post_tags'	=>	false,
+		],
+		'ho-tro-khach-hang' 	=>	[
+			'page-title'	=>	'Hỗ trợ khách hàng',
+			'category'    =>	false,
+			'description' =>	false,
+			'contents'    =>	true,
+			'link'    =>	false,
+			'seo'	=>	false,
+			'attributes'    =>	false,
+			'image'       =>	false,
+			'images'      =>	false,
+			'thumbs'	=>	[
+				'_small' => [
+					'width'  =>	130,
+					'height' =>	130,
 				]
 			],
 			'status'      => [

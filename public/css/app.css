@@ -218,7 +218,12 @@ code {
 .no-padding {
     padding: 0 !important;
 }
-
+.mb-20{
+    margin-bottom: 20px;
+}
+.mb-40{
+    margin-bottom: 40px;
+}
 .ptb-60 {
     padding-top: 60px;
     padding-bottom: 60px;

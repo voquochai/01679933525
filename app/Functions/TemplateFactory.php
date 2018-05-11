@@ -23,27 +23,39 @@ class TemplateFactory {
         elseif($show==2){ $cls = "col-sm-6 col-xs-12"; }
         elseif($show==1){ $cls = "col-xs-12"; }
 		$template = '
-			<!-- product-item start -->
-            <div class="'.$cls.' mb-40">
-                <div class="product-item text-center">
+            <div class="'.$cls.'">
+                <div class="product-item">
                     <div class="product-img">
                         <a class="image" href="'.$link.'"><img src="'. ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/300x300') ) .'" alt="'.$product->alt.'" /></a>
-                        <a href="#" class="add-to-cart" data-ajax="id='. $product->id .'">'. __('cart.add_to_cart') .'</a>
-                        <div class="action-btn fix">
-                            <a href="#" class="add-to-wishlist" data-ajax="id='. $product->id .'" title="Wishlist"><i class="pe-7s-like"></i></a>
-                            <a href="#" data-toggle="modal"  data-target="#productModal" title="Quickview"><i class="pe-7s-look"></i></a>
-                            <a href="#" title="Compare"><i class="pe-7s-repeat"></i></a>
-                        </div>
+                        <a href="#" class="add-to-wishlist" data-ajax="id='. $product->id .'" title="Wishlist"></a>
                     </div>
                     <div class="product-info">
-                        <h5 class="title"><a href="'.$link.'">'.$product->title.'</a></h5>
-                        <span class="price">
-                        	'.self::getTemplateProductPrice($product->regular_price, $product->sale_price).'
-                        </span>
+                        <h5 class="title"><a href="'.$link.'">'.$product->title.'</a>
+                            <span class="code">#'.$product->code.' - Sales: 61.6K</span>
+                        </h5>
+                    </div>
+                    <div class="product-action">
+                        <p class="float-left">
+                            <span class="price">
+                            '.self::getTemplateProductPrice($product->regular_price, $product->sale_price).'
+                            </span>
+                            <span class="rating font-size-12">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span>(5.8K)</span>
+                            </span>
+                        </p>
+                        <p class="float-right">
+                            <a href="#" class="btn btn-success" >Preview</a>
+                            <a href="#" class="btn btn-info add-to-cart" data-ajax="id='. $product->id .'"> <i class="fa fa-shopping-cart"></i> </a>
+                            
+                        </p>
                     </div>
                 </div>
             </div>
-            <!-- product-item end -->
 		';
 
 		return $template;
@@ -58,7 +70,6 @@ class TemplateFactory {
         elseif($show==2){ $cls = "col-sm-6 col-xs-12"; }
         elseif($show==1){ $cls = "col-xs-12"; }
         $template = '
-            <!-- blog-item start -->
             <div class="'.$cls.' mb-40">
                 <div class="blog-item">
                     <a class="image" href="'.$link.'"><img src="'. ( $post->image && file_exists(public_path('/uploads/posts/'.$post->image)) ? asset( 'public/uploads/posts/'.get_thumbnail($post->image) ) : asset('noimage/330x220') ) .'" alt="'.$post->alt.'" /></a>
@@ -69,7 +80,6 @@ class TemplateFactory {
                     </div>
                 </div>
             </div>
-            <!-- blog-item end -->
         ';
 
         return $template;

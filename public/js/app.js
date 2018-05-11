@@ -162,6 +162,7 @@ var App = function() {
     }
 
     var handleToastr = function(){
+        $('.tooltips').tooltip();
         toastr.options = {
             "closeButton": true,
             "debug": false,
