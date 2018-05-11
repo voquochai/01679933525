@@ -613,3 +613,6 @@ Stack trace:
 #52 E:\xampp\htdocs\laravel\01679933525\public\index.php(54): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #53 E:\xampp\htdocs\laravel\01679933525\index.php(21): require_once('E:\\xampp\\htdocs...')
 #54 {main}  
+[2018-05-11 18:54:40] local.ERROR: Symfony\Component\Debug\Exception\FatalErrorException: Maximum execution time of 30 seconds exceeded in H:\xampp\htdocs\laravel\01679933525\vendor\laravel\framework\src\Illuminate\Database\Query\Builder.php:21
+Stack trace:
+#0 {main}  
