@@ -1,24 +1,24 @@
 @extends('frontend.default.master')
 @section('content')
 <!-- PAGE SECTION START -->
-<div class="page-section section pt-100 pb-100">
+<section class="page-section section ptb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
-        <div class="row">
-            <div class="contact-info col-md-4 col-xs-12 mb-40">
+        <div class="row contact-info ">
+            <div class="col-md-4 col-xs-6 col-xs-wide mb-40">
                 <h3>{!! @$contact->title !!}</h3>
-                
                 {!! @$contact->contents !!}
-                
-                <div class="contact-social">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
-                </div>
-                
             </div>
-            <div class="contact-form col-md-8 col-xs-12 mb-40">
+            <div class="col-md-4 col-xs-6 col-xs-wide mb-40">
+                <h3>{!! @$contact->title !!}</h3>
+                {!! @$contact->contents !!}
+            </div>
+            <div class="col-md-4 col-xs-6 col-xs-wide mb-40">
+                <h3>{!! @$contact->title !!}</h3>
+                {!! @$contact->contents !!}
+            </div>
+        </div>
+        <div class="row contact-form">
+            <div class="col-xs-12">
                 <h3>{{ __('site.contact_form') }}</h3>
                 <form id="contact-form" action="mail.php#" method="post">
                     <div class="row">
@@ -45,6 +45,8 @@
                 </form>
                 <p class="form-messege"></p>
             </div>
+        </div>
+        <div class="row contact-map">
             <div class="col-xs-12 mt-40">
                 <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
                 {{--<input id="destination-input" class="controls" type="text" placeholder="Enter a destination location">--}}
@@ -62,7 +64,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 <!-- PAGE SECTION END -->
 @endsection
 

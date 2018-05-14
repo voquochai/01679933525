@@ -18,6 +18,8 @@ textarea,
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
 }
+.btn{ min-width: 100px; }
+
 a:focus,
 .btn:focus {
     text-decoration: none;
@@ -115,41 +117,35 @@ h6 a {
     background-color: #ffae00;
     color: #fff;
 }
-/*-- Page Banner Section --*/
-.page-banner-section {
-    background-image: url('../images/bg_breadcrumb.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #f3f3f3;
-    padding: 165px 0 65px;
-}
-.page-banner-content {}
-.page-banner-content h2 {
+
+.page-breadcrumb h2 {
     font-size: 30px;
-    font-weight: 400;
+    font-weight: bold;
+    color: #fff;
     margin-bottom: 15px;
     text-transform: uppercase;
 }
 /*-- Page Breadcrumb --*/
-.page-banner-content .breadcrumb {
+.page-breadcrumb .breadcrumb {
     background-color: transparent;
     margin: 0;
     padding: 0;
 }
-.page-banner-content .breadcrumb li {
-    color: #666;
+.page-breadcrumb .breadcrumb li {
+    color: #fff;
     text-transform: uppercase;
 }
-.page-banner-content .breadcrumb > li + li::before {
-    color: #666;
+.page-breadcrumb .breadcrumb > li + li::before {
+    color: #fff;
 }
-.page-banner-content .breadcrumb li a {}
-.page-banner-content .breadcrumb li:hover a {
-    color: #ffae00;
+.page-breadcrumb .breadcrumb li a {
+    color: #fff;
 }
-.page-banner-content .breadcrumb li.active {
-    color: #ffae00;
+.page-breadcrumb .breadcrumb li:hover a {
+    color: #fff;
+}
+.page-breadcrumb .breadcrumb li.active {
+    color: #fff;
 }
 
 .header-section {
@@ -157,13 +153,7 @@ h6 a {
     position: relative;
     width: 100%;
     z-index: 99999;
-}
-.header-section.stick {
-    -webkit-animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
-    animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
-    background-color: #fff;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
-    position: fixed;
+    height: 140px;
 }
 
 .header-top {
@@ -262,10 +252,21 @@ h6 a {
 .header-top-right{
     float: right;
 }
+.header-bottom{
+    position: relative;
+    width: 100%;
+}
+.header-bottom.stick {
+    -webkit-animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
+    animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
+    background-color: #fff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    top: 0px;
+}
 
-/*-- Header Logo --*/
 .header-logo {
-    padding: 27px 0;
+    padding: 23px 0;
 }
 .header-logo a {
     display: inline-block;
@@ -290,12 +291,12 @@ h6 a {
     display: block;
     font-weight: 500;
     line-height: 20px;
-    padding: 30px 0;
+    padding: 40px 0;
     text-transform: uppercase;
 }
 .main-menu > ul > li:hover > a,
 .main-menu > ul > li.active > a {
-    color: #ffae00;
+    color: #39efdc;
 }
 /*-- Sub Menu --*/
 .sub-menu {
@@ -399,7 +400,7 @@ h6 a {
 .header-option-btns {}
 /*-- Header Search --*/
 .header-search {
-    padding: 25px 10px;
+    padding: 35px 10px;
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
 }
@@ -418,7 +419,7 @@ h6 a {
 }
 /*-- Header Cart --*/
 .header-cart {
-    padding: 25px 0;
+    padding: 35px 0;
     position: relative;
 }
 .header-cart .cart-toggle {

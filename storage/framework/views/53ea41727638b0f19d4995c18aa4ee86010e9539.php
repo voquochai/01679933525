@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 <!-- CRITERIA SECTION START -->
-<section class="criteria-section section ptb-60">
+<section class="criteria-section section ptb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-70">
@@ -19,7 +19,7 @@
 <!-- CRITERIA SECTION END -->
 
 <!-- PRODUCT SECTION START -->
-<section class="product-section section ptb-60">
+<section class="product-section section ptb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-70">
@@ -38,7 +38,7 @@
 <!-- PRODUCT SECTION END -->
 
 <!-- PRICING TABLE SECTION START -->
-<section class="pricing-table-section section ptb-60">
+<section class="pricing-table-section section ptb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -137,28 +137,28 @@
         <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-6">
                 <div class="single-items">
-                    <h2><span class="counter">1247</span>+</h2>
+                    <h2><b data-counter="counterup" data-value="1000">0</b>+</h2>
                     <img src="<?php echo e(asset('public/themes/default/images/fan-fact/fan-fact-1.png')); ?>" alt="fan-fact-icon">
                     <h4>Registared Domains</h4>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6">
                 <div class="single-items">
-                    <h2><span class="counter">879</span>+</h2>
+                    <h2><b data-counter="counterup" data-value="1000">0</b>+</h2>
                     <img src="<?php echo e(asset('public/themes/default/images/fan-fact/fan-fact-2.png')); ?>" alt="fan-fact-icon">
                     <h4>Sites Hosted</h4>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6">
                 <div class="single-items">
-                    <h2><span class="counter">1000</span>+</h2>
+                    <h2><b data-counter="counterup" data-value="1000">0</b>+</h2>
                     <img src="<?php echo e(asset('public/themes/default/images/fan-fact/fan-fact-3.png')); ?>" alt="fan-fact-icon">
                     <h4>Happy Clients</h4>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6">
                 <div class="single-items">
-                    <h2><span class="counter">209</span>+</h2>
+                    <h2><b data-counter="counterup" data-value="1000">0</b>+</h2>
                     <img src="<?php echo e(asset('public/themes/default/images/fan-fact/fan-fact-4.png')); ?>" alt="fan-fact-icon">
                     <h4>Awards Won</h4>
                 </div>

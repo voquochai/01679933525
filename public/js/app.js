@@ -179,6 +179,18 @@ var App = function() {
         }
     }
 
+    // Handles counterup plugin wrapper
+    var handleCounterup = function() {
+        if (!$().counterUp) {
+            return;
+        }
+
+        $("[data-counter='counterup']").counterUp({
+            delay: 5,
+            time: 1500
+        });
+    };
+
     // Places
     var handlePlaces = function(){
 
@@ -496,6 +508,7 @@ var App = function() {
             // Hacks
             handleFixInputPlaceholderForIE(); //IE8 & IE9 input placeholder issue fix
             handleToastr();
+            handleCounterup();
             handlePlaces();
             handleCart();
             handleWishList();
