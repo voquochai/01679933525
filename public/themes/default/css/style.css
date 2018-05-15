@@ -2135,7 +2135,9 @@ a.pricing-btn {
     background-color: #ffae00;
 }
 
-.contact-info {}
+.contact-info {
+    text-align: center;
+}
 .contact-info h3 {
     font-size: 24px;
     font-weight: 500;
@@ -2143,26 +2145,30 @@ a.pricing-btn {
     margin-bottom: 30px;
     text-transform: uppercase;
 }
+.contact-info span{
+    font-size: 35px;
+    width: 64px;
+    height: 64px;
+    background: #5dafef;
+    line-height: 64px;
+    color: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 25px;
+}
 .contact-info p {
-    color: #666;
-    font-size: 14px;
-}
-.contact-info p i {
-    display: block;
-    float: left;
     font-size: 18px;
-    line-height: 26px;
-    margin-bottom: 10px;
-    margin-right: 10px;
+    padding: 0 25px;
+    font-weight: 500;
+    color: #3e445b;
 }
-.contact-info p span {
-    display: block;
-    overflow: hidden;
+.contact-info a {
+    font-size: 18px;
+    font-weight: 500;
+    color: #3e445b;
+    text-decoration: none;
 }
-.contact-info p a {
-    display: block;
-    overflow: hidden;
-}
+
 /*-- Contact SOcial --*/
 .contact-social {
     display: block;
