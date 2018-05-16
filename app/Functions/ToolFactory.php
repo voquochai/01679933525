@@ -33,7 +33,7 @@ class ToolFactory {
                 $data['page_title'] = __('site.product');
                 $data['template'] = "product";
                 break;
-            case "tin-tuc":
+            case "thu-thuat":
                 $data['page_title'] = __('site.news');
                 $data['template'] = "post";
                 break;
@@ -95,7 +95,7 @@ class ToolFactory {
                 if($width <= 0) $width = 300;
                 if($height <= 0) $height = 200;
                 Image::make(public_path($path.'/'.$imageName))
-                    ->resize($width, $height, function ($c) {
+                    ->fit($width, $height, function ($c) {
                         $c->aspectRatio();
                         $c->upsize();
                     })

@@ -1128,15 +1128,17 @@ a.pricing-btn {
   07. Blog Section
 --------------------------------------*/
 .blog-section {}
-.two-column {}
-.two-column > div:nth-child(2n + 1) {
-    clear: both;
-}
 /*-- Blog Item --*/
-.blog-item {}
+.blog-item {
+    text-align: center;
+    margin-bottom: 50px;
+    border-radius: 5px;
+    -webkit-transition: .3s;
+    transition: .3s;
+    overflow: hidden;
+}
 .blog-item .image {
     display: block;
-    margin-bottom: 15px;
     position: relative;
 }
 .blog-item .image::before {
@@ -1172,22 +1174,33 @@ a.pricing-btn {
 .blog-item .image img {
     width: 100%;
 }
-.blog-item .blog-dsc {}
-.blog-item .blog-dsc .date {
-    color: #ffae00;
-    display: block;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-    margin-bottom: 10px;
+.blog-item .blog-dsc {
+    padding: 40px 14px;
+    border: 1px solid#d0e2f4;
+    border-top: 0;
+    margin: 0px 1px;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.blog-item .blog-dsc .meta {
+    color: #c5cdd5;
+    font-size: 12px;
+    display: inline-block;
+    padding: 5px;
 }
 .blog-item .blog-dsc .title {
-    display: block;
-    font-size: 18px;
-    line-height: 28px;
-    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
 }
-.blog-item .blog-dsc .title a {}
+.blog-item .blog-dsc .title a {
+    color: #3e445b;
+}
+.blog-item .blog-dsc p {
+    font-size: 14px;
+    color: #536d87;
+    margin-bottom: 24px;
+    line-height: 25px;
+}
 .blog-item .blog-dsc .author {
     display: block;
     font-size: 14px;
@@ -1199,6 +1212,11 @@ a.pricing-btn {
 .blog-item .blog-dsc .author a:hover {
     color: #ffae00;
 }
+
+.blog-item:hover {
+    box-shadow: 0px 10px 35px 0px rgba(1, 68, 137, 0.1);
+}
+
 /*-- Single Blog Post --*/
 .single-blog-post {}
 .single-blog-post .blog-img {
@@ -2169,40 +2187,31 @@ a.pricing-btn {
     text-decoration: none;
 }
 
-/*-- Contact SOcial --*/
-.contact-social {
-    display: block;
-    float: left;
-    margin-top: 20px;
+/*-- Contact Form --*/
+.contact-form {
+    padding: 80px 30px;
+    box-shadow: 0px 10px 35px 0px rgba(1, 68, 137, 0.1);
+    position: relative;
+    z-index: 10;
+    background: #fff;
     width: 100%;
 }
-.contact-social a {
-    display: block;
-    float: left;
-    margin-right: 15px;
-    padding: 0 3px;
-}
-.contact-social a i {
-    display: block;
-    line-height: 20px;
-}
-.contact-social a:hover {}
-/*-- Contact FOrm --*/
-.contact-form {}
 .contact-form h3 {
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 18px;
-    margin-bottom: 30px;
+    font-size: 36px;
+    color: #3e445b;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
     text-transform: uppercase;
 }
 .contact-form form {}
 .contact-form form label {
     display: block;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: bold;
     line-height: 14px;
     margin-bottom: 10px;
+    color: #536d87;
     text-transform: capitalize;
 }
 .contact-form form input[type="text"],
@@ -2215,7 +2224,7 @@ a.pricing-btn {
 .contact-form form textarea {
     border: 1px solid #ddd;
     display: block;
-    height: 100px;
+    height: 130px;
     padding: 7px 15px;
     width: 100%;
 }
@@ -2232,10 +2241,25 @@ a.pricing-btn {
 .contact-form form input[type="submit"]:hover {
     background-color: #ffae00;
 }
+.contact-form form .btn-ajax{
+    padding: 15px 40px;
+    background: #5dafef;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: 14px;
+    display: inline-block;
+    color: #fff;
+    border: 0px;
+    text-transform: uppercase;
+    outline: 0;
+    box-shadow: none;
+}
 /*-- Contact Map --*/
 #contact-map {
-    height: 400px;
+    height: 800px;
     width: 100%;
+    margin-top: -150px;
 }
 /* -----------------------------------
   16. Comment Style

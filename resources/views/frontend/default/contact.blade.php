@@ -1,7 +1,7 @@
 @extends('frontend.default.master')
 @section('content')
 <!-- PAGE SECTION START -->
-<section class="page-section section ptb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+<section class="page-section section pt-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row contact-info ">
             <div class="col-md-4 col-xs-6 col-xs-wide mb-40">
@@ -36,46 +36,50 @@
                 <h3>{{ __('site.contact_form') }}</h3>
                 <form id="contact-form" action="mail.php#" method="post">
                     <div class="row">
-                        <div class="col-sm-6 col-xs-12 mb-20">
-                            <label for="name">{{ __('site.name') }}</label>
-                            <input id="name" name="name" type="text">
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="name">{{ __('site.name') }}</label>
+                                <input id="name" name="name" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">{{ __('site.subject') }}</label>
+                                <input id="subject" name="subject" type="text">
+                            </div>
                         </div>
-                        <div class="col-sm-6 col-xs-12 mb-20">
-                            <label for="email">Email</label>
-                            <input id="email" name="email" type="email">
-                        </div>
-                        <div class="col-sm-12 col-xs-12 mb-20">
-                            <label for="subject">{{ __('site.subject') }}</label>
-                            <input id="subject" name="subject" type="text">
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <label for="message">{{ __('site.message') }}</label>
-                            <textarea name="message" id="message"></textarea>
-                        </div>
-                        <div class="col-xs-12">
-                            <button type="submit" class="btn btn-primary btn-ajax" data-ajax="act=contact|type=contact"> {{ __('site.send') }} </button>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="message">{{ __('site.message') }}</label>
+                                <textarea name="message" id="message"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-ajax" data-ajax="act=contact|type=contact"> {{ __('site.send') }} </button>
+                            </div>
                         </div>
                     </div>
                 </form>
                 <p class="form-messege"></p>
             </div>
         </div>
-        <div class="row contact-map">
-            <div class="col-xs-12 mt-40">
-                <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
-                {{--<input id="destination-input" class="controls" type="text" placeholder="Enter a destination location">--}}
-                <div id="mode-selector" class="controls">
-                    <input type="radio" name="type" id="changemode-walking" checked="checked">
-                    <label for="changemode-walking">Walking</label>
+    </div>
+    <div class="contact-map">
+        <div>
+            <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
+            {{--<input id="destination-input" class="controls" type="text" placeholder="Enter a destination location">--}}
+            <div id="mode-selector" class="controls">
+                <input type="radio" name="type" id="changemode-walking" checked="checked">
+                <label for="changemode-walking">Walking</label>
 
-                    <input type="radio" name="type" id="changemode-transit">
-                    <label for="changemode-transit">Transit</label>
+                <input type="radio" name="type" id="changemode-transit">
+                <label for="changemode-transit">Transit</label>
 
-                    <input type="radio" name="type" id="changemode-driving">
-                    <label for="changemode-driving">Driving</label>
-                </div>
-                <div id="contact-map"></div>
+                <input type="radio" name="type" id="changemode-driving">
+                <label for="changemode-driving">Driving</label>
             </div>
+            <div id="contact-map"></div>
         </div>
     </div>
 </section>
@@ -112,7 +116,8 @@ if(@config('settings.google_coordinates')){
         var map = new google.maps.Map(document.getElementById('contact-map'), {
             mapTypeControl: false,
             center: coordinates,
-            zoom: 13
+            zoom: 13,
+            scrollwheel: false,
         });
         var marker = new google.maps.Marker({
             position: coordinates,

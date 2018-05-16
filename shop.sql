@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 11, 2018 lúc 07:01 PM
--- Phiên bản máy phục vụ: 10.1.30-MariaDB
--- Phiên bản PHP: 5.6.33
+-- Host: 127.0.0.1
+-- Generation Time: May 16, 2018 at 03:58 PM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 7.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `shop`
+-- Database: `shop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attributes`
+-- Table structure for table `attributes`
 --
 
 CREATE TABLE `attributes` (
@@ -42,7 +40,7 @@ CREATE TABLE `attributes` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `attribute_languages`
+-- Table structure for table `attribute_languages`
 --
 
 CREATE TABLE `attribute_languages` (
@@ -56,7 +54,7 @@ CREATE TABLE `attribute_languages` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
@@ -74,7 +72,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`id`, `parent`, `image`, `alt`, `icon`, `priority`, `status`, `type`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -83,7 +81,7 @@ INSERT INTO `categories` (`id`, `parent`, `image`, `alt`, `icon`, `priority`, `s
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `category_languages`
+-- Table structure for table `category_languages`
 --
 
 CREATE TABLE `category_languages` (
@@ -98,7 +96,7 @@ CREATE TABLE `category_languages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `category_languages`
+-- Dumping data for table `category_languages`
 --
 
 INSERT INTO `category_languages` (`id`, `title`, `slug`, `description`, `contents`, `meta_seo`, `language`, `category_id`) VALUES
@@ -108,7 +106,7 @@ INSERT INTO `category_languages` (`id`, `title`, `slug`, `description`, `content
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -134,7 +132,7 @@ CREATE TABLE `comments` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `coupons`
+-- Table structure for table `coupons`
 --
 
 CREATE TABLE `coupons` (
@@ -161,7 +159,7 @@ CREATE TABLE `coupons` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `groups`
+-- Table structure for table `groups`
 --
 
 CREATE TABLE `groups` (
@@ -179,7 +177,7 @@ CREATE TABLE `groups` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `jobs`
+-- Table structure for table `jobs`
 --
 
 CREATE TABLE `jobs` (
@@ -195,7 +193,7 @@ CREATE TABLE `jobs` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `links`
+-- Table structure for table `links`
 --
 
 CREATE TABLE `links` (
@@ -220,7 +218,7 @@ CREATE TABLE `links` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `link_languages`
+-- Table structure for table `link_languages`
 --
 
 CREATE TABLE `link_languages` (
@@ -234,7 +232,7 @@ CREATE TABLE `link_languages` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `media_libraries`
+-- Table structure for table `media_libraries`
 --
 
 CREATE TABLE `media_libraries` (
@@ -256,7 +254,7 @@ CREATE TABLE `media_libraries` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `members`
+-- Table structure for table `members`
 --
 
 CREATE TABLE `members` (
@@ -276,7 +274,7 @@ CREATE TABLE `members` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `members`
+-- Dumping data for table `members`
 --
 
 INSERT INTO `members` (`id`, `username`, `password`, `name`, `phone`, `email`, `address`, `image`, `priority`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -285,7 +283,7 @@ INSERT INTO `members` (`id`, `username`, `password`, `name`, `phone`, `email`, `
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `member_password_resets`
+-- Table structure for table `member_password_resets`
 --
 
 CREATE TABLE `member_password_resets` (
@@ -297,7 +295,7 @@ CREATE TABLE `member_password_resets` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -307,7 +305,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -349,7 +347,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
@@ -389,7 +387,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `pages`
+-- Table structure for table `pages`
 --
 
 CREATE TABLE `pages` (
@@ -407,7 +405,7 @@ CREATE TABLE `pages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `pages`
+-- Dumping data for table `pages`
 --
 
 INSERT INTO `pages` (`id`, `link`, `image`, `alt`, `priority`, `status`, `type`, `viewed`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -420,7 +418,7 @@ INSERT INTO `pages` (`id`, `link`, `image`, `alt`, `priority`, `status`, `type`,
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `page_languages`
+-- Table structure for table `page_languages`
 --
 
 CREATE TABLE `page_languages` (
@@ -435,7 +433,7 @@ CREATE TABLE `page_languages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `page_languages`
+-- Dumping data for table `page_languages`
 --
 
 INSERT INTO `page_languages` (`id`, `title`, `slug`, `description`, `contents`, `meta_seo`, `language`, `page_id`) VALUES
@@ -447,13 +445,13 @@ INSERT INTO `page_languages` (`id`, `title`, `slug`, `description`, `contents`, 
 (6, 'Liên hệ', 'lien-he', NULL, NULL, NULL, 'en', 3),
 (7, 'Footer', 'footer', NULL, '<p>Lorem ipsum dolor sit amet, consec tetura adipisicing elit, sed temporia incididunt.</p>', NULL, 'vi', 4),
 (8, 'Footer', 'footer', NULL, NULL, NULL, 'en', 4),
-(9, 'Trang chủ', 'trang-chu', NULL, NULL, '{\"title\":\"Trang ch\\u1ee7\",\"keywords\":null,\"description\":null}', 'vi', 5),
-(10, 'Trang chủ', 'trang-chu', NULL, NULL, '{\"title\":null,\"keywords\":null,\"description\":null}', 'en', 5);
+(9, 'Trang chủ', 'trang-chu', NULL, NULL, '{"title":"Trang ch\\u1ee7","keywords":null,"description":null}', 'vi', 5),
+(10, 'Trang chủ', 'trang-chu', NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'en', 5);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -465,7 +463,7 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permissions`
+-- Table structure for table `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -482,7 +480,7 @@ CREATE TABLE `permissions` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `permission_role`
+-- Table structure for table `permission_role`
 --
 
 CREATE TABLE `permission_role` (
@@ -493,7 +491,7 @@ CREATE TABLE `permission_role` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `photos`
+-- Table structure for table `photos`
 --
 
 CREATE TABLE `photos` (
@@ -512,7 +510,7 @@ CREATE TABLE `photos` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `photo_languages`
+-- Table structure for table `photo_languages`
 --
 
 CREATE TABLE `photo_languages` (
@@ -526,7 +524,7 @@ CREATE TABLE `photo_languages` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -547,7 +545,7 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `link`, `image`, `alt`, `attachments`, `priority`, `status`, `category_id`, `user_id`, `type`, `viewed`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -581,12 +579,15 @@ INSERT INTO `posts` (`id`, `link`, `image`, `alt`, `attachments`, `priority`, `s
 (28, NULL, NULL, NULL, NULL, 1, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:58:40', '2018-05-11 16:58:40'),
 (29, NULL, NULL, NULL, NULL, 2, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:58:51', '2018-05-11 16:58:51'),
 (30, NULL, NULL, NULL, NULL, 3, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:59:02', '2018-05-11 16:59:02'),
-(31, NULL, NULL, NULL, NULL, 4, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:59:09', '2018-05-11 16:59:09');
+(31, NULL, NULL, NULL, NULL, 4, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:59:09', '2018-05-11 16:59:09'),
+(32, NULL, '2018-05/sign-in-up-form.png', NULL, '', 1, 'publish', 1, 1, 'thu-thuat', 0, NULL, '2018-05-16 13:34:37', '2018-05-16 13:52:46'),
+(33, NULL, '2018-05/chrismas-button.png', NULL, '', 2, 'publish', 1, 1, 'thu-thuat', 0, NULL, '2018-05-16 13:35:09', '2018-05-16 13:52:51'),
+(34, NULL, '2018-05/full-screen-navigation.png', NULL, '', 3, 'publish', 1, 1, 'thu-thuat', 0, NULL, '2018-05-16 13:40:31', '2018-05-16 13:52:56');
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `post_attribute`
+-- Table structure for table `post_attribute`
 --
 
 CREATE TABLE `post_attribute` (
@@ -599,7 +600,7 @@ CREATE TABLE `post_attribute` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `post_languages`
+-- Table structure for table `post_languages`
 --
 
 CREATE TABLE `post_languages` (
@@ -615,52 +616,52 @@ CREATE TABLE `post_languages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `post_languages`
+-- Dumping data for table `post_languages`
 --
 
 INSERT INTO `post_languages` (`id`, `title`, `slug`, `description`, `contents`, `attributes`, `meta_seo`, `language`, `post_id`) VALUES
-(1, 'Prof. Burnice Kohler Jr.', 'prof-burnice-kohler-jr', 'Nihil voluptas sint facilis non ipsam. Sit autem ducimus aperiam iure nam architecto et. Et eum quis molestiae dolores maiores voluptas iusto. Nobis perferendis ad sit blanditiis similique.', 'Quia maxime rem tempora voluptas. Eos et illo totam eum. Ipsa id consequatur molestiae perspiciatis deserunt.', NULL, '{\"title\":\"Prof. Burnice Kohler Jr.\",\"keywords\":\"Prof. Burnice Kohler Jr.\",\"description\":\"Prof. Burnice Kohler Jr.\"}', 'vi', 1),
-(2, 'Lonie Brown', 'lonie-brown', 'Iusto rerum nihil suscipit eveniet suscipit repudiandae nostrum minus. Harum et aut sint quia mollitia et. Reprehenderit soluta porro voluptas. Quia delectus maxime beatae quibusdam.', 'Error iusto quis aliquam. Quis ea nihil suscipit et qui tempora molestiae. Sed quia nam dolores id. Deserunt reiciendis minus voluptatem corrupti error explicabo est.', NULL, '{\"title\":\"Lonie Brown\",\"keywords\":\"Lonie Brown\",\"description\":\"Lonie Brown\"}', 'en', 1),
-(3, 'Rey Rice', 'rey-rice', 'Eos adipisci vero qui. Quis ut magnam quisquam enim a aspernatur. Laborum earum temporibus occaecati id asperiores non.', 'Cupiditate et vel eum inventore sequi fuga repellat aperiam. Dicta animi et aut. Est modi eum illum alias dicta.', NULL, '{\"title\":\"Rey Rice\",\"keywords\":\"Rey Rice\",\"description\":\"Rey Rice\"}', 'vi', 2),
-(4, 'Jody Zulauf', 'jody-zulauf', 'Sapiente maiores qui non. Ratione maxime ipsa nulla tenetur. Aut quo modi repellat non soluta consequuntur omnis quia.', 'Quisquam tenetur dolor tempora dolor et perferendis. Quos et autem voluptatem commodi ex. Eligendi nihil nam accusantium quo.', NULL, '{\"title\":\"Jody Zulauf\",\"keywords\":\"Jody Zulauf\",\"description\":\"Jody Zulauf\"}', 'en', 2),
-(5, 'Ms. Teresa Paucek DVM', 'ms-teresa-paucek-dvm', 'Aperiam labore commodi iure consequatur excepturi nulla sapiente. Voluptate quo nisi dolores odit.', 'Similique occaecati odit cum error repellat molestiae. Qui sit minus corporis error. Qui maxime sed ratione numquam asperiores porro nostrum ea. Voluptas expedita quia animi illo harum.', NULL, '{\"title\":\"Ms. Teresa Paucek DVM\",\"keywords\":\"Ms. Teresa Paucek DVM\",\"description\":\"Ms. Teresa Paucek DVM\"}', 'vi', 3),
-(6, 'Yolanda Homenick', 'yolanda-homenick', 'Porro quia molestiae itaque totam asperiores. Eligendi doloremque voluptatibus vero perferendis molestiae voluptatem ut. Necessitatibus sapiente beatae ea qui.', 'Sed ratione quas et aliquid dolores. Fugiat temporibus dolorum reprehenderit voluptas facere fugit. Doloribus magni ut nemo aut recusandae. Expedita dolores saepe et assumenda.', NULL, '{\"title\":\"Yolanda Homenick\",\"keywords\":\"Yolanda Homenick\",\"description\":\"Yolanda Homenick\"}', 'en', 3),
-(7, 'Esperanza Goodwin', 'esperanza-goodwin', 'Quia veniam molestiae inventore ipsam repudiandae molestiae quis. Inventore qui ut voluptates earum nostrum velit. Neque qui asperiores sed laborum. Pariatur sit sed error.', 'Est neque ipsa deserunt reiciendis quae. Voluptas aperiam magni sapiente. Laudantium voluptatum velit voluptatem laudantium.', NULL, '{\"title\":\"Esperanza Goodwin\",\"keywords\":\"Esperanza Goodwin\",\"description\":\"Esperanza Goodwin\"}', 'vi', 4),
-(8, 'Dr. Ignatius Ondricka', 'dr-ignatius-ondricka', 'Numquam possimus quidem corrupti ut odit doloribus. Molestias qui aut sed voluptatem atque tenetur dicta ut. Architecto at et nobis doloribus ea et. Aut molestiae illum omnis facilis.', 'A praesentium accusantium et vel delectus voluptatum. Et porro dolorem fuga illum modi. Dolorem minima tempora nihil voluptatum ipsam quae.', NULL, '{\"title\":\"Dr. Ignatius Ondricka\",\"keywords\":\"Dr. Ignatius Ondricka\",\"description\":\"Dr. Ignatius Ondricka\"}', 'en', 4),
-(9, 'Alva Johnson', 'alva-johnson', 'Assumenda enim qui itaque vero quae inventore praesentium nesciunt. Ipsam non aut nemo pariatur assumenda et. Harum expedita porro nostrum quo consectetur iusto.', 'Dolores quam id ut ad. Et labore laborum architecto aperiam distinctio dolorem quae id. Vel ipsum qui quis assumenda. Et qui et sed quidem non.', NULL, '{\"title\":\"Alva Johnson\",\"keywords\":\"Alva Johnson\",\"description\":\"Alva Johnson\"}', 'vi', 5),
-(10, 'Destiny Kshlerin', 'destiny-kshlerin', 'Dolorem sit et delectus quae et aliquam. Ipsam at dicta consequuntur perferendis iusto quasi magni culpa. Cumque sequi accusantium dolorem animi ullam aut assumenda dolores.', 'Quae ut et exercitationem optio est porro pariatur. Similique consectetur et recusandae inventore ea. Vitae dicta sunt aut et ab. Deserunt velit perspiciatis similique ut.', NULL, '{\"title\":\"Destiny Kshlerin\",\"keywords\":\"Destiny Kshlerin\",\"description\":\"Destiny Kshlerin\"}', 'en', 5),
-(11, 'Katlyn Auer', 'katlyn-auer', 'Nulla debitis et et est animi autem nihil. Ut tenetur fugit ipsam facilis mollitia non. Sit ullam earum velit nihil ut sapiente.', 'Sint itaque hic neque ea qui dolor consequatur. Officia et placeat est sequi iste. Reprehenderit illum ea soluta unde architecto rerum ducimus. Veniam voluptas quos dolorem a facere. Et quisquam magni odio nihil occaecati nobis animi.', NULL, '{\"title\":\"Katlyn Auer\",\"keywords\":\"Katlyn Auer\",\"description\":\"Katlyn Auer\"}', 'vi', 6),
-(12, 'Mya Jakubowski Sr.', 'mya-jakubowski-sr', 'Occaecati veniam ut repudiandae earum a fugit. Exercitationem non ut dolor ratione temporibus. Ut non at nesciunt ex nemo suscipit provident.', 'Ratione ipsam ipsa qui aperiam earum. Magni perferendis maxime et similique. Architecto voluptates ut sunt dicta. Ipsa earum dolores laboriosam possimus voluptas sint sint quam. Corrupti voluptas magni odio sed in atque.', NULL, '{\"title\":\"Mya Jakubowski Sr.\",\"keywords\":\"Mya Jakubowski Sr.\",\"description\":\"Mya Jakubowski Sr.\"}', 'en', 6),
-(13, 'Dariana Abshire DVM', 'dariana-abshire-dvm', 'Ut nemo rerum ullam sunt. Voluptatibus voluptatibus et magnam enim omnis. Natus voluptate molestiae nemo est totam non beatae.', 'Delectus delectus laboriosam quisquam qui sint dolores. Excepturi non adipisci est quam velit. Similique ex qui consequatur recusandae quisquam magnam quasi doloremque. Cumque similique natus ab aut voluptas accusamus voluptatem sunt.', NULL, '{\"title\":\"Dariana Abshire DVM\",\"keywords\":\"Dariana Abshire DVM\",\"description\":\"Dariana Abshire DVM\"}', 'vi', 7),
-(14, 'Stefanie Corkery', 'stefanie-corkery', 'Soluta nostrum quae ea fugit libero rem et. Odit provident quo cum. Quibusdam a delectus aut placeat nisi vel quia. Minus in iusto similique voluptas.', 'Delectus et accusamus eum qui. Nulla dicta odit quibusdam non iure. Molestiae ea aspernatur illo ratione et provident quis. Quisquam illum in facilis quae sint.', NULL, '{\"title\":\"Stefanie Corkery\",\"keywords\":\"Stefanie Corkery\",\"description\":\"Stefanie Corkery\"}', 'en', 7),
-(15, 'Prof. Mariam Thiel', 'prof-mariam-thiel', 'Eveniet quidem culpa vero harum sapiente pariatur ut. Molestiae cumque rerum ratione in corrupti nesciunt maiores. Neque vel itaque labore nihil architecto quae repudiandae.', 'Aut veritatis necessitatibus veritatis enim optio sunt. Molestias ea quisquam sint. Aliquid aut enim aut saepe.', NULL, '{\"title\":\"Prof. Mariam Thiel\",\"keywords\":\"Prof. Mariam Thiel\",\"description\":\"Prof. Mariam Thiel\"}', 'vi', 8),
-(16, 'Prof. Ephraim Davis', 'prof-ephraim-davis', 'Maiores voluptas laboriosam quia praesentium. Quia aliquid veritatis et quasi provident. Numquam tempora perferendis quo facilis dolorem est id.', 'Eligendi ipsa dicta necessitatibus ex totam. Dolores aut et totam nulla qui aut fugit aliquam. Aut neque id omnis totam et ut. Distinctio dolor voluptatem eum maxime velit fugiat dolore. Aut dolor et sit ea ratione.', NULL, '{\"title\":\"Prof. Ephraim Davis\",\"keywords\":\"Prof. Ephraim Davis\",\"description\":\"Prof. Ephraim Davis\"}', 'en', 8),
-(17, 'Yvonne Harber', 'yvonne-harber', 'Enim qui praesentium architecto ea unde distinctio. Modi dolor excepturi aperiam dolorum vel fugit consequatur.', 'Minus qui ipsa officiis assumenda ipsum culpa aut odio. Veniam occaecati rem itaque sapiente aut similique. Dignissimos quam optio fugiat impedit repudiandae sequi. Quo nihil aut vel vel dicta.', NULL, '{\"title\":\"Yvonne Harber\",\"keywords\":\"Yvonne Harber\",\"description\":\"Yvonne Harber\"}', 'vi', 9),
-(18, 'Amber Armstrong', 'amber-armstrong', 'Soluta autem quis earum sequi porro aperiam aut. Occaecati laboriosam illo doloremque corporis illum omnis. Unde sint voluptas necessitatibus enim.', 'Cupiditate aut sit libero nisi corporis. Quasi temporibus quis officia et sed sint. Et unde distinctio nihil et ut.', NULL, '{\"title\":\"Amber Armstrong\",\"keywords\":\"Amber Armstrong\",\"description\":\"Amber Armstrong\"}', 'en', 9),
-(19, 'Garrison Steuber', 'garrison-steuber', 'Explicabo laudantium et voluptatibus sit ea ex nemo sit. Veritatis rerum facilis autem quod et voluptates. Vero unde explicabo fugiat est rerum. Sit quod veritatis nobis eius animi officiis.', 'Nesciunt et natus veniam rerum neque sequi corporis molestiae. Sunt voluptatem sequi aliquid aut accusantium voluptatem saepe.', NULL, '{\"title\":\"Garrison Steuber\",\"keywords\":\"Garrison Steuber\",\"description\":\"Garrison Steuber\"}', 'vi', 10),
-(20, 'Meaghan Rau', 'meaghan-rau', 'Est perferendis facilis illum non eos. Suscipit occaecati eum hic autem. Error facere distinctio quia sit eius. Quibusdam sint consequatur magnam et amet. Sed enim quia et odio.', 'Quae eveniet iure reprehenderit illum. Accusantium asperiores repellat reiciendis odio est est nostrum. Velit enim molestiae qui laudantium a eveniet corporis.', NULL, '{\"title\":\"Meaghan Rau\",\"keywords\":\"Meaghan Rau\",\"description\":\"Meaghan Rau\"}', 'en', 10),
-(21, 'Shannon Medhurst', 'shannon-medhurst', 'Velit saepe odit ratione deserunt. Sequi vero dolorum veniam ratione aut. Provident sunt velit laborum in laboriosam neque sapiente. Autem iure molestias accusantium reiciendis.', 'Ut excepturi ipsum officia aspernatur sunt error enim porro. Rem unde qui qui. Quo reiciendis ipsa dolores ipsam odio corporis.', NULL, '{\"title\":\"Shannon Medhurst\",\"keywords\":\"Shannon Medhurst\",\"description\":\"Shannon Medhurst\"}', 'vi', 11),
-(22, 'Israel Smith', 'israel-smith', 'Rerum ex consequatur quisquam non aut voluptas laboriosam magni. Labore earum reiciendis dolorem maiores. Eligendi suscipit et ab sint magni aut.', 'Ea quam dolorum magni enim. Sint impedit distinctio voluptatum velit voluptatibus et. Totam corporis numquam magni et adipisci.', NULL, '{\"title\":\"Israel Smith\",\"keywords\":\"Israel Smith\",\"description\":\"Israel Smith\"}', 'en', 11),
-(23, 'Brody Reilly', 'brody-reilly', 'Et esse enim consequatur dolore et. Officiis ad odio amet vitae. Repudiandae ullam ipsum qui et in. Maxime voluptas quisquam rerum incidunt voluptatem.', 'Quia aut sed ut est iusto. Voluptatum natus est voluptatem nobis esse quia.', NULL, '{\"title\":\"Brody Reilly\",\"keywords\":\"Brody Reilly\",\"description\":\"Brody Reilly\"}', 'vi', 12),
-(24, 'Dr. Tanner Stamm', 'dr-tanner-stamm', 'Sint facere ratione atque minus. Voluptate et natus et non blanditiis est. Provident architecto repellendus est unde sunt.', 'Ipsum veniam velit qui eum. Et non aut cumque nam dicta nostrum quia reiciendis. Fugiat explicabo accusantium iste ipsa aut eveniet aut nisi.', NULL, '{\"title\":\"Dr. Tanner Stamm\",\"keywords\":\"Dr. Tanner Stamm\",\"description\":\"Dr. Tanner Stamm\"}', 'en', 12),
-(25, 'Alberto Langosh', 'alberto-langosh', 'Repudiandae vel distinctio est qui maxime veniam quia. Omnis blanditiis aut quia sit perspiciatis.', 'Explicabo omnis voluptatem ipsa enim cum animi voluptas hic. Ut corrupti et atque qui. Inventore quos magni eum quia sit enim. Voluptatem repudiandae at neque sint quia voluptas rerum repellat.', NULL, '{\"title\":\"Alberto Langosh\",\"keywords\":\"Alberto Langosh\",\"description\":\"Alberto Langosh\"}', 'vi', 13),
-(26, 'Roslyn Smith', 'roslyn-smith', 'Voluptatibus doloremque omnis at est officia maiores. Ex ratione iste voluptatem animi. Hic veniam ut et quibusdam dolore possimus. Esse placeat illo aut eum.', 'Qui consequuntur eaque et dolorem dicta aut facilis. Sit nostrum ullam sunt natus error.', NULL, '{\"title\":\"Roslyn Smith\",\"keywords\":\"Roslyn Smith\",\"description\":\"Roslyn Smith\"}', 'en', 13),
-(27, 'Dr. Lelia Nicolas', 'dr-lelia-nicolas', 'Reprehenderit sit rerum sapiente quod dolor quasi. Delectus omnis odio repellendus molestiae quisquam eos laudantium. Velit quisquam tenetur et voluptatum omnis.', 'Voluptas nemo assumenda et assumenda voluptatem quod aut. Eaque repudiandae laborum occaecati provident. Quam culpa nihil laudantium pariatur non accusantium. Incidunt et voluptas aliquam quia dicta.', NULL, '{\"title\":\"Dr. Lelia Nicolas\",\"keywords\":\"Dr. Lelia Nicolas\",\"description\":\"Dr. Lelia Nicolas\"}', 'vi', 14),
-(28, 'Aniyah Tremblay', 'aniyah-tremblay', 'Nisi perspiciatis sed pariatur ipsam nihil. Animi ex quos iure voluptatem.', 'Quia nulla aut reiciendis ad eius dolorum. Dolores quasi quia quae dolorem. Veritatis est sapiente unde voluptatem perferendis non sunt. Placeat dignissimos voluptates maiores illum vero.', NULL, '{\"title\":\"Aniyah Tremblay\",\"keywords\":\"Aniyah Tremblay\",\"description\":\"Aniyah Tremblay\"}', 'en', 14),
-(29, 'Mr. Marty Schuster', 'mr-marty-schuster', 'Debitis sapiente natus quia alias omnis. Dolor quia illum minus repellendus sed nam quas. Ut et aspernatur dolores consequatur et necessitatibus. Debitis cupiditate qui et iure ea.', 'Optio accusamus et ducimus atque accusamus rerum. Sint natus voluptates vitae in tenetur sunt beatae dicta. Voluptas doloremque est quia sit minus. Molestiae libero ut alias quod mollitia nam et.', NULL, '{\"title\":\"Mr. Marty Schuster\",\"keywords\":\"Mr. Marty Schuster\",\"description\":\"Mr. Marty Schuster\"}', 'vi', 15),
-(30, 'Mrs. Mozelle Orn', 'mrs-mozelle-orn', 'Laboriosam iusto temporibus enim culpa id. Omnis vero optio est est. Odit quis et voluptatem optio est dignissimos. Ea neque blanditiis harum aliquam. Commodi officia tenetur vitae aliquid qui.', 'Cupiditate suscipit sed voluptas repellat placeat. Nobis eius odio voluptatem possimus sint tenetur ut voluptatem.', NULL, '{\"title\":\"Mrs. Mozelle Orn\",\"keywords\":\"Mrs. Mozelle Orn\",\"description\":\"Mrs. Mozelle Orn\"}', 'en', 15),
-(31, 'Urban Russel', 'urban-russel', 'Nostrum et est excepturi illum recusandae modi quia. Non blanditiis ea nesciunt dolore. Adipisci nesciunt est qui nesciunt non sint. Voluptatem est iste odit aspernatur velit aut omnis.', 'Voluptates fuga minus magni soluta veniam reiciendis provident. Ut dicta sit in sint nesciunt. Eligendi deleniti in et culpa nesciunt omnis. Nesciunt quia qui autem alias mollitia quia quis. Dolore cum omnis facere odio.', NULL, '{\"title\":\"Urban Russel\",\"keywords\":\"Urban Russel\",\"description\":\"Urban Russel\"}', 'vi', 16),
-(32, 'Jayden Bauch IV', 'jayden-bauch-iv', 'Numquam ut et non voluptas aut. Cupiditate autem iste possimus enim. Consectetur consequuntur quaerat fuga excepturi voluptas unde.', 'Aperiam delectus accusamus ad rerum nam ab. Inventore et deleniti nobis. Aperiam dolorum architecto doloremque vitae enim.', NULL, '{\"title\":\"Jayden Bauch IV\",\"keywords\":\"Jayden Bauch IV\",\"description\":\"Jayden Bauch IV\"}', 'en', 16),
-(33, 'Noel Brakus', 'noel-brakus', 'Officia molestiae et animi nihil fugit. Consequuntur voluptatem doloribus unde ad at fuga. Officia ut hic aut suscipit non tenetur. Odit sequi officia nobis.', 'Quo laboriosam repudiandae ut at consectetur. Id deleniti suscipit beatae dolor. Doloremque deserunt quaerat aut est possimus. Cum vel itaque sit autem pariatur eos consequatur. Et praesentium dolorem ratione.', NULL, '{\"title\":\"Noel Brakus\",\"keywords\":\"Noel Brakus\",\"description\":\"Noel Brakus\"}', 'vi', 17),
-(34, 'Kirk Wyman', 'kirk-wyman', 'Perspiciatis dolores adipisci et porro consequatur et voluptatem. Possimus praesentium et sit ea est velit quae. Beatae et quibusdam placeat aut perferendis eum eaque.', 'Ut ut culpa necessitatibus quibusdam quae. Libero deleniti adipisci numquam nihil et ullam. Ipsam consectetur architecto qui cupiditate hic consectetur. Blanditiis inventore voluptatem molestiae animi nostrum.', NULL, '{\"title\":\"Kirk Wyman\",\"keywords\":\"Kirk Wyman\",\"description\":\"Kirk Wyman\"}', 'en', 17),
-(35, 'Maye Schneider', 'maye-schneider', 'Nesciunt est autem nihil maiores consequatur. Libero accusamus praesentium quia atque dolor. Eos qui explicabo non iure odio vel in.', 'Quis numquam nisi repellat facere qui ducimus. Sit distinctio vitae ut tempora. Quaerat quo et fugiat qui. Modi quis reprehenderit nisi ab facilis voluptas.', NULL, '{\"title\":\"Maye Schneider\",\"keywords\":\"Maye Schneider\",\"description\":\"Maye Schneider\"}', 'vi', 18),
-(36, 'Mrs. Mozelle Erdman DVM', 'mrs-mozelle-erdman-dvm', 'Aliquid id et possimus quas sed atque. Delectus nihil illo magnam qui molestiae culpa. Harum nostrum necessitatibus vel numquam quo id aut sunt. Molestias aut perferendis necessitatibus iusto.', 'Quae illum sint dicta quaerat nemo. Quo et enim odit cumque quibusdam ut voluptas. Est dolores sunt sapiente eius sed veritatis.', NULL, '{\"title\":\"Mrs. Mozelle Erdman DVM\",\"keywords\":\"Mrs. Mozelle Erdman DVM\",\"description\":\"Mrs. Mozelle Erdman DVM\"}', 'en', 18),
-(37, 'Prof. Roger Rau PhD', 'prof-roger-rau-phd', 'Totam omnis dolor quod modi eius velit modi. Fugiat aperiam dolore nihil vel omnis. Aliquid non a quo et dolor.', 'Soluta corporis necessitatibus et iste et omnis quia. Aperiam cupiditate facere quia beatae. Quae ipsam dolorum reprehenderit quisquam et quisquam.', NULL, '{\"title\":\"Prof. Roger Rau PhD\",\"keywords\":\"Prof. Roger Rau PhD\",\"description\":\"Prof. Roger Rau PhD\"}', 'vi', 19),
-(38, 'Forest Hegmann IV', 'forest-hegmann-iv', 'Accusamus recusandae inventore a sunt quas recusandae non. Repellendus aliquam est illum vero est. Tenetur deleniti accusantium vero rerum modi cum nihil.', 'Pariatur atque rerum quos. Qui eum accusantium quisquam est cumque et velit. Ea odit molestiae quis nobis aut suscipit dicta.', NULL, '{\"title\":\"Forest Hegmann IV\",\"keywords\":\"Forest Hegmann IV\",\"description\":\"Forest Hegmann IV\"}', 'en', 19),
-(39, 'Claude Schoen', 'claude-schoen', 'Temporibus et a tempore odit ullam repudiandae. Maxime totam magni architecto vero est odio omnis. Sit aut ipsa voluptatum omnis. Est dicta voluptas et maiores corporis rem voluptas.', 'Cupiditate qui natus porro et. Veritatis quos modi perferendis saepe dolores molestiae quis.', NULL, '{\"title\":\"Claude Schoen\",\"keywords\":\"Claude Schoen\",\"description\":\"Claude Schoen\"}', 'vi', 20),
-(40, 'Prof. Halle Yost', 'prof-halle-yost', 'Suscipit natus et aut iure optio molestiae. Unde sint est aut assumenda. Commodi eum possimus et. Voluptatem et numquam architecto consequatur voluptatem exercitationem in.', 'Dolor consequatur est optio. In numquam voluptatem est est voluptas. Iste assumenda facilis earum et voluptatem. Ut dolor aut repudiandae molestiae amet et.', NULL, '{\"title\":\"Prof. Halle Yost\",\"keywords\":\"Prof. Halle Yost\",\"description\":\"Prof. Halle Yost\"}', 'en', 20),
-(41, 'Giao diện chuẩn Laptop - Mobile', 'giao-dien-chuan-laptop-mobile', 'Lorem ipsum dolor sittem ametam ngcing elit, per sed do eiusmoad teimpor inunt ut segad do eiusmod.', NULL, NULL, '{\"title\":null,\"keywords\":null,\"description\":null}', 'vi', 21),
-(42, NULL, 'giao-dien-chuan-laptop-mobile', NULL, NULL, NULL, '{\"title\":null,\"keywords\":null,\"description\":null}', 'en', 21),
+(1, 'Prof. Burnice Kohler Jr.', 'prof-burnice-kohler-jr', 'Nihil voluptas sint facilis non ipsam. Sit autem ducimus aperiam iure nam architecto et. Et eum quis molestiae dolores maiores voluptas iusto. Nobis perferendis ad sit blanditiis similique.', 'Quia maxime rem tempora voluptas. Eos et illo totam eum. Ipsa id consequatur molestiae perspiciatis deserunt.', NULL, '{"title":"Prof. Burnice Kohler Jr.","keywords":"Prof. Burnice Kohler Jr.","description":"Prof. Burnice Kohler Jr."}', 'vi', 1),
+(2, 'Lonie Brown', 'lonie-brown', 'Iusto rerum nihil suscipit eveniet suscipit repudiandae nostrum minus. Harum et aut sint quia mollitia et. Reprehenderit soluta porro voluptas. Quia delectus maxime beatae quibusdam.', 'Error iusto quis aliquam. Quis ea nihil suscipit et qui tempora molestiae. Sed quia nam dolores id. Deserunt reiciendis minus voluptatem corrupti error explicabo est.', NULL, '{"title":"Lonie Brown","keywords":"Lonie Brown","description":"Lonie Brown"}', 'en', 1),
+(3, 'Rey Rice', 'rey-rice', 'Eos adipisci vero qui. Quis ut magnam quisquam enim a aspernatur. Laborum earum temporibus occaecati id asperiores non.', 'Cupiditate et vel eum inventore sequi fuga repellat aperiam. Dicta animi et aut. Est modi eum illum alias dicta.', NULL, '{"title":"Rey Rice","keywords":"Rey Rice","description":"Rey Rice"}', 'vi', 2),
+(4, 'Jody Zulauf', 'jody-zulauf', 'Sapiente maiores qui non. Ratione maxime ipsa nulla tenetur. Aut quo modi repellat non soluta consequuntur omnis quia.', 'Quisquam tenetur dolor tempora dolor et perferendis. Quos et autem voluptatem commodi ex. Eligendi nihil nam accusantium quo.', NULL, '{"title":"Jody Zulauf","keywords":"Jody Zulauf","description":"Jody Zulauf"}', 'en', 2),
+(5, 'Ms. Teresa Paucek DVM', 'ms-teresa-paucek-dvm', 'Aperiam labore commodi iure consequatur excepturi nulla sapiente. Voluptate quo nisi dolores odit.', 'Similique occaecati odit cum error repellat molestiae. Qui sit minus corporis error. Qui maxime sed ratione numquam asperiores porro nostrum ea. Voluptas expedita quia animi illo harum.', NULL, '{"title":"Ms. Teresa Paucek DVM","keywords":"Ms. Teresa Paucek DVM","description":"Ms. Teresa Paucek DVM"}', 'vi', 3),
+(6, 'Yolanda Homenick', 'yolanda-homenick', 'Porro quia molestiae itaque totam asperiores. Eligendi doloremque voluptatibus vero perferendis molestiae voluptatem ut. Necessitatibus sapiente beatae ea qui.', 'Sed ratione quas et aliquid dolores. Fugiat temporibus dolorum reprehenderit voluptas facere fugit. Doloribus magni ut nemo aut recusandae. Expedita dolores saepe et assumenda.', NULL, '{"title":"Yolanda Homenick","keywords":"Yolanda Homenick","description":"Yolanda Homenick"}', 'en', 3),
+(7, 'Esperanza Goodwin', 'esperanza-goodwin', 'Quia veniam molestiae inventore ipsam repudiandae molestiae quis. Inventore qui ut voluptates earum nostrum velit. Neque qui asperiores sed laborum. Pariatur sit sed error.', 'Est neque ipsa deserunt reiciendis quae. Voluptas aperiam magni sapiente. Laudantium voluptatum velit voluptatem laudantium.', NULL, '{"title":"Esperanza Goodwin","keywords":"Esperanza Goodwin","description":"Esperanza Goodwin"}', 'vi', 4),
+(8, 'Dr. Ignatius Ondricka', 'dr-ignatius-ondricka', 'Numquam possimus quidem corrupti ut odit doloribus. Molestias qui aut sed voluptatem atque tenetur dicta ut. Architecto at et nobis doloribus ea et. Aut molestiae illum omnis facilis.', 'A praesentium accusantium et vel delectus voluptatum. Et porro dolorem fuga illum modi. Dolorem minima tempora nihil voluptatum ipsam quae.', NULL, '{"title":"Dr. Ignatius Ondricka","keywords":"Dr. Ignatius Ondricka","description":"Dr. Ignatius Ondricka"}', 'en', 4),
+(9, 'Alva Johnson', 'alva-johnson', 'Assumenda enim qui itaque vero quae inventore praesentium nesciunt. Ipsam non aut nemo pariatur assumenda et. Harum expedita porro nostrum quo consectetur iusto.', 'Dolores quam id ut ad. Et labore laborum architecto aperiam distinctio dolorem quae id. Vel ipsum qui quis assumenda. Et qui et sed quidem non.', NULL, '{"title":"Alva Johnson","keywords":"Alva Johnson","description":"Alva Johnson"}', 'vi', 5),
+(10, 'Destiny Kshlerin', 'destiny-kshlerin', 'Dolorem sit et delectus quae et aliquam. Ipsam at dicta consequuntur perferendis iusto quasi magni culpa. Cumque sequi accusantium dolorem animi ullam aut assumenda dolores.', 'Quae ut et exercitationem optio est porro pariatur. Similique consectetur et recusandae inventore ea. Vitae dicta sunt aut et ab. Deserunt velit perspiciatis similique ut.', NULL, '{"title":"Destiny Kshlerin","keywords":"Destiny Kshlerin","description":"Destiny Kshlerin"}', 'en', 5),
+(11, 'Katlyn Auer', 'katlyn-auer', 'Nulla debitis et et est animi autem nihil. Ut tenetur fugit ipsam facilis mollitia non. Sit ullam earum velit nihil ut sapiente.', 'Sint itaque hic neque ea qui dolor consequatur. Officia et placeat est sequi iste. Reprehenderit illum ea soluta unde architecto rerum ducimus. Veniam voluptas quos dolorem a facere. Et quisquam magni odio nihil occaecati nobis animi.', NULL, '{"title":"Katlyn Auer","keywords":"Katlyn Auer","description":"Katlyn Auer"}', 'vi', 6),
+(12, 'Mya Jakubowski Sr.', 'mya-jakubowski-sr', 'Occaecati veniam ut repudiandae earum a fugit. Exercitationem non ut dolor ratione temporibus. Ut non at nesciunt ex nemo suscipit provident.', 'Ratione ipsam ipsa qui aperiam earum. Magni perferendis maxime et similique. Architecto voluptates ut sunt dicta. Ipsa earum dolores laboriosam possimus voluptas sint sint quam. Corrupti voluptas magni odio sed in atque.', NULL, '{"title":"Mya Jakubowski Sr.","keywords":"Mya Jakubowski Sr.","description":"Mya Jakubowski Sr."}', 'en', 6),
+(13, 'Dariana Abshire DVM', 'dariana-abshire-dvm', 'Ut nemo rerum ullam sunt. Voluptatibus voluptatibus et magnam enim omnis. Natus voluptate molestiae nemo est totam non beatae.', 'Delectus delectus laboriosam quisquam qui sint dolores. Excepturi non adipisci est quam velit. Similique ex qui consequatur recusandae quisquam magnam quasi doloremque. Cumque similique natus ab aut voluptas accusamus voluptatem sunt.', NULL, '{"title":"Dariana Abshire DVM","keywords":"Dariana Abshire DVM","description":"Dariana Abshire DVM"}', 'vi', 7),
+(14, 'Stefanie Corkery', 'stefanie-corkery', 'Soluta nostrum quae ea fugit libero rem et. Odit provident quo cum. Quibusdam a delectus aut placeat nisi vel quia. Minus in iusto similique voluptas.', 'Delectus et accusamus eum qui. Nulla dicta odit quibusdam non iure. Molestiae ea aspernatur illo ratione et provident quis. Quisquam illum in facilis quae sint.', NULL, '{"title":"Stefanie Corkery","keywords":"Stefanie Corkery","description":"Stefanie Corkery"}', 'en', 7),
+(15, 'Prof. Mariam Thiel', 'prof-mariam-thiel', 'Eveniet quidem culpa vero harum sapiente pariatur ut. Molestiae cumque rerum ratione in corrupti nesciunt maiores. Neque vel itaque labore nihil architecto quae repudiandae.', 'Aut veritatis necessitatibus veritatis enim optio sunt. Molestias ea quisquam sint. Aliquid aut enim aut saepe.', NULL, '{"title":"Prof. Mariam Thiel","keywords":"Prof. Mariam Thiel","description":"Prof. Mariam Thiel"}', 'vi', 8),
+(16, 'Prof. Ephraim Davis', 'prof-ephraim-davis', 'Maiores voluptas laboriosam quia praesentium. Quia aliquid veritatis et quasi provident. Numquam tempora perferendis quo facilis dolorem est id.', 'Eligendi ipsa dicta necessitatibus ex totam. Dolores aut et totam nulla qui aut fugit aliquam. Aut neque id omnis totam et ut. Distinctio dolor voluptatem eum maxime velit fugiat dolore. Aut dolor et sit ea ratione.', NULL, '{"title":"Prof. Ephraim Davis","keywords":"Prof. Ephraim Davis","description":"Prof. Ephraim Davis"}', 'en', 8),
+(17, 'Yvonne Harber', 'yvonne-harber', 'Enim qui praesentium architecto ea unde distinctio. Modi dolor excepturi aperiam dolorum vel fugit consequatur.', 'Minus qui ipsa officiis assumenda ipsum culpa aut odio. Veniam occaecati rem itaque sapiente aut similique. Dignissimos quam optio fugiat impedit repudiandae sequi. Quo nihil aut vel vel dicta.', NULL, '{"title":"Yvonne Harber","keywords":"Yvonne Harber","description":"Yvonne Harber"}', 'vi', 9),
+(18, 'Amber Armstrong', 'amber-armstrong', 'Soluta autem quis earum sequi porro aperiam aut. Occaecati laboriosam illo doloremque corporis illum omnis. Unde sint voluptas necessitatibus enim.', 'Cupiditate aut sit libero nisi corporis. Quasi temporibus quis officia et sed sint. Et unde distinctio nihil et ut.', NULL, '{"title":"Amber Armstrong","keywords":"Amber Armstrong","description":"Amber Armstrong"}', 'en', 9),
+(19, 'Garrison Steuber', 'garrison-steuber', 'Explicabo laudantium et voluptatibus sit ea ex nemo sit. Veritatis rerum facilis autem quod et voluptates. Vero unde explicabo fugiat est rerum. Sit quod veritatis nobis eius animi officiis.', 'Nesciunt et natus veniam rerum neque sequi corporis molestiae. Sunt voluptatem sequi aliquid aut accusantium voluptatem saepe.', NULL, '{"title":"Garrison Steuber","keywords":"Garrison Steuber","description":"Garrison Steuber"}', 'vi', 10),
+(20, 'Meaghan Rau', 'meaghan-rau', 'Est perferendis facilis illum non eos. Suscipit occaecati eum hic autem. Error facere distinctio quia sit eius. Quibusdam sint consequatur magnam et amet. Sed enim quia et odio.', 'Quae eveniet iure reprehenderit illum. Accusantium asperiores repellat reiciendis odio est est nostrum. Velit enim molestiae qui laudantium a eveniet corporis.', NULL, '{"title":"Meaghan Rau","keywords":"Meaghan Rau","description":"Meaghan Rau"}', 'en', 10),
+(21, 'Shannon Medhurst', 'shannon-medhurst', 'Velit saepe odit ratione deserunt. Sequi vero dolorum veniam ratione aut. Provident sunt velit laborum in laboriosam neque sapiente. Autem iure molestias accusantium reiciendis.', 'Ut excepturi ipsum officia aspernatur sunt error enim porro. Rem unde qui qui. Quo reiciendis ipsa dolores ipsam odio corporis.', NULL, '{"title":"Shannon Medhurst","keywords":"Shannon Medhurst","description":"Shannon Medhurst"}', 'vi', 11),
+(22, 'Israel Smith', 'israel-smith', 'Rerum ex consequatur quisquam non aut voluptas laboriosam magni. Labore earum reiciendis dolorem maiores. Eligendi suscipit et ab sint magni aut.', 'Ea quam dolorum magni enim. Sint impedit distinctio voluptatum velit voluptatibus et. Totam corporis numquam magni et adipisci.', NULL, '{"title":"Israel Smith","keywords":"Israel Smith","description":"Israel Smith"}', 'en', 11),
+(23, 'Brody Reilly', 'brody-reilly', 'Et esse enim consequatur dolore et. Officiis ad odio amet vitae. Repudiandae ullam ipsum qui et in. Maxime voluptas quisquam rerum incidunt voluptatem.', 'Quia aut sed ut est iusto. Voluptatum natus est voluptatem nobis esse quia.', NULL, '{"title":"Brody Reilly","keywords":"Brody Reilly","description":"Brody Reilly"}', 'vi', 12),
+(24, 'Dr. Tanner Stamm', 'dr-tanner-stamm', 'Sint facere ratione atque minus. Voluptate et natus et non blanditiis est. Provident architecto repellendus est unde sunt.', 'Ipsum veniam velit qui eum. Et non aut cumque nam dicta nostrum quia reiciendis. Fugiat explicabo accusantium iste ipsa aut eveniet aut nisi.', NULL, '{"title":"Dr. Tanner Stamm","keywords":"Dr. Tanner Stamm","description":"Dr. Tanner Stamm"}', 'en', 12),
+(25, 'Alberto Langosh', 'alberto-langosh', 'Repudiandae vel distinctio est qui maxime veniam quia. Omnis blanditiis aut quia sit perspiciatis.', 'Explicabo omnis voluptatem ipsa enim cum animi voluptas hic. Ut corrupti et atque qui. Inventore quos magni eum quia sit enim. Voluptatem repudiandae at neque sint quia voluptas rerum repellat.', NULL, '{"title":"Alberto Langosh","keywords":"Alberto Langosh","description":"Alberto Langosh"}', 'vi', 13),
+(26, 'Roslyn Smith', 'roslyn-smith', 'Voluptatibus doloremque omnis at est officia maiores. Ex ratione iste voluptatem animi. Hic veniam ut et quibusdam dolore possimus. Esse placeat illo aut eum.', 'Qui consequuntur eaque et dolorem dicta aut facilis. Sit nostrum ullam sunt natus error.', NULL, '{"title":"Roslyn Smith","keywords":"Roslyn Smith","description":"Roslyn Smith"}', 'en', 13),
+(27, 'Dr. Lelia Nicolas', 'dr-lelia-nicolas', 'Reprehenderit sit rerum sapiente quod dolor quasi. Delectus omnis odio repellendus molestiae quisquam eos laudantium. Velit quisquam tenetur et voluptatum omnis.', 'Voluptas nemo assumenda et assumenda voluptatem quod aut. Eaque repudiandae laborum occaecati provident. Quam culpa nihil laudantium pariatur non accusantium. Incidunt et voluptas aliquam quia dicta.', NULL, '{"title":"Dr. Lelia Nicolas","keywords":"Dr. Lelia Nicolas","description":"Dr. Lelia Nicolas"}', 'vi', 14),
+(28, 'Aniyah Tremblay', 'aniyah-tremblay', 'Nisi perspiciatis sed pariatur ipsam nihil. Animi ex quos iure voluptatem.', 'Quia nulla aut reiciendis ad eius dolorum. Dolores quasi quia quae dolorem. Veritatis est sapiente unde voluptatem perferendis non sunt. Placeat dignissimos voluptates maiores illum vero.', NULL, '{"title":"Aniyah Tremblay","keywords":"Aniyah Tremblay","description":"Aniyah Tremblay"}', 'en', 14),
+(29, 'Mr. Marty Schuster', 'mr-marty-schuster', 'Debitis sapiente natus quia alias omnis. Dolor quia illum minus repellendus sed nam quas. Ut et aspernatur dolores consequatur et necessitatibus. Debitis cupiditate qui et iure ea.', 'Optio accusamus et ducimus atque accusamus rerum. Sint natus voluptates vitae in tenetur sunt beatae dicta. Voluptas doloremque est quia sit minus. Molestiae libero ut alias quod mollitia nam et.', NULL, '{"title":"Mr. Marty Schuster","keywords":"Mr. Marty Schuster","description":"Mr. Marty Schuster"}', 'vi', 15),
+(30, 'Mrs. Mozelle Orn', 'mrs-mozelle-orn', 'Laboriosam iusto temporibus enim culpa id. Omnis vero optio est est. Odit quis et voluptatem optio est dignissimos. Ea neque blanditiis harum aliquam. Commodi officia tenetur vitae aliquid qui.', 'Cupiditate suscipit sed voluptas repellat placeat. Nobis eius odio voluptatem possimus sint tenetur ut voluptatem.', NULL, '{"title":"Mrs. Mozelle Orn","keywords":"Mrs. Mozelle Orn","description":"Mrs. Mozelle Orn"}', 'en', 15),
+(31, 'Urban Russel', 'urban-russel', 'Nostrum et est excepturi illum recusandae modi quia. Non blanditiis ea nesciunt dolore. Adipisci nesciunt est qui nesciunt non sint. Voluptatem est iste odit aspernatur velit aut omnis.', 'Voluptates fuga minus magni soluta veniam reiciendis provident. Ut dicta sit in sint nesciunt. Eligendi deleniti in et culpa nesciunt omnis. Nesciunt quia qui autem alias mollitia quia quis. Dolore cum omnis facere odio.', NULL, '{"title":"Urban Russel","keywords":"Urban Russel","description":"Urban Russel"}', 'vi', 16),
+(32, 'Jayden Bauch IV', 'jayden-bauch-iv', 'Numquam ut et non voluptas aut. Cupiditate autem iste possimus enim. Consectetur consequuntur quaerat fuga excepturi voluptas unde.', 'Aperiam delectus accusamus ad rerum nam ab. Inventore et deleniti nobis. Aperiam dolorum architecto doloremque vitae enim.', NULL, '{"title":"Jayden Bauch IV","keywords":"Jayden Bauch IV","description":"Jayden Bauch IV"}', 'en', 16),
+(33, 'Noel Brakus', 'noel-brakus', 'Officia molestiae et animi nihil fugit. Consequuntur voluptatem doloribus unde ad at fuga. Officia ut hic aut suscipit non tenetur. Odit sequi officia nobis.', 'Quo laboriosam repudiandae ut at consectetur. Id deleniti suscipit beatae dolor. Doloremque deserunt quaerat aut est possimus. Cum vel itaque sit autem pariatur eos consequatur. Et praesentium dolorem ratione.', NULL, '{"title":"Noel Brakus","keywords":"Noel Brakus","description":"Noel Brakus"}', 'vi', 17),
+(34, 'Kirk Wyman', 'kirk-wyman', 'Perspiciatis dolores adipisci et porro consequatur et voluptatem. Possimus praesentium et sit ea est velit quae. Beatae et quibusdam placeat aut perferendis eum eaque.', 'Ut ut culpa necessitatibus quibusdam quae. Libero deleniti adipisci numquam nihil et ullam. Ipsam consectetur architecto qui cupiditate hic consectetur. Blanditiis inventore voluptatem molestiae animi nostrum.', NULL, '{"title":"Kirk Wyman","keywords":"Kirk Wyman","description":"Kirk Wyman"}', 'en', 17),
+(35, 'Maye Schneider', 'maye-schneider', 'Nesciunt est autem nihil maiores consequatur. Libero accusamus praesentium quia atque dolor. Eos qui explicabo non iure odio vel in.', 'Quis numquam nisi repellat facere qui ducimus. Sit distinctio vitae ut tempora. Quaerat quo et fugiat qui. Modi quis reprehenderit nisi ab facilis voluptas.', NULL, '{"title":"Maye Schneider","keywords":"Maye Schneider","description":"Maye Schneider"}', 'vi', 18),
+(36, 'Mrs. Mozelle Erdman DVM', 'mrs-mozelle-erdman-dvm', 'Aliquid id et possimus quas sed atque. Delectus nihil illo magnam qui molestiae culpa. Harum nostrum necessitatibus vel numquam quo id aut sunt. Molestias aut perferendis necessitatibus iusto.', 'Quae illum sint dicta quaerat nemo. Quo et enim odit cumque quibusdam ut voluptas. Est dolores sunt sapiente eius sed veritatis.', NULL, '{"title":"Mrs. Mozelle Erdman DVM","keywords":"Mrs. Mozelle Erdman DVM","description":"Mrs. Mozelle Erdman DVM"}', 'en', 18),
+(37, 'Prof. Roger Rau PhD', 'prof-roger-rau-phd', 'Totam omnis dolor quod modi eius velit modi. Fugiat aperiam dolore nihil vel omnis. Aliquid non a quo et dolor.', 'Soluta corporis necessitatibus et iste et omnis quia. Aperiam cupiditate facere quia beatae. Quae ipsam dolorum reprehenderit quisquam et quisquam.', NULL, '{"title":"Prof. Roger Rau PhD","keywords":"Prof. Roger Rau PhD","description":"Prof. Roger Rau PhD"}', 'vi', 19),
+(38, 'Forest Hegmann IV', 'forest-hegmann-iv', 'Accusamus recusandae inventore a sunt quas recusandae non. Repellendus aliquam est illum vero est. Tenetur deleniti accusantium vero rerum modi cum nihil.', 'Pariatur atque rerum quos. Qui eum accusantium quisquam est cumque et velit. Ea odit molestiae quis nobis aut suscipit dicta.', NULL, '{"title":"Forest Hegmann IV","keywords":"Forest Hegmann IV","description":"Forest Hegmann IV"}', 'en', 19),
+(39, 'Claude Schoen', 'claude-schoen', 'Temporibus et a tempore odit ullam repudiandae. Maxime totam magni architecto vero est odio omnis. Sit aut ipsa voluptatum omnis. Est dicta voluptas et maiores corporis rem voluptas.', 'Cupiditate qui natus porro et. Veritatis quos modi perferendis saepe dolores molestiae quis.', NULL, '{"title":"Claude Schoen","keywords":"Claude Schoen","description":"Claude Schoen"}', 'vi', 20),
+(40, 'Prof. Halle Yost', 'prof-halle-yost', 'Suscipit natus et aut iure optio molestiae. Unde sint est aut assumenda. Commodi eum possimus et. Voluptatem et numquam architecto consequatur voluptatem exercitationem in.', 'Dolor consequatur est optio. In numquam voluptatem est est voluptas. Iste assumenda facilis earum et voluptatem. Ut dolor aut repudiandae molestiae amet et.', NULL, '{"title":"Prof. Halle Yost","keywords":"Prof. Halle Yost","description":"Prof. Halle Yost"}', 'en', 20),
+(41, 'Giao diện chuẩn Laptop - Mobile', 'giao-dien-chuan-laptop-mobile', 'Lorem ipsum dolor sittem ametam ngcing elit, per sed do eiusmoad teimpor inunt ut segad do eiusmod.', NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'vi', 21),
+(42, NULL, 'giao-dien-chuan-laptop-mobile', NULL, NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'en', 21),
 (43, 'Chia sẽ FREE trên chợ doanh nghiệp', 'chia-se-free-tren-cho-doanh-nghiep', 'Lorem ipsum dolor sittem ametam ngcing elit, per sed do eiusmoad teimpor inunt ut segad do eiusmod.', NULL, NULL, NULL, 'vi', 22),
 (44, NULL, 'chia-se-free-tren-cho-doanh-nghiep', NULL, NULL, NULL, NULL, 'en', 22),
 (45, 'Hỗ trợ 24 / 7', 'ho-tro-24-7', 'Lorem ipsum dolor sittem ametam ngcing elit, per sed do eiusmoad teimpor inunt ut segad do eiusmod.', NULL, NULL, NULL, 'vi', 23),
@@ -680,12 +681,18 @@ INSERT INTO `post_languages` (`id`, `title`, `slug`, `description`, `contents`, 
 (59, 'Hướng dẫn gia hạn', 'huong-dan-gia-han', NULL, NULL, NULL, NULL, 'vi', 30),
 (60, NULL, 'huong-dan-gia-han', NULL, NULL, NULL, NULL, 'en', 30),
 (61, 'Hướng dẫn đổi gói dịch vụ', 'huong-dan-doi-goi-dich-vu', NULL, NULL, NULL, NULL, 'vi', 31),
-(62, NULL, 'huong-dan-doi-goi-dich-vu', NULL, NULL, NULL, NULL, 'en', 31);
+(62, NULL, 'huong-dan-doi-goi-dich-vu', NULL, NULL, NULL, NULL, 'en', 31),
+(63, 'Sign In/Up Form Transitions cực cool với CSS3', 'sign-inup-form-transitions-cuc-cool-voi-css3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'vi', 32),
+(64, NULL, 'sign-inup-form-transitions-cuc-cool-voi-css3', NULL, NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'en', 32),
+(65, 'Christmas Button – Mẫu button cho mùa giáng sinh', 'christmas-button-mau-button-cho-mua-giang-sinh', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'vi', 33),
+(66, NULL, 'christmas-button-mau-button-cho-mua-giang-sinh', NULL, NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'en', 33),
+(67, 'Full Screen Navigation với CSS3 và jQuery', 'full-screen-navigation-voi-css3-va-jquery', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'vi', 34),
+(68, NULL, 'full-screen-navigation-voi-css3-va-jquery', NULL, NULL, NULL, '{"title":null,"keywords":null,"description":null}', 'en', 34);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE `products` (
@@ -712,7 +719,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `code`, `regular_price`, `sale_price`, `original_price`, `weight`, `link`, `image`, `alt`, `attachments`, `priority`, `status`, `supplier_id`, `category_id`, `user_id`, `type`, `viewed`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -723,7 +730,7 @@ INSERT INTO `products` (`id`, `code`, `regular_price`, `sale_price`, `original_p
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_attribute`
+-- Table structure for table `product_attribute`
 --
 
 CREATE TABLE `product_attribute` (
@@ -736,7 +743,7 @@ CREATE TABLE `product_attribute` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product_languages`
+-- Table structure for table `product_languages`
 --
 
 CREATE TABLE `product_languages` (
@@ -752,21 +759,21 @@ CREATE TABLE `product_languages` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `product_languages`
+-- Dumping data for table `product_languages`
 --
 
 INSERT INTO `product_languages` (`id`, `title`, `slug`, `description`, `contents`, `attributes`, `meta_seo`, `language`, `product_id`) VALUES
-(41, 'Metronic - Responsive Admin Dashboard Template', 'metronic-responsive-admin-dashboard-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'vi', 21),
-(42, NULL, 'metronic-responsive-admin-dashboard-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'en', 21),
-(43, 'Canvas | The Multi-Purpose HTML5 Template', 'canvas-the-multi-purpose-html5-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'vi', 22),
-(44, NULL, 'canvas-the-multi-purpose-html5-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'en', 22),
-(45, 'Porto - Responsive HTML5 Template', 'porto-responsive-html5-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'vi', 23),
-(46, NULL, 'porto-responsive-html5-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'en', 23);
+(41, 'Metronic - Responsive Admin Dashboard Template', 'metronic-responsive-admin-dashboard-template', NULL, NULL, '[{"name":null,"value":null}]', '{"title":null,"keywords":null,"description":null}', 'vi', 21),
+(42, NULL, 'metronic-responsive-admin-dashboard-template', NULL, NULL, '[{"name":null,"value":null}]', '{"title":null,"keywords":null,"description":null}', 'en', 21),
+(43, 'Canvas | The Multi-Purpose HTML5 Template', 'canvas-the-multi-purpose-html5-template', NULL, NULL, '[{"name":null,"value":null}]', '{"title":null,"keywords":null,"description":null}', 'vi', 22),
+(44, NULL, 'canvas-the-multi-purpose-html5-template', NULL, NULL, '[{"name":null,"value":null}]', '{"title":null,"keywords":null,"description":null}', 'en', 22),
+(45, 'Porto - Responsive HTML5 Template', 'porto-responsive-html5-template', NULL, NULL, '[{"name":null,"value":null}]', '{"title":null,"keywords":null,"description":null}', 'vi', 23),
+(46, NULL, 'porto-responsive-html5-template', NULL, NULL, '[{"name":null,"value":null}]', '{"title":null,"keywords":null,"description":null}', 'en', 23);
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `registers`
+-- Table structure for table `registers`
 --
 
 CREATE TABLE `registers` (
@@ -788,7 +795,7 @@ CREATE TABLE `registers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `registers`
+-- Dumping data for table `registers`
 --
 
 INSERT INTO `registers` (`id`, `title`, `name`, `phone`, `email`, `address`, `gender`, `description`, `contents`, `priority`, `status`, `type`, `deleted_at`, `created_at`, `updated_at`) VALUES
@@ -801,7 +808,7 @@ INSERT INTO `registers` (`id`, `title`, `name`, `phone`, `email`, `address`, `ge
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -816,7 +823,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `priority`, `status`, `created_at`, `updated_at`) VALUES
@@ -835,7 +842,7 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `priority`, `s
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `role_user`
+-- Table structure for table `role_user`
 --
 
 CREATE TABLE `role_user` (
@@ -844,7 +851,7 @@ CREATE TABLE `role_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `role_user`
+-- Dumping data for table `role_user`
 --
 
 INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
@@ -853,7 +860,7 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `settings`
+-- Table structure for table `settings`
 --
 
 CREATE TABLE `settings` (
@@ -863,14 +870,14 @@ CREATE TABLE `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `settings`
+-- Dumping data for table `settings`
 --
 
 INSERT INTO `settings` (`id`, `name`, `value`) VALUES
 (1, 'language', 'vi'),
 (2, 'date_custom_format', NULL),
 (3, 'product_per_page', '10'),
-(4, 'thumbs', '{\"product\":{\"_small\":{\"width\":\"300\",\"height\":\"300\"},\"_medium\":{\"width\":\"600\",\"height\":\"600\"},\"_large\":{\"width\":\"1000\",\"height\":\"1000\"}}}'),
+(4, 'thumbs', '{"product":{"_small":{"width":"300","height":"300"},"_medium":{"width":"600","height":"600"},"_large":{"width":"1000","height":"1000"}}}'),
 (5, 'post_per_page', '10'),
 (6, 'site_name', 'Kho Web Online'),
 (7, 'site_slogan', NULL),
@@ -901,7 +908,7 @@ INSERT INTO `settings` (`id`, `name`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `suppliers`
+-- Table structure for table `suppliers`
 --
 
 CREATE TABLE `suppliers` (
@@ -923,7 +930,7 @@ CREATE TABLE `suppliers` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -943,7 +950,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `phone`, `email`, `address`, `image`, `priority`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -952,7 +959,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `name`, `phone`, `email`, `ad
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user_group`
+-- Table structure for table `user_group`
 --
 
 CREATE TABLE `user_group` (
@@ -963,7 +970,7 @@ CREATE TABLE `user_group` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wms_exports`
+-- Table structure for table `wms_exports`
 --
 
 CREATE TABLE `wms_exports` (
@@ -992,7 +999,7 @@ CREATE TABLE `wms_exports` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wms_imports`
+-- Table structure for table `wms_imports`
 --
 
 CREATE TABLE `wms_imports` (
@@ -1020,7 +1027,7 @@ CREATE TABLE `wms_imports` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `wms_stores`
+-- Table structure for table `wms_stores`
 --
 
 CREATE TABLE `wms_stores` (
@@ -1040,17 +1047,17 @@ CREATE TABLE `wms_stores` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `attributes`
+-- Indexes for table `attributes`
 --
 ALTER TABLE `attributes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `attribute_languages`
+-- Indexes for table `attribute_languages`
 --
 ALTER TABLE `attribute_languages`
   ADD PRIMARY KEY (`id`),
@@ -1058,13 +1065,13 @@ ALTER TABLE `attribute_languages`
   ADD KEY `attribute_languages_language_index` (`language`);
 
 --
--- Chỉ mục cho bảng `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `category_languages`
+-- Indexes for table `category_languages`
 --
 ALTER TABLE `category_languages`
   ADD PRIMARY KEY (`id`),
@@ -1072,7 +1079,7 @@ ALTER TABLE `category_languages`
   ADD KEY `category_languages_language_index` (`language`);
 
 --
--- Chỉ mục cho bảng `comments`
+-- Indexes for table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`),
@@ -1081,34 +1088,34 @@ ALTER TABLE `comments`
   ADD KEY `comments_member_id_foreign` (`member_id`);
 
 --
--- Chỉ mục cho bảng `coupons`
+-- Indexes for table `coupons`
 --
 ALTER TABLE `coupons`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `coupons_code_unique` (`code`);
 
 --
--- Chỉ mục cho bảng `groups`
+-- Indexes for table `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `groups_name_unique` (`name`);
 
 --
--- Chỉ mục cho bảng `jobs`
+-- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jobs_queue_reserved_at_index` (`queue`,`reserved_at`);
 
 --
--- Chỉ mục cho bảng `links`
+-- Indexes for table `links`
 --
 ALTER TABLE `links`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `link_languages`
+-- Indexes for table `link_languages`
 --
 ALTER TABLE `link_languages`
   ADD PRIMARY KEY (`id`),
@@ -1116,13 +1123,13 @@ ALTER TABLE `link_languages`
   ADD KEY `link_languages_language_index` (`language`);
 
 --
--- Chỉ mục cho bảng `media_libraries`
+-- Indexes for table `media_libraries`
 --
 ALTER TABLE `media_libraries`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `members`
+-- Indexes for table `members`
 --
 ALTER TABLE `members`
   ADD PRIMARY KEY (`id`),
@@ -1130,32 +1137,32 @@ ALTER TABLE `members`
   ADD UNIQUE KEY `members_email_unique` (`email`);
 
 --
--- Chỉ mục cho bảng `member_password_resets`
+-- Indexes for table `member_password_resets`
 --
 ALTER TABLE `member_password_resets`
   ADD KEY `member_password_resets_email_index` (`email`);
 
 --
--- Chỉ mục cho bảng `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `orders_code_unique` (`code`);
 
 --
--- Chỉ mục cho bảng `pages`
+-- Indexes for table `pages`
 --
 ALTER TABLE `pages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `page_languages`
+-- Indexes for table `page_languages`
 --
 ALTER TABLE `page_languages`
   ADD PRIMARY KEY (`id`),
@@ -1163,33 +1170,33 @@ ALTER TABLE `page_languages`
   ADD KEY `page_languages_language_index` (`language`);
 
 --
--- Chỉ mục cho bảng `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Chỉ mục cho bảng `permissions`
+-- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `permissions_name_unique` (`name`);
 
 --
--- Chỉ mục cho bảng `permission_role`
+-- Indexes for table `permission_role`
 --
 ALTER TABLE `permission_role`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `permission_role_role_id_foreign` (`role_id`);
 
 --
--- Chỉ mục cho bảng `photos`
+-- Indexes for table `photos`
 --
 ALTER TABLE `photos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `photo_languages`
+-- Indexes for table `photo_languages`
 --
 ALTER TABLE `photo_languages`
   ADD PRIMARY KEY (`id`),
@@ -1197,7 +1204,7 @@ ALTER TABLE `photo_languages`
   ADD KEY `photo_languages_language_index` (`language`);
 
 --
--- Chỉ mục cho bảng `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
@@ -1205,14 +1212,14 @@ ALTER TABLE `posts`
   ADD KEY `posts_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `post_attribute`
+-- Indexes for table `post_attribute`
 --
 ALTER TABLE `post_attribute`
   ADD KEY `post_attribute_post_id_foreign` (`post_id`),
   ADD KEY `post_attribute_attribute_id_foreign` (`attribute_id`);
 
 --
--- Chỉ mục cho bảng `post_languages`
+-- Indexes for table `post_languages`
 --
 ALTER TABLE `post_languages`
   ADD PRIMARY KEY (`id`),
@@ -1220,7 +1227,7 @@ ALTER TABLE `post_languages`
   ADD KEY `post_languages_language_index` (`language`);
 
 --
--- Chỉ mục cho bảng `products`
+-- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
@@ -1230,14 +1237,14 @@ ALTER TABLE `products`
   ADD KEY `products_user_id_foreign` (`user_id`);
 
 --
--- Chỉ mục cho bảng `product_attribute`
+-- Indexes for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
   ADD KEY `product_attribute_product_id_foreign` (`product_id`),
   ADD KEY `product_attribute_attribute_id_foreign` (`attribute_id`);
 
 --
--- Chỉ mục cho bảng `product_languages`
+-- Indexes for table `product_languages`
 --
 ALTER TABLE `product_languages`
   ADD PRIMARY KEY (`id`),
@@ -1245,40 +1252,40 @@ ALTER TABLE `product_languages`
   ADD KEY `product_languages_language_index` (`language`);
 
 --
--- Chỉ mục cho bảng `registers`
+-- Indexes for table `registers`
 --
 ALTER TABLE `registers`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `roles_name_unique` (`name`);
 
 --
--- Chỉ mục cho bảng `role_user`
+-- Indexes for table `role_user`
 --
 ALTER TABLE `role_user`
   ADD PRIMARY KEY (`user_id`,`role_id`),
   ADD KEY `role_user_role_id_foreign` (`role_id`);
 
 --
--- Chỉ mục cho bảng `settings`
+-- Indexes for table `settings`
 --
 ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `suppliers`
+-- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `suppliers_code_unique` (`code`);
 
 --
--- Chỉ mục cho bảng `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -1286,241 +1293,210 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Chỉ mục cho bảng `user_group`
+-- Indexes for table `user_group`
 --
 ALTER TABLE `user_group`
   ADD KEY `user_group_user_id_foreign` (`user_id`),
   ADD KEY `user_group_group_id_foreign` (`group_id`);
 
 --
--- Chỉ mục cho bảng `wms_exports`
+-- Indexes for table `wms_exports`
 --
 ALTER TABLE `wms_exports`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `wms_exports_code_unique` (`code`);
 
 --
--- Chỉ mục cho bảng `wms_imports`
+-- Indexes for table `wms_imports`
 --
 ALTER TABLE `wms_imports`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `wms_imports_code_unique` (`code`);
 
 --
--- Chỉ mục cho bảng `wms_stores`
+-- Indexes for table `wms_stores`
 --
 ALTER TABLE `wms_stores`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `wms_stores_code_unique` (`code`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `attributes`
+-- AUTO_INCREMENT for table `attributes`
 --
 ALTER TABLE `attributes`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `attribute_languages`
+-- AUTO_INCREMENT for table `attribute_languages`
 --
 ALTER TABLE `attribute_languages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT cho bảng `category_languages`
+-- AUTO_INCREMENT for table `category_languages`
 --
 ALTER TABLE `category_languages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
--- AUTO_INCREMENT cho bảng `comments`
+-- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `coupons`
+-- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `groups`
+-- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `jobs`
+-- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `links`
+-- AUTO_INCREMENT for table `links`
 --
 ALTER TABLE `links`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `link_languages`
+-- AUTO_INCREMENT for table `link_languages`
 --
 ALTER TABLE `link_languages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `media_libraries`
+-- AUTO_INCREMENT for table `media_libraries`
 --
 ALTER TABLE `media_libraries`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `members`
+-- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT cho bảng `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `pages`
+-- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT cho bảng `page_languages`
+-- AUTO_INCREMENT for table `page_languages`
 --
 ALTER TABLE `page_languages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
--- AUTO_INCREMENT cho bảng `permissions`
+-- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `photos`
+-- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `photo_languages`
+-- AUTO_INCREMENT for table `photo_languages`
 --
 ALTER TABLE `photo_languages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
--- AUTO_INCREMENT cho bảng `post_languages`
+-- AUTO_INCREMENT for table `post_languages`
 --
 ALTER TABLE `post_languages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
-
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 --
--- AUTO_INCREMENT cho bảng `products`
+-- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
 --
--- AUTO_INCREMENT cho bảng `product_languages`
+-- AUTO_INCREMENT for table `product_languages`
 --
 ALTER TABLE `product_languages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
 --
--- AUTO_INCREMENT cho bảng `registers`
+-- AUTO_INCREMENT for table `registers`
 --
 ALTER TABLE `registers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
--- AUTO_INCREMENT cho bảng `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
--- AUTO_INCREMENT cho bảng `settings`
+-- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
 --
--- AUTO_INCREMENT cho bảng `suppliers`
+-- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT cho bảng `wms_exports`
+-- AUTO_INCREMENT for table `wms_exports`
 --
 ALTER TABLE `wms_exports`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `wms_imports`
+-- AUTO_INCREMENT for table `wms_imports`
 --
 ALTER TABLE `wms_imports`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT cho bảng `wms_stores`
+-- AUTO_INCREMENT for table `wms_stores`
 --
 ALTER TABLE `wms_stores`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
 
 --
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `attribute_languages`
+-- Constraints for table `attribute_languages`
 --
 ALTER TABLE `attribute_languages`
   ADD CONSTRAINT `attribute_languages_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `category_languages`
+-- Constraints for table `category_languages`
 --
 ALTER TABLE `category_languages`
   ADD CONSTRAINT `category_languages_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `comments`
+-- Constraints for table `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_member_id_foreign` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1528,52 +1504,52 @@ ALTER TABLE `comments`
   ADD CONSTRAINT `comments_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `link_languages`
+-- Constraints for table `link_languages`
 --
 ALTER TABLE `link_languages`
   ADD CONSTRAINT `link_languages_link_id_foreign` FOREIGN KEY (`link_id`) REFERENCES `links` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `page_languages`
+-- Constraints for table `page_languages`
 --
 ALTER TABLE `page_languages`
   ADD CONSTRAINT `page_languages_page_id_foreign` FOREIGN KEY (`page_id`) REFERENCES `pages` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `permission_role`
+-- Constraints for table `permission_role`
 --
 ALTER TABLE `permission_role`
   ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `photo_languages`
+-- Constraints for table `photo_languages`
 --
 ALTER TABLE `photo_languages`
   ADD CONSTRAINT `photo_languages_photo_id_foreign` FOREIGN KEY (`photo_id`) REFERENCES `photos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `posts`
+-- Constraints for table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `posts_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `post_attribute`
+-- Constraints for table `post_attribute`
 --
 ALTER TABLE `post_attribute`
   ADD CONSTRAINT `post_attribute_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `post_attribute_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `post_languages`
+-- Constraints for table `post_languages`
 --
 ALTER TABLE `post_languages`
   ADD CONSTRAINT `post_languages_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `products`
+-- Constraints for table `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1581,32 +1557,31 @@ ALTER TABLE `products`
   ADD CONSTRAINT `products_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_attribute`
+-- Constraints for table `product_attribute`
 --
 ALTER TABLE `product_attribute`
   ADD CONSTRAINT `product_attribute_attribute_id_foreign` FOREIGN KEY (`attribute_id`) REFERENCES `attributes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `product_attribute_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `product_languages`
+-- Constraints for table `product_languages`
 --
 ALTER TABLE `product_languages`
   ADD CONSTRAINT `product_languages_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `role_user`
+-- Constraints for table `role_user`
 --
 ALTER TABLE `role_user`
   ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `user_group`
+-- Constraints for table `user_group`
 --
 ALTER TABLE `user_group`
   ADD CONSTRAINT `user_group_group_id_foreign` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_group_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

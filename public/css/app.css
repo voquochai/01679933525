@@ -224,6 +224,12 @@ code {
 .mb-40{
     margin-bottom: 40px;
 }
+.pt-60 {
+    padding-top: 60px;
+}
+.pb-60 {
+    padding-bottom: 60px;
+}
 .ptb-60 {
     padding-top: 60px;
     padding-bottom: 60px;

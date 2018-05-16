@@ -1,13 +1,13 @@
 @extends('frontend.default.master')
 @section('content')
 <!-- PAGE SECTION START -->
-<div class="page-section section pt-100 pb-60">
+<section class="page-section section pt-60 pb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9 col-md-8 col-xs-12">
+            <div class="col-xs-12">
                 <div class="row">
                     @forelse($posts as $post)
-                        {!! get_template_post($post,$type,2) !!}
+                        {!! get_template_post($post,$type,3) !!}
                     @empty
                     @endforelse
                 </div>
@@ -15,11 +15,8 @@
                 	{{ $posts->links('frontend.default.blocks.paginate') }}
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-xs-12">
-                @include('frontend.default.layouts.sidebar')
-            </div>
         </div>
     </div>
-</div>
+</section>
 <!-- PAGE SECTION END -->
 @endsection

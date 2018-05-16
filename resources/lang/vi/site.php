@@ -38,7 +38,7 @@ return [
     'message' =>  'Tin nhắn',
     'content' =>  'Nội dung',
     'notes' =>  'Ghi chú',
-    'send' =>  'Gửi',
+    'send' =>  'Gửi liên hệ',
     'reset' =>  'Làm mới',
 
     /* Product */

@@ -74,8 +74,8 @@ class TemplateFactory {
                 <div class="blog-item">
                     <a class="image" href="'.$link.'"><img src="'. ( $post->image && file_exists(public_path('/uploads/posts/'.$post->image)) ? asset( 'public/uploads/posts/'.get_thumbnail($post->image) ) : asset('noimage/330x220') ) .'" alt="'.$post->alt.'" /></a>
                     <div class="blog-dsc">
-                        <span class="date">'.date(( config('settings.date_format') == 'custom' ? config('settings.date_custom_format') : config('settings.date_format') ),strtotime($post->updated_at)).'</span>
-                        <h4 class="title"><a href="'.$link.'">'.$post->title.'</a></h4>
+                        <h3 class="title"><a href="'.$link.'">'.$post->title.'</a></h3>
+                        <p class="meta"> <i class="pe-7s-date"></i> '.date(( config('settings.date_format') == 'custom' ? config('settings.date_custom_format') : config('settings.date_format') ),strtotime($post->updated_at)).'</p>
                         <p>'.substr($post->description,0,100).'</p>
                     </div>
                 </div>

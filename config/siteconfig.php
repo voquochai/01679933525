@@ -213,8 +213,8 @@ return [
 			'images'      =>	true,
 			'thumbs'	=>	[
 				'_small' => [
-					'width'  =>	300,
-					'height' =>	200,
+					'width'  =>	360,
+					'height' =>	240,
 				],
 			],
 			'status'      => [
@@ -234,8 +234,8 @@ return [
 			'images'      =>	true,
 			'thumbs'	=>	[
 				'_small' => [
-					'width'  =>	300,
-					'height' =>	200,
+					'width'  =>	360,
+					'height' =>	240,
 				],
 			],
 			'status'      => [
