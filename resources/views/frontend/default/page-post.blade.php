@@ -1,21 +1,21 @@
 @extends('frontend.default.master')
 @section('content')
 <!-- PAGE SECTION START -->
-<div class="page-section section pt-100 pb-60">
+<div class="page-section section pt-60 pb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-8 col-xs-12">
                 <!-- Single Blog Post -->
                 <div class="single-blog-post">
-                    <div class="blog-img">
-                        <img alt="" src="{{ asset('public/uploads/posts/'.$post->image) }}">
-                    </div>
                     <div class="blog-info">
                         <h3 class="title">{{ $post->title }}</h3>
                         <div class="blog-meta">
                             <span><a href="#"><i class="fa fa-user"></i> {{ @$author->name }} </a></span>
                             <span><a href="{{ url('/'.$type.'/'.$category->slug) }}"><i class="fa fa-tags"></i> {{ @$category->title }} </a></span>
                             <span><a href="#"><i class="fa fa-eye"></i> {{ __('site.view') }} ({{ $post->viewed }})</a></span>
+                        </div>
+                        <div class="blog-img">
+                            <img alt="" src="{{ asset('public/uploads/posts/'.$post->image) }}">
                         </div>
                         {!! $post->contents !!}						
                     </div>
