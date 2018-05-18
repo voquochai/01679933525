@@ -1,22 +1,33 @@
 <?php $__env->startSection('content'); ?>
 <!-- PAGE SECTION START -->
-<section class="page-section section ptb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+<section class="page-section section pt-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row contact-info ">
             <div class="col-md-4 col-xs-6 col-xs-wide mb-40">
-                <h3><?php echo @$contact->title; ?></h3>
-                <?php echo @$contact->contents; ?>
-
+                <div>
+                    <span class="pe-7s-headphones"></span>
+                    <p>
+                        <a href="tel:326578912">+145987565</a> <br> <a href="tel:326578912">+145987565</a>
+                    </p>
+                </div>
             </div>
             <div class="col-md-4 col-xs-6 col-xs-wide mb-40">
-                <h3><?php echo @$contact->title; ?></h3>
-                <?php echo @$contact->contents; ?>
-
+                <div>
+                    <span class="pe-7s-map-2"></span>
+                    <p>
+                        28 Green Tower, Street Name, New York City, USA
+                    </p>
+                </div>
             </div>
             <div class="col-md-4 col-xs-6 col-xs-wide mb-40">
-                <h3><?php echo @$contact->title; ?></h3>
-                <?php echo @$contact->contents; ?>
-
+                <div>
+                    <span class="pe-7s-mail"></span>
+                    <p>
+                        <a href="mailto:support@khowebonline.com">support@khowebonline.com</a>
+                        <br>
+                        <a href="mailto:support@khowebonline.com">support@khowebonline.com</a>
+                    </p>
+                </div>
             </div>
         </div>
         <div class="row contact-form">
@@ -24,46 +35,50 @@
                 <h3><?php echo e(__('site.contact_form')); ?></h3>
                 <form id="contact-form" action="mail.php#" method="post">
                     <div class="row">
-                        <div class="col-sm-6 col-xs-12 mb-20">
-                            <label for="name"><?php echo e(__('site.name')); ?></label>
-                            <input id="name" name="name" type="text">
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="name"><?php echo e(__('site.name')); ?></label>
+                                <input id="name" name="name" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject"><?php echo e(__('site.subject')); ?></label>
+                                <input id="subject" name="subject" type="text">
+                            </div>
                         </div>
-                        <div class="col-sm-6 col-xs-12 mb-20">
-                            <label for="email">Email</label>
-                            <input id="email" name="email" type="email">
-                        </div>
-                        <div class="col-sm-12 col-xs-12 mb-20">
-                            <label for="subject"><?php echo e(__('site.subject')); ?></label>
-                            <input id="subject" name="subject" type="text">
-                        </div>
-                        <div class="col-xs-12 mb-20">
-                            <label for="message"><?php echo e(__('site.message')); ?></label>
-                            <textarea name="message" id="message"></textarea>
-                        </div>
-                        <div class="col-xs-12">
-                            <button type="submit" class="btn btn-primary btn-ajax" data-ajax="act=contact|type=contact"> <?php echo e(__('site.send')); ?> </button>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="message"><?php echo e(__('site.message')); ?></label>
+                                <textarea name="message" id="message"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-ajax" data-ajax="act=contact|type=contact"> <?php echo e(__('site.send')); ?> </button>
+                            </div>
                         </div>
                     </div>
                 </form>
                 <p class="form-messege"></p>
             </div>
         </div>
-        <div class="row contact-map">
-            <div class="col-xs-12 mt-40">
-                <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
-                
-                <div id="mode-selector" class="controls">
-                    <input type="radio" name="type" id="changemode-walking" checked="checked">
-                    <label for="changemode-walking">Walking</label>
+    </div>
+    <div class="contact-map">
+        <div>
+            <input id="origin-input" class="controls" type="text" placeholder="Enter an origin location">
+            
+            <div id="mode-selector" class="controls">
+                <input type="radio" name="type" id="changemode-walking" checked="checked">
+                <label for="changemode-walking">Walking</label>
 
-                    <input type="radio" name="type" id="changemode-transit">
-                    <label for="changemode-transit">Transit</label>
+                <input type="radio" name="type" id="changemode-transit">
+                <label for="changemode-transit">Transit</label>
 
-                    <input type="radio" name="type" id="changemode-driving">
-                    <label for="changemode-driving">Driving</label>
-                </div>
-                <div id="contact-map"></div>
+                <input type="radio" name="type" id="changemode-driving">
+                <label for="changemode-driving">Driving</label>
             </div>
+            <div id="google-map"></div>
         </div>
     </div>
 </section>
@@ -97,10 +112,11 @@ if(@config('settings.google_coordinates')){
 <script>
     function initMap() {
         var coordinates = { 'lat':<?php echo e($coordinates[0]); ?>, 'lng':<?php echo e($coordinates[1]); ?> };
-        var map = new google.maps.Map(document.getElementById('contact-map'), {
+        var map = new google.maps.Map(document.getElementById('google-map'), {
             mapTypeControl: false,
             center: coordinates,
-            zoom: 13
+            zoom: 13,
+            scrollwheel: false,
         });
         var marker = new google.maps.Marker({
             position: coordinates,

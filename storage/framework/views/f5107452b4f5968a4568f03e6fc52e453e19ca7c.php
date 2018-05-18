@@ -4,20 +4,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-8 col-xs-12">
-                <!-- Single Blog Post -->
-                <div class="single-blog-post">
-                    <div class="blog-info">
+                <div class="post-detail">
+                    <div class="info">
                         <h3 class="title"><?php echo e($post->title); ?></h3>
-                        <div class="blog-meta">
+                        <div class="meta">
                             <span><a href="#"><i class="fa fa-user"></i> <?php echo e(@$author->name); ?> </a></span>
                             <span><a href="<?php echo e(url('/'.$type.'/'.$category->slug)); ?>"><i class="fa fa-tags"></i> <?php echo e(@$category->title); ?> </a></span>
                             <span><a href="#"><i class="fa fa-eye"></i> <?php echo e(__('site.view')); ?> (<?php echo e($post->viewed); ?>)</a></span>
                         </div>
-                        <div class="blog-img">
-                            <img alt="" src="<?php echo e(asset('public/uploads/posts/'.$post->image)); ?>">
+                        <div class="desc">
+                            <?php echo e($post->description); ?>
+
                         </div>
-                        <?php echo $post->contents; ?>						
+                        <div class="image">
+                            <img alt="" src="<?php echo e(asset('public/uploads/posts/'.$post->image)); ?>">
+                        </div>				
                     </div>
+                    <?php echo $post->contents; ?>
+
                 </div>
                 <!-- Comments Wrapper -->
                 <?php echo $__env->make('frontend.default.blocks.comment', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

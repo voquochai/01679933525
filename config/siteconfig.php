@@ -77,6 +77,7 @@ return [
 			'description' =>	false,
 			'contents'    =>	false,
 			'image'       =>	false,
+			'seo'	=>	true,
 			'thumbs'	=>	[
 				'_small' => [
 					'width'  =>	300,
@@ -94,6 +95,7 @@ return [
 			'description' =>	false,
 			'contents'    =>	false,
 			'image'       =>	false,
+			'seo'	=>	true,
 			'thumbs'	=>	[
 				'_small' => [
 					'width'  =>	300,
@@ -111,6 +113,7 @@ return [
 			'description' =>	false,
 			'contents'    =>	false,
 			'image'       =>	false,
+			'seo'	=>	false,
 			'thumbs'	=>	[
 				'_small' => [
 					'width'  =>	300,
@@ -134,6 +137,7 @@ return [
 			'attributes'    =>	true,
 			'image'       =>	true,
 			'images'      =>	true,
+			'seo'	=>	true,
 			'thumbs'	=>	[
 				'_small' => [
 					'width'  =>	300,
@@ -164,6 +168,7 @@ return [
 			'attributes'    =>	false,
 			'image'       =>	false,
 			'images'      =>	false,
+			'seo'	=>	false,
 			'thumbs'	=>	[
 				'_small' => [
 					'width'  =>	300,

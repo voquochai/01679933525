@@ -3,7 +3,7 @@
     <h3>{{ __('site.comment').' ('.$countComment.')' }}</h3>
     {!! get_template_comment($comments) !!}
     @endif
-    <h3>{{ __('site.leave_a_comment') }}</h3>
+    <h3>{{ __('site.comment') }}</h3>
     <div class="comment-form main-form">
         <form action="{{ URL::current() }}" method="post">
             <input type="hidden" name="parent" value="0">

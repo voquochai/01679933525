@@ -6,7 +6,7 @@
             @php
                 Menu::resetMenu();
                 Menu::setOption([
-                    'open'=>['<ul class="mega-menu">','<ul>'],
+                    'open'=>['<ul class="sub-menu">','<ul>'],
                     'baseurl' => url('/san-pham')
                 ]);
                 Menu::setMenu(get_categories('san-pham',$lang));

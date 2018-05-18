@@ -4,7 +4,7 @@
     <?php echo get_template_comment($comments); ?>
 
     <?php endif; ?>
-    <h3><?php echo e(__('site.leave_a_comment')); ?></h3>
+    <h3><?php echo e(__('site.comment')); ?></h3>
     <div class="comment-form main-form">
         <form action="<?php echo e(URL::current()); ?>" method="post">
             <input type="hidden" name="parent" value="0">

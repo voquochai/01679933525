@@ -55,6 +55,7 @@
                             </div>
                             @endif
 
+                            @if($siteconfig[$type]['seo'])
                             <div class="form-group">
                                 <label class="control-label">Meta Title</label>
                                 <div>
@@ -75,11 +76,13 @@
                                     <textarea name="dataL[{{ $key }}][meta_seo][description]" class="form-control meta-description" rows="6">{{ old('dataL.'.$key.'.meta_seo.description') }}</textarea>
                                 </div>
                             </div>
+                            @endif
                         </div>
                         @endforeach
                     </div>
                 </div>
             </div>
+            @if($siteconfig[$type]['seo'])
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"> SEO </div>
@@ -117,6 +120,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
         <div class="col-lg-3 col-xs-12">
             <div class="portlet box green">

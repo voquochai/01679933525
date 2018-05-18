@@ -25,16 +25,16 @@ class TemplateFactory {
 		$template = '
             <div class="'.$cls.'">
                 <div class="product-item">
-                    <div class="product-img">
+                    <div class="image">
                         <a class="image" href="'.$link.'"><img src="'. ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/300x300') ) .'" alt="'.$product->alt.'" /></a>
                         <a href="#" class="add-to-wishlist" data-ajax="id='. $product->id .'" title="Wishlist"></a>
                     </div>
-                    <div class="product-info">
+                    <div class="info">
                         <h5 class="title"><a href="'.$link.'">'.$product->title.'</a>
                             <span class="code">#'.$product->code.' - Sales: 61.6K</span>
                         </h5>
                     </div>
-                    <div class="product-action">
+                    <div class="action">
                         <p class="float-left">
                             <span class="price">
                             '.self::getTemplateProductPrice($product->regular_price, $product->sale_price).'
@@ -73,11 +73,11 @@ class TemplateFactory {
             <div class="'.$cls.' mb-40">
                 <div class="blog-item">
                     <a class="image" href="'.$link.'"><img src="'. ( $post->image && file_exists(public_path('/uploads/posts/'.$post->image)) ? asset( 'public/uploads/posts/'.get_thumbnail($post->image) ) : asset('noimage/330x220') ) .'" alt="'.$post->alt.'" /></a>
-                    <div class="blog-dsc">
+                    <div class="desc">
                         <h3 class="title"><a href="'.$link.'">'.$post->title.'</a></h3>
                         <p> <span class="meta"><i class="pe-7s-date"></i> '.date(( config('settings.date_format') == 'custom' ? config('settings.date_custom_format') : config('settings.date_format') ),strtotime($post->updated_at)).'</span> </p>
                         <p>'.substr($post->description,0,100).' <a href="'.$link.'">[...]</a> </p>
-                        <p class="social-links">
+                        <p class="social">
                             <a href="#" target="_blank"><span class="fa fa-facebook"></span></a>
                             <a href="#" target="_blank"><span class="fa fa-twitter"></span></a>
                             <a href="#" target="_blank"><span class="fa fa-vimeo"></span></a>
@@ -102,7 +102,7 @@ class TemplateFactory {
         elseif($show==1){ $cls = "col-xs-12"; }
         $template = '
             <div class="'.$cls.' mb-40">
-                <div class="single-blog">
+                <div class="single-post">
                     <img src="'. ( $post->image && file_exists(public_path('/uploads/posts/'.$post->image)) ? asset( 'public/uploads/posts/'.get_thumbnail($post->image) ) : asset('noimage/330x220') ) .'" alt="'.$post->alt.'" />
                     <h2 class="title">'.$post->title.'</h2>
                     <p>'.substr($post->description,0,100).'</p>
