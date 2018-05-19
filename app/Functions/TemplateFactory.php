@@ -26,31 +26,32 @@ class TemplateFactory {
             <div class="'.$cls.'">
                 <div class="product-item">
                     <div class="image">
-                        <a class="image" href="'.$link.'"><img src="'. ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/300x300') ) .'" alt="'.$product->alt.'" /></a>
+                        <a href="'.$link.'"><img src="'. ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/300x300') ) .'" alt="'.$product->alt.'" /></a>
                         <a href="#" class="add-to-wishlist" data-ajax="id='. $product->id .'" title="Wishlist"></a>
                     </div>
                     <div class="info">
-                        <h5 class="title"><a href="'.$link.'">'.$product->title.'</a>
-                            <span class="code">#'.$product->code.' - Sales: 61.6K</span>
-                        </h5>
+                        <h2 class="title"><a href="'.$link.'">'.$product->title.'</a>
+                            <span class="code">#'.$product->code.' - Sales: 61.6K - 
+                                <span class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <span>(5.8K)</span>
+                                </span>
+                            </span>
+                        </h2>
                     </div>
                     <div class="action">
                         <p class="float-left">
                             <span class="price">
                             '.self::getTemplateProductPrice($product->regular_price, $product->sale_price).'
                             </span>
-                            <span class="rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <span>(5.8K)</span>
-                            </span>
                         </p>
                         <p class="float-right">
-                            <a href="#" class="btn btn-success" >Preview</a>
-                            <a href="#" class="btn btn-info add-to-cart" data-ajax="id='. $product->id .'"> <i class="fa fa-shopping-cart"></i> </a>
+                            <a href="#" class="btn btn-success" > Xem trước </a>
+                            <a href="#" class="btn btn-info add-to-cart" data-ajax="id='. $product->id .'"> Mua ngay </a>
                             
                         </p>
                     </div>

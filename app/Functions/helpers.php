@@ -21,7 +21,7 @@ if (!function_exists('get_thumbnail')) {
 }
 
 if (!function_exists('get_currency_vn')) {
-    function get_currency_vn($number, $symbol = ' Đ', $isPrefix = false) {
+    function get_currency_vn($number, $symbol = ' đ', $isPrefix = false) {
         return Tool::getCurrencyVN($number, $symbol, $isPrefix);
     }
 }

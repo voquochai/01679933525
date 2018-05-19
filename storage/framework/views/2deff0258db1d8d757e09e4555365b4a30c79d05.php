@@ -66,6 +66,7 @@
                             </div>
                             <?php endif; ?>
 
+                            <?php if($siteconfig[$type]['seo']): ?>
                             <div class="form-group">
                                 <label class="control-label">Meta Title</label>
                                 <div>
@@ -86,6 +87,7 @@
                                     <textarea name="dataL[<?php echo e($key); ?>][meta_seo][description]" class="form-control meta-description" rows="6"><?php echo e(isset( $item->languages[$i] ) ? $item->languages[$i]->meta_seo['description'] : ''); ?></textarea>
                                 </div>
                             </div>
+                            <?php endif; ?>
 
                             <?php if($siteconfig[$type]['attributes']): ?>
                             <div id="qh-app-<?php echo e($key); ?>">
@@ -130,7 +132,7 @@
                     </div>
                 </div>
             </div>
-
+            <?php if($siteconfig[$type]['seo']): ?>
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"> SEO </div>
@@ -168,7 +170,7 @@
                     </div>
                 </div>
             </div>
-
+            <?php endif; ?>
         </div>
         <div class="col-lg-3 col-xs-12">
             <div class="portlet box green">

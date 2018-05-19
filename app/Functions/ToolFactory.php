@@ -60,7 +60,7 @@ class ToolFactory {
         return '';
     }
 
-    public function getCurrencyVN($number, $symbol = 'Đ', $isPrefix = false) {
+    public function getCurrencyVN($number, $symbol = 'đ', $isPrefix = false) {
         if ($isPrefix) {
             return $symbol . number_format($number, 0, ',', '.');
         } else {
