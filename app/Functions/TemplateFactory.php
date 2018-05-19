@@ -39,7 +39,7 @@ class TemplateFactory {
                             <span class="price">
                             '.self::getTemplateProductPrice($product->regular_price, $product->sale_price).'
                             </span>
-                            <span class="rating font-size-12">
+                            <span class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>

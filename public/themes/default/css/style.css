@@ -894,6 +894,10 @@ h6 a {
 .product-item .action .rating{
     display: block;
 }
+.product-item .action .rating{
+    font-size: 12px;
+    line-height: 10px;
+}
 .product-item .action .rating .fa{
     font-size: 13px;
     color: #c49f47;
@@ -902,6 +906,41 @@ h6 a {
     content:'';
     display: block;
     clear: both;
+}
+
+.display-list .product-item .image{
+    width: 350px;
+    position: relative;
+    float: left;
+}
+
+.display-list .product-item .info{
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 350px);
+    padding: 20px 20px 0px 20px;
+}
+
+.display-list .product-item .title{
+    font-size: 20px;
+    font-weight: bold;
+}
+.display-list .product-item .code{
+    font-size: 15px;
+    margin: 15px 0px;
+    font-weight: 400;
+    color: #333;
+}
+.display-list .product-item .action{
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 350px);
+    padding: 0px 20px 0px 20px;
+
+}
+.display-list .product-item .action p{
+    width: 100%;
+    margin-bottom: 15px;
 }
 
 /*-- Blog Section --*/
