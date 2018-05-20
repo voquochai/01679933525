@@ -2,6 +2,7 @@
 
 return [
     'add_to_cart' => 'Add to cart',
+    'buy_now' => 'Buy now',
     'has_item' => 'Has <span> :attribute items </span> in cart',
     'no_item' => 'No item in cart',
     'continue_shopping' => 'Continue shopping',

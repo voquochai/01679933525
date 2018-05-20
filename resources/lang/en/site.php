@@ -42,6 +42,7 @@ return [
     'reset' =>  'Reset',
 
     /* Product */
+    'product_price'  =>  'Price',
     'product_code'  =>  'Product code',
     'product_detail'   =>  'Product detail',
     'product_content' =>  'Product content',

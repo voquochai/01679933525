@@ -6,21 +6,19 @@
         <div class="row">
             <div class="col-lg-9 col-md-8 col-xs-12">
                 <div class="post-detail">
-                    <div class="info">
-                        <h3 class="title">{{ $post->title }}</h3>
-                        <div class="meta">
-                            <span><a href="#"><i class="fa fa-user"></i> {{ @$author->name }} </a></span>
-                            <span><a href="{{ url('/'.$type.'/'.$category->slug) }}"><i class="fa fa-tags"></i> {{ @$category->title }} </a></span>
-                            <span><a href="#"><i class="fa fa-eye"></i> {{ __('site.view') }} ({{ $post->viewed }})</a></span>
-                        </div>
-                        <div class="desc">
-                            {{ $post->description }}
-                        </div>
-                        <div class="image">
-                            <img alt="" src="{{ asset('public/uploads/posts/'.$post->image) }}">
-                        </div>				
+                    <h3 class="title">{{ $post->title }}</h3>
+                    <div class="meta">
+                        <span><a href="#"><i class="fa fa-user"></i> {{ @$author->name }} </a></span>
+                        <span><a href="{{ url('/'.$type.'/'.$category->slug) }}"><i class="fa fa-tags"></i> {{ @$category->title }} </a></span>
+                        <span><a href="#"><i class="fa fa-eye"></i> {{ __('site.view') }} ({{ $post->viewed }})</a></span>
                     </div>
-                    {!! $post->contents !!}
+                    <div class="desc">
+                        {{ $post->description }}
+                    </div>
+                    <div class="image">
+                        <img alt="" src="{{ asset('public/uploads/posts/'.$post->image) }}">
+                    </div>
+                    <div class="content mb40">{!! $post->contents !!}</div>
                 </div>
                 <!-- Comments Wrapper -->
                 @include('frontend.default.blocks.comment')

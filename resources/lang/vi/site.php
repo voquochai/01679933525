@@ -42,6 +42,7 @@ return [
     'reset' =>  'Làm mới',
 
     /* Product */
+    'product_price'  =>  'Giá bán',
     'product_code'  =>  'Mã sản phẩm',
     'product_detail'   =>  'Chi tiết sản phẩm',
     'product_content' =>  'Nội dung',

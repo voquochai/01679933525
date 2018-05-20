@@ -5,6 +5,7 @@ body {
     font-weight: 400;
     font-style: normal;
     font-size: 14px;
+    line-height: 25px;
 }
 img {
     max-width: 100%;
@@ -157,33 +158,47 @@ h6 a {
 }
 
 /*-- Sidebar --*/
-.sidebar{
-    background-color: #f2f2f2;
+.sidebar{}
+.sidebar-widget{
+    background-color: #f9f9f9;
     padding: 20px;
 }
-.sidebar .title{
+.sidebar-widget:after{
+    content:'';
+    display: block;
+    clear: both;
+}
+.sidebar-widget .title{
     font-size: 20px;
     font-weight: bold;
     color: #333;
     margin-top: 0px;
 }
-.sidebar .category {
+.sidebar-widget ul{
     margin: 0px;
     padding: 0px;
 }
-.sidebar .category li {
+.sidebar-widget ul li{
+    list-style: none;
+}
+
+.sidebar-widget .category {
+    margin: 0px;
+    padding: 0px;
+}
+.sidebar-widget .category li {
     border-top: 1px solid #ddd;
     display: block;
 }
-.sidebar .category li:first-child{
+.sidebar-widget .category li:first-child{
     border-top: 0px;
 }
-.sidebar .category li a {
+.sidebar-widget .category li a {
     display: block;
     font-size: 15px;
     padding: 10px 0px;
 }
-.sidebar .category li a::before {
+.sidebar-widget .category li a::before {
     content: "\f105";
     display: block;
     float: left;
@@ -191,15 +206,15 @@ h6 a {
     font-size: 15px;
     margin-right: 10px;
 }
-.sidebar .category li a.active {
+.sidebar-widget .category li a.active {
     color: #ffae00;
 }
-.sidebar .category li a:hover {
+.sidebar-widget .category li a:hover {
     padding-left: 10px;
 }
 /*-- Tag Sidebar --*/
-.tag-cloud {}
-.tag-cloud a {
+.sidebar-widget .tag-cloud {}
+.sidebar-widget .tag-cloud a {
     border: 1px solid #ddd;
     display: block;
     float: left;
@@ -211,7 +226,7 @@ h6 a {
     padding: 0 5px;
     text-transform: capitalize;
 }
-.tag-cloud a:hover {
+.sidebar-widget .tag-cloud a:hover {
     border: 1px solid #ffae00;
     color: #ffae00;
 }
@@ -951,6 +966,14 @@ a.meanmenu-reveal i {
     -webkit-border-radius: 4px;
     background-color: #fff;
     box-shadow: 0 0 16px #ccc;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+.product-item:hover{
+    box-shadow: 0 0 16px #999;
+}
+.product-item:hover .title a{
+    color: #5dafef;
 }
 .product-item:after{
     content: '';
@@ -1052,6 +1075,10 @@ a.meanmenu-reveal i {
     font-size: 15px;
 }
 
+.display-list .product-item .price span{
+    line-height: 25px;
+}
+
 .display-list .product-item .price .new{
     font-size: 20px;
     font-weight: bold;
@@ -1069,6 +1096,101 @@ a.meanmenu-reveal i {
 }
 .display-list .product-item .action .btn{
     padding: 10px 20px;
+}
+
+/*-- Product detail --*/
+.product-detail,
+.product-detail .title,
+.product-detail .meta,
+.product-detail .desc,
+.product-detail .image,
+.product-detail .content{
+    float: left;
+    width: 100%;
+}
+
+.product-detail .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+.product-detail .meta {
+    margin-bottom: 15px;
+}
+.product-detail .meta span {
+    display: block;
+    float: left;
+    margin-right: 15px;
+}
+.product-detail .meta span a {
+    display: block;
+    font-size: 13px;
+    padding-left: 2px;
+}
+.product-detail .meta span a:hover {
+    color: #5dafef
+}
+.product-detail .meta span a i {
+    line-height: 26px;
+    margin-right: 6px;
+}
+.product-detail .image {
+    text-align: center;
+    margin: 20px 0px;
+}
+
+.product-attributes:after,
+.product-price:after,
+.product-license:after,
+.product-total:after{
+    content:'';
+    display: block;
+    clear: both;
+}
+.product-attributes ul li{
+    position: relative;
+    display: block;
+    font-size: 15px;
+    padding: 5px 0px 5px 30px; 
+}
+.product-attributes ul li i{
+    position: absolute;
+    left: 0px;
+    top: 11px;
+}
+.product-price .new{
+    font-size: 20px;
+    color: #f00;
+    font-weight: bold;
+}
+.product-price .old{
+    font-size: 15px;
+    color: #ccc;
+    text-decoration: line-through;
+}
+.product-license select{
+    display: none;   
+}
+.product-license .bootstrap-select{
+    width: 120px !important;
+}
+.product-license .bootstrap-select .btn{
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    font-size: 15px;
+    color: #536d87;
+    background-color: transparent;
+}
+.product-license .bootstrap-select .btn:hover,
+.product-license .bootstrap-select .btn:focus,
+.product-license .bootstrap-select .btn:active{
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.product-total{
+    margin-bottom: 20px;
 }
 
 /*-- Blog Section --*/
@@ -1163,76 +1285,48 @@ a.meanmenu-reveal i {
 }
 
 /*-- Post detail --*/
-.post-detail {}
-.post-detail .image {
-    text-align: center;
-    margin: 20px 0px;
-}
-.post-detail .image img {}
-.post-detail .info {}
-.post-detail .info .title {
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-.post-detail .info .meta {
-    display: block;
+.post-detail,
+.post-detail .title,
+.post-detail .meta,
+.post-detail .desc,
+.post-detail .image,
+.post-detail .content{
     float: left;
-    margin-bottom: 10px;
     width: 100%;
 }
-.post-detail .info .meta span {
+
+.post-detail .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+.post-detail .meta {
+    margin-bottom: 15px;
+}
+.post-detail .meta span {
     display: block;
     float: left;
     margin-right: 15px;
 }
-.post-detail .info .meta span a {
+.post-detail .meta span a {
     display: block;
     font-size: 13px;
     padding-left: 2px;
 }
-.post-detail .info .meta span a:hover {
+.post-detail .meta span a:hover {
     color: #5dafef
 }
-.post-detail .info .meta span a i {
+.post-detail .meta span a i {
     line-height: 26px;
     margin-right: 6px;
 }
-/* -----------------------------------
-  08. Service Section
---------------------------------------*/
-.service-section {
-    border-top: 1px solid #f1f1f1;
-}
-/*-- Single Service --*/
-.single-service {}
-.service-icon {
-    float: left;
-    margin-right: 15px;
-}
-.service-icon i {
-    color: #ffae00;
-    display: block;
-    font-size: 48px;
-    line-height: 47px;
-}
-.service-title {
-    overflow: hidden;
-}
-.service-title h3 {
-    color: #252525;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 20px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-.service-title p {
-    color: #7d7d7d;
-    font-size: 13px;
-    line-height: 23px;
-    margin: 0;
+.post-detail .image {
+    text-align: center;
+    margin: 20px 0px;
 }
 
+/*-- Footer section --*/
 .footer-section{
     background-image: url('../images/bg/footer-bg.jpg');
     background-size: cover;
@@ -1887,7 +1981,6 @@ a.meanmenu-reveal i {
     background: #5dafef;
     text-decoration: none;
     font-weight: 600;
-    border-radius: 5px;
     font-size: 14px;
     display: inline-block;
     color: #fff;
@@ -1905,7 +1998,10 @@ a.meanmenu-reveal i {
 }
 
 /*-- Comment Wrapper --*/
-.comment-wrapper {}
+.comment-wrapper {
+    float: left;
+    width: 100%;
+}
 .comment-wrapper h3 {
     color: #333;
     display: block;
@@ -1997,7 +2093,6 @@ a.meanmenu-reveal i {
     background: #5dafef;
     text-decoration: none;
     font-weight: 600;
-    border-radius: 5px;
     font-size: 14px;
     display: inline-block;
     color: #fff;

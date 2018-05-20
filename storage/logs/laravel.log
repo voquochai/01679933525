@@ -1280,3 +1280,9 @@ Stack trace:
 #13 E:\xampp\htdocs\laravel\01679933525\public\index.php(58): Illuminate\Foundation\Http\Kernel->terminate(Object(Illuminate\Http\Request), Object(Illuminate\Http\Response))
 #14 E:\xampp\htdocs\laravel\01679933525\index.php(21): require_once('E:\\xampp\\htdocs...')
 #15 {main}  
+[2018-05-20 21:42:25] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to undefined function getTemplateProductPrice()' in E:\xampp\htdocs\laravel\01679933525\storage\framework\views\06d93c79673dc2618361afe41ef3bda9e7e6785a.php:46
+Stack trace:
+#0 {main}  
+[2018-05-20 23:39:49] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '<'' in E:\xampp\htdocs\laravel\01679933525\storage\framework\views\06d93c79673dc2618361afe41ef3bda9e7e6785a.php:66
+Stack trace:
+#0 {main}  

@@ -1,116 +1,97 @@
 <?php $__env->startSection('content'); ?>
 <!-- PAGE SECTION START -->
-<div class="page-section section pt-100 pb-60">
+<section class="page-section section pt-60 pb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row mb-40">
-            <div class="col-xs-12 col-sm-6 col-md-4 mb-40">	
-                <!-- Tab panes -->
-                <div class="tab-content mb-10">
-                    <div class="pro-large-img tab-pane active" id="pro-large-img-0">
-                        <img src="<?php echo e(( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/600x600') )); ?>" alt="<?php echo e($product->alt); ?>" />
+            <div class="col-md-8 col-sm-12 col-xs-12 mb-40">
+                <div class="product-detail">
+                    <h1 class="title"><?php echo e($product->title); ?></h1>
+                    <div class="image">
+                        <img src="<?php echo e(( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.$product->image ) : asset('noimage/600x600') )); ?>" alt="<?php echo e($product->alt); ?>" />
                     </div>
-                    <?php $__empty_1 = true; $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=> $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <div class="pro-large-img tab-pane" id="pro-large-img-<?php echo e(++$key); ?>">
-                        <img src="<?php echo e(asset('public/uploads/products/'.$image->image)); ?>" alt="<?php echo e($image->alt); ?>" />
-                    </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <?php endif; ?>
-                </div>
-                <!-- Nav tabs -->
-                <div class="pro-thumb-img-slider">
-                    <div><a href="#pro-large-img-0" data-toggle="tab"><img src="<?php echo e(asset('public/uploads/products/'.get_thumbnail($product->image,'_small'))); ?>" alt="<?php echo e($product->alt); ?>" /></a></div>
-                    <?php $__empty_1 = true; $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=> $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <div><a href="#pro-large-img-<?php echo e(++$key); ?>" data-toggle="tab"><img src="<?php echo e(asset('public/uploads/products/'.$image->image)); ?>" alt="<?php echo e($image->alt); ?>" /></a></div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-8 mb-40">
-                <div class="product-details">
-                    <h2 class="title"><?php echo e($product->title); ?></h2>
-                    <span class="price section"><?php echo get_template_product_price($product->regular_price,$product->sale_price); ?></span>
-                    <span class="availability section"> <strong><?php echo e(__('site.product_code')); ?>:</strong> <?php echo e($product->code); ?></span>
-                    <!--<span class="availability section"><strong>available:</strong> <span class="in"><i class="fa fa-check"></i> In Stock</span><span class="out"><i class="fa fa-times"></i> Out of Stock</span></span>-->
-                    <?php $__empty_1 = true; $__currentLoopData = $attributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <?php if( $attribute['name'] !== null && $attribute['value'] !== null ): ?>
-                        <span class="availability section"> <strong><?php echo e($attribute['name']); ?>:</strong> <?php echo e($attribute['value']); ?></span>
-                        <?php endif; ?>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <?php endif; ?>
-                    <div class="short-desc section">
-                        <?php echo e($product->description); ?>
+                    <div class="content">
+                        <?php echo $product->contents; ?>
 
                     </div>
-                    <div class="color-list section">
-                        <?php $__empty_1 = true; $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <button <?php echo ($key == 0) ? 'class="active"' : ''; ?> style="background-color: <?php echo e($color->value); ?>;" data-id="<?php echo e($color->id); ?>" ><i class="fa fa-check"></i></button>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                        <?php endif; ?>
-                    </div>
-                    <div class="size-list section">
-                        <?php $__empty_1 = true; $__currentLoopData = $sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <button <?php echo ($key == 0) ? 'class="active"' : ''; ?> data-id="<?php echo e($size->id); ?>" ><i class="fa fa-check"></i> <?php echo e($size->title); ?> </button>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                        <?php endif; ?>
-                    </div>
-                    <div class="quantity-cart section">
-                        <div class="product-quantity">
-                            <input type="text" value="1">
-                        </div>
-                        <button id="add-to-cart" data-ajax="id=<?php echo e($product->id); ?>"><?php echo e(__('cart.add_to_cart')); ?></button>
-                    </div>
-                    <div class="share-icons section">
-                        <a target="_blank" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=<?php echo e(url()->current()); ?>"><i class="fa fa-facebook"></i>  facebook</a>
-                        <a target="_blank" class="twitter" href="https://twitter.com/home?status=<?php echo e(url()->current()); ?>"><i class="fa fa-twitter"></i>  twitter</a>
-                        <a target="_blank" class="google" href="https://plus.google.com/share?url=<?php echo e(url()->current()); ?>"><i class="fa fa-google-plus"></i>  google</a>
-                        <a target="_blank" class="pinterest" href="https://pinterest.com/pin/create/button/?url=<?php echo e(url()->current()); ?>&media=<?php echo e(asset('public/uploads/products/'.$product->image)); ?>&description=<?php echo e($product->description); ?>"><i class="fa fa-pinterest"></i>  pinterest</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Nav tabs -->
-            <div class="col-xs-12">
-                <ul class="pro-info-tab-list section">
-                    <li class="active"><a href="#more-info" data-toggle="tab"><?php echo e(__('site.product_detail')); ?></a></li>
-                    <li><a href="#reviews" data-toggle="tab"><?php echo e(__('site.comment')); ?></a></li>
-                </ul>
-            </div>
-            <!-- Tab panes -->
-            <div class="tab-content col-xs-12">
-                <div class="pro-info-tab tab-pane active" id="more-info">
-                    <?php echo $product->contents; ?>
-
-                </div>
-                <div class="pro-info-tab tab-pane" id="reviews">
                     <!-- Comments Wrapper -->
                     <?php echo $__env->make('frontend.default.blocks.comment', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 </div>
-            </div>		
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 mb-40">
+                <div class="sidebar">
+                    <div class="sidebar-widget mb-40">
+                        <div class="product-attributes">
+                            <ul>
+                            <?php $__empty_1 = true; $__currentLoopData = $attributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php if( $attribute['name'] !== null && $attribute['value'] !== null ): ?>
+                                <li> <?php echo $attribute['name'].$attribute['value']; ?> </li>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                            <?php endif; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar-widget mb-40">
+                        <div class="product-price">
+                            <div class="float-left"><label><?php echo e(__('site.product_price')); ?></label></div>
+                            <div class="float-right"><?php echo get_template_product_price($product->regular_price,$product->sale_price); ?></div>
+                        </div>
+                        <hr>
+                        <div class="product-license">
+                            <div class="float-left"> <label> Hình thức </label> </div>
+                            <div class="float-right">
+                                <select class="selectpicker">
+                                    <option value=""> Thuê web </option>
+                                    <option value=""> Mua đứt </option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="service-hosting">
+                            <h3 class="title"> Gói dịch vụ kèm theo </h3>
+                            <div class="mt-radio-list">
+                                <label class="mt-radio">
+                                    <input type="radio">1GB Hosting
+                                    <span></span>
+                                </label>
+                                <label class="mt-radio">
+                                    <input type="radio">2GB Hosting
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="product-total">
+                            <div class="float-left"> <label> Tổng tiền </label> </div>
+                            <div class="float-right"></div>
+                        </div>
+                        <button id="add-to-cart" class="btn btn-block btn-lg" data-ajax="id=<?php echo e($product->id); ?>"><?php echo e(__('cart.buy_now')); ?></button>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 <!-- PAGE SECTION END -->
     
 <!-- PRODUCT SECTION START -->
-<div class="product-section section pb-100">
+<section class="page-section section pb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-70">
                 <h2><?php echo e(__('site.product_other')); ?></h2>
             </div>
         </div>
-        <div class="row">
-            <div class="product-slider product-slider-4">
-                <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <?php echo get_template_product($product,$type,1); ?>
+        <div class="row display-flex">
+            <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                <?php echo get_template_product($product,$type,3); ?>
 
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                <?php endif; ?>
-            </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+            <?php endif; ?>
         </div>
     </div>
-</div>
+</section>
 <!-- PRODUCT SECTION END --> 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('frontend.default.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
