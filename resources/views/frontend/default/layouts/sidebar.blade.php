@@ -3,7 +3,7 @@
 @endphp
 <div class="sidebar">
     <div class="sidebar-widget mb-20">
-        <h3 class="title">{{ __('site.category') }}</h3>
+        <h4 class="title">{{ __('site.category') }}</h4>
         @php
             Menu::resetMenu();
             Menu::setOption([

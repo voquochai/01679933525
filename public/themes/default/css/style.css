@@ -169,7 +169,6 @@ h6 a {
     clear: both;
 }
 .sidebar-widget .title{
-    font-size: 20px;
     font-weight: bold;
     color: #333;
     margin-top: 0px;
@@ -1143,6 +1142,7 @@ a.meanmenu-reveal i {
 .product-attributes:after,
 .product-price:after,
 .product-license:after,
+.product-hosting:after,
 .product-total:after{
     content:'';
     display: block;
@@ -1187,6 +1187,14 @@ a.meanmenu-reveal i {
 .product-license .bootstrap-select .btn:active{
     background-color: #fff;
     box-shadow: none;
+}
+
+.product-hosting{
+    line-height: 20px;
+}
+.product-hosting label{
+    font-weight: 400;
+    font-size: 14px;
 }
 
 .product-total{

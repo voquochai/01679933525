@@ -5,23 +5,20 @@
         <div class="row">
             <div class="col-lg-9 col-md-8 col-xs-12">
                 <div class="post-detail">
-                    <div class="info">
-                        <h3 class="title"><?php echo e($post->title); ?></h3>
-                        <div class="meta">
-                            <span><a href="#"><i class="fa fa-user"></i> <?php echo e(@$author->name); ?> </a></span>
-                            <span><a href="<?php echo e(url('/'.$type.'/'.$category->slug)); ?>"><i class="fa fa-tags"></i> <?php echo e(@$category->title); ?> </a></span>
-                            <span><a href="#"><i class="fa fa-eye"></i> <?php echo e(__('site.view')); ?> (<?php echo e($post->viewed); ?>)</a></span>
-                        </div>
-                        <div class="desc">
-                            <?php echo e($post->description); ?>
-
-                        </div>
-                        <div class="image">
-                            <img alt="" src="<?php echo e(asset('public/uploads/posts/'.$post->image)); ?>">
-                        </div>				
+                    <h3 class="title"><?php echo e($post->title); ?></h3>
+                    <div class="meta">
+                        <span><a href="#"><i class="fa fa-user"></i> <?php echo e(@$author->name); ?> </a></span>
+                        <span><a href="<?php echo e(url('/'.$type.'/'.$category->slug)); ?>"><i class="fa fa-tags"></i> <?php echo e(@$category->title); ?> </a></span>
+                        <span><a href="#"><i class="fa fa-eye"></i> <?php echo e(__('site.view')); ?> (<?php echo e($post->viewed); ?>)</a></span>
                     </div>
-                    <?php echo $post->contents; ?>
+                    <div class="desc">
+                        <?php echo e($post->description); ?>
 
+                    </div>
+                    <div class="image">
+                        <img alt="" src="<?php echo e(asset('public/uploads/posts/'.$post->image)); ?>">
+                    </div>
+                    <div class="content mb40"><?php echo $post->contents; ?></div>
                 </div>
                 <!-- Comments Wrapper -->
                 <?php echo $__env->make('frontend.default.blocks.comment', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -78,7 +78,7 @@
                 <input type="radio" name="type" id="changemode-driving">
                 <label for="changemode-driving">Driving</label>
             </div>
-            <div id="contact-map"></div>
+            <div id="google-map"></div>
         </div>
     </div>
 </section>
@@ -112,7 +112,7 @@ if(@config('settings.google_coordinates')){
 <script>
     function initMap() {
         var coordinates = { 'lat':<?php echo e($coordinates[0]); ?>, 'lng':<?php echo e($coordinates[1]); ?> };
-        var map = new google.maps.Map(document.getElementById('contact-map'), {
+        var map = new google.maps.Map(document.getElementById('google-map'), {
             mapTypeControl: false,
             center: coordinates,
             zoom: 13,
