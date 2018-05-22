@@ -22,7 +22,7 @@
                     <h4 class="widget-title">Chính sách &amp; Quy định</h4>
                     <ul>
                         @forelse($chinhsach as $val)
-                        <li><a href="#">{{$val->title}}</a></li>
+                        <li><a href="{{ route('frontend.home.page',['type'=>$val->type, 'slug'=>$val->slug]) }}">{{$val->title}}</a></li>
                         @empty
                         @endforelse
                     </ul>
@@ -32,7 +32,7 @@
                     <h4 class="widget-title">Hỗ trợ khách hàng</h4>
                     <ul>
                         @forelse($hotro as $val)
-                        <li><a href="#">{{$val->title}}</a></li>
+                        <li><a href="{{ route('frontend.home.page',['type'=>$val->type, 'slug'=>$val->slug]) }}">{{$val->title}}</a></li>
                         @empty
                         @endforelse
                     </ul>

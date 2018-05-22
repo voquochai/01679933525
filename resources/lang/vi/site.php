@@ -7,6 +7,8 @@ return [
     'product' => 'Sản phẩm',
     'post' => 'Bài viết',
     'news' => 'Tin tức',
+    'tip' => 'Thủ thuật',
+    'service' => 'Dịch vụ',
     'contact' => 'Liên hệ',
     'cart' => 'Giỏ hàng',
     'checkout' => 'Thanh toán',

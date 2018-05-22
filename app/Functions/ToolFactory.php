@@ -33,13 +33,25 @@ class ToolFactory {
                 $data['page_title'] = __('site.product');
                 $data['template'] = "product";
                 break;
+            case "dich-vu":
+                $data['page_title'] = __('site.service');
+                $data['template'] = "post";
+                break;
             case "thu-thuat":
-                $data['page_title'] = __('site.news');
+                $data['page_title'] = __('site.tip');
                 $data['template'] = "post";
                 break;
             case "gioi-thieu":
                 $data['page_title'] = __('site.about');
                 $data['template'] = "page";
+                break;
+            case "chinh-sach-quy-dinh":
+                $data['page_title'] = "Chính sách & Quy định";
+                $data['template'] = "post";
+                break;
+            case "ho-tro-khach-hang":
+                $data['page_title'] = "Hỗ trợ khách hàng";
+                $data['template'] = "post";
                 break;
             default:
                 $data['page_title'] = __('site.home');
@@ -144,7 +156,7 @@ class ToolFactory {
     public function getPosts($type,$lang='vi'){
         return DB::table('posts as A')
             ->leftjoin('post_languages as B', 'A.id','=','B.post_id' )
-            ->select('A.*','B.title','B.description')
+            ->select('A.*','B.slug','B.title','B.description')
             ->where('B.language',$lang)
             ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
             ->where('A.type',$type)
@@ -180,7 +192,7 @@ class ToolFactory {
     public function getPages($type,$lang='vi'){
         return DB::table('pages as A')
             ->leftjoin('page_languages as B', 'A.id','=','B.page_id' )
-            ->select('A.*','B.title','B.description','B.contents','B.meta_seo')
+            ->select('A.*','B.slug','B.title','B.description','B.contents','B.meta_seo')
             ->where('B.language',$lang)
             ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
             ->where('A.type',$type)

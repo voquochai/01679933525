@@ -47,15 +47,15 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="service-hosting">
-                            <h3 class="title"> Gói dịch vụ kèm theo </h3>
+                        <div class="product-hosting">
+                            <h5 class="title"> Gói dịch vụ kèm theo </h5>
                             <div class="mt-radio-list">
                                 <label class="mt-radio">
-                                    <input type="radio">1GB Hosting
+                                    <input type="radio" name="hosting">1GB Hosting
                                     <span></span>
                                 </label>
                                 <label class="mt-radio">
-                                    <input type="radio">2GB Hosting
+                                    <input type="radio" name="hosting">2GB Hosting
                                     <span></span>
                                 </label>
                             </div>

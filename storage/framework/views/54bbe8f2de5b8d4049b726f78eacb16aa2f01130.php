@@ -23,7 +23,7 @@
                     <h4 class="widget-title">Chính sách &amp; Quy định</h4>
                     <ul>
                         <?php $__empty_1 = true; $__currentLoopData = $chinhsach; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <li><a href="#"><?php echo e($val->title); ?></a></li>
+                        <li><a href="<?php echo e(route('frontend.home.page',['type'=>$val->type, 'slug'=>$val->slug])); ?>"><?php echo e($val->title); ?></a></li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <?php endif; ?>
                     </ul>
@@ -33,7 +33,7 @@
                     <h4 class="widget-title">Hỗ trợ khách hàng</h4>
                     <ul>
                         <?php $__empty_1 = true; $__currentLoopData = $hotro; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <li><a href="#"><?php echo e($val->title); ?></a></li>
+                        <li><a href="<?php echo e(route('frontend.home.page',['type'=>$val->type, 'slug'=>$val->slug])); ?>"><?php echo e($val->title); ?></a></li>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <?php endif; ?>
                     </ul>

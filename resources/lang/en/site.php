@@ -7,6 +7,8 @@ return [
     'product' => 'Products',
     'post' => 'Posts',
     'news' => 'News',
+    'tip' => 'Tips',
+    'service' => 'Services',
     'contact' => 'Contact',
     'cart' => 'Cart',
     'checkout' => 'Checkout',
