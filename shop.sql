@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 18, 2018 lúc 06:14 PM
+-- Thời gian đã tạo: Th5 22, 2018 lúc 06:46 PM
 -- Phiên bản máy phục vụ: 10.1.30-MariaDB
 -- Phiên bản PHP: 5.6.33
 
@@ -586,15 +586,15 @@ INSERT INTO `posts` (`id`, `link`, `image`, `alt`, `attachments`, `priority`, `s
 (21, NULL, '2018-05/section-icon.png', NULL, '', 1, 'publish', 1, 1, 'tieu-chi', 0, NULL, '2018-05-10 16:05:06', '2018-05-10 16:06:15'),
 (22, NULL, '2018-05/section-icon-2.png', NULL, '', 2, 'publish', 1, 1, 'tieu-chi', 0, NULL, '2018-05-10 16:06:35', '2018-05-10 16:07:03'),
 (23, NULL, '2018-05/section-icon-3.png', NULL, '', 3, 'publish', 1, 1, 'tieu-chi', 0, NULL, '2018-05-10 16:06:48', '2018-05-10 16:07:09'),
-(24, NULL, NULL, NULL, NULL, 1, 'publish', 1, 1, 'chinh-sach-quy-dinh', 0, NULL, '2018-05-11 16:57:55', '2018-05-11 16:57:55'),
+(24, NULL, NULL, NULL, NULL, 1, 'publish', 1, 1, 'chinh-sach-quy-dinh', 1, NULL, '2018-05-11 16:57:55', '2018-05-11 16:57:55'),
 (25, NULL, NULL, NULL, NULL, 2, 'publish', 1, 1, 'chinh-sach-quy-dinh', 0, NULL, '2018-05-11 16:58:08', '2018-05-11 16:58:08'),
 (26, NULL, NULL, NULL, NULL, 3, 'publish', 1, 1, 'chinh-sach-quy-dinh', 0, NULL, '2018-05-11 16:58:21', '2018-05-11 16:58:21'),
 (27, NULL, NULL, NULL, NULL, 4, 'publish', 1, 1, 'chinh-sach-quy-dinh', 0, NULL, '2018-05-11 16:58:29', '2018-05-11 16:58:29'),
-(28, NULL, NULL, NULL, NULL, 1, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:58:40', '2018-05-11 16:58:40'),
+(28, NULL, NULL, NULL, NULL, 1, 'publish', 1, 1, 'ho-tro-khach-hang', 1, NULL, '2018-05-11 16:58:40', '2018-05-11 16:58:40'),
 (29, NULL, NULL, NULL, NULL, 2, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:58:51', '2018-05-11 16:58:51'),
 (30, NULL, NULL, NULL, NULL, 3, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:59:02', '2018-05-11 16:59:02'),
 (31, NULL, NULL, NULL, NULL, 4, 'publish', 1, 1, 'ho-tro-khach-hang', 0, NULL, '2018-05-11 16:59:09', '2018-05-11 16:59:09'),
-(32, NULL, '2018-05/sign-in-up-form.png', NULL, '', 1, 'publish', 1, 1, 'thu-thuat', 13, NULL, '2018-05-16 13:34:37', '2018-05-18 15:24:18'),
+(32, NULL, '2018-05/sign-in-up-form.png', NULL, '', 1, 'publish', 1, 1, 'thu-thuat', 17, NULL, '2018-05-16 13:34:37', '2018-05-18 15:24:18'),
 (33, NULL, '2018-05/chrismas-button.png', NULL, '', 2, 'publish', 1, 1, 'thu-thuat', 0, NULL, '2018-05-16 13:35:09', '2018-05-16 13:52:51'),
 (34, NULL, '2018-05/full-screen-navigation.png', NULL, '', 3, 'publish', 1, 1, 'thu-thuat', 0, NULL, '2018-05-16 13:40:31', '2018-05-16 13:52:56');
 
@@ -737,9 +737,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `code`, `regular_price`, `sale_price`, `original_price`, `weight`, `link`, `image`, `alt`, `attachments`, `priority`, `status`, `supplier_id`, `category_id`, `user_id`, `type`, `viewed`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(21, 'KW00001', 0, 0, 0, 0, NULL, '2018-05/metronic.jpg', NULL, NULL, 1, 'publish,new', NULL, 1, 1, 'san-pham', 0, NULL, '2018-05-11 16:04:03', '2018-05-11 16:04:03'),
-(22, 'KW00002', 0, 0, 0, 0, NULL, '2018-05/canvas.jpg', NULL, NULL, 2, 'publish,new', NULL, 1, 1, 'san-pham', 0, NULL, '2018-05-11 16:04:30', '2018-05-11 16:04:30'),
-(23, 'KW00003', 0, 0, 0, 0, NULL, '2018-05/porto.png', NULL, NULL, 3, 'publish,new', NULL, 1, 1, 'san-pham', 0, NULL, '2018-05-11 16:05:00', '2018-05-11 16:05:00');
+(21, 'KW00001', 1000000, 800000, 0, 0, NULL, '2018-05/metronic.jpg', NULL, '', 1, 'new,publish', NULL, 1, 1, 'san-pham', 22, NULL, '2018-05-11 16:04:03', '2018-05-20 13:38:52'),
+(22, 'KW00002', 1000000, 0, 0, 0, NULL, '2018-05/canvas.jpg', NULL, '', 2, 'new,publish', NULL, 1, 1, 'san-pham', 0, NULL, '2018-05-11 16:04:30', '2018-05-19 15:32:52'),
+(23, 'KW00003', 1000000, 0, 0, 0, NULL, '2018-05/porto.png', NULL, '', 3, 'new,publish', NULL, 1, 1, 'san-pham', 2, NULL, '2018-05-11 16:05:00', '2018-05-19 15:33:00');
 
 -- --------------------------------------------------------
 
@@ -777,7 +777,7 @@ CREATE TABLE `product_languages` (
 --
 
 INSERT INTO `product_languages` (`id`, `title`, `slug`, `description`, `contents`, `attributes`, `meta_seo`, `language`, `product_id`) VALUES
-(41, 'Metronic - Responsive Admin Dashboard Template', 'metronic-responsive-admin-dashboard-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'vi', 21),
+(41, 'Metronic - Responsive Admin Dashboard Template', 'metronic-responsive-admin-dashboard-template', NULL, NULL, '[{\"name\":\"<i class=\\\"fa fa-check\\\"><\\/i>\",\"value\":\"Ch\\u1ea5t l\\u01b0\\u1ee3ng \\u0111\\u01b0\\u1ee3c ki\\u1ec3m tra b\\u1edfi Kho Web Online\"},{\"name\":\"<i class=\\\"fa fa-check\\\"><\\/i>\",\"value\":\"C\\u1eadp nh\\u1eadt li\\u00ean t\\u1ee5c\"},{\"name\":\"<i class=\\\"fa fa-check\\\"><\\/i>\",\"value\":\"H\\u1ed7 tr\\u1ee3 mi\\u1ec5n ph\\u00ed 6 th\\u00e1ng\"},{\"name\":\"<i class=\\\"fa fa-check\\\"><\\/i>\",\"value\":\"T\\u00e0i li\\u1ec7u h\\u01b0\\u1edbng d\\u1eabn k\\u00e8m theo\"}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'vi', 21),
 (42, NULL, 'metronic-responsive-admin-dashboard-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'en', 21),
 (43, 'Canvas | The Multi-Purpose HTML5 Template', 'canvas-the-multi-purpose-html5-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'vi', 22),
 (44, NULL, 'canvas-the-multi-purpose-html5-template', NULL, NULL, '[{\"name\":null,\"value\":null}]', '{\"title\":null,\"keywords\":null,\"description\":null}', 'en', 22),
@@ -891,7 +891,7 @@ INSERT INTO `settings` (`id`, `name`, `value`) VALUES
 (1, 'language', 'vi'),
 (2, 'date_custom_format', NULL),
 (3, 'product_per_page', '10'),
-(4, 'thumbs', '{\"product\":{\"_small\":{\"width\":\"300\",\"height\":\"300\"},\"_medium\":{\"width\":\"600\",\"height\":\"600\"},\"_large\":{\"width\":\"1000\",\"height\":\"1000\"}}}'),
+(4, 'thumbs', '{\"product\":{\"_small\":{\"width\":\"300\",\"height\":\"250\"},\"_medium\":{\"width\":\"600\",\"height\":\"500\"},\"_large\":{\"width\":\"1200\",\"height\":\"1000\"}}}'),
 (5, 'post_per_page', '10'),
 (6, 'site_name', 'Kho Web Online'),
 (7, 'site_slogan', NULL),
