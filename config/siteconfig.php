@@ -154,9 +154,6 @@ return [
 				'new'     => 'Mới',
 				'publish'     => 'Hiển thị',
 			],
-			'product_colors'	=>	false,
-			'product_sizes'	=>	false,
-			'product_tags'	=>	true,
 		],
 		'default' 	=>	[
 			'page-title'	=>	'Sản phẩm',
@@ -178,9 +175,6 @@ return [
 			'status'      => [
 				'publish'     => 'Hiển thị'
 			],
-			'product_colors'	=>	false,
-			'product_sizes'	=>	false,
-			'product_tags'	=>	false,
 		],
 		'path'    =>	'uploads/products'
 	],
@@ -290,6 +284,27 @@ return [
 			],
 			'post_tags'	=>	false,
 		],
+		'payment' 	=>	[
+			'page-title'	=>	'Hình thức thanh toán',
+			'category'    =>	false,
+			'description' =>	false,
+			'contents'    =>	true,
+			'link'    =>	false,
+			'seo'	=>	false,
+			'attributes'    =>	false,
+			'image'       =>	false,
+			'images'      =>	false,
+			'thumbs'	=>	[
+				'_small' => [
+					'width'  =>	130,
+					'height' =>	130,
+				]
+			],
+			'status'      => [
+				'publish'     => 'Hiển thị'
+			],
+			'post_tags'	=>	false,
+		],
 		'default' 	=>	[
 			'page-title'	=>	'Bài viết',
 			'category'    =>	false,
@@ -314,6 +329,11 @@ return [
 		'path'    =>	'uploads/posts'
 	],
 	'attribute' => [
+		'san-pham' 	=>	[
+			'product_colors'	=>	true,
+			'product_sizes'	=>	true,
+			'product_tags'	=>	true,
+		],
 		'product_colors' 	=>	[
 			'page-title'	=>	'Màu sắc',
 			'status'      => [

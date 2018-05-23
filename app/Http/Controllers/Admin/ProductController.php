@@ -108,9 +108,13 @@ class ProductController extends Controller
     public function create(){
         $this->_data['suppliers'] = $this->getSupplier();
         $this->_data['categories'] = $this->getCategories($this->_data['type']);
-        $this->_data['colors'] = $this->getAttributes('product_colors');
-        $this->_data['sizes'] = $this->getAttributes('product_sizes');
-        $this->_data['tags'] = $this->getAttributes('product_tags');
+        if( config('siteconfig.attribute.'.$this->_data['type']) && config('siteconfig.attribute.'.$this->_data['type']) !='default'  ){
+            foreach( config('siteconfig.attribute.'.$this->_data['type']) as $k => $v ){
+                if( !$v ) continue;
+                $this->_data['attrs'][$k] = $this->getAttributes($k);
+            }
+        }
+        
     	return view('admin.products.create',$this->_data);
     }
 
@@ -219,23 +223,13 @@ class ProductController extends Controller
             $product->languages()->saveMany($dataInsert);
 
             $attrs = [];
-            // Add Colors
-            if ($request->has('colors') && is_array($request->colors) && count($request->colors) > 0) {
-                foreach ($request->colors as $color) {
-                    $attrs[$color] = ['type' => 'product_colors'];
-                }
-            }
-
-            // Add Sizes
-            if ($request->has('sizes') && is_array($request->sizes) && count($request->sizes) > 0) {
-                foreach ($request->sizes as $size) {
-                    $attrs[$size] = ['type' => 'product_sizes'];
-                }
-            }
-            // Add Tags
-            if ($request->has('tags') && is_array($request->tags) && count($request->tags) > 0) {
-                foreach ($request->tags as $tag) {
-                    $attrs[$tag] = ['type' => 'product_tags'];
+            if( config('siteconfig.attribute.'.$this->_data['type']) && config('siteconfig.attribute.'.$this->_data['type']) !='default'  ){
+                foreach( config('siteconfig.attribute.'.$this->_data['type']) as $k => $v ){
+                    if ( $v && $request->has($k) && is_array($request->$k) && count($request->$k) > 0) {
+                        foreach ($request->$k as $l) {
+                            $attrs[$l] = ['type' => $k];
+                        }
+                    }
                 }
             }
             $product->attribute()->sync($attrs);
@@ -250,9 +244,12 @@ class ProductController extends Controller
         if ($this->_data['item'] !== null) {
             $this->_data['suppliers'] = $this->getSupplier();
             $this->_data['categories'] = $this->getCategories($this->_data['type']);
-            $this->_data['colors'] = $this->getAttributes('product_colors');
-            $this->_data['sizes'] = $this->getAttributes('product_sizes');
-            $this->_data['tags'] = $this->getAttributes('product_tags');
+            if( config('siteconfig.attribute.'.$this->_data['type']) && config('siteconfig.attribute.'.$this->_data['type']) !='default'  ){
+                foreach( config('siteconfig.attribute.'.$this->_data['type']) as $k => $v ){
+                    if( !$v ) continue;
+                    $this->_data['attrs'][$k] = $this->getAttributes($k);
+                }
+            }
             $this->_data['images'] = $this->getMediaLibrary($this->_data['item']['attachments']);
             return view('admin.products.edit',$this->_data);
         }
@@ -393,24 +390,13 @@ class ProductController extends Controller
                     $i++;
                 }
                 $attrs = [];
-                // Add Colors
-                if ($request->has('colors') && is_array($request->colors) && count($request->colors) > 0) {
-                    foreach ($request->colors as $color) {
-                        $attrs[$color] = ['type' => 'product_colors'];
-                    }
-                }
-
-                // Add Sizes
-                if ($request->has('sizes') && is_array($request->sizes) && count($request->sizes) > 0) {
-                    foreach ($request->sizes as $size) {
-                        $attrs[$size] = ['type' => 'product_sizes'];
-                    }
-                }
-
-                // Add Tags
-                if ($request->has('tags') && is_array($request->tags) && count($request->tags) > 0) {
-                    foreach ($request->tags as $tag) {
-                        $attrs[$tag] = ['type' => 'product_tags'];
+                if( config('siteconfig.attribute.'.$this->_data['type']) && config('siteconfig.attribute.'.$this->_data['type']) !='default'  ){
+                    foreach( config('siteconfig.attribute.'.$this->_data['type']) as $k => $v ){
+                        if ( $v && $request->has($k) && is_array($request->$k) && count($request->$k) > 0) {
+                            foreach ($request->$k as $l) {
+                                $attrs[$l] = ['type' => $k];
+                            }
+                        }
                     }
                 }
                 $product->attribute()->sync($attrs);

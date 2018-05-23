@@ -11,38 +11,63 @@
                     <span class="selected"></span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="icon-exclamation"></i>
-                    <span class="title">Sản phẩm</span>
-                    <span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
+
+            <?php 
+                foreach( @config('siteconfig.product') as $key => $val ){
+                    if( $key == 'default' || $key == 'path') continue;
+                    $dataSidebar = '
                     <li class="nav-item">
-                        <a href="<?php echo e(route('admin.category.index',['type'=>'san-pham'])); ?>" data-route="category.san-pham" class="nav-link ">
-                            <span class="title"> Danh mục </span>
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <i class="icon-exclamation"></i>
+                            <span class="title">'.$val['page-title'].'</span>
+                            <span class="arrow"></span>
                         </a>
-                    </li>
+                        <ul class="sub-menu">';
+
+                    if( @config('siteconfig.category.'.$key) ){
+                        $dataSidebar .= '
+                        <li class="nav-item">
+                            <a href="'.route('admin.category.index',['type'=>$key]).'" data-route="category.'.$key.'" class="nav-link ">
+                                <span class="title">'.config('siteconfig.category.'.$key.'.page-title').'</span>
+                            </a>
+                        </li>';
+                    }
+                    $dataSidebar .= '
                     <li class="nav-item">
-                        <a href="<?php echo e(route('admin.product.index',['type'=>'san-pham'])); ?>" data-route="product.san-pham" class="nav-link ">
-                            <span class="title"> Sản phẩm </span>
+                        <a href="'.route('admin.product.index',['type'=>$key]).'" data-route="product.'.$key.'" class="nav-link ">
+                            <span class="title">'.$val['page-title'].'</span>
                         </a>
-                    </li>
-                    
+                    </li>';
+
+                    foreach( @config('siteconfig.attribute.'.$key) as $k => $v ){
+                        if( !$v ) continue;
+                        $dataSidebar .= '
+                        <li class="nav-item">
+                            <a href="'.route('admin.attribute.index',['type'=>$k]).'" data-route="attribute.'.$k.'" class="nav-link ">
+                                <span class="title">'.config('siteconfig.attribute.'.$k.'.page-title').'</span>
+                            </a>
+                        </li>';
+                    }
+
+                    $dataSidebar .= '
                     <li class="nav-item">
-                        <a href="<?php echo e(route('admin.order.index',['type'=>'online'])); ?>" data-route="order.online" class="nav-link">
+                        <a href="'.route('admin.order.index',['type'=>'online']).'" data-route="order.online" class="nav-link">
                             <span class="title">Đơn hàng</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="<?php echo e(route('admin.coupon.index')); ?>" data-route="coupon" class="nav-link">
+                        <a href="'.route('admin.coupon.index').'" data-route="coupon" class="nav-link">
                             <span class="title">Coupon</span>
                         </a>
-                    </li>
-                </ul>
-            </li>
+                    </li>';
 
+                    $dataSidebar .= '</ul></li>';
+                }
+                echo $dataSidebar;
+             ?>
+
+            
             
 
             <li class="nav-item">

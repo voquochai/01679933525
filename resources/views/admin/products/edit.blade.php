@@ -206,47 +206,26 @@
                     </div>
                     @endif
 
-                    @if($siteconfig[$type]['product_colors'])
-                    <div class="form-group">
-                        <label class="control-label"> <a href="#" title="Thêm màu sắc" data-target="#colors-modal" data-toggle="modal" class="sbold"> Màu sắc </a> </label>
-                        <div>
-                            <select name="colors[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
-                                @forelse($colors as $color)
-                                <option value="{{ $color->id }}" {{ ( in_array($color->id,$item->getIdsAttribute('product_colors')) ) ? 'selected' : '' }} > {{ $color->title }} </option>
-                                @empty
-                                @endforelse
-                            </select>
-                        </div>
-                    </div>
-                    @endif
+                    @php
+                        if( config('siteconfig.attribute.'.$type) && config('siteconfig.attribute.'.$type) !='default' ){
+                            foreach( config('siteconfig.attribute.'.$type) as $k => $v ){
+                                if(!$v) continue;
+                                $option = '';
+                                foreach($attrs[$k] as $l){
+                                    $option .= '<option value="'.$l->id.'" '.( in_array($l->id,$item->getIdsAttribute($k)) ? 'selected' : '' ).'>'.$l->title.'</option>';
+                                }
 
-                    @if($siteconfig[$type]['product_sizes'])
-                    <div class="form-group">
-                        <label class="control-label"> <a href="#" title="Thêm kích cỡ" data-target="#sizes-modal" data-toggle="modal" class="sbold"> Kích cỡ </a> </label>
-                        <div>
-                            <select name="sizes[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
-                                @forelse($sizes as $size)
-                                <option value="{{ $size->id }}" {{ ( in_array($size->id,$item->getIdsAttribute('product_sizes')) ) ? 'selected' : '' }} > {{ $size->title }} </option>
-                                @empty
-                                @endforelse
-                            </select>
-                        </div>
-                    </div>
-                    @endif
-
-                    @if($siteconfig[$type]['product_tags'])
-                    <div class="form-group">
-                        <label class="control-label"> <a href="#" title="Thêm thẻ" data-target="#tags-modal" data-toggle="modal" class="sbold"> Thẻ </a> </label>
-                        <div>
-                            <select name="tags[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
-                                @forelse($tags as $tag)
-                                <option value="{{ $tag->id }}" {{ ( in_array($tag->id,$item->getIdsAttribute('product_tags')) ) ? 'selected' : '' }} > {{ $tag->title }} </option>
-                                @empty
-                                @endforelse
-                            </select>
-                        </div>
-                    </div>
-                    @endif
+                                echo '<div class="form-group">
+                                    <label class="control-label"> <a href="#" title="Thêm dữ liệu" data-target="#'.$k.'-modal" data-toggle="modal" class="sbold">'.config('siteconfig.attribute.'.$k.'.page-title').'</a> </label>
+                                    <div>
+                                        <select name="'.$k.'[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
+                                            '.$option.'
+                                        </select>
+                                    </div>
+                                </div>';
+                            }
+                        }
+                    @endphp
                     
                     <div class="form-group">
                         <label class="control-label">Slug</label>
@@ -454,96 +433,53 @@
 </div>
 @endif
 
-@if($siteconfig[$type]['product_colors'])
-<!-- Add Tags Modal -->
-<div id="colors-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
-    <form role="form" method="POST" action="#">
-        <input type="hidden" name="priority" value="1">
-        <input type="hidden" name="status[]" value="publish">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title uppercase">Thêm màu sắc</h4>
-        </div>
-        <div class="modal-body">
-            @foreach($languages as $key => $lang)
-            <div class="form-group">
-                <label for="name" class="control-label">Tên <sub>({{ $lang }})</sub> </label>
-                <div>
-                    <input type="text" class="form-control input-rs" name="dataL[{{ $key }}][title]" value="">
-                </div>
-            </div>
-            @endforeach
-            <div class="form-group">
+@php
+    if( config('siteconfig.attribute.'.$type) && config('siteconfig.attribute.'.$type) !='default' ){
+        foreach( config('siteconfig.attribute.'.$type) as $k => $v ){
+            if(!$v) continue;
+            $langInput = '';
+            foreach($languages as $key => $lang){
+                $langInput .= '<div class="form-group">
+                    <label for="name" class="control-label">Tên <sub>('.$lang.')</sub> </label>
+                    <div>
+                        <input type="text" class="form-control input-rs" name="dataL['.$key.'][title]" value="">
+                    </div>
+                </div>';
+            }
+
+            if( $k == 'product_colors' ){
+            $colorInput = '<div class="form-group">
                 <label class="control-label">Mã màu</label>
                 <div class="input-group colorpicker-component" data-color="#2b3643">
                     <input type="text" name="data[value]" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="colors[]" data-url="{{ route('admin.attribute.store',['type'=>'product_colors']) }}"> <i class="fa fa-check"></i> Lưu</button>
-        </div>
-    </form>
-</div>
-@endif
+            </div>';
+            }else{
+                $colorInput = '';
+            }
 
-@if($siteconfig[$type]['product_sizes'])
-<!-- Add Tags Modal -->
-<div id="sizes-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
-    <form role="form" method="POST" action="#">
-        <input type="hidden" name="priority" value="1">
-        <input type="hidden" name="status[]" value="publish">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title uppercase">Thêm kích cỡ</h4>
-        </div>
-        <div class="modal-body">
-            @foreach($languages as $key => $lang)
-            <div class="form-group">
-                <label for="name" class="control-label">Tên <sub>({{ $lang }})</sub> </label>
-                <div>
-                    <input type="text" class="form-control input-rs" name="dataL[{{ $key }}][title]" value="">
-                </div>
-            </div>
-            @endforeach
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="sizes[]" data-url="{{ route('admin.attribute.store',['type'=>'product_sizes']) }}"> <i class="fa fa-check"></i> Lưu</button>
-        </div>
-    </form>
-</div>
-@endif
+            echo '<div id="'.$k.'-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
+                <form role="form" method="POST" action="#">
+                    <input type="hidden" name="priority" value="1">
+                    <input type="hidden" name="status[]" value="publish">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title uppercase">'.config('siteconfig.attribute.'.$k.'.page-title').'</h4>
+                    </div>
+                    <div class="modal-body">
+                        '.$langInput.$colorInput.'
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
+                        <button type="button" class="btn green btn-quick-add" data-ajax="'.$k.'[]" data-url="'.route('admin.attribute.store',['type'=>$k]).'"> <i class="fa fa-check"></i> Lưu</button>
+                    </div>
+                </form>
+            </div>';
+        }
+    }
+@endphp
 
-@if($siteconfig[$type]['product_tags'])
-<!-- Add Tags Modal -->
-<div id="tags-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
-    <form role="form" method="POST" action="#">
-        <input type="hidden" name="priority" value="1">
-        <input type="hidden" name="status[]" value="publish">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title uppercase">Thêm thẻ</h4>
-        </div>
-        <div class="modal-body">
-            @foreach($languages as $key => $lang)
-            <div class="form-group">
-                <label for="name" class="control-label">Tên <sub>({{ $lang }})</sub> </label>
-                <div>
-                    <input type="text" class="form-control input-rs" name="dataL[{{ $key }}][title]" value="">
-                </div>
-            </div>
-            @endforeach
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="tags[]" data-url="{{ route('admin.attribute.store',['type'=>'product_tags']) }}"> <i class="fa fa-check"></i> Lưu</button>
-        </div>
-    </form>
-</div>
-@endif
 @endsection
 
 @section('custom_script')

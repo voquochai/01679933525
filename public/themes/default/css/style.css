@@ -206,7 +206,7 @@ h6 a {
     margin-right: 10px;
 }
 .sidebar-widget .category li a.active {
-    color: #ffae00;
+    color: #5dafef;
 }
 .sidebar-widget .category li a:hover {
     padding-left: 10px;
@@ -236,7 +236,7 @@ h6 a {
     position: relative;
     width: 100%;
     z-index: 99999;
-    height: 140px;
+    height: 145px;
 }
 /*-- Header top --*/
 .header-top {
@@ -251,8 +251,8 @@ h6 a {
     right: 0px;
     width: 0;
     height: 0;
-    border-bottom: 250px solid #49c6c7;
-    border-left: 250px solid transparent;
+    border-bottom: 340px solid #49c6c7;
+    border-left: 340px solid transparent;
     z-index: -1;
 }
 .header-top ul{

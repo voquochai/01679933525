@@ -1,112 +1,112 @@
-@extends('admin.app')
-@section('breadcrumb')
+<?php $__env->startSection('breadcrumb'); ?>
 <li>
-    <a href="{{ route('admin.product.index', ['type'=>$type]) }}"> {{ $pageTitle }} </a>
+    <a href="<?php echo e(route('admin.product.index', ['type'=>$type])); ?>"> <?php echo e($pageTitle); ?> </a>
     <i class="fa fa-circle"></i>
 </li>
 <li>
     <span> Thêm mới </span>
 </li>
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 <div class="row">
-    @include('admin.blocks.messages')
+    <?php echo $__env->make('admin.blocks.messages', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <!-- BEGIN FORM-->
-    <form role="form" method="POST" action="{{ route('admin.product.store',['type'=>$type]) }}" enctype="multipart/form-data" >
-        {{ csrf_field() }}
+    <form role="form" method="POST" action="<?php echo e(route('admin.product.store',['type'=>$type])); ?>" enctype="multipart/form-data" >
+        <?php echo e(csrf_field()); ?>
+
         <div class="col-lg-9 col-xs-12"> 
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"> Thêm mới </div>
                     <ul class="nav nav-tabs">
-                        @foreach($languages as $key => $lang)
+                        <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li>
-                            <a href="#tab_{{ $key }}" data-toggle="tab" aria-expanded="false"> {{ $lang }} </a>
+                            <a href="#tab_<?php echo e($key); ?>" data-toggle="tab" aria-expanded="false"> <?php echo e($lang); ?> </a>
                         </li>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        @if($siteconfig[$type]['images'])
+                        <?php if($siteconfig[$type]['images']): ?>
                         <li>
                             <a href="#tab_images" data-toggle="tab" aria-expanded="false"> Thư viện ảnh </a>
                         </li>
-                        @endif
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <div class="portlet-body">
                     <div class="tab-content">
-                        @foreach($languages as $key => $lang)
-                        <div class="tab-pane" id="tab_{{ $key }}">
+                        <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="tab-pane" id="tab_<?php echo e($key); ?>">
                             <div class="form-group">
                                 <label for="name" class="control-label">Tên</label>
                                 <div>
-                                    <input type="text" class="form-control {!! (( $key==$default_language )?'title':'') !!}" name="dataL[{{ $key }}][title]" value="{{ old('dataL.'.$key.'.title') }}">
+                                    <input type="text" class="form-control <?php echo (( $key==$default_language )?'title':''); ?>" name="dataL[<?php echo e($key); ?>][title]" value="<?php echo e(old('dataL.'.$key.'.title')); ?>">
                                 </div>
                             </div>
 
-                            @if($siteconfig[$type]['description'])
+                            <?php if($siteconfig[$type]['description']): ?>
                             <div class="form-group">
                                 <label for="description" class="control-label">Mô tả</label>
                                 <div>
-                                    <textarea name="dataL[{{ $key }}][description]" class="form-control" rows="6">{{ old('dataL.'.$key.'.description') }}</textarea>
+                                    <textarea name="dataL[<?php echo e($key); ?>][description]" class="form-control" rows="6"><?php echo e(old('dataL.'.$key.'.description')); ?></textarea>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
 
-                            @if($siteconfig[$type]['contents'])
+                            <?php if($siteconfig[$type]['contents']): ?>
                             <div class="form-group">
                                 <label class="control-label">Nội dung</label>
                                 <div class="ck-editor">
-                                    <textarea name="dataL[{{ $key }}][contents]" id="contents_{{ $key }}" class="form-control content" rows="6">{{ old('dataL.'.$key.'.contents') }}</textarea>
+                                    <textarea name="dataL[<?php echo e($key); ?>][contents]" id="contents_<?php echo e($key); ?>" class="form-control content" rows="6"><?php echo e(old('dataL.'.$key.'.contents')); ?></textarea>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
 
-                            @if($siteconfig[$type]['seo'])
+                            <?php if($siteconfig[$type]['seo']): ?>
                             <div class="form-group">
                                 <label class="control-label">Meta Title</label>
                                 <div>
-                                    <input type="text" name="dataL[{{ $key }}][meta_seo][title]" class="form-control meta-title" value="{{ old('dataL.'.$key.'.meta_seo.title') }}">
+                                    <input type="text" name="dataL[<?php echo e($key); ?>][meta_seo][title]" class="form-control meta-title" value="<?php echo e(old('dataL.'.$key.'.meta_seo.title')); ?>">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label">Meta Keywords</label>
                                 <div>
-                                    <textarea name="dataL[{{ $key }}][meta_seo][keywords]" class="form-control meta-keywords" rows="6">{{ old('dataL.'.$key.'.meta_seo.keywords') }}</textarea>
+                                    <textarea name="dataL[<?php echo e($key); ?>][meta_seo][keywords]" class="form-control meta-keywords" rows="6"><?php echo e(old('dataL.'.$key.'.meta_seo.keywords')); ?></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label">Meta Description</label>
                                 <div>
-                                    <textarea name="dataL[{{ $key }}][meta_seo][description]" class="form-control meta-description" rows="6">{{ old('dataL.'.$key.'.meta_seo.description') }}</textarea>
+                                    <textarea name="dataL[<?php echo e($key); ?>][meta_seo][description]" class="form-control meta-description" rows="6"><?php echo e(old('dataL.'.$key.'.meta_seo.description')); ?></textarea>
                                 </div>
                             </div>
-                            @endif
+                            <?php endif; ?>
 
-                            @if($siteconfig[$type]['attributes'])
-                            <div id="qh-app-{{$key}}">
+                            <?php if($siteconfig[$type]['attributes']): ?>
+                            <div id="qh-app-<?php echo e($key); ?>">
                                 <label class="control-label">Thuộc tính</label>
-                                <qh-attributes-{{$key}}></qh-attributes-{{$key}}>
+                                <qh-attributes-<?php echo e($key); ?>></qh-attributes-<?php echo e($key); ?>>
                             </div>
-                            @endif
+                            <?php endif; ?>
                             
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                        @if($siteconfig[$type]['images'])
+                        <?php if($siteconfig[$type]['images']): ?>
                         <div class="tab-pane" id="tab_images">
                             <div class="text-align-reverse margin-bottom-10">
                                 <input type="file" name="files">
                             </div>
                             <div class="fileuploader-items"></div>
                         </div>
-                        @endif
+                        <?php endif; ?>
                         
                     </div>
                 </div>
             </div>
-            @if($siteconfig[$type]['seo'])
+            <?php if($siteconfig[$type]['seo']): ?>
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"> SEO </div>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
             </div>
-            @endif
+            <?php endif; ?>
         </div>
         <div class="col-lg-3 col-xs-12">
             <div class="portlet box green">
@@ -153,36 +153,36 @@
                 </div>
                 <div class="portlet-body">
 
-                    @if($siteconfig[$type]['supplier'])
+                    <?php if($siteconfig[$type]['supplier']): ?>
                     <div class="form-group">
                         <label class="control-label"> <a href="#" title="Thêm nhà cung cấp" data-target="#supplier-modal" data-toggle="modal" class="sbold"> Nhà cung cấp </a> </label>
                         <div>
                             <select name="data[supplier_id]" class="selectpicker show-tick show-menu-arrow form-control">
                                 <option value=""> -- Chọn nhà cung cấp -- </option>
-                                @forelse($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}" {{ (old('supplier_id')) ? (($supplier->id == old('supplier_id')) ? 'selected' : '') : '' }} > {{ $supplier->name }} </option>
-                                @empty
-                                @endforelse
+                                <?php $__empty_1 = true; $__currentLoopData = $suppliers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $supplier): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <option value="<?php echo e($supplier->id); ?>" <?php echo e((old('supplier_id')) ? (($supplier->id == old('supplier_id')) ? 'selected' : '') : ''); ?> > <?php echo e($supplier->name); ?> </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                <?php endif; ?>
                             </select>
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if($siteconfig[$type]['category'])
+                    <?php if($siteconfig[$type]['category']): ?>
                     <div class="form-group">
                         <label class="control-label"> <a href="#" title="Thêm danh mục" data-target="#category-modal" data-toggle="modal" class="sbold"> Danh mục </a> </label>
                         <div>
                             <select name="data[category_id]" class="selectpicker show-tick show-menu-arrow form-control">
-                                @php
+                                <?php 
                                     Menu::setMenu($categories);
                                     echo Menu::getMenuSelect(0,0,'',old('data.category_id'));
-                                @endphp
+                                 ?>
                             </select>
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @php
+                    <?php 
                         if( config('siteconfig.attribute.'.$type) && config('siteconfig.attribute.'.$type) !='default' ){
                             foreach( config('siteconfig.attribute.'.$type) as $k => $v ){
                                 if(!$v) continue;
@@ -201,7 +201,7 @@
                                 </div>';
                             }
                         }
-                    @endphp
+                     ?>
 
                     <div class="form-group">
                         <label class="control-label">Slug</label>
@@ -213,14 +213,14 @@
                     <div class="form-group">
                         <label class="control-label">Mã sản phẩm </label>
                         <div>
-                            <input type="text" name="code" value="{{ old('code') }}" class="form-control">
+                            <input type="text" name="code" value="<?php echo e(old('code')); ?>" class="form-control">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label">Giá gốc</label>
                         <div class="input-group">
-                            <input type="text" name="original_price" class="form-control priceFormat" value="{{ (old('original_price')) ? old('original_price') : 0 }}">
+                            <input type="text" name="original_price" class="form-control priceFormat" value="<?php echo e((old('original_price')) ? old('original_price') : 0); ?>">
                             <span class="input-group-addon"> Đ </span>
                         </div>
                     </div>
@@ -228,7 +228,7 @@
                     <div class="form-group">
                         <label class="control-label">Giá bán</label>
                         <div class="input-group">
-                            <input type="text" name="regular_price" class="form-control priceFormat" value="{{ (old('regular_price')) ? old('regular_price') : 0 }}">
+                            <input type="text" name="regular_price" class="form-control priceFormat" value="<?php echo e((old('regular_price')) ? old('regular_price') : 0); ?>">
                             <span class="input-group-addon"> Đ </span>
                         </div>
                     </div>
@@ -236,7 +236,7 @@
                     <div class="form-group">
                         <label class="control-label">Giá khuyến mãi</label>
                         <div class="input-group">
-                            <input type="text" name="sale_price" class="form-control priceFormat" value="{{ (old('sale_price')) ? old('sale_price') : 0 }}">
+                            <input type="text" name="sale_price" class="form-control priceFormat" value="<?php echo e((old('sale_price')) ? old('sale_price') : 0); ?>">
                             <span class="input-group-addon"> Đ </span>
                         </div>
                     </div>
@@ -244,18 +244,18 @@
                     <div class="form-group">
                         <label class="control-label">Trọng lượng</label>
                         <div class="input-group">
-                            <input type="text" name="weight" class="form-control priceFormat" value="{{ (old('weight')) ? old('weight') : 0 }}">
+                            <input type="text" name="weight" class="form-control priceFormat" value="<?php echo e((old('weight')) ? old('weight') : 0); ?>">
                             <span class="input-group-addon"> G </span>
                         </div>
                     </div>
 
-                    @if($siteconfig[$type]['image'])
+                    <?php if($siteconfig[$type]['image']): ?>
                     <div class="form-group">
                         <label class="control-label">Hình ảnh</label>
                         <div>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail">
-                                    <img src="{{ asset('noimage/'.$thumbs['_small']['width'].'x'.$thumbs['_small']['height']) }}" alt="">
+                                    <img src="<?php echo e(asset('noimage/'.$thumbs['_small']['width'].'x'.$thumbs['_small']['height'])); ?>" alt="">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"> </div>
                                 <div>
@@ -271,46 +271,46 @@
                     <div class="form-group">
                         <label class="control-label">Alt</label>
                         <div>
-                            <input type="text" name="data[alt]" class="form-control" value="{{ old('data.alt') }}">
+                            <input type="text" name="data[alt]" class="form-control" value="<?php echo e(old('data.alt')); ?>">
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if($siteconfig[$type]['link'])
+                    <?php if($siteconfig[$type]['link']): ?>
                     <div class="form-group">
                         <label class="control-label">Link</label>
                         <div>
-                            <input type="text" name="data[link]" class="form-control" value="{{ old('data.link') }}">
+                            <input type="text" name="data[link]" class="form-control" value="<?php echo e(old('data.link')); ?>">
                         </div>
                     </div>
-                    @endif
+                    <?php endif; ?>
 
                     <div class="form-group">
                         <label class="control-label">Tình trạng</label>
                         <div>
                             <select class="selectpicker show-tick show-menu-arrow form-control" name="status[]" multiple>
-                                @foreach($siteconfig[$type]['status'] as $key => $val)
-                                <option value="{{ $key }}" {{ (old('status')) ? ( (in_array($key,old('status'))) ? 'selected' : '') : ($key=='publish')?'selected':'' }} > {{ $val }} </option>
-                                @endforeach
+                                <?php $__currentLoopData = $siteconfig[$type]['status']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($key); ?>" <?php echo e((old('status')) ? ( (in_array($key,old('status'))) ? 'selected' : '') : ($key=='publish')?'selected':''); ?> > <?php echo e($val); ?> </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Thứ tự</label>
                         <div>
-                            <input type="text" name="priority" class="form-control priceFormat" value="{{ (old('priority')) ? old('priority') : 1 }}">
+                            <input type="text" name="priority" class="form-control priceFormat" value="<?php echo e((old('priority')) ? old('priority') : 1); ?>">
                         </div>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn green"> <i class="fa fa-check"></i> Lưu</button>
-                        <a href="{{ url()->previous() }}" class="btn default" > Thoát </a>
+                        <a href="<?php echo e(url()->previous()); ?>" class="btn default" > Thoát </a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
-@if($siteconfig[$type]['supplier'])
+<?php if($siteconfig[$type]['supplier']): ?>
 <!-- Add Supplier Modal -->
 <div id="supplier-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
     <form role="form" method="POST" action="#">
@@ -354,13 +354,13 @@
         </div>
         <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="data[supplier_id]" data-url="{{ route('admin.supplier.store',['type'=>'default']) }}"> <i class="fa fa-check"></i> Lưu</button>
+            <button type="button" class="btn green btn-quick-add" data-ajax="data[supplier_id]" data-url="<?php echo e(route('admin.supplier.store',['type'=>'default'])); ?>"> <i class="fa fa-check"></i> Lưu</button>
         </div>
     </form>
 </div>
-@endif
+<?php endif; ?>
 
-@if($siteconfig[$type]['category'])
+<?php if($siteconfig[$type]['category']): ?>
 <!-- Add Category Modal -->
 <div id="category-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
     <form role="form" method="POST" action="#">
@@ -376,32 +376,32 @@
                 <div>
                     <select name="data[parent]" class="selectpicker show-tick show-menu-arrow form-control">
                         <option value="0">Chọn danh mục</option>
-                        @php
+                        <?php 
                             Menu::resetMenu();
                             Menu::setMenu($categories);
                             echo Menu::getMenuSelectLimit();
-                        @endphp
+                         ?>
                     </select>
                 </div>
             </div>
-            @foreach($languages as $key => $lang)
+            <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="form-group">
-                <label for="name" class="control-label">Tên <sub>({{ $lang }})</sub> </label>
+                <label for="name" class="control-label">Tên <sub>(<?php echo e($lang); ?>)</sub> </label>
                 <div>
-                    <input type="text" class="form-control input-rs" name="dataL[{{ $key }}][title]" value="">
+                    <input type="text" class="form-control input-rs" name="dataL[<?php echo e($key); ?>][title]" value="">
                 </div>
             </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
         <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="data[category_id]" data-url="{{ route('admin.category.store',['type'=>$type]) }}"> <i class="fa fa-check"></i> Lưu</button>
+            <button type="button" class="btn green btn-quick-add" data-ajax="data[category_id]" data-url="<?php echo e(route('admin.category.store',['type'=>$type])); ?>"> <i class="fa fa-check"></i> Lưu</button>
         </div>
     </form>
 </div>
-@endif
+<?php endif; ?>
 
-@php
+<?php 
     if( config('siteconfig.attribute.'.$type) && config('siteconfig.attribute.'.$type) !='default' ){
         foreach( config('siteconfig.attribute.'.$type) as $k => $v ){
             if(!$v) continue;
@@ -446,22 +446,22 @@
             </div>';
         }
     }
-@endphp
+ ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('custom_script')
-    @if($siteconfig[$type]['attributes'])
-        @foreach($languages as $key => $lang)
-        <script type="text/x-template" id="qh-attributes-template-{{$key}}">
+<?php $__env->startSection('custom_script'); ?>
+    <?php if($siteconfig[$type]['attributes']): ?>
+        <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <script type="text/x-template" id="qh-attributes-template-<?php echo e($key); ?>">
             <div>
                 <div class="form-group" v-for="(item, key) in attributes">
                     <div class="row">
                         <div class="col-lg-3">
-                            <input type="text" :name="'attributes[{{ $key }}]['+ key +'][name]'" v-model="item.name" class="form-control" placeholder="Thuộc tính">
+                            <input type="text" :name="'attributes[<?php echo e($key); ?>]['+ key +'][name]'" v-model="item.name" class="form-control" placeholder="Thuộc tính">
                         </div>
                         <div class="col-lg-7">
-                            <input type="text" :name="'attributes[{{ $key }}]['+ key +'][value]'" v-model="item.value" class="form-control" placeholder="Giá trị">
+                            <input type="text" :name="'attributes[<?php echo e($key); ?>]['+ key +'][value]'" v-model="item.value" class="form-control" placeholder="Giá trị">
                         </div>
                         <div class="col-lg-2">
                             <button type="button" v-if="key != 0" v-on:click="deleteAttribute(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button>
@@ -472,18 +472,18 @@
             </div>
         </script>
         <script type="text/javascript">
-            @php
+            <?php 
             $attributes = old('attributes.'.$key) ? json_encode(old('attributes.'.$key)) : null;
-            @endphp
-            Vue.component('qh-attributes-{{$key}}', {
-                template: '#qh-attributes-template-{{$key}}',
+             ?>
+            Vue.component('qh-attributes-<?php echo e($key); ?>', {
+                template: '#qh-attributes-template-<?php echo e($key); ?>',
                 data: function () {
                     var attributes = [
                         {name: '', value: ''}
                     ];
-                    @if($attributes)
-                        attributes = {!! $attributes !!};
-                    @endif
+                    <?php if($attributes): ?>
+                        attributes = <?php echo $attributes; ?>;
+                    <?php endif; ?>
                     return {
                         attributes: attributes
                     };
@@ -498,9 +498,10 @@
                 }
             });
             new Vue({
-                el: '#qh-app-{{$key}}'
+                el: '#qh-app-<?php echo e($key); ?>'
             });
         </script>
-        @endforeach
-    @endif
-@endsection
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
