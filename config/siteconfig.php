@@ -155,6 +155,33 @@ return [
 				'publish'     => 'Hiển thị',
 			],
 		],
+		'hosting' 	=>	[
+			'page-title'	=>	'Hosting',
+			'category'    =>	false,
+			'supplier'    =>	false,
+			'description' =>	false,
+			'contents'    =>	false,
+			'link'    =>	false,
+			'attributes'    =>	false,
+			'image'       =>	false,
+			'images'      =>	false,
+			'seo'	=>	false,
+			'thumbs'	=>	[
+				'_small' => [
+					'width'  =>	300,
+					'height' =>	300,
+				],'_medium' => [
+					'width'  =>	600,
+					'height' =>	600,
+				],'_large' => [
+					'width'  =>	1000,
+					'height' =>	1000,
+				],
+			],
+			'status'      => [
+				'publish'     => 'Hiển thị',
+			],
+		],
 		'default' 	=>	[
 			'page-title'	=>	'Sản phẩm',
 			'category'    =>	false,

@@ -61,6 +61,7 @@
                             </div>
                             <?php endif; ?>
 
+                            <?php if($siteconfig[$type]['seo']): ?>
                             <div class="form-group">
                                 <label class="control-label">Meta Title</label>
                                 <div>
@@ -81,6 +82,7 @@
                                     <textarea name="dataL[<?php echo e($key); ?>][meta_seo][description]" class="form-control meta-description" rows="6"><?php echo e(old('dataL.'.$key.'.meta_seo.description')); ?></textarea>
                                 </div>
                             </div>
+                            <?php endif; ?>
 
                             <?php if($siteconfig[$type]['attributes']): ?>
                             <div id="qh-app-<?php echo e($key); ?>">
@@ -104,6 +106,7 @@
                     </div>
                 </div>
             </div>
+            <?php if($siteconfig[$type]['seo']): ?>
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"> SEO </div>
@@ -141,6 +144,7 @@
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
         <div class="col-lg-3 col-xs-12">
             <div class="portlet box green">
@@ -178,47 +182,26 @@
                     </div>
                     <?php endif; ?>
 
-                    <?php if($siteconfig[$type]['product_colors']): ?>
-                    <div class="form-group">
-                        <label class="control-label"> <a href="#" title="Thêm màu sắc" data-target="#colors-modal" data-toggle="modal" class="sbold"> Màu sắc </a> </label>
-                        <div>
-                            <select name="colors[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
-                                <?php $__empty_1 = true; $__currentLoopData = $colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <option value="<?php echo e($color->id); ?>" <?php echo e((old('colors')) ? ((in_array($color->id,old('colors'))) ? 'selected' : '') : ''); ?> > <?php echo e($color->title); ?> </option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php endif; ?>
+                    <?php 
+                        if( config('siteconfig.attribute.'.$type) && config('siteconfig.attribute.'.$type) !='default' ){
+                            foreach( config('siteconfig.attribute.'.$type) as $k => $v ){
+                                if(!$v) continue;
+                                $option = '';
+                                foreach($attrs[$k] as $l){
+                                    $option .= '<option value="'.$l->id.'" '.( (old($k)) ? ((in_array($l->id,old($k))) ? 'selected' : '') : '' ).'>'.$l->title.'</option>';
+                                }
 
-                    <?php if($siteconfig[$type]['product_sizes']): ?>
-                    <div class="form-group">
-                        <label class="control-label"> <a href="#" title="Thêm kích cỡ" data-target="#sizes-modal" data-toggle="modal" class="sbold"> Kích cỡ </a> </label>
-                        <div>
-                            <select name="sizes[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
-                                <?php $__empty_1 = true; $__currentLoopData = $sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <option value="<?php echo e($size->id); ?>" <?php echo e((old('sizes')) ? ((in_array($size->id,old('sizes'))) ? 'selected' : '') : ''); ?> > <?php echo e($size->title); ?> </option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-
-                    <?php if($siteconfig[$type]['product_tags']): ?>
-                    <div class="form-group">
-                        <label class="control-label"> <a href="#" title="Thêm thẻ" data-target="#tags-modal" data-toggle="modal" class="sbold"> Thẻ </a> </label>
-                        <div>
-                            <select name="tags[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
-                                <?php $__empty_1 = true; $__currentLoopData = $tags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <option value="<?php echo e($tag->id); ?>" <?php echo e((old('tags')) ? ((in_array($tag->id,old('tags'))) ? 'selected' : '') : ''); ?> > <?php echo e($tag->title); ?> </option>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                <?php endif; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php endif; ?>
+                                echo '<div class="form-group">
+                                    <label class="control-label"> <a href="#" title="Thêm dữ liệu" data-target="#'.$k.'-modal" data-toggle="modal" class="sbold">'.config('siteconfig.attribute.'.$k.'.page-title').'</a> </label>
+                                    <div>
+                                        <select name="'.$k.'[]" class="selectpicker show-tick show-menu-arrow form-control" multiple>
+                                            '.$option.'
+                                        </select>
+                                    </div>
+                                </div>';
+                            }
+                        }
+                     ?>
 
                     <div class="form-group">
                         <label class="control-label">Slug</label>
@@ -418,96 +401,53 @@
 </div>
 <?php endif; ?>
 
-<?php if($siteconfig[$type]['product_colors']): ?>
-<!-- Add Color Modal -->
-<div id="colors-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
-    <form role="form" method="POST" action="#">
-        <input type="hidden" name="priority" value="1">
-        <input type="hidden" name="status[]" value="publish">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title uppercase">Thêm màu sắc</h4>
-        </div>
-        <div class="modal-body">
-            <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="form-group">
-                <label for="name" class="control-label">Tên <sub>(<?php echo e($lang); ?>)</sub> </label>
-                <div>
-                    <input type="text" class="form-control input-rs" name="dataL[<?php echo e($key); ?>][title]" value="">
-                </div>
-            </div>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            <div class="form-group">
+<?php 
+    if( config('siteconfig.attribute.'.$type) && config('siteconfig.attribute.'.$type) !='default' ){
+        foreach( config('siteconfig.attribute.'.$type) as $k => $v ){
+            if(!$v) continue;
+            $langInput = '';
+            foreach($languages as $key => $lang){
+                $langInput .= '<div class="form-group">
+                    <label for="name" class="control-label">Tên <sub>('.$lang.')</sub> </label>
+                    <div>
+                        <input type="text" class="form-control input-rs" name="dataL['.$key.'][title]" value="">
+                    </div>
+                </div>';
+            }
+
+            if( $k == 'product_colors' ){
+            $colorInput = '<div class="form-group">
                 <label class="control-label">Mã màu</label>
                 <div class="input-group colorpicker-component" data-color="#2b3643">
                     <input type="text" name="data[value]" value="" class="form-control"/>
                     <span class="input-group-addon"><i></i></span>
                 </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="colors[]" data-url="<?php echo e(route('admin.attribute.store',['type'=>'product_colors'])); ?>"> <i class="fa fa-check"></i> Lưu</button>
-        </div>
-    </form>
-</div>
-<?php endif; ?>
+            </div>';
+            }else{
+                $colorInput = '';
+            }
 
-<?php if($siteconfig[$type]['product_sizes']): ?>
-<!-- Add Tags Modal -->
-<div id="sizes-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
-    <form role="form" method="POST" action="#">
-        <input type="hidden" name="priority" value="1">
-        <input type="hidden" name="status[]" value="publish">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title uppercase">Thêm kích cỡ</h4>
-        </div>
-        <div class="modal-body">
-            <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="form-group">
-                <label for="name" class="control-label">Tên <sub>(<?php echo e($lang); ?>)</sub> </label>
-                <div>
-                    <input type="text" class="form-control input-rs" name="dataL[<?php echo e($key); ?>][title]" value="">
-                </div>
-            </div>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="sizes[]" data-url="<?php echo e(route('admin.attribute.store',['type'=>'product_sizes'])); ?>"> <i class="fa fa-check"></i> Lưu</button>
-        </div>
-    </form>
-</div>
-<?php endif; ?>
+            echo '<div id="'.$k.'-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
+                <form role="form" method="POST" action="#">
+                    <input type="hidden" name="priority" value="1">
+                    <input type="hidden" name="status[]" value="publish">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title uppercase">'.config('siteconfig.attribute.'.$k.'.page-title').'</h4>
+                    </div>
+                    <div class="modal-body">
+                        '.$langInput.$colorInput.'
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
+                        <button type="button" class="btn green btn-quick-add" data-ajax="'.$k.'[]" data-url="'.route('admin.attribute.store',['type'=>$k]).'"> <i class="fa fa-check"></i> Lưu</button>
+                    </div>
+                </form>
+            </div>';
+        }
+    }
+ ?>
 
-<?php if($siteconfig[$type]['product_tags']): ?>
-<!-- Add Tags Modal -->
-<div id="tags-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
-    <form role="form" method="POST" action="#">
-        <input type="hidden" name="priority" value="1">
-        <input type="hidden" name="status[]" value="publish">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title uppercase">Thêm thẻ</h4>
-        </div>
-        <div class="modal-body">
-            <?php $__currentLoopData = $languages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="form-group">
-                <label for="name" class="control-label">Tên <sub>(<?php echo e($lang); ?>)</sub> </label>
-                <div>
-                    <input type="text" class="form-control input-rs" name="dataL[<?php echo e($key); ?>][title]" value="">
-                </div>
-            </div>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn default">Thoát</button>
-            <button type="button" class="btn green btn-quick-add" data-ajax="tags[]" data-url="<?php echo e(route('admin.attribute.store',['type'=>'product_tags'])); ?>"> <i class="fa fa-check"></i> Lưu</button>
-        </div>
-    </form>
-</div>
-<?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('custom_script'); ?>
