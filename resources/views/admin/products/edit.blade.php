@@ -447,8 +447,8 @@
                 </div>';
             }
 
-            if( $k == 'product_colors' ){
-            $colorInput = '<div class="form-group">
+            if( config('siteconfig.attribute.'.$k.'.colorpicker') ){
+            $moreInput = '<div class="form-group">
                 <label class="control-label">Mã màu</label>
                 <div class="input-group colorpicker-component" data-color="#2b3643">
                     <input type="text" name="data[value]" value="" class="form-control"/>
@@ -456,7 +456,18 @@
                 </div>
             </div>';
             }else{
-                $colorInput = '';
+                $moreInput = '';
+            }
+
+            if( config('siteconfig.attribute.'.$k.'.price') ){
+            $moreInput = '<div class="form-group">
+                <label class="control-label">Giá bán</label>
+                <div class="form-group">
+                    <input type="text" name="data[value]" value="" class="form-control"/>
+                </div>
+            </div>';
+            }else{
+                $moreInput = '';
             }
 
             echo '<div id="'.$k.'-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
@@ -468,7 +479,7 @@
                         <h4 class="modal-title uppercase">'.config('siteconfig.attribute.'.$k.'.page-title').'</h4>
                     </div>
                     <div class="modal-body">
-                        '.$langInput.$colorInput.'
+                        '.$langInput.$moreInput.'
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn default">Thoát</button>

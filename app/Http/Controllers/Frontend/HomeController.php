@@ -266,6 +266,15 @@ class HomeController extends Controller
                     ->orderBy('A.id','desc')
                     ->limit(15)
                     ->get();
+                $this->_data['hosting'] = DB::table('products as A')
+                    ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+                    ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
+                    ->where('B.language',$this->_data['lang'])
+                    ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+                    ->where('A.type','hosting')
+                    ->orderBy('A.priority','asc')
+                    ->orderBy('A.id','desc')
+                    ->get();
                 return response()->view('frontend.default.page-product',$this->_data)->cookie($cookieViewed);
             }
         }elseif($this->_data['template'] == 'post'){

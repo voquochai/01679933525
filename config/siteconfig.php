@@ -155,33 +155,6 @@ return [
 				'publish'     => 'Hiển thị',
 			],
 		],
-		'hosting' 	=>	[
-			'page-title'	=>	'Hosting',
-			'category'    =>	false,
-			'supplier'    =>	false,
-			'description' =>	false,
-			'contents'    =>	false,
-			'link'    =>	false,
-			'attributes'    =>	false,
-			'image'       =>	false,
-			'images'      =>	false,
-			'seo'	=>	false,
-			'thumbs'	=>	[
-				'_small' => [
-					'width'  =>	300,
-					'height' =>	300,
-				],'_medium' => [
-					'width'  =>	600,
-					'height' =>	600,
-				],'_large' => [
-					'width'  =>	1000,
-					'height' =>	1000,
-				],
-			],
-			'status'      => [
-				'publish'     => 'Hiển thị',
-			],
-		],
 		'default' 	=>	[
 			'page-title'	=>	'Sản phẩm',
 			'category'    =>	false,
@@ -357,36 +330,55 @@ return [
 	],
 	'attribute' => [
 		'san-pham' 	=>	[
-			'product_colors'	=>	true,
-			'product_sizes'	=>	true,
+			'product_hosting'	=>	true,
+			'product_colors'	=>	false,
+			'product_sizes'	=>	false,
 			'product_tags'	=>	true,
+		],
+		'product_hosting' 	=>	[
+			'page-title'	=>	'Hosting',
+			'price'			=>	true,
+			'colorpicker'	=>	false,
+			'status'      => [
+				'publish'     => 'Hiển thị',
+			]
 		],
 		'product_colors' 	=>	[
 			'page-title'	=>	'Màu sắc',
+			'price'			=>	false,
+			'colorpicker'	=>	true,
 			'status'      => [
 				'publish'     => 'Hiển thị',
 			]
 		],
 		'product_sizes' 	=>	[
 			'page-title'	=>	'Kích cỡ',
+			'price'			=>	false,
+			'colorpicker'	=>	false,
 			'status'      => [
 				'publish'     => 'Hiển thị',
 			]
 		],
 		'product_tags' 	=>	[
 			'page-title'	=>	'Thẻ',
+			'price'			=>	false,
+			'colorpicker'	=>	false,
 			'status'      => [
 				'publish'     => 'Hiển thị',
 			]
 		],
 		'post_tags' 	=>	[
 			'page-title'	=>	'Thẻ',
+			'price'			=>	false,
+			'colorpicker'	=>	false,
 			'status'      => [
 				'publish'     => 'Hiển thị',
 			]
 		],
 		'default' 	=>	[
 			'page-title'	=>	'Thuộc tính',
+			'price'			=>	false,
+			'colorpicker'	=>	false,
 			'status'      => [
 				'publish'     => 'Hiển thị'
 			]

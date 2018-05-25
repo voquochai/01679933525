@@ -37,32 +37,41 @@
                             <div class="float-right"><?php echo get_template_product_price($product->regular_price,$product->sale_price); ?></div>
                         </div>
                         <hr>
+                        <div class="product-hosting">
+                            <h5 class="title"> Gói hosting </h5>
+                            <div class="mt-radio-list">
+                                <?php $__empty_1 = true; $__currentLoopData = $hosting; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $host): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <label class="mt-radio">
+                                    <input type="radio" name="hosting" <?php echo e($host->regular_price == 0 ? 'checked' : ''); ?> ><?php echo e($host->title); ?>
+
+                                    <span></span>
+                                    <div class="float-right">
+                                        <?php if( $host->regular_price > 0 ): ?>
+                                        <?php echo e(get_currency_vn($host->regular_price)); ?>
+
+                                        <?php else: ?>
+                                        Mặc định
+                                        <?php endif; ?>
+                                    </div>
+                                </label>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="product-license">
-                            <div class="float-left"> <label> Hình thức </label> </div>
+                            <div class="float-left"> <label> Thời gian </label> </div>
                             <div class="float-right">
                                 <select class="selectpicker">
-                                    <option value=""> Thuê web </option>
-                                    <option value=""> Mua đứt </option>
+                                    <?php for($i=1; $i<=5; $i++): ?>
+                                    <option value="<?php echo e($i); ?>"> <?php echo e($i.' năm'); ?> </option>
+                                    <?php endfor; ?>
                                 </select>
                             </div>
                         </div>
                         <hr>
-                        <div class="product-hosting">
-                            <h5 class="title"> Gói dịch vụ kèm theo </h5>
-                            <div class="mt-radio-list">
-                                <label class="mt-radio">
-                                    <input type="radio" name="hosting">1GB Hosting
-                                    <span></span>
-                                </label>
-                                <label class="mt-radio">
-                                    <input type="radio" name="hosting">2GB Hosting
-                                    <span></span>
-                                </label>
-                            </div>
-                        </div>
-                        <hr>
                         <div class="product-total">
-                            <div class="float-left"> <label> Tổng tiền </label> </div>
+                            <div class="float-left"><label> Tổng tiền </label></div>
                             <div class="float-right"></div>
                         </div>
                         <button id="add-to-cart" class="btn btn-block btn-lg" data-ajax="id=<?php echo e($product->id); ?>"><?php echo e(__('cart.buy_now')); ?></button>

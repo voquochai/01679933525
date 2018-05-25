@@ -75,13 +75,13 @@
                 <ul class="sub-menu">
 
                     <li class="nav-item">
-                        <a href="'.route('admin.order.index',['type'=>'online']).'" data-route="order.online" class="nav-link">
+                        <a href="{{ route('admin.order.index',['type'=>'online']) }}" data-route="order.online" class="nav-link">
                             <span class="title">Đơn hàng</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="'.route('admin.coupon.index').'" data-route="coupon" class="nav-link">
+                        <a href="{{ route('admin.coupon.index') }}" data-route="coupon" class="nav-link">
                             <span class="title">Coupon</span>
                         </a>
                     </li>
