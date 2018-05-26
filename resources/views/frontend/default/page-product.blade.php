@@ -18,7 +18,9 @@
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12 mb-40">
-                <div class="sidebar">
+                <div class="sidebar" id="app-cart">
+                    <input type="hidden" name="product_price" :value="form.product_price">
+                    
                     <div class="sidebar-widget mb-40">
                         <div class="product-attributes">
                             <ul>
@@ -42,7 +44,7 @@
                             <div class="mt-radio-list">
                                 @forelse( $hosting as $host )
                                 <label class="mt-radio">
-                                    <input type="radio" name="hosting" {{ $host->regular_price == 0 ? 'checked' : '' }} >{{ $host->title }}
+                                    <input type="radio" name="hosting" v-model="form.product_hosting" value="{{ $host->regular_price }}" {{ $host->regular_price == 0 ? 'checked' : '' }} >{{ $host->title }}
                                     <span></span>
                                     <div class="float-right">
                                         @if( $host->regular_price > 0 )
@@ -60,7 +62,7 @@
                         <div class="product-license">
                             <div class="float-left"> <label> Thời gian </label> </div>
                             <div class="float-right">
-                                <select class="selectpicker">
+                                <select class="selectpicker" v-model="form.product_license" >
                                     @for($i=1; $i<=5; $i++)
                                     <option value="{{ $i }}"> {{ $i.' năm' }} </option>
                                     @endfor
@@ -70,19 +72,10 @@
                         <hr>
                         <div class="product-total">
                             <div class="float-left"><label> Tổng tiền </label></div>
-                            <div class="float-right"></div>
+                            <div class="float-right"> <b class="font-red font-lg">@{{ formatPrice(total) }} đ</b> </div>
                         </div>
-                        <button id="add-to-cart" class="btn btn-block btn-lg" data-ajax="id={{ $product->id }}">{{ __('cart.buy_now') }}</button>
+                        <button id="add-to-cart" class="btn btn-block btn-lg uppercase" data-ajax="id={{ $product->id }}">Thuê ngay</button>
                     </div>
-                    {{--
-                    <div class="sidebar-widget mb-40">
-                        <div class="share-icons section">
-                            <a target="_blank" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}"><i class="fa fa-facebook"></i></a>
-                            <a target="_blank" class="twitter" href="https://twitter.com/home?status={{ url()->current() }}"><i class="fa fa-twitter"></i></a>
-                            <a target="_blank" class="google" href="https://plus.google.com/share?url={{ url()->current() }}"><i class="fa fa-google-plus"></i></a>
-                            <a target="_blank" class="pinterest" href="https://pinterest.com/pin/create/button/?url={{ url()->current() }}&media={{ asset('public/uploads/products/'.$product->image) }}&description={{ $product->description }}"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>--}}
                 </div>
             </div>
         </div>
@@ -99,12 +92,49 @@
             </div>
         </div>
         <div class="row display-flex">
-            @forelse($products as $product)
-                {!! get_template_product($product,$type,3) !!}
+            @forelse($products as $item)
+                {!! get_template_product($item,$type,3) !!}
             @empty
             @endforelse
         </div>
     </div>
 </section>
 <!-- PRODUCT SECTION END --> 
+@endsection
+
+@section('custom_script')
+<script src="{{ asset('public/packages/vue.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app-cart',
+        data: function () {
+            return {
+                form: {
+                    @php
+                    if($product->regular_price > 0 && $product->sale_price == 0){
+                        echo 'product_price: '.$product->regular_price.',';
+                    }else if($product->sale_price > 0){
+                        echo 'product_price: '.$product->sale_price.',';
+                    }else{
+                        echo 'product_price: 0,';
+                    }
+                    @endphp
+                    product_hosting: 0,
+                    product_license: 1
+                }
+            }
+        },
+        computed: {
+            total() {
+                return ( Number(this.form.product_price) + Number(this.form.product_hosting) ) * Number(this.form.product_license);
+            }
+        },
+        methods: {
+            formatPrice(value) {
+                let val = (value/1).toFixed(0).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            }
+        }
+    });
+</script>
 @endsection

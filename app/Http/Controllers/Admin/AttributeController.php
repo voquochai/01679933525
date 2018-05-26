@@ -72,6 +72,8 @@ class AttributeController extends Controller
                     $attribute->$field = $value;
                 }
             }
+            $attribute->regular_price  = (int)str_replace('.', '', $request->regular_price);
+            $attribute->sale_price     = (int)str_replace('.', '', $request->sale_price);
             $attribute->priority   = (int)str_replace('.', '', $request->priority);
             $attribute->status     = ($request->status) ? implode(',',$request->status) : '';
             $attribute->type       = $this->_data['type'];
@@ -138,6 +140,8 @@ class AttributeController extends Controller
                         $attribute->$field = $value;
                     }
                 }
+                $attribute->regular_price  = (int)str_replace('.', '', $request->regular_price);
+                $attribute->sale_price     = (int)str_replace('.', '', $request->sale_price);
                 $attribute->priority   = (int)str_replace('.', '', $request->priority);
                 $attribute->status     = ($request->status) ? implode(',',$request->status) : '';
                 $attribute->type       = $this->_data['type'];

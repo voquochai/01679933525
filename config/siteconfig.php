@@ -6,8 +6,7 @@ return [
 		'google_coordinates' => '10.8537862, 106.62834440000006',
 	],
 	'languages' => [
-		'vi' => 'Tiếng Việt',
-		'en' => 'Tiếng Anh'
+		'vi' => 'Tiếng Việt'
 	],
 	'social' => [
 		'vi' => 'vi_VN',

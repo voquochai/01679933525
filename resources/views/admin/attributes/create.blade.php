@@ -48,12 +48,28 @@
                     <div class="caption">Thông tin chung </div>
                 </div>
                 <div class="portlet-body">
-                    @if($type=='product_colors')
+                    @if($siteconfig[$type]['colorpicker'])
                     <div class="form-group">
                         <label class="control-label">Mã màu</label>
                         <div class="input-group colorpicker-component" data-color="{{ (old('data.value')) ? old('data.value') : '#ffffff' }}">
                             <input type="text" name="data[value]" value="{{ (old('data.value')) ? old('data.value') : '' }}" class="form-control"/>
                             <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </div>
+                    @endif
+                    @if($siteconfig[$type]['price'])
+                    <div class="form-group">
+                        <label class="control-label">Giá bán </label>
+                        <div class="input-group">
+                            <input type="text" name="regular_price" class="form-control priceFormat" value="{{ (old('regular_price')) ? old('regular_price') : '' }}" />
+                            <span class="input-group-addon"> Đ </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Giá khuyến mãi</label>
+                        <div class="input-group">
+                            <input type="text" name="sale_price" class="form-control priceFormat" value="{{ (old('sale_price')) ? old('sale_price') : '' }}" />
+                            <span class="input-group-addon"> Đ </span>
                         </div>
                     </div>
                     @endif

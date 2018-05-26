@@ -16,6 +16,8 @@ class CreateAttributesTable extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value')->nullable();
+            $table->integer('regular_price')->default(0);
+            $table->integer('sale_price')->default(0);
             $table->integer('priority')->default(1);
             $table->string('status',100)->default('publish');
             $table->string('type',50)->nullable();

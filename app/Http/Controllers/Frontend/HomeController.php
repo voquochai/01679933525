@@ -234,8 +234,7 @@ class HomeController extends Controller
 
                 $this->_data['images'] = get_media($this->_data['product']->attachments);
                 $this->_data['attributes'] = $this->_data['product']->attributes ? json_decode($this->_data['product']->attributes,true) : [];
-                $this->_data['colors'] = get_attributes('product_colors');
-                $this->_data['sizes'] = get_attributes('product_sizes');
+                $this->_data['hosting'] = get_attributes('product_hosting');
                 $this->_data['tags'] = get_attributes('product_tags');
 
                 $comments = DB::table('comments')
@@ -265,15 +264,6 @@ class HomeController extends Controller
                     ->orderBy('A.priority','asc')
                     ->orderBy('A.id','desc')
                     ->limit(15)
-                    ->get();
-                $this->_data['hosting'] = DB::table('products as A')
-                    ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
-                    ->select('A.id','A.code','A.regular_price','A.sale_price','A.link','A.image','A.alt','A.category_id','A.user_id','A.type','B.title', 'B.slug')
-                    ->where('B.language',$this->_data['lang'])
-                    ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
-                    ->where('A.type','hosting')
-                    ->orderBy('A.priority','asc')
-                    ->orderBy('A.id','desc')
                     ->get();
                 return response()->view('frontend.default.page-product',$this->_data)->cookie($cookieViewed);
             }

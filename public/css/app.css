@@ -286,6 +286,9 @@ Custom color buttons
 .font-white {
     color: #ffffff !important;
 }
+.font-red {
+    color: #ff0000 !important;
+}
 /***
 Customized Bootstrap Close Icon 
 ***/
