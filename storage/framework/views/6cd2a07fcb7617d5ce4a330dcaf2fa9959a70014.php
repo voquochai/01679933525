@@ -11,7 +11,7 @@
                                 <tr>
                                     <th class="pro-thumbnail"> <?php echo e(__('cart.photo')); ?> </th>
                                     <th class="pro-title"> <?php echo e(__('cart.product_name')); ?> </th>
-                                    <th class="pro-price"> <?php echo e(__('cart.price')); ?> (Đ)</th>
+                                    <th class="pro-price"> Hosting </th>
                                     <th class="pro-quantity"> <?php echo e(__('cart.quantity')); ?> </th>
                                     <th class="pro-subtotal"> <?php echo e(__('cart.total')); ?> (Đ)</th>
                                     <th class="pro-remove"> <?php echo e(__('cart.delete')); ?> </th>
@@ -22,11 +22,14 @@
                                 <tr id="pro-key-<?php echo e($key); ?>">
                                     <td class="pro-thumbnail"><a href="#"><img src="<?php echo e($val['pimage']); ?>" alt="" /></a></td>
                                     <td class="pro-title"><a href="#"><?php echo e($val['pname']); ?></a>
-                                        <?php echo e(($val['pcolor'] ? $val['pcolor'].' - ' : '').($val['psize'] ? $val['psize'] : '')); ?>
-
+                                        <span class="amount"><?php echo e($val['price']); ?></span>
                                     </td>
-                                    <td class="pro-price"><span class="amount"><?php echo e($val['price']); ?></span></td>
-                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="<?php echo e($val['qty']); ?>" class="update-cart" data-ajax="key=<?php echo e($key); ?>" /></div></td>
+                                    <td class="pro-price">
+                                        <select name="hosting" class="selectpicker">
+                                            
+                                        </select>
+                                    </td>
+                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="<?php echo e($val['license']); ?>" class="update-cart" data-ajax="key=<?php echo e($key); ?>" /></div></td>
                                     <td class="pro-subtotal sumProPrice"><?php echo e($val['sumProPrice']); ?></td>
                                     <td class="pro-remove"><a href="#" class="delete-cart" data-ajax="key=<?php echo e($key); ?>" >×</a></td>
                                 </tr>

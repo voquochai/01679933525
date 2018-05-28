@@ -224,16 +224,13 @@ var App = function() {
         $('body').on('click', '#add-to-cart', function(e){
             e.preventDefault();
             var btn = $(this);
-            var qty = $('.product-quantity input').val();
-            if( typeof qty === 'undefined' ) qty = 1;
+            var hosting = $('.product-hosting input[name="hosting"]:checked').attr('data-id');
+            if( typeof hosting === 'undefined' || hosting == 0 ) hosting = 1;
 
-            var color = $('.color-list .active').attr('data-id');
-            if( typeof color === 'undefined' ) color = 0;
+            var license = $('.product-license select[name="license"]').val();
+            if( typeof license === 'undefined' || license == 0 ) license = 1;
 
-            var size = $('.size-list .active').attr('data-id');
-            if( typeof size === 'undefined' ) size = 0;
-
-            var dataAjax = btn.data('ajax').replace(/\|/g,'&')+'&qty='+qty+'&color='+color+'&size='+size+'&_token='+Laravel.csrfToken;
+            var dataAjax = btn.data('ajax').replace(/\|/g,'&')+'&hosting='+hosting+'&license='+license+'&_token='+Laravel.csrfToken;
             $.ajax({
                 type: 'POST',
                 url : Laravel.baseUrl+'/gio-hang/add',

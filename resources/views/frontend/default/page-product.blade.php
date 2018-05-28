@@ -44,7 +44,7 @@
                             <div class="mt-radio-list">
                                 @forelse( $hosting as $host )
                                 <label class="mt-radio">
-                                    <input type="radio" name="hosting" v-model="form.product_hosting" value="{{ $host->regular_price }}" {{ $host->regular_price == 0 ? 'checked' : '' }} >{{ $host->title }}
+                                    <input type="radio" name="hosting" data-id="{{ $host->id }}" v-model="form.product_hosting"  value="{{ $host->regular_price }}" {{ $host->regular_price == 0 ? 'checked' : '' }} >{{ $host->title }}
                                     <span></span>
                                     <div class="float-right">
                                         @if( $host->regular_price > 0 )
@@ -62,7 +62,7 @@
                         <div class="product-license">
                             <div class="float-left"> <label> Thời gian </label> </div>
                             <div class="float-right">
-                                <select class="selectpicker" v-model="form.product_license" >
+                                <select class="selectpicker" name="license" v-model="form.product_license" >
                                     @for($i=1; $i<=5; $i++)
                                     <option value="{{ $i }}"> {{ $i.' năm' }} </option>
                                     @endfor
@@ -72,7 +72,7 @@
                         <hr>
                         <div class="product-total">
                             <div class="float-left"><label> Tổng tiền </label></div>
-                            <div class="float-right"> <b class="font-red font-lg">@{{ formatPrice(total) }} đ</b> </div>
+                            <div class="float-right"> <b class="font-red font-hg">@{{ formatPrice(total) }} đ</b> </div>
                         </div>
                         <button id="add-to-cart" class="btn btn-block btn-lg uppercase" data-ajax="id={{ $product->id }}">Thuê ngay</button>
                     </div>

@@ -47,6 +47,15 @@ class CartController extends Controller
             }else{
                 $this->_data['countCart'] = 0;
             }
+            $this->_data['hosting'] = get_attributes('product_hosting');
+            if(count($this->_data['hosting']) > 0) {
+                foreach ($this->_data['hosting'] as $key => $val) {
+                    $this->_data['hosting'][$val->id]['title'] = $val->title;
+                    $this->_data['hosting'][$val->id]['price'] = $val->regular_price;
+                }
+            }
+
+
             return $next($request);
         });
     }
@@ -60,7 +69,16 @@ class CartController extends Controller
             $countCart = count($this->_data['cart']);
             foreach ($this->_data['cart'] as $key => $val) {
 
-                $sumCartPrice += $val['price']*$val['qty'];
+                if($val['hosting']){
+                    $sumProPrice = ($val['price']+$this->_data['hosting'][$val['hosting']]['price'])*$val['license'];
+                }else{
+                    $sumProPrice = $val['price']*$val['license'];
+                }
+
+                $sumCartPrice += $sumProPrice;
+
+                $this->_data['cart'][$key]['price'] =   number_format($val['price'], 0, ',', '.');
+                $this->_data['cart'][$key]['sumProPrice'] =   number_format($sumCartPrice, 0, ',', '.');
 
                 $product = DB::table('products as A')
                     ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
@@ -68,24 +86,10 @@ class CartController extends Controller
                     ->where('A.id',$val['id'])
                     ->where('B.language', $this->_data['lang'])
                     ->first();
-                $color = DB::table('attribute_languages')
-                    ->select('title')
-                    ->where('attribute_id',$val['color'])
-                    ->where('language',$this->_data['lang'])
-                    ->first();
-
-                $size = DB::table('attribute_languages')
-                    ->select('title')
-                    ->where('attribute_id',$val['size'])
-                    ->where('language',$this->_data['lang'])
-                    ->first();
                 
                 $this->_data['cart'][$key]['pname']    =   $product->title;
-                $this->_data['cart'][$key]['pcolor']   =   @$color->title;
-                $this->_data['cart'][$key]['psize']    =   @$size->title;
                 $this->_data['cart'][$key]['pimage']   =   $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300');
-                $this->_data['cart'][$key]['price'] =   number_format($val['price'], 0, ',', '.');
-                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['price']*$val['qty'], 0, ',', '.');
+                
             }
             if( count($this->_data['coupon']) > 0 ){
                 if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -376,7 +380,11 @@ class CartController extends Controller
 
         $sumCartPrice = $sumOrderPrice = 0;
         foreach ($this->_data['cart'] as $key => $val) {
-            $sumCartPrice += $val['price']*$val['qty'];
+            if($val['hosting']){
+                $sumCartPrice += ($val['price']+$this->_data['hosting'][$val['hosting']]['price'])*$val['license'];
+            }else{
+                $sumCartPrice += $val['price']*$val['license'];
+            }
         }
 
         if( count($this->_data['coupon']) > 0 ){
@@ -432,12 +440,13 @@ class CartController extends Controller
         }
     }
 
-    public function checkInCart($id,$qty,$color=0,$size=0){
+    public function checkInCart($id,$hosting=0,$license=1){
         $flag = 0;
         $max = count($this->_data['cart']);
         for($i=0; $i<$max; $i++){
-            if( $this->_data['cart'][$i]['id'] == $id && $this->_data['cart'][$i]['color'] == $color && $this->_data['cart'][$i]['size'] == $size ){
-                $this->_data['cart'][$i]['qty'] += $qty;
+            if( $this->_data['cart'][$i]['id'] == $id ){
+                $this->_data['cart'][$i]['hosting'] = $hosting;
+                $this->_data['cart'][$i]['license'] = $license;
                 $flag = 1;
             }
         }
@@ -447,9 +456,8 @@ class CartController extends Controller
 
     public function addToCart(Request $request){
         $id = $request->id;
-        $color = (int)$request->color;
-        $size = (int)$request->size;
-        $qty = is_numeric($request->qty) && $request->qty > 0 ? $request->qty : 1;
+        $hosting = (int)$request->hosting;
+        $license = is_numeric($request->license) && $request->license > 0 ? $request->license : 1;
         if ($request->ajax() && is_numeric($id)) {
             $product = DB::table('products as A')
                 ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
@@ -460,14 +468,13 @@ class CartController extends Controller
             if ($product !== null) {
                 if (count($this->_data['cart']) > 0) {
                     $max = count($this->_data['cart']);
-                    if( !self::checkInCart($id,$qty,$color,$size) ){
+                    if( !self::checkInCart($id,$hosting,$license) ){
                         $this->_data['cart'][$max] = [
                             'id' => $id,
                             'code' => $product->code,
                             'price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
-                            'qty' => $qty,
-                            'color' => $color,
-                            'size' => $size,
+                            'hosting' => $hosting,
+                            'license' => $license,
                         ];
                     }
                 }else{
@@ -475,9 +482,8 @@ class CartController extends Controller
                         'id' => $id,
                         'code' => $product->code,
                         'price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
-                        'qty' => $qty,
-                        'color' => $color,
-                        'size' => $size,
+                        'hosting' => $hosting,
+                        'license' => $license,
                     ];
                 }
                 

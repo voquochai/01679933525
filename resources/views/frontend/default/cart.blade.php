@@ -12,7 +12,7 @@
                                 <tr>
                                     <th class="pro-thumbnail"> {{ __('cart.photo') }} </th>
                                     <th class="pro-title"> {{ __('cart.product_name') }} </th>
-                                    <th class="pro-price"> {{ __('cart.price') }} (Đ)</th>
+                                    <th class="pro-price"> Hosting </th>
                                     <th class="pro-quantity"> {{ __('cart.quantity') }} </th>
                                     <th class="pro-subtotal"> {{ __('cart.total') }} (Đ)</th>
                                     <th class="pro-remove"> {{ __('cart.delete') }} </th>
@@ -23,10 +23,14 @@
                                 <tr id="pro-key-{{ $key }}">
                                     <td class="pro-thumbnail"><a href="#"><img src="{{ $val['pimage'] }}" alt="" /></a></td>
                                     <td class="pro-title"><a href="#">{{ $val['pname'] }}</a>
-                                        {{ ($val['pcolor'] ? $val['pcolor'].' - ' : '').($val['psize'] ? $val['psize'] : '') }}
+                                        <span class="amount">{{ $val['price'] }}</span>
                                     </td>
-                                    <td class="pro-price"><span class="amount">{{ $val['price'] }}</span></td>
-                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="{{ $val['qty'] }}" class="update-cart" data-ajax="key={{ $key }}" /></div></td>
+                                    <td class="pro-price">
+                                        <select name="hosting" class="selectpicker">
+                                            
+                                        </select>
+                                    </td>
+                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="{{ $val['license'] }}" class="update-cart" data-ajax="key={{ $key }}" /></div></td>
                                     <td class="pro-subtotal sumProPrice">{{ $val['sumProPrice'] }}</td>
                                     <td class="pro-remove"><a href="#" class="delete-cart" data-ajax="key={{ $key }}" >×</a></td>
                                 </tr>
