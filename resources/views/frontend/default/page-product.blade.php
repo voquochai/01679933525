@@ -44,7 +44,7 @@
                             <div class="mt-radio-list">
                                 @forelse( $hosting as $host )
                                 <label class="mt-radio">
-                                    <input type="radio" name="hosting" data-id="{{ $host->id }}" v-model="form.product_hosting"  value="{{ $host->regular_price }}" {{ $host->regular_price == 0 ? 'checked' : '' }} >{{ $host->title }}
+                                    <input type="radio" name="hosting" v-model="form.product_hosting"  value="{{ $host->regular_price }}">{{ $host->title }}
                                     <span></span>
                                     <div class="float-right">
                                         @if( $host->regular_price > 0 )
@@ -62,7 +62,7 @@
                         <div class="product-license">
                             <div class="float-left"> <label> Thời gian </label> </div>
                             <div class="float-right">
-                                <select class="selectpicker" name="license" v-model="form.product_license" >
+                                <select class="selectpicker show-tick" name="license" v-model="form.product_license" >
                                     @for($i=1; $i<=5; $i++)
                                     <option value="{{ $i }}"> {{ $i.' năm' }} </option>
                                     @endfor
@@ -74,7 +74,7 @@
                             <div class="float-left"><label> Tổng tiền </label></div>
                             <div class="float-right"> <b class="font-red font-hg">@{{ formatPrice(total) }} đ</b> </div>
                         </div>
-                        <button id="add-to-cart" class="btn btn-block btn-lg uppercase" data-ajax="id={{ $product->id }}">Thuê ngay</button>
+                        <button id="btn-modal" @click="showModal=true" class="btn btn-block btn-lg uppercase" data-ajax="id={{ $product->id }}">Thuê ngay</button>
                     </div>
                 </div>
             </div>
@@ -104,11 +104,46 @@
 
 @section('custom_script')
 <script src="{{ asset('public/packages/vue.js') }}" type="text/javascript"></script>
+<!-- template for the modal component -->
+<script type="text/x-template" id="modal-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <slot name="header">
+                            default header
+                        </slot>
+                    </div>
+
+                    <div class="modal-body">
+                        <slot name="body">
+                            default body
+                        </slot>
+                    </div>
+
+                    <div class="modal-footer">
+                        <slot name="footer">
+                            default footer
+                            <button class="modal-default-button" @click="$emit('close')"> OK </button>
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+</script>
+
 <script type="text/javascript">
+    // register modal component
+    Vue.component('modal', {
+        template: '#modal-template'
+    });
     new Vue({
         el: '#app-cart',
         data: function () {
             return {
+                showModal: false,
                 form: {
                     @php
                     if($product->regular_price > 0 && $product->sale_price == 0){

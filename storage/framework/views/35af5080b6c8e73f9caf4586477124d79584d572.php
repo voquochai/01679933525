@@ -44,7 +44,7 @@
                             <div class="mt-radio-list">
                                 <?php $__empty_1 = true; $__currentLoopData = $hosting; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $host): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                 <label class="mt-radio">
-                                    <input type="radio" name="hosting" v-model="form.product_hosting" value="<?php echo e($host->regular_price); ?>" <?php echo e($host->regular_price == 0 ? 'checked' : ''); ?> ><?php echo e($host->title); ?>
+                                    <input type="radio" name="hosting" v-model="form.product_hosting"  value="<?php echo e($host->regular_price); ?>"><?php echo e($host->title); ?>
 
                                     <span></span>
                                     <div class="float-right">
@@ -64,7 +64,7 @@
                         <div class="product-license">
                             <div class="float-left"> <label> Thời gian </label> </div>
                             <div class="float-right">
-                                <select class="selectpicker" v-model="form.product_license" >
+                                <select class="selectpicker show-tick" name="license" v-model="form.product_license" >
                                     <?php for($i=1; $i<=5; $i++): ?>
                                     <option value="<?php echo e($i); ?>"> <?php echo e($i.' năm'); ?> </option>
                                     <?php endfor; ?>
@@ -74,9 +74,9 @@
                         <hr>
                         <div class="product-total">
                             <div class="float-left"><label> Tổng tiền </label></div>
-                            <div class="float-right"> <b class="font-red font-lg">{{ formatPrice(total) }} đ</b> </div>
+                            <div class="float-right"> <b class="font-red font-hg">{{ formatPrice(total) }} đ</b> </div>
                         </div>
-                        <button id="add-to-cart" class="btn btn-block btn-lg uppercase" data-ajax="id=<?php echo e($product->id); ?>">Thuê ngay</button>
+                        <button id="btn-modal" @click="showModal=true" class="btn btn-block btn-lg uppercase" data-ajax="id=<?php echo e($product->id); ?>">Thuê ngay</button>
                     </div>
                 </div>
             </div>
@@ -107,11 +107,46 @@
 
 <?php $__env->startSection('custom_script'); ?>
 <script src="<?php echo e(asset('public/packages/vue.js')); ?>" type="text/javascript"></script>
+<!-- template for the modal component -->
+<script type="text/x-template" id="modal-template">
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <slot name="header">
+                            default header
+                        </slot>
+                    </div>
+
+                    <div class="modal-body">
+                        <slot name="body">
+                            default body
+                        </slot>
+                    </div>
+
+                    <div class="modal-footer">
+                        <slot name="footer">
+                            default footer
+                            <button class="modal-default-button" @click="$emit('close')"> OK </button>
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </transition>
+</script>
+
 <script type="text/javascript">
+    // register modal component
+    Vue.component('modal', {
+        template: '#modal-template'
+    });
     new Vue({
         el: '#app-cart',
         data: function () {
             return {
+                showModal: false,
                 form: {
                     <?php 
                     if($product->regular_price > 0 && $product->sale_price == 0){
