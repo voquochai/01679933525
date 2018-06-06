@@ -159,6 +159,9 @@ code {
 .sbold.btn {
     letter-spacing: 0;
 }
+.normal {
+    font-weight: 400 !important;
+}
 .thin {
     font-weight: 300 !important;
 }
@@ -167,6 +170,12 @@ code {
 }
 .capitalize {
     text-transform: capitalize
+}
+.underline{
+    text-decoration: underline;
+}
+.line-through{
+    text-decoration: line-through;
 }
 .border {
     border: 1px solid red;
@@ -218,11 +227,17 @@ code {
 .no-padding {
     padding: 0 !important;
 }
+.mb-15 {
+    margin-bottom: 15px;
+}
 .mb-20 {
     margin-bottom: 20px;
 }
 .mb-40 {
     margin-bottom: 40px;
+}
+.mt-15 {
+    margin-top: 15px;
 }
 .pt-60 {
     padding-top: 60px;

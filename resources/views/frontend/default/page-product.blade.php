@@ -46,13 +46,7 @@
                                 <label class="mt-radio">
                                     <input type="radio" name="hosting" v-model="form.product_hosting"  value="{{ $host->regular_price }}">{{ $host->title }}
                                     <span></span>
-                                    <div class="float-right">
-                                        @if( $host->regular_price > 0 )
-                                        {{ get_currency_vn($host->regular_price) }}
-                                        @else
-                                        Mặc định
-                                        @endif
-                                    </div>
+                                    <div class="float-right">{{ get_currency_vn($host->regular_price) }}</div>
                                 </label>
                                 @empty
                                 @endforelse
@@ -60,7 +54,7 @@
                         </div>
                         <hr>
                         <div class="product-license">
-                            <div class="float-left"> <label> Thời gian </label> </div>
+                            <div class="float-left"> <label> Thời hạn </label> </div>
                             <div class="float-right">
                                 <select class="selectpicker show-tick" name="license" v-model="form.product_license" >
                                     @for($i=1; $i<=5; $i++)
@@ -72,10 +66,60 @@
                         <hr>
                         <div class="product-total">
                             <div class="float-left"><label> Tổng tiền </label></div>
-                            <div class="float-right"> <b class="font-red font-hg">@{{ formatPrice(total) }} đ</b> </div>
+                            <div class="float-right"> <b class="font-red font-hg">@{{ formatPrice(total) }}</b> </div>
                         </div>
-                        <button id="btn-modal" @click="showModal=true" class="btn btn-block btn-lg uppercase" data-ajax="id={{ $product->id }}">Thuê ngay</button>
+                        <button data-toggle="modal" data-target="#modal-product-detail" class="btn btn-block btn-lg uppercase" data-ajax="id={{ $product->id }}">Đăng ký</button>
                     </div>
+                    <div id="modal-product-detail" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                    <h4 class="modal-title uppercase">{{ $product->title }}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-success">
+                                        Mã số: {{ $product->code }}</br>
+                                        Giá thuê: @{{ formatPrice(form.product_price) }}</br>
+                                        Gói hosting: @{{ formatPrice(form.product_hosting) }}</br>
+                                        Thời hạn: @{{ form.product_license }} năm</br>
+                                        <p class="text-right bold">Tổng tiền: <span class="font-red font-hg">@{{ formatPrice(total) }}</span></p>
+                                    </div>
+                                    <form>
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="product_hosting" v-model="form.product_hosting">
+                                        <input type="hidden" name="product_license" v-model="form.product_license">
+                                        <input type="hidden" name="product_total" v-model="total">
+                                        <h5 class="bold uppercase underline"> Thông tin khách hàng</h5>
+                                        <div class="form-group">
+                                            <label class="normal">Họ tên</label>
+                                            <input type="text" name="name" class="form-control">
+                                        </div>
+                                        <div class="form-group no-margin">
+                                            <div class="row">
+                                                <div class="col-sm-5 col-xs-12 mb-15">
+                                                    <label class="normal">Điện thoại</label>
+                                                    <input type="text" name="phone" class="form-control">
+                                                </div>
+                                                <div class="col-sm-7 col-xs-12 mb-15">
+                                                    <label class="normal">Email</label>
+                                                    <input type="email" name="email" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="normal">Ghi chú</label>
+                                            <textarea name="note" class="form-control" rows="5" placeholder="Yêu cầu thêm"></textarea>
+                                        </div>
+                                        <div class="form-group no-margin text-right">
+                                            <button type="button" class="btn" data-dismiss="modal">Thoát</button>
+                                            <button type="button" class="btn btn-info btn-ajax" data-ajax="act=order|type=online">Thuê ngay</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                 </div>
             </div>
         </div>
@@ -104,46 +148,11 @@
 
 @section('custom_script')
 <script src="{{ asset('public/packages/vue.js') }}" type="text/javascript"></script>
-<!-- template for the modal component -->
-<script type="text/x-template" id="modal-template">
-    <transition name="modal">
-        <div class="modal-mask">
-            <div class="modal-wrapper">
-                <div class="modal-container">
-                    <div class="modal-header">
-                        <slot name="header">
-                            default header
-                        </slot>
-                    </div>
-
-                    <div class="modal-body">
-                        <slot name="body">
-                            default body
-                        </slot>
-                    </div>
-
-                    <div class="modal-footer">
-                        <slot name="footer">
-                            default footer
-                            <button class="modal-default-button" @click="$emit('close')"> OK </button>
-                        </slot>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </transition>
-</script>
-
 <script type="text/javascript">
-    // register modal component
-    Vue.component('modal', {
-        template: '#modal-template'
-    });
     new Vue({
         el: '#app-cart',
         data: function () {
             return {
-                showModal: false,
                 form: {
                     @php
                     if($product->regular_price > 0 && $product->sale_price == 0){
@@ -166,8 +175,8 @@
         },
         methods: {
             formatPrice(value) {
-                let val = (value/1).toFixed(0).replace('.', ',')
-                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                let val = (value/1).toFixed(0).replace('.', ',');
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' đ';
             }
         }
     });

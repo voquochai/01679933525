@@ -30,6 +30,9 @@ class AjaxController extends Controller
             case 'comment':
                 $data = $this->comment($request);
                 break;
+            case 'order':
+                $data = $this->order($request);
+                break;
         }
         return response()->json($data);
     }
@@ -176,6 +179,54 @@ class AjaxController extends Controller
                 $data['message'] = __('site.comment_success');
             }else{
                 $data['message'] = __('site.comment_fail');
+            }
+        }
+        return $data;
+    }
+
+    public function order($request){
+        $valid = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email'
+        ], [
+            'name.required' => __('validation.required', ['attribute'=>__('site.name')]),
+            'phone.required' => __('validation.required', ['attribute'=>__('site.phone')]),
+            'email.required' => __('validation.required', ['attribute'=>'Email']),
+            'email.email' => __('validation.email', ['attribute'=>'Email']),
+        ]);
+
+        $data['type'] = 'danger';
+        $data['icon'] = 'warning';
+
+        if ($valid->fails()) {
+            $data['message'] = $valid->errors()->first();
+            return $data;
+        } else {
+
+            $client_ip = $request->getClientIp();
+            if(Cache::has($client_ip.'_contact')){
+                $data['message'] = __('site.contact_wait');
+                return $data;
+            }else{
+                Cache::add($client_ip.'_contact',$request->email,10);
+            }
+
+            $data_insert['title'] = $request->subject;
+            $data_insert['name'] = $request->name;
+            $data_insert['email'] = $request->email;
+            $data_insert['description'] = $request->message;
+            $data_insert['type'] = $request->type;
+            $data_insert['created_at'] = new DateTime();
+            $data_insert['updated_at'] = new DateTime();
+            $contact = Register::create($data_insert);
+            if($contact){
+                $data['type'] = 'success';
+                $data['icon'] = 'check';
+                $data['message'] = __('site.contact_success');
+                if(@config('settings.email_username') !='') Mail::to(config('settings.email_to'))->send(new ContactInformation($contact));
+            }else{
+                $data['message'] = __('site.contact_fail');
             }
         }
         return $data;

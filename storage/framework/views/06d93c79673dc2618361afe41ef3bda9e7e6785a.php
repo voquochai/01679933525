@@ -44,17 +44,10 @@
                             <div class="mt-radio-list">
                                 <?php $__empty_1 = true; $__currentLoopData = $hosting; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $host): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                 <label class="mt-radio">
-                                    <input type="radio" name="hosting" data-id="<?php echo e($host->id); ?>" v-model="form.product_hosting"  value="<?php echo e($host->regular_price); ?>" <?php echo e($host->regular_price == 0 ? 'checked' : ''); ?> ><?php echo e($host->title); ?>
+                                    <input type="radio" name="hosting" v-model="form.product_hosting"  value="<?php echo e($host->regular_price); ?>"><?php echo e($host->title); ?>
 
                                     <span></span>
-                                    <div class="float-right">
-                                        <?php if( $host->regular_price > 0 ): ?>
-                                        <?php echo e(get_currency_vn($host->regular_price)); ?>
-
-                                        <?php else: ?>
-                                        Mặc định
-                                        <?php endif; ?>
-                                    </div>
+                                    <div class="float-right"><?php echo e(get_currency_vn($host->regular_price)); ?></div>
                                 </label>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <?php endif; ?>
@@ -62,9 +55,9 @@
                         </div>
                         <hr>
                         <div class="product-license">
-                            <div class="float-left"> <label> Thời gian </label> </div>
+                            <div class="float-left"> <label> Thời hạn </label> </div>
                             <div class="float-right">
-                                <select class="selectpicker" name="license" v-model="form.product_license" >
+                                <select class="selectpicker show-tick" name="license" v-model="form.product_license" >
                                     <?php for($i=1; $i<=5; $i++): ?>
                                     <option value="<?php echo e($i); ?>"> <?php echo e($i.' năm'); ?> </option>
                                     <?php endfor; ?>
@@ -74,10 +67,60 @@
                         <hr>
                         <div class="product-total">
                             <div class="float-left"><label> Tổng tiền </label></div>
-                            <div class="float-right"> <b class="font-red font-hg">{{ formatPrice(total) }} đ</b> </div>
+                            <div class="float-right"> <b class="font-red font-hg">{{ formatPrice(total) }}</b> </div>
                         </div>
-                        <button id="add-to-cart" class="btn btn-block btn-lg uppercase" data-ajax="id=<?php echo e($product->id); ?>">Thuê ngay</button>
+                        <button data-toggle="modal" data-target="#modal-product-detail" class="btn btn-block btn-lg uppercase" data-ajax="id=<?php echo e($product->id); ?>">Đăng ký</button>
                     </div>
+                    <div id="modal-product-detail" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                                    <h4 class="modal-title uppercase"><?php echo e($product->title); ?></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-success">
+                                        Mã số: <?php echo e($product->code); ?></br>
+                                        Giá thuê: {{ formatPrice(form.product_price) }}</br>
+                                        Gói hosting: {{ formatPrice(form.product_hosting) }}</br>
+                                        Thời hạn: {{ form.product_license }} năm</br>
+                                        <p class="text-right bold">Tổng tiền: <span class="font-red font-hg">{{ formatPrice(total) }}</span></p>
+                                    </div>
+                                    <form>
+                                        <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
+                                        <input type="hidden" name="product_hosting" v-model="form.product_hosting">
+                                        <input type="hidden" name="product_license" v-model="form.product_license">
+                                        <input type="hidden" name="product_total" v-model="total">
+                                        <h5 class="bold uppercase underline"> Thông tin khách hàng</h5>
+                                        <div class="form-group">
+                                            <label class="normal">Họ tên</label>
+                                            <input type="text" name="name" class="form-control">
+                                        </div>
+                                        <div class="form-group no-margin">
+                                            <div class="row">
+                                                <div class="col-sm-5 col-xs-12 mb-15">
+                                                    <label class="normal">Điện thoại</label>
+                                                    <input type="text" name="phone" class="form-control">
+                                                </div>
+                                                <div class="col-sm-7 col-xs-12 mb-15">
+                                                    <label class="normal">Email</label>
+                                                    <input type="email" name="email" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="normal">Ghi chú</label>
+                                            <textarea name="note" class="form-control" rows="5" placeholder="Yêu cầu thêm"></textarea>
+                                        </div>
+                                        <div class="form-group no-margin text-right">
+                                            <button type="button" class="btn" data-dismiss="modal">Thoát</button>
+                                            <button type="button" class="btn btn-info btn-ajax" data-ajax="act=order|type=online">Thuê ngay</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                 </div>
             </div>
         </div>
@@ -134,8 +177,8 @@
         },
         methods: {
             formatPrice(value) {
-                let val = (value/1).toFixed(0).replace('.', ',')
-                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                let val = (value/1).toFixed(0).replace('.', ',');
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' đ';
             }
         }
     });
