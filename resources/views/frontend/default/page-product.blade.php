@@ -42,21 +42,18 @@
                         <div class="product-hosting">
                             <h5 class="title"> Gói hosting </h5>
                             <div class="mt-radio-list">
-                                @forelse( $hosting as $host )
-                                <label class="mt-radio">
-                                    <input type="radio" name="hosting" v-model="form.product_hosting"  value="{{ $host->regular_price }}">{{ $host->title }}
+                                <label class="mt-radio" v-for="(item, key) in form.hosting">
+                                    <input type="radio" name="hosting" v-model="form.hosting_id" v-on:change="form.hosting_price=item.price" :value="item.id">@{{ item.title }}
                                     <span></span>
-                                    <div class="float-right">{{ get_currency_vn($host->regular_price) }}</div>
+                                    <div class="float-right">@{{ formatPrice(item.price) }}</div>
                                 </label>
-                                @empty
-                                @endforelse
                             </div>
                         </div>
                         <hr>
                         <div class="product-license">
                             <div class="float-left"> <label> Thời hạn </label> </div>
                             <div class="float-right">
-                                <select class="selectpicker show-tick" name="license" v-model="form.product_license" >
+                                <select class="selectpicker show-tick" name="license" v-model="form.license" >
                                     @for($i=1; $i<=5; $i++)
                                     <option value="{{ $i }}"> {{ $i.' năm' }} </option>
                                     @endfor
@@ -81,15 +78,14 @@
                                     <div class="alert alert-success">
                                         Mã số: {{ $product->code }}</br>
                                         Giá thuê: @{{ formatPrice(form.product_price) }}</br>
-                                        Gói hosting: @{{ formatPrice(form.product_hosting) }}</br>
-                                        Thời hạn: @{{ form.product_license }} năm</br>
+                                        Gói hosting: @{{ formatPrice(form.hosting_price) }}</br>
+                                        Thời hạn: @{{ form.license }} năm</br>
                                         <p class="text-right bold">Tổng tiền: <span class="font-red font-hg">@{{ formatPrice(total) }}</span></p>
                                     </div>
                                     <form>
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input type="hidden" name="product_hosting" v-model="form.product_hosting">
-                                        <input type="hidden" name="product_license" v-model="form.product_license">
-                                        <input type="hidden" name="product_total" v-model="total">
+                                        <input type="hidden" name="hosting_id" v-model="form.hosting_id">
+                                        <input type="hidden" name="license" v-model="form.license">
                                         <h5 class="bold uppercase underline"> Thông tin khách hàng</h5>
                                         <div class="form-group">
                                             <label class="normal">Họ tên</label>
@@ -154,6 +150,17 @@
         data: function () {
             return {
                 form: {
+                    hosting: [
+                        @php
+                        foreach($hosting as $key=>$host){
+                            echo "{'id':".$host->id.",'title':'".$host->title."','price':'".$host->regular_price."'},";
+                            if($key==0){
+                                $hosting_id = $host->id;
+                            }
+                        }
+                        @endphp
+                    ],
+                    hosting_id: {{ $hosting_id }},
                     @php
                     if($product->regular_price > 0 && $product->sale_price == 0){
                         echo 'product_price: '.$product->regular_price.',';
@@ -163,14 +170,14 @@
                         echo 'product_price: 0,';
                     }
                     @endphp
-                    product_hosting: 0,
-                    product_license: 1
+                    hosting_price: 0,
+                    license: 1
                 }
             }
         },
         computed: {
             total() {
-                return ( Number(this.form.product_price) + Number(this.form.product_hosting) ) * Number(this.form.product_license);
+                return ( Number(this.form.product_price) + Number(this.form.hosting_price) ) * Number(this.form.license);
             }
         },
         methods: {

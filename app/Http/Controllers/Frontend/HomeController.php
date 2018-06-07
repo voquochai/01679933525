@@ -36,7 +36,6 @@ class HomeController extends Controller
             $cart = is_array($cart = json_decode($request->cookie('cart'), true)) ? $cart : [];
             if (count($cart) > 0) {
                 $this->_data['countCart'] = count($cart);
-                
             }else{
                 $this->_data['countCart'] = 0;
             }

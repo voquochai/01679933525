@@ -9,7 +9,9 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactInformation;
+use App\Mail\OrderConfirmation;
 use App\Register;
+use App\Order;
 
 use Cache;
 use DateTime;
@@ -204,27 +206,45 @@ class AjaxController extends Controller
             return $data;
         } else {
 
-            $client_ip = $request->getClientIp();
-            if(Cache::has($client_ip.'_contact')){
-                $data['message'] = __('site.contact_wait');
-                return $data;
-            }else{
-                Cache::add($client_ip.'_contact',$request->email,10);
-            }
+            $product = DB::table('products')
+                ->select('id','code','regular_price','sale_price')
+                ->where('id',$request->product_id)
+                ->first();
+            $hosting = DB::table('attributes')
+                ->select('id','regular_price','sale_price')
+                ->where('id',$request->hosting_id)
+                ->first();
 
-            $data_insert['title'] = $request->subject;
-            $data_insert['name'] = $request->name;
-            $data_insert['email'] = $request->email;
-            $data_insert['description'] = $request->message;
-            $data_insert['type'] = $request->type;
-            $data_insert['created_at'] = new DateTime();
-            $data_insert['updated_at'] = new DateTime();
-            $contact = Register::create($data_insert);
-            if($contact){
+            $product_price = $product->sale_price > 0 ? $product->sale_price : $product->regular_price;
+            $hosting_price = $hosting->sale_price > 0 ? $hosting->sale_price : $hosting->regular_price;
+            $total = $product_price + $hosting_price;
+            $order = Order::create([
+                'code'          =>  time(),
+                'name'          =>  $request->name,
+                'email'         =>  $request->email,
+                'phone'         =>  $request->phone,
+                'note'          =>  $request->note,
+                'quantity'      =>  (int)$request->license,
+                'subtotal'      =>  (int)$total,
+                'total'         =>  (int)$total,
+                'product_id'    =>  $request->product_id,
+                'product_code'  =>  $product->code,
+                'product_color' =>  $request->hosting_id,
+                'product_qty'   =>  $request->license,
+                'product_price' =>  $product_price,
+                'member_id'     =>  auth()->guard('member')->check() ? auth()->guard('member')->id() : null,
+                'status_id'     =>  1,
+                'type'          =>  'online',
+                'created_at'    => new DateTime(),
+                'updated_at'    => new DateTime(),
+            ]);
+            $order->code = update_code($order->id,'DH');
+            $order->save();
+            if($order){
                 $data['type'] = 'success';
                 $data['icon'] = 'check';
                 $data['message'] = __('site.contact_success');
-                if(@config('settings.email_username') !='') Mail::to(config('settings.email_to'))->send(new ContactInformation($contact));
+                if(@config('settings.email_username') !='') Mail::to($order->email)->send(new OrderConfirmation($order));
             }else{
                 $data['message'] = __('site.contact_fail');
             }
