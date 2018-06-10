@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <title>{{ config('app.name') }}</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="robots" content="noindex, nofollow">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="" name="description" />
         <meta content="" name="author" />
@@ -28,23 +29,10 @@
     <body class="page-404-full-page">
         <div class="row">
             <div class="col-md-12 page-404">
-                <div class="number font-red"> 404 </div>
+                <div class="number font-red"> 503 </div>
                 <div class="details">
                     <h3>{{ __('site.oops') }}.</h3>
-                    <p> {{ __('site.can_not_find') }}.
-                    <br/>
-                    <a href="{{ url('/') }}"> {{ __('site.return_home') }} </a> {{ __('site.or_try') }}. </p>
-                    <form method="get" action="{{ url('/san-pham') }}">
-                        <div class="input-group input-medium">
-                            <input type="text" class="form-control" placeholder="keyword...">
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn red">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!-- /input-group -->
-                    </form>
+                    <p> {{ __('site.maintenance') }}.</p>
                 </div>
             </div>
         </div>

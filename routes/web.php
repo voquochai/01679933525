@@ -247,7 +247,7 @@ Route::get('/download/{file}', function($file){
 	return response()->download(public_path($file));
 })->where('file','.*')->name('download.file');
 
-Route::group(['as'=>'frontend.', 'namespace'=>'Frontend'], function(){
+Route::group(['as'=>'frontend.', 'namespace'=>'Frontend', 'middleware'=>'checkMaintenance'], function(){
 	Auth::routes();
 	Route::group(['middleware' => 'auth:member'], function(){
     	Route::get('/member', 'MemberController@index')->name('member.index');
@@ -285,8 +285,6 @@ Route::group(['as'=>'frontend.', 'namespace'=>'Frontend'], function(){
 	Route::get('/{type}/{slug}.html' , 'HomeController@page')->name('home.page');
 	Route::get('/{type}/{slug}' , 'HomeController@category')->name('home.category');
 	Route::get('/{type}' , 'HomeController@archive')->name('home.archive');
-	
-	
 
 });
 

@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
             }
             return $settings;
         });
+
         config()->set('settings',$settings);
         if(@$settings['email_host']) config()->set('mail.host',$settings['email_host']);
         if(@$settings['email_port']) config()->set('mail.port',$settings['email_port']);

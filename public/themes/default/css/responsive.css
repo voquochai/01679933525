@@ -1,5 +1,9 @@
 /* Large Screen  */
-@media only screen and (min-width: 1171px) and (max-width: 1500px) {}
+@media only screen and (min-width: 1281px){
+    .container{
+        width: 1280px;
+    }
+}
 /* Normal desktop :992px. */
 @media only screen and (min-width: 992px) and (max-width: 1169px) {
     /*-- Header --*/
@@ -188,4 +192,7 @@
     .login-reg-form form label.inline {
         float: left;
     }
+}
+@media only screen and (max-width: 479px) {
+
 }

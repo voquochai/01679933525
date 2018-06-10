@@ -37,6 +37,14 @@
                         <div class="tab-content">
                             <div class="tab-pane" id="tab-overview">
                                 <div class="form-group">
+                                    <label class="control-label col-md-3 col-lg-2">Bảo trì website</label>
+                                    <div class="col-md-9 col-lg-9">
+                                        <input type="hidden" name="data[maintenance]" value="off" />
+                                        <label class="mt-checkbox">
+                                            <input type="checkbox" name="data[maintenance]" value="on" <?php echo e(@$item['maintenance'] == 'on' ? 'checked' : ''); ?> > <span></span> </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-md-3 col-lg-2">Ngôn ngữ của trang</label>
                                     <div class="col-md-9 col-lg-9">
                                         <div class="mt-radio-inline">

@@ -28,23 +28,10 @@
     <body class="page-404-full-page">
         <div class="row">
             <div class="col-md-12 page-404">
-                <div class="number font-red"> 404 </div>
+                <div class="number font-red"> 503 </div>
                 <div class="details">
                     <h3><?php echo e(__('site.oops')); ?>.</h3>
-                    <p> <?php echo e(__('site.can_not_find')); ?>.
-                    <br/>
-                    <a href="<?php echo e(url('/')); ?>"> <?php echo e(__('site.return_home')); ?> </a> <?php echo e(__('site.or_try')); ?>. </p>
-                    <form method="get" action="<?php echo e(url('/san-pham')); ?>">
-                        <div class="input-group input-medium">
-                            <input type="text" class="form-control" placeholder="keyword...">
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn red">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <!-- /input-group -->
-                    </form>
+                    <p> <?php echo e(__('site.maintenance')); ?>.</p>
                 </div>
             </div>
         </div>
