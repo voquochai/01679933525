@@ -44,16 +44,9 @@
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-6 float-right">
                     <div class="header-option-btns float-right">
-                        <!-- header-search -->
+                        <!-- Header-search -->
                         <div class="header-search float-left">
-                            <button class="search-toggle" data-toggle="modal" data-target="#myModal" ><i class="pe-7s-search"></i></button>
-                        </div>
-                        <!-- Header Cart -->
-                        <div class="header-cart float-left">
-                            <a class="cart-toggle" href="<?php echo e(route('frontend.cart.index')); ?>">
-                                <i class="pe-7s-cart"></i>
-                                <span class="countCart"><?php echo e($countCart); ?></span>
-                            </a>
+                            <button class="search-toggle" data-toggle="modal" data-target="#searchModal" ><i class="pe-7s-search"></i></button>
                         </div>
                     </div>
                 </div>

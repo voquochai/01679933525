@@ -282,6 +282,8 @@ Route::group(['as'=>'frontend.', 'namespace'=>'Frontend', 'middleware'=>'checkMa
 	Route::post('/wishlist/add', 'WishListController@addToWishList')->name('wishlist.add');
 	Route::post('/wishlist/delete', 'WishListController@deleteWishList')->name('wishlist.delete');
 
+	Route::get('/kiem-tra-ten-mien' , 'DomainController@checkWhoIs')->name('domain.check_whois');
+
 	Route::get('/{type}/{slug}.html' , 'HomeController@page')->name('home.page');
 	Route::get('/{type}/{slug}' , 'HomeController@category')->name('home.category');
 	Route::get('/{type}' , 'HomeController@archive')->name('home.archive');
