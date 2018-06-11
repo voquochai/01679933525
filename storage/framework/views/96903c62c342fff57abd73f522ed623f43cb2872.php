@@ -98,19 +98,22 @@
                     <div class="col-xs-12">
                         <h3> Chọn tên miền của bạn </h3>
                         <div class="domain-checkup">
-                            <form action="#">
+                            <form method="post" action="<?php echo e(route('frontend.domain.check_whois')); ?>" >
+                                <?php echo e(csrf_field()); ?>
+
                                 <div class="domain-checkup-left">
-                                    <input type="text" class="form-control" placeholder="Enter your domain here">
-                                    <select class="form-control selectpicker" name="TLD">
-                                        <option value="">.com</option>
-                                        <option value="">.net</option>
-                                        <option value="">.net</option>
-                                        <option value="">.net</option>
-                                        <option value="">.net</option>
+                                    <input type="text" class="form-control" placeholder="Nhập tên miền cần tra cứu">
+                                    <select class="form-control selectpicker" name="ext" multiple>
+                                        <option value=".com" selected>.com</option>
+                                        <option value=".vn">.vn</option>
+                                        <option value=".com.vn">.com.vn</option>
+                                        <option value=".net">.net</option>
+                                        <option value=".info">.info</option>
+                                        <option value=".org">.org</option>
                                     </select>
                                 </div>
                                 <div class="domain-checkup-right">
-                                    <button type="button" class="btn btn-lg"><i class="pe-7s-search"></i>Search</button>
+                                    <button type="submit" class="btn btn-lg"><i class="pe-7s-search"></i>Search</button>
                                 </div>
                             </form>
                         </div>
