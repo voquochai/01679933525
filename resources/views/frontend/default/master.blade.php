@@ -67,7 +67,7 @@
 		@include('frontend.default.layouts.header')
 		@include('frontend.default.layouts.search')
 
-		@if(Route::currentRouteName() == 'frontend.home.index')
+		@if(Route::currentRouteName() == 'frontend.home.index' || Route::currentRouteName() == 'frontend.home.domain')
 			@include('frontend.default.layouts.slideshow')
 		@else
 			@include('frontend.default.layouts.breadcrumb')

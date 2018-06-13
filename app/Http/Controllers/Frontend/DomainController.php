@@ -42,7 +42,7 @@ class DomainController extends Controller
         $this->_data['page_title'] = 'Kiểm tra tên miền';
         $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
         $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
-
+        $this->_data['check_who_is'] = [];
         $valid = Validator::make($request->all(), [
             'domain' => 'required'
         ], [
@@ -51,29 +51,19 @@ class DomainController extends Controller
 
         if ($valid->fails()) {
             return view('frontend.default.domain',$this->_data)->withErrors($valid);
-        } else {
-        
-            $param = '';
-            foreach($struct as $k=>$v) $param .= $k.'='.urlencode($v).'&';
-            
-            $result = file_get_contents($this->_api_url."?$param");//Gọi link thực thi
-            if($result == '0')//Tên miền đã được đăng ký
-            {
-                echo "Tên miền <a href='http://".$struct['domain']."' target='_blank'>".$struct['domain']."</a> đã đuợc đăng ký<br>";
-                // Hien thi thong tin whois 
-                echo "<strong>Thông tin whois</strong>";
-                echo "<div style='border:1px solid #ccc'>";
-                echo file_get_contents($this->_api_url."?username=".$this->_username."&apikey=".$this->_api_key."&cmd=get_whois&domain=".$struct['domain']);
-                echo "</div>";  
-            }
-            elseif($result == '1')//Tên miền chưa đăng ký
-            {
-                echo "Tên miền <strong>".$struct['domain']."</strong> chưa đăng ký<br>";
-            }
-            else//Các trường hợp lỗi
-            {
-                echo "<span style='color:#F00'>$result</span>";
+        }else{
+            $domain = $request->domain;
+            foreach($this->_ext as $ext){
+                $result = file_get_contents($this->_api_url."?username=".$this->_username."&apikey=".$this->_api_key."&cmd=check_whois&domain=".$domain.".".$ext);
+                if($result == '0'){
+                    $this->_data['check_who_is'][] = "Tên miền <a href='http://$domain.$ext' target='_blank'>$domain.$ext</a> đã đuợc đăng ký<br>";
+                }elseif($result == '1'){
+                    $this->_data['check_who_is'][] = "Tên miền <strong>$domain.$ext</strong> chưa đăng ký<br>";
+                }else{
+                    $this->_data['check_who_is'][] = "<span style='color:#F00'>$result</span>";
+                }
             }
         }
+        return view('frontend.default.domain',$this->_data);
     }
 }

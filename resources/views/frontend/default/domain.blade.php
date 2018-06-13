@@ -7,7 +7,10 @@
             @include('frontend.default.blocks.messages')
             <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
                 <ul>
-                    <li>abc</li>
+                    @forelse($check_who_is as $check)
+                    <li>{{ $check }}</li>
+                    @empty
+                    @endforelse
                 </ul>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-12">
