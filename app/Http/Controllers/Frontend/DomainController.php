@@ -17,7 +17,7 @@ class DomainController extends Controller
     private $_username = 'htglobal';
     private $_api_key = 'd54f6146b9f16e2f7686657adbc186a4';
     private $_api_url = 'https://daily.pavietnam.vn/interface.php';
-    private $_ext = ['vn','com','com.vn','net','org','info','xyz','asia','top','online'];
+    private $_ext = ['vn','com','com.vn','net','org','info','xyz','asia','top','online','company','store'];
 
     public function __construct(Request $request){
         $this->_data = set_type($request->type);
@@ -42,7 +42,8 @@ class DomainController extends Controller
         $this->_data['page_title'] = 'Kiểm tra tên miền';
         $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
         $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
-        $this->_data['check_who_is'] = [];
+        $this->_data['domain_search'] = [];
+        $this->_data['domain_result'] = '';
         $valid = Validator::make($request->all(), [
             'domain' => 'required'
         ], [
@@ -52,16 +53,11 @@ class DomainController extends Controller
         if ($valid->fails()) {
             return view('frontend.default.domain',$this->_data)->withErrors($valid);
         }else{
-            $domain = $request->domain;
+            $domain = explode('.',$request->domain);
+            $domain = $domain[0];
             foreach($this->_ext as $ext){
-                $result = file_get_contents($this->_api_url."?username=".$this->_username."&apikey=".$this->_api_key."&cmd=check_whois&domain=".$domain.".".$ext);
-                if($result == '0'){
-                    $this->_data['check_who_is'][] = "Tên miền <a href='http://$domain.$ext' target='_blank'>$domain.$ext</a> đã đuợc đăng ký<br>";
-                }elseif($result == '1'){
-                    $this->_data['check_who_is'][] = "Tên miền <strong>$domain.$ext</strong> chưa đăng ký<br>";
-                }else{
-                    $this->_data['check_who_is'][] = "<span style='color:#F00'>$result</span>";
-                }
+            	$this->_data['domain_search'][] = $domain.".".$ext;
+            	$this->_data['domain_result'] .= "<div class='note' data-domain='$domain.$ext'>Tên miền <a href='http://$domain.$ext' target='_blank'>$domain.$ext</a> <button class='btn float-right'> <i class='fa fa-spinner fa-pulse'></i> </button> </div>";
             }
         }
         return view('frontend.default.domain',$this->_data);

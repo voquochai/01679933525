@@ -102,14 +102,14 @@
                                 <?php echo e(csrf_field()); ?>
 
                                 <div class="domain-checkup-left">
-                                    <input type="text" class="form-control" placeholder="Nhập tên miền cần tra cứu">
-                                    <select class="form-control selectpicker" name="ext" multiple>
-                                        <option value=".com" selected>.com</option>
-                                        <option value=".vn">.vn</option>
-                                        <option value=".com.vn">.com.vn</option>
-                                        <option value=".net">.net</option>
-                                        <option value=".info">.info</option>
-                                        <option value=".org">.org</option>
+                                    <input type="text" name="domain" class="form-control" placeholder="Nhập tên miền cần tra cứu">
+                                    <select name="ext" class="form-control selectpicker" multiple>
+                                        <option value="com" selected>.com</option>
+                                        <option value="vn">.vn</option>
+                                        <option value="com.vn">.com.vn</option>
+                                        <option value="net">.net</option>
+                                        <option value="info">.info</option>
+                                        <option value="org">.org</option>
                                     </select>
                                 </div>
                                 <div class="domain-checkup-right">

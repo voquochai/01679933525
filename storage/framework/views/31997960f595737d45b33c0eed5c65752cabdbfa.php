@@ -68,7 +68,7 @@
 		<?php echo $__env->make('frontend.default.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make('frontend.default.layouts.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-		<?php if(Route::currentRouteName() == 'frontend.home.index'): ?>
+		<?php if(Route::currentRouteName() == 'frontend.home.index' || Route::currentRouteName() == 'frontend.home.domain'): ?>
 			<?php echo $__env->make('frontend.default.layouts.slideshow', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php else: ?>
 			<?php echo $__env->make('frontend.default.layouts.breadcrumb', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -6,12 +6,7 @@
         <div class="row">
             @include('frontend.default.blocks.messages')
             <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
-                <ul>
-                    @forelse($check_who_is as $check)
-                    <li>{{ $check }}</li>
-                    @empty
-                    @endforelse
-                </ul>
+                    {!! $domain_result !!}
             </div>
             <div class="col-lg-3 col-md-4 col-xs-12">
                 @include('frontend.default.layouts.sidebar')
@@ -20,4 +15,28 @@
     </div>
 </section>
 <!-- PAGE SECTION END -->
+@endsection
+
+@section('custom_script')
+<script type="text/javascript" src="{{ asset('public/js/axios.min.js') }}"></script>
+<script type="text/javascript">
+    async function getJSONAsync(domain) {
+
+        // The await keyword saves us from having to write a .then() block.
+        let json = await axios.post( Laravel.baseUrl + '/ajax', { 'act': 'whois', 'domain': domain, '_token=': Laravel.csrfToken } );
+
+        // The result of the GET request is available in the json variable.
+        // We return it just like in a regular synchronous function.
+        return json;
+    }
+    $(document).ready(function(){
+        @forelse($domain_search as $domain)
+            getJSONAsync('{{ $domain }}').then( function(result) {
+                $('div[data-domain="{{ $domain }}"]').addClass('note-'+result.data.class);
+                $('div[data-domain="{{ $domain }}"] button').addClass('btn-'+result.data.class).text(result.data.text);
+            });
+        @empty
+        @endforelse
+    })
+</script>
 @endsection

@@ -101,7 +101,8 @@
                             <form method="post" action="{{ route('frontend.domain.check_whois') }}" >
                                 {{ csrf_field() }}
                                 <div class="domain-checkup-left">
-                                    <input type="text" name="domain" class="form-control" placeholder="Nhập tên miền cần tra cứu">
+                                    <input type="text" name="domain" class="form-control" placeholder="Nhập tên miền cần tra cứu" >
+                                    {{--
                                     <select name="ext" class="form-control selectpicker" multiple>
                                         <option value="com" selected>.com</option>
                                         <option value="vn">.vn</option>
@@ -110,6 +111,7 @@
                                         <option value="info">.info</option>
                                         <option value="org">.org</option>
                                     </select>
+                                    --}}
                                 </div>
                                 <div class="domain-checkup-right">
                                     <button type="submit" class="btn btn-lg"><i class="pe-7s-search"></i>Search</button>
@@ -121,12 +123,13 @@
                 <div class="row">
                     <div class="domain-tld-prices">
                         <ul>
-                            <li>.com $9.00</li>
-                            <li>.net $9.50</li>
-                            <li>.org $9.50</li>
-                            <li>.us $6.99</li>
-                            <li>.biz $9.99</li>
-                            <li>.me $7.50</li>
+                            <li>.vn 750k</li>
+                            <li>.com 220k</li>
+                            <li>.com.vn 630k</li>
+                            <li>.net 250k</li>
+                            <li>.org 120k</li>
+                            <li>.company 180k</li>
+                            <li>.store 120k</li>
                         </ul>
                     </div>
                 </div>

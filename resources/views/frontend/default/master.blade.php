@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="robots" content="index" />
+    <meta name="robots" content="noindex, nofollow" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ @$meta_seo->title }}</title>
@@ -67,7 +67,7 @@
 		@include('frontend.default.layouts.header')
 		@include('frontend.default.layouts.search')
 
-		@if(Route::currentRouteName() == 'frontend.home.index' || Route::currentRouteName() == 'frontend.home.domain')
+		@if(Route::currentRouteName() == 'frontend.home.index' || Route::currentRouteName() == 'frontend.domain.check_whois')
 			@include('frontend.default.layouts.slideshow')
 		@else
 			@include('frontend.default.layouts.breadcrumb')

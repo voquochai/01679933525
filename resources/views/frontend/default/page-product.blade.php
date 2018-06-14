@@ -19,8 +19,6 @@
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12 mb-40">
                 <div class="sidebar" id="app-cart">
-                    <input type="hidden" name="product_price" :value="form.product_price">
-                    
                     <div class="sidebar-widget mb-40">
                         <div class="product-attributes">
                             <ul>
@@ -43,7 +41,7 @@
                             <h5 class="title"> Gói hosting </h5>
                             <div class="mt-radio-list">
                                 <label class="mt-radio" v-for="(item, key) in form.hosting">
-                                    <input type="radio" name="hosting" v-model="form.hosting_id" v-on:change="form.hosting_price=item.price" :value="item.id">@{{ item.title }}
+                                    <input type="radio" name="hosting" v-model="form.hosting_id" v-on:change="changeHosting(item.price,item.title)" :value="item.id">@{{ item.title }}
                                     <span></span>
                                     <div class="float-right">@{{ formatPrice(item.price) }}</div>
                                 </label>
@@ -78,7 +76,7 @@
                                     <div class="alert alert-success">
                                         Mã số: {{ $product->code }}</br>
                                         Giá thuê: @{{ formatPrice(form.product_price) }}</br>
-                                        Gói hosting: @{{ formatPrice(form.hosting_price) }}</br>
+                                        Gói hosting: @{{ form.hosting_name }} - @{{ formatPrice(form.hosting_price) }}</br>
                                         Thời hạn: @{{ form.license }} năm</br>
                                         <p class="text-right bold">Tổng tiền: <span class="font-red font-hg">@{{ formatPrice(total) }}</span></p>
                                     </div>
@@ -156,11 +154,14 @@
                             echo "{'id':".$host->id.",'title':'".$host->title."','price':'".$host->regular_price."'},";
                             if($key==0){
                                 $hosting_id = $host->id;
+                                $hosting_name = $host->title;
                             }
                         }
                         @endphp
                     ],
                     hosting_id: {{ $hosting_id }},
+                    hosting_name: '{{ $hosting_name }}',
+                    hosting_price: 0,
                     @php
                     if($product->regular_price > 0 && $product->sale_price == 0){
                         echo 'product_price: '.$product->regular_price.',';
@@ -170,7 +171,6 @@
                         echo 'product_price: 0,';
                     }
                     @endphp
-                    hosting_price: 0,
                     license: 1
                 }
             }
@@ -184,6 +184,10 @@
             formatPrice(value) {
                 let val = (value/1).toFixed(0).replace('.', ',');
                 return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + ' đ';
+            },
+            changeHosting(price,name) {
+                this.form.hosting_price = price;
+                this.form.hosting_name = name;
             }
         }
     });
