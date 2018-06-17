@@ -229,27 +229,33 @@ class AjaxController extends Controller
                 ->select('id','code','regular_price','sale_price')
                 ->where('id',$request->product_id)
                 ->first();
-            $hosting = DB::table('attributes')
-                ->select('id','regular_price','sale_price')
-                ->where('id',$request->hosting_id)
+            $hosting = DB::table('attributes as A')
+                ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
+                ->select('A.*','B.title')
+                ->where('B.language','vi')
+                ->where('A.id',$request->hosting_id)
                 ->first();
 
             $product_price = $product->sale_price > 0 ? $product->sale_price : $product->regular_price;
             $hosting_price = $hosting->sale_price > 0 ? $hosting->sale_price : $hosting->regular_price;
-            $total = $product_price + $hosting_price;
+            $domain_price  = (int)$request->domain_price;
+            $license       = (int)$request->license;
+
+            $total = ($product_price + $hosting_price + $domain_price)*$license;
             $order = Order::create([
                 'code'          =>  time(),
                 'name'          =>  $request->name,
                 'email'         =>  $request->email,
                 'phone'         =>  $request->phone,
                 'note'          =>  $request->note,
-                'quantity'      =>  (int)$request->license,
+                'quantity'      =>  $license,
                 'subtotal'      =>  (int)$total,
                 'total'         =>  (int)$total,
                 'product_id'    =>  $request->product_id,
                 'product_code'  =>  $product->code,
-                'product_color' =>  $request->hosting_id,
-                'product_qty'   =>  $request->license,
+                'product_color' =>  $hosting->title.' - '.number_format($hosting_price,0,',','.'),
+                'product_size'  =>  $request->domain_name ? $request->domain_name.' - '.number_format($domain_price,0,',','.') : null,
+                'product_qty'   =>  $license,
                 'product_price' =>  $product_price,
                 'member_id'     =>  auth()->guard('member')->check() ? auth()->guard('member')->id() : null,
                 'status_id'     =>  1,
@@ -262,10 +268,10 @@ class AjaxController extends Controller
             if($order){
                 $data['type'] = 'success';
                 $data['icon'] = 'check';
-                $data['message'] = __('site.contact_success');
+                $data['message'] = "Cám ơn ".$order->name." đã đăng ký dịch vụ. Chúng tôi sẽ phản hồi lại qua ".$order->email." trong thời gian sớm nhất. Trân trọng!";
                 if(@config('settings.email_username') !='') Mail::to($order->email)->send(new OrderConfirmation($order));
             }else{
-                $data['message'] = __('site.contact_fail');
+                $data['message'] = "Hệ thống đang bận. Quý khách vui lòng thử lại sau.";
             }
         }
         return $data;

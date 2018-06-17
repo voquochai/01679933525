@@ -401,6 +401,24 @@ class CartController extends Controller
         if($flag) return true;
         return false;
     }
+    public function buyDomain(Request $request){
+        $domain = $request->domain;
+        $price = (int)$request->price;
+        if ( $request->ajax() ) {
+            $cookieDomain = cookie('domain', json_encode(['name'=>$domain, 'price'=>$price]), 720);
+            return response()->json([
+                'type'    =>  'success',
+                'title' =>  '',
+                'message' => "Đăng ký tên miền $domain thành công",
+            ])->withCookie($cookieDomain);
+        }else{
+            return response()->json([
+                'type'    =>  'warning',
+                'title' =>  '',
+                'message' => "Đăng ký tên miền $domain thất bại"
+            ]);
+        }
+    }
     public function addToCart(Request $request){
         $id = $request->id;
         $color = (int)$request->color;

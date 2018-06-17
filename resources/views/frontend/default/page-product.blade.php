@@ -37,8 +37,13 @@
                             <div class="float-right">{!! get_template_product_price($product->regular_price,$product->sale_price) !!}</div>
                         </div>
                         <hr>
+                        <div class="product-domain">
+                            <div class="float-left"><label> Domain </label></div>
+                            <div class="float-right"> @{{ form.domain_name }} - @{{ formatPrice(form.domain_price) }} </div>
+                        </div>
+                        <hr>
                         <div class="product-hosting">
-                            <h5 class="title"> Gói hosting </h5>
+                            <h5 class="title"> Hosting </h5>
                             <div class="mt-radio-list">
                                 <label class="mt-radio" v-for="(item, key) in form.hosting">
                                     <input type="radio" name="hosting" v-model="form.hosting_id" v-on:change="changeHosting(item.price,item.title)" :value="item.id">@{{ item.title }}
@@ -74,14 +79,39 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="alert alert-success">
-                                        Mã số: {{ $product->code }}</br>
-                                        Giá thuê: @{{ formatPrice(form.product_price) }}</br>
-                                        Gói hosting: @{{ form.hosting_name }} - @{{ formatPrice(form.hosting_price) }}</br>
-                                        Thời hạn: @{{ form.license }} năm</br>
-                                        <p class="text-right bold">Tổng tiền: <span class="font-red font-hg">@{{ formatPrice(total) }}</span></p>
+                                        <table class="table table-borderless no-margin">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Mã số</th>
+                                                    <td align="right">{{ $product->code }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Giá thuê</th>
+                                                    <td align="right">@{{ formatPrice(form.product_price) }}</td>
+                                                </tr>
+                                                <tr v-if="form.domain_name != null">
+                                                    <th>Tên miền</th>
+                                                    <td align="right">@{{ form.domain_name }} - @{{ formatPrice(form.domain_price) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Hosting</th>
+                                                    <td align="right">@{{ form.hosting_name }} - @{{ formatPrice(form.hosting_price) }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Thời hạn</th>
+                                                    <td align="right">@{{ form.license }} năm</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Tổng tiền</th>
+                                                    <td align="right"><span class="font-red font-hg bold">@{{ formatPrice(total) }}</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <form>
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="domain_name" v-model="form.domain_name">
+                                        <input type="hidden" name="domain_price" v-model="form.domain_price">
                                         <input type="hidden" name="hosting_id" v-model="form.hosting_id">
                                         <input type="hidden" name="license" v-model="form.license">
                                         <h5 class="bold uppercase underline"> Thông tin khách hàng</h5>
@@ -163,6 +193,15 @@
                     hosting_name: '{{ $hosting_name }}',
                     hosting_price: 0,
                     @php
+
+                    if($domain){
+                        echo 'domain_name: \''.$domain['name'].'\',';
+                        echo 'domain_price: '.$domain['price'].',';
+                    }else{
+                        echo 'domain_name: null,';
+                        echo 'domain_price: 0,';
+                    }
+
                     if($product->regular_price > 0 && $product->sale_price == 0){
                         echo 'product_price: '.$product->regular_price.',';
                     }else if($product->sale_price > 0){
@@ -177,7 +216,7 @@
         },
         computed: {
             total() {
-                return ( Number(this.form.product_price) + Number(this.form.hosting_price) ) * Number(this.form.license);
+                return ( Number(this.form.product_price) + Number(this.form.domain_price) + Number(this.form.hosting_price) ) * Number(this.form.license);
             }
         },
         methods: {

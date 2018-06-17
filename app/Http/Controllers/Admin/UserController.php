@@ -104,6 +104,47 @@ class UserController extends Controller
         return redirect()->route('admin.user.index')->with('danger', 'Không tìm thấy người dùng này');
     }
 
+    public function updateProfile(Request $request, $id){
+        $valid = Validator::make($request->all(), [
+            'data.name' => 'required',
+            'data.email' => 'required|email|unique:users,email,'.$id,
+            // 'data.username' => 'required|alpha_dash|unique:users,username,'.$id,
+            'password' => 'confirmed'
+        ], [
+            'data.name.required' => 'Vui lòng nhập Họ Tên',
+            'data.email.required' => 'Vui lòng nhập Email',
+            'data.email.email' => 'Không đúng định dạng Email',
+            'data.email.unique' => 'Email này đã trùng, vui lòng chọn Email khác',
+            // 'data.username.required' => 'Vui lòng nhập Tên đăng nhập',
+            // 'data.username.alpha_dash' => 'Tên đăng nhập không được chứa các ký tự đặc biệt',
+            // 'data.username.unique' => 'Tên đăng nhập này đã trùng, vui lòng chọn tên khác',
+            'password.confirmed' => 'Confirm Mật khẩu không chính xác',
+        ]);
+
+        if ($valid->fails()) {
+            return redirect()->back()->withErrors($valid)->withInput();
+        } else {
+            $user = User::find($id);
+            if ($user !== null) {
+                if($request->data){
+                    foreach($request->data as $field => $value){
+                        $user->$field = $value;
+                    }
+                }
+                if ($request->has('password')) {
+                    $user->password = bcrypt($request->password);
+                }
+                $user->priority       = (int)str_replace('.', '', $request->priority);
+                $user->status         = ($request->status) ? implode(',',$request->status) : '';
+                $user->updated_at     = new DateTime();
+                $user->save();
+
+                return redirect()->route('admin.user.profile')->with('success','Cập nhật dữ liệu <b>'.$user->name.'</b> thành công');
+            }
+            return redirect( $request->redirects_to )->with('danger', 'Không tìm thấy người dùng này');
+        }
+    }
+
     public function edit($id){
         $this->_data['item'] = User::find($id);
         if ($this->_data['item'] !== null) {
@@ -118,16 +159,16 @@ class UserController extends Controller
         $valid = Validator::make($request->all(), [
             'data.name' => 'required',
             'data.email' => 'required|email|unique:users,email,'.$id,
-            'data.username' => 'required|alpha_dash|unique:users,username,'.$id,
+            // 'data.username' => 'required|alpha_dash|unique:users,username,'.$id,
             'password' => 'confirmed'
         ], [
             'data.name.required' => 'Vui lòng nhập Họ Tên',
             'data.email.required' => 'Vui lòng nhập Email',
             'data.email.email' => 'Không đúng định dạng Email',
             'data.email.unique' => 'Email này đã trùng, vui lòng chọn Email khác',
-            'data.username.required' => 'Vui lòng nhập Tên đăng nhập',
-            'data.username.alpha_dash' => 'Tên đăng nhập không được chứa các ký tự đặc biệt',
-            'data.username.unique' => 'Tên đăng nhập này đã trùng, vui lòng chọn tên khác',
+            // 'data.username.required' => 'Vui lòng nhập Tên đăng nhập',
+            // 'data.username.alpha_dash' => 'Tên đăng nhập không được chứa các ký tự đặc biệt',
+            // 'data.username.unique' => 'Tên đăng nhập này đã trùng, vui lòng chọn tên khác',
             'password.confirmed' => 'Confirm Mật khẩu không chính xác',
         ]);
 

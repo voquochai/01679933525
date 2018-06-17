@@ -207,6 +207,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 	    });
 
 		Route::get('/profile', 'UserController@profile')->name('user.profile');
+		Route::put('/profile/{id}', 'UserController@updateProfile')->where('id','[0-9]+')->name('user.update_profile');
 		Route::post('/ajax', 'AjaxController@index');
 		Route::get('/barcode/{code}', function(Milon\Barcode\Facades\DNS1DFacade $dns1d, $code){
 			echo '<img src="data:image/png;base64,' . DNS1D::getBarcodePNG($code, "C128",3,33,array(1,1,1), true) . '" alt="barcode"   />';
@@ -276,6 +277,7 @@ Route::group(['as'=>'frontend.', 'namespace'=>'Frontend', 'middleware'=>'checkMa
 	Route::post('/gio-hang/delete', 'CartController@deleteCart')->name('cart.delete');
 	Route::post('/gio-hang/update', 'CartController@updateCart')->name('cart.update');
 	Route::post('/gio-hang/coupon', 'CartController@coupon')->name('cart.coupon');
+	Route::post('/gio-hang/domain', 'CartController@buyDomain')->name('cart.domain');
 
 	Route::get('/viewed', 'HomeController@viewed')->name('home.viewed');
 	Route::get('/wishlist', 'WishListController@index')->name('wishlist.index');

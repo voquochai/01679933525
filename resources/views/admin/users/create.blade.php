@@ -66,12 +66,14 @@
                             </select>
                         </div>
                     </div>
+                    {{--
                     <div class="form-group">
                         <label class="control-label">Tên đăng nhập</label>
                         <div>
                             <input type="text" name="data[username]" class="form-control" value="{{ old('data.username') }}">
                         </div>
                     </div>
+                    --}}
                     <div class="form-group">
                         <label class="control-label">Mật khẩu</label>
                         <div>

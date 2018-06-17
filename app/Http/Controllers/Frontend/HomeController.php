@@ -33,6 +33,8 @@ class HomeController extends Controller
             $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
             View::share('siteconfig', config('siteconfig'));
 
+            $this->_data['domain'] = is_array($domain = json_decode($request->cookie('domain'), true)) ? $domain : [];
+
             $cart = is_array($cart = json_decode($request->cookie('cart'), true)) ? $cart : [];
             if (count($cart) > 0) {
                 $this->_data['countCart'] = count($cart);
@@ -95,6 +97,7 @@ class HomeController extends Controller
         $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
         $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
         $this->_data['contact'] = get_pages('lien-he',$this->_data['lang']);
+        $this->_data['meta_seo'] = set_meta_tags($this->_data['contact'],$this->_data['lang']);
         return view('frontend.default.contact',$this->_data);
     }
 
@@ -108,6 +111,7 @@ class HomeController extends Controller
             ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
             ->where('A.type',$type)
             ->first();
+        $this->_data['meta_seo'] = set_meta_tags($this->_data['category']);
         if( $this->_data['category'] ){
             $category_id = $this->_data['category']->id;
 
@@ -143,6 +147,8 @@ class HomeController extends Controller
     }
 
     public function archive(Request $request,$type){
+        $this->_data['page'] = get_pages($type,$this->_data['lang']);
+        $this->_data['meta_seo'] = set_meta_tags($this->_data['page']);
         $params['type'] = $type;
         if($this->_data['template'] == 'product'){
             $whereRaw = 'FIND_IN_SET(\'publish\',A.status)';
@@ -202,7 +208,7 @@ class HomeController extends Controller
                 ->paginate(config('settings.post_per_page'));
             return view('frontend.default.posts',$this->_data);
         }elseif($this->_data['template'] == 'page'){
-            $this->_data['page'] = get_pages($type);
+            
             return view('frontend.default.page',$this->_data);
         }
         return abort(404);

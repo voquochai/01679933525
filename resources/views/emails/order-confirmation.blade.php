@@ -7,29 +7,37 @@ Cám ơn bạn đã đặt hàng tại website chúng tôi
 <hr>
 <p> Đơn hàng #{{ $order->code }} của bạn bao gồm các sản phẩm sau đây:</p>
 
-@component('mail::table')
-
-| MÃ SP | TÊN SẢN PHẨM | GIÁ BÁN (Đ) | SỐ LƯỢNG | TỔNG (Đ) |
-|:-----:|--------------|:-------------:|:--------:|:----------:|
-@forelse($products as $product)
-| {{ $product['code'] }} | {{ $product['title'] }} | {{ number_format($product['price'],0,',','.') }} | {{ $product['qty'] }} | {{ number_format($product['price']*$product['qty'],0,',','.') }} |
-@empty
-@endforelse
-<td colspan=3 align="right"> Tổng tiền | <center><b>{{ number_format($order->subtotal, 0, ',', '.') }} đ</b></center> |
-@endcomponent
-
-@if($order->coupon_code !== null)
-@component('mail::subcopy')
-<p><i>Bạn được giảm <b>{{ number_format($order->coupon_amount, 0, ',', '.') }} đ</b> cho đơn hàng này </i></p>
-@endcomponent
-@endif
-
+<div class="table">
+	<table>
+		<tr>
+			<th colspan="2">{{ $product['title'] }}</th>
+		</tr>
+		<tr>
+			<td style="width:150px; text-align: left;">Mã số</td>
+			<td>{{ $product['code'] }}</td>
+		</tr>
+		<tr>
+			<td style="width:150px; text-align: left;">Giá thuê</td>
+			<td>{{ number_format($product['price'],0,',','.') }}</td>
+		</tr>
+		@if($product['domain'])
+		<tr>
+			<td style="width:150px; text-align: left;">Domain</td>
+			<td>{{ $product['domain'] }}</td>
+		</tr>
+		@endif
+		<tr>
+			<td style="width:150px; text-align: left;">Hosting</td>
+			<td>{{ $product['hosting'] }}</td>
+		</tr>
+		<tr>
+			<td style="width:150px; text-align: left;">Thời hạn</td>
+			<td>{{ $product['qty'] }} năm</td>
+		</tr>
+	</table>
+</div>
 @component('mail::panel')
 <p style="text-align: center;">Tổng đơn hàng: <b>{{ number_format($order->total, 0, ',', '.') }} đ</b></p>
-@endcomponent
-
-@component('mail::button', ['url' => route('frontend.cart.tracking',['email'=>$order->email, 'code'=>$order->code]), 'color' => 'green'])
-Xem đơn hàng
 @endcomponent
 
 Thanks,<br>

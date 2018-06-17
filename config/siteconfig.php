@@ -401,6 +401,74 @@ return [
                 'publish'     => 'Hiển thị',
             ]
         ],
+        'hosting' 	=>	[
+            'page-title'	=>	'Hosting',
+            'description' =>	false,
+            'contents'    =>	false,
+            'link'    =>	false,
+            'seo'	=>	true,
+            'image'       =>	false,
+            'thumbs'	=>	[
+                '_small' => [
+                    'width'  =>	300,
+                    'height' =>	200,
+                ],
+            ],
+            'status'      => [
+                'publish'     => 'Hiển thị',
+            ]
+        ],
+        'san-pham' 	=>	[
+            'page-title'	=>	'Kho web',
+            'description' =>	false,
+            'contents'    =>	false,
+            'link'    =>	false,
+            'seo'	=>	true,
+            'image'       =>	false,
+            'thumbs'	=>	[
+                '_small' => [
+                    'width'  =>	300,
+                    'height' =>	200,
+                ],
+            ],
+            'status'      => [
+                'publish'     => 'Hiển thị',
+            ]
+        ],
+        'dich-vu' 	=>	[
+            'page-title'	=>	'Dịch vụ',
+            'description' =>	false,
+            'contents'    =>	false,
+            'link'    =>	false,
+            'seo'	=>	true,
+            'image'       =>	false,
+            'thumbs'	=>	[
+                '_small' => [
+                    'width'  =>	300,
+                    'height' =>	200,
+                ],
+            ],
+            'status'      => [
+                'publish'     => 'Hiển thị',
+            ]
+        ],
+        'thu-thuat' 	=>	[
+            'page-title'	=>	'Thủ thuật',
+            'description' =>	false,
+            'contents'    =>	false,
+            'link'    =>	false,
+            'seo'	=>	true,
+            'image'       =>	false,
+            'thumbs'	=>	[
+                '_small' => [
+                    'width'  =>	300,
+                    'height' =>	200,
+                ],
+            ],
+            'status'      => [
+                'publish'     => 'Hiển thị',
+            ]
+        ],
 		'gioi-thieu' 	=>	[
 			'page-title'	=>	'Giới thiệu',
 			'description' =>	false,

@@ -70,8 +70,9 @@ class ProductController extends Controller
                 ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
                 ->select('A.id','A.code','A.original_price as price','B.title')
                 ->where('A.type',$request->type)
-                ->where('A.code','like', "%$request->q%")
                 ->where('B.language', $this->_data['default_language'])
+                ->where('A.code','like', "%$request->q%")
+                ->orWhere('B.title','like', "%$request->q%")
                 ->orderBy('A.priority','asc')
                 ->orderBy('A.id','desc')
                 ->get();

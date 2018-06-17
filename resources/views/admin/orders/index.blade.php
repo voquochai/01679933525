@@ -67,7 +67,7 @@
                                 <td align="center"><a href="{{ route('admin.order.edit',['id'=>$item->id, 'type'=>$type]) }}"> {{ $item->name.' - '.$item->phone }} </a></td>
                                 <td align="center">{{ $item->code }}</td>
                                 <td align="center">{{ $item->quantity }}</td>
-                                <td align="center">{{ get_currency_vn($item->total,'') }}</td>
+                                <td align="center">{!! get_currency_vn($item->total,'') !!}</td>
                                 <td align="center"> {{ $item->created_at }} </td>
                                 <td align="center">{{ config('siteconfig.order_site_status.'.$item->status_id) }}</td>
                                 <td align="center">

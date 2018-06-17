@@ -12,10 +12,9 @@
 <div class="row">
     @include('admin.blocks.messages')
     <!-- BEGIN FORM-->
-    <form role="form" method="POST" action="{{ route('admin.user.update',['id'=>$item->id]) }}" >
+    <form role="form" method="POST" action="{{ route('admin.user.update_profile',['id'=>$item->id]) }}" >
         {{ csrf_field() }}
         {{ method_field('put') }}
-        <input type="hidden" name="redirects_to" value="{{ (old('redirects_to')) ? old('redirects_to') : url()->previous() }}" />
         <div class="col-lg-9 col-xs-12"> 
             <div class="portlet box green">
                 <div class="portlet-title">
@@ -55,21 +54,22 @@
                     <div class="caption">Thông tin chung </div>
                 </div>
                 <div class="portlet-body">
-                    
+                    {{--
                     <div class="form-group">
-                        <label class="control-label">Username</label>
+                        <label class="control-label">Tên đăng nhập</label>
                         <div>
                             <input type="text" name="data[username]" class="form-control" value="{{ $item->username }}">
                         </div>
                     </div>
+                    --}}
                     <div class="form-group">
-                        <label class="control-label">Password</label>
+                        <label class="control-label">Mật khẩu</label>
                         <div>
                             <input type="password" name="password" class="form-control" value="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Confirm Password</label>
+                        <label class="control-label">Xác nhận mật khẩu</label>
                         <div>
                             <input type="password" name="password_confirmation" class="form-control" value="">
                         </div>

@@ -6,7 +6,7 @@
         <div class="row">
             @include('frontend.default.blocks.messages')
             <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
-                    {!! $domain_result !!}
+                <div class="note-wrapper">{!! $domain_result !!}</div>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-12">
                 @include('frontend.default.layouts.sidebar')
@@ -33,6 +33,9 @@
         @forelse($domain_search as $domain)
             getJSONAsync('{{ $domain }}').then( function(result) {
                 $('div[data-domain="{{ $domain }}"]').addClass('note-'+result.data.class);
+                if( result.data.class === 'danger' || result.data.class === 'warning' ){
+                    $('div[data-domain="{{ $domain }}"] button').removeClass('btn-buy-domain').addClass('disabled');
+                }
                 $('div[data-domain="{{ $domain }}"] button').addClass('btn-'+result.data.class).text(result.data.text);
             });
         @empty

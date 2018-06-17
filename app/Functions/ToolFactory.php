@@ -76,7 +76,7 @@ class ToolFactory {
         if ($isPrefix) {
             return $symbol . number_format($number, 0, ',', '.');
         } else {
-            return number_format($number, 0, ',', '.') . $symbol;
+            return number_format($number, 0, ',', '.') . '<sup>' . $symbol . '</sup>';
         }
     }
 

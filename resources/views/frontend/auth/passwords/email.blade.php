@@ -32,7 +32,7 @@
 </head>
 <body class="login">
     <div class="logo">
-        <a href="index.html"> <img src="{{ asset('public/images/logo-big.png') }}" alt="" /> </a>
+        <a href="{{ url('/') }}"> <img src="{{ asset('public/images/logo-white.png') }}" alt="" /> </a>
     </div>
     <div class="content">
         <form class="login-form" role="form" method="POST" action="{{ route('frontend.password.email') }}">

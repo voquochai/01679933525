@@ -148,17 +148,18 @@ class OrderController extends Controller
                     ->where('language',$this->_data['default_language'])
                     ->first();
 
-                $color = DB::table('attribute_languages')
-                            ->select('title')
-                            ->where('attribute_id',$product_color[$key])
-                            ->where('language',$this->_data['default_language'])
-                            ->first();
+                // $color = DB::table('attribute_languages')
+                //             ->select('title')
+                //             ->where('attribute_id',$product_color[$key])
+                //             ->where('language',$this->_data['default_language'])
+                //             ->first();
 
-                $size = DB::table('attribute_languages')
-                            ->select('title')
-                            ->where('attribute_id',$product_size[$key])
-                            ->where('language',$this->_data['default_language'])
-                            ->first();
+                // $size = DB::table('attribute_languages')
+                //             ->select('title')
+                //             ->where('attribute_id',$product_size[$key])
+                //             ->where('language',$this->_data['default_language'])
+                //             ->first();
+                            
                 $products[$key]['id']     =  $id;
                 $products[$key]['code']   =  $product_code[$key];
                 $products[$key]['price']  =  $product_price[$key];
@@ -166,8 +167,10 @@ class OrderController extends Controller
                 $products[$key]['color']  =  $product_color[$key];
                 $products[$key]['size']   =  $product_size[$key];
                 $products[$key]['title']  =  @$product->title;
-                $products[$key]['colors'] =  @$color->title;
-                $products[$key]['sizes']  =  @$size->title;
+                // $products[$key]['colors'] =  @$color->title;
+                // $products[$key]['sizes']  =  @$size->title;
+                $products[$key]['colors']  =  @$product_color[$key];
+                $products[$key]['sizes']  =  @$product_size[$key];
                 $products[$key]['store']    =  (int)@$warehouses[$id][$product_color[$key]][$product_size[$key]]['import'] - (int)@$warehouses[$id][$product_color[$key]][$product_size[$key]]['export'];
             }
             $this->_data['products'] = $products;

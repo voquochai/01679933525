@@ -35,7 +35,7 @@
                 echo Menu::getMenu();
             @endphp
         </li>
-        <li {!! (Route::currentRouteName() == 'home.contact') ? 'class="active"' : '' !!} ><a href="{{ url('/lien-he') }}"> {{ __('site.contact') }} </a></li>
+        <li {!! (Route::currentRouteName() == 'frontend.home.contact') ? 'class="active"' : '' !!} ><a href="{{ url('/lien-he') }}"> {{ __('site.contact') }} </a></li>
     </ul>
 </nav>
 <div class="mobile-menu"></div>

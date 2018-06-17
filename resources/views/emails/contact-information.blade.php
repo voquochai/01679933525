@@ -5,26 +5,26 @@ Hello! Bạn nhận được email liên hệ từ {{ config('app.name') }}
 @endcomponent
 <hr>
 <p> Thông tin liên hệ bao gồm nội dung sau đây:</p>
-
-<table>
-	<tr>
-		<th style="width:150px; text-align: left;">Họ và Tên</th>
-		<td>{{ $contact['name'] }}</td>
-	</tr>
-	<tr>
-		<th style="width:150px; text-align: left;">Email</th>
-		<td>{{ $contact['email'] }}</td>
-	</tr>
-	<tr>
-		<th style="width:150px; text-align: left;">Chủ đề</th>
-		<td>{{ $contact['title'] }}</td>
-	</tr>
-	<tr>
-		<th style="width:150px; text-align: left;">Tin nhắn</th>
-		<td>{{ $contact['description'] }}</td>
-	</tr>
-</table>
-
+<div class="table">
+	<table>
+		<tr>
+			<td style="width:150px; text-align: left;">Họ và Tên</td>
+			<td>{{ $contact['name'] }}</td>
+		</tr>
+		<tr>
+			<td style="width:150px; text-align: left;">Email</td>
+			<td>{{ $contact['email'] }}</td>
+		</tr>
+		<tr>
+			<td style="width:150px; text-align: left;">Chủ đề</td>
+			<td>{{ $contact['title'] }}</td>
+		</tr>
+		<tr>
+			<td style="width:150px; text-align: left;">Tin nhắn</td>
+			<td>{{ $contact['description'] }}</td>
+		</tr>
+	</table>
+</div>
 Thanks,<br>
 {{ config('app.name') }}
 

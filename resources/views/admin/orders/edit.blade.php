@@ -248,7 +248,7 @@
                     },
                     total() {
                         return this.products.reduce((total, item) => {
-                            return total + item.qty * item.price;
+                            return total + (item.qty * item.price);
                         }, 0);
                     }
                 },

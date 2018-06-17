@@ -250,6 +250,23 @@ var App = function() {
             });
         });
 
+        $('body').on('click', '.btn-buy-domain', function(e){
+            e.preventDefault();
+            var btn = $(this);
+            var dataAjax = btn.data('ajax').replace(/\|/g,'&')+'&_token='+Laravel.csrfToken;
+            $.ajax({
+                type: 'POST',
+                url : Laravel.baseUrl+'/gio-hang/domain',
+                data: dataAjax,
+                beforeSend: function(){
+                    btn.button('loading');
+                }
+            }).done(function(response){
+                btn.button('reset');
+                toastr[response.type](response.message, response.title);
+            });
+        });
+
         $('body').on('click', '.add-to-cart', function(e){
             e.preventDefault();
             var btn = $(this);

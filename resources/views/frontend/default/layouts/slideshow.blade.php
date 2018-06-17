@@ -126,10 +126,10 @@
                             <li>.vn 750k</li>
                             <li>.com 220k</li>
                             <li>.com.vn 630k</li>
-                            <li>.net 250k</li>
-                            <li>.org 120k</li>
+                            <li>.net 310k</li>
+                            <li>.org 340k</li>
                             <li>.company 180k</li>
-                            <li>.store 120k</li>
+                            <li>.xyz 275k</li>
                         </ul>
                     </div>
                 </div>
