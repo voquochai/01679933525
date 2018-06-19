@@ -45,7 +45,7 @@ class WMS_ExportController extends Controller
             ->paginate(25);
 
         $this->_data['total'] = DB::table('wms_exports')
-            ->select(DB::raw('sum(quantity) as qty, sum(total) as price'))
+            ->select(DB::raw('sum(export_qty) as qty, sum(export_price) as price'))
             ->where('type',$this->_data['type'])->first();
 
         return view('admin.wms.exports.index',$this->_data);

@@ -8,5 +8,4 @@ class Coupon extends Model
 {
     protected $table = 'coupons';
     protected $guarded = [];
-    public $timestamps = false;
 }

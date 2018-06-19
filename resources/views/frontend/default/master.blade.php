@@ -38,8 +38,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/uploads/photos/'.config('settings.favicon')) }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=vietnamese">
-    {{--<link href="https://fonts.googleapis.com/css?family=Arimo:400,400i,700,700i&amp;subset=vietnamese" rel="stylesheet">--}}
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=vietnamese">
     <link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/packages/bootstrap-toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/packages/bootstrap-select/css/bootstrap-select.min.css') }}">

@@ -22,6 +22,8 @@ class CreateMembersTable extends Migration
             $table->string('email')->unique();
             $table->string('address')->nullable();
             $table->string('image')->nullable();
+            $table->string('oauth_id',50)->nullable();
+            $table->string('oauth_provider',50)->nullable();
             $table->integer('priority')->default(1);
             $table->string('status',100)->default('publish');
             $table->rememberToken();

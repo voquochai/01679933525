@@ -76,7 +76,7 @@ class ToolFactory {
         if ($isPrefix) {
             return $symbol . number_format($number, 0, ',', '.');
         } else {
-            return number_format($number, 0, ',', '.') . '<sup>' . $symbol . '</sup>';
+            return number_format($number, 0, ',', '.') . $symbol;
         }
     }
 
@@ -333,50 +333,34 @@ class ToolFactory {
     }
 
     public function getProductInWarehouses($type = 'default'){
-        $items = DB::table('wms_imports')
-            ->select('product_id','product_code','product_size','product_color','product_qty')
-            ->whereRaw('FIND_IN_SET(\'publish\',status)')
-            ->where('type',$type)
-            ->orderBy('priority','asc')
-            ->orderBy('id','desc')
-            ->get();
         $products = [];
+        $items = DB::table('wms_import_details')
+            ->select('product_id','product_code','product_qty','size_id','color_id','size_title','color_title')
+            ->whereRaw('FIND_IN_SET(\'publish\',status)')
+            ->get();
         if( $items !== null ){
             foreach( $items as $item ){
-                $product_id    = explode(',',$item->product_id);
-                $product_code  = explode(',',$item->product_code);
-                $product_size  = explode(',',$item->product_size);
-                $product_color = explode(',',$item->product_color);
-                $product_qty   = explode(',',$item->product_qty);
-                foreach($product_id as $key => $id){
-                    $code = $product_code[$key];
-                    $color = $product_color[$key];
-                    $size = $product_size[$key];
-                    @$products[$code] = $id;
-                    @$products[$id][$color][$size]['import'] += (int)$product_qty[$key];
-                }
+                $id  = $item->product_id;
+                $code  = $item->product_code;
+                $color = (int)$item->color_id;
+                $size  = (int)$item->size_id;
+                @$products[$code] = $id;
+                @$products[$id][$color][$size]['color_title'] = $item->color_title;
+                @$products[$id][$color][$size]['size_title'] = $item->size_title;
+                @$products[$id][$color][$size]['import'] += (int)$item->product_qty;
             }
         }
 
-        $items = DB::table('wms_exports')
-            ->select('product_id','product_code','product_size','product_color','product_qty')
+        $items = DB::table('wms_export_details')
+            ->select('product_id','product_qty','size_id','color_id')
             ->whereRaw('FIND_IN_SET(\'publish\',status)')
-            ->where('type',$type)
-            ->orderBy('priority','asc')
-            ->orderBy('id','desc')
             ->get();
         if( $items !== null ){
             foreach( $items as $item ){
-                $product_id    = explode(',',$item->product_id);
-                $product_code  = explode(',',$item->product_code);
-                $product_size  = explode(',',$item->product_size);
-                $product_color = explode(',',$item->product_color);
-                $product_qty   = explode(',',$item->product_qty);
-                foreach($product_id as $key => $id){
-                    $color = $product_color[$key];
-                    $size = $product_size[$key];
-                    @$products[$id][$color][$size]['export'] += (int)$product_qty[$key];
-                }
+                $id  = $item->product_id;
+                $color = (int)$item->color_id;
+                $size  = (int)$item->size_id;
+                @$products[$id][$color][$size]['export'] += (int)$item->product_qty;
             }
         }
         return $products;

@@ -8,6 +8,8 @@ class Order extends Model
 {
     protected $table = 'orders';
     protected $guarded = [];
-    // protected $casts = ['products'=>'json'];
-    public $timestamps = false;
+
+    public function details(){
+        return $this->hasMany('App\OrderDetail', 'order_id', 'id')->orderBy('id','asc');
+    }
 }

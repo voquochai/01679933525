@@ -39,7 +39,14 @@
                         <hr>
                         <div class="product-domain">
                             <div class="float-left"><label> Domain </label></div>
-                            <div class="float-right"> @{{ form.domain_name }} - @{{ formatPrice(form.domain_price) }} </div>
+                            <div class="float-right">
+                                @if($domain)
+                                @{{ form.domain_name }} - @{{ formatPrice(form.domain_price) }}
+                                @else
+                                <a href="{{ route('frontend.domain.check_whois') }}"> Chưa có </a>
+                                @endif
+                                
+                            </div>
                         </div>
                         <hr>
                         <div class="product-hosting">

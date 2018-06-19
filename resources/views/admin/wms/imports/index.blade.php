@@ -77,8 +77,8 @@
                                 <td align="center">{{ $item->username }}</td>
                                 <td align="center">{{ $item->code }}</td>
                                 {{-- <td align="center">{{ $item->store_code }}</td> --}}
-                                <td align="center">{{ $item->quantity }}</td>
-                                <td align="center">{{ get_currency_vn($item->total,'') }}</td>
+                                <td align="center">{{ $item->import_qty }}</td>
+                                <td align="center">{{ get_currency_vn($item->import_price,'') }}</td>
                                 <td align="center"> {{ $item->created_at }} </td>
                                 <td align="center">
                                     @foreach($siteconfig[$type]['status'] as $keyS => $valS)
@@ -88,7 +88,6 @@
                                     @endforeach
                                 </td>
                                 <td align="center">
-                                    <a href="{{ route('admin.wms_import.edit',['id'=>$item->id, 'type'=>$type]) }}" data-target="#barcode-modal" data-toggle="modal" class="btn btn-sm green" title="Mã vạch"> <i class="fa fa-barcode"></i> </a>
                                     <a href="{{ route('admin.wms_import.edit',['id'=>$item->id, 'type'=>$type]) }}" class="btn btn-sm blue" title="Chỉnh sửa"> <i class="fa fa-edit"></i> </a>
                                     @if($item->status == 'publish')
                                     <a href="#" data-target="#cancel-modal" data-toggle="modal" data-url="{{ route('admin.wms_import.delete',['id'=>$item->id, 'type'=>$type]) }}" class="btn btn-sm btn-cancel red" title="Hủy phiếu"> <i class="fa fa-ban"></i> </a>

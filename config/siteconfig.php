@@ -329,10 +329,10 @@ return [
 	],
 	'attribute' => [
 		'san-pham' 	=>	[
-			'product_hosting'	=>	true,
-			'product_colors'	=>	false,
-			'product_sizes'	=>	false,
-			'product_tags'	=>	true,
+			'product_hosting'	=>	false,
+			'product_colors'	=>	true,
+			'product_sizes'	=>	true,
+			'product_tags'	=>	false,
 		],
 		'product_hosting' 	=>	[
 			'page-title'	=>	'Hosting',

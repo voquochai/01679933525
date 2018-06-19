@@ -110,26 +110,23 @@
         <tbody>
             <tr v-for="(item, key) in products" >
                 <td align="center">
-                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.id">
-                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.code">
-                    <input type="hidden" :name="'products['+ key +'][color]'" v-model="item.color">
-                    <input type="hidden" :name="'products['+ key +'][size]'" v-model="item.size">
-                    <input type="hidden" :name="'products['+ key +'][price]'" v-model="item.price">
-                    @{{ item.code }}
+                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.product_id">
+                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.product_code">
+                    <input type="hidden" :name="'products['+ key +'][title]'" v-model="item.product_title">
+                    <input type="hidden" :name="'products['+ key +'][price]'" v-model="item.product_price">
+                    <input type="hidden" :name="'products['+ key +'][color_id]'" v-model="item.color_id">
+                    <input type="hidden" :name="'products['+ key +'][size_id]'" v-model="item.size_id">
+                    <input type="hidden" :name="'products['+ key +'][color_title]'" v-model="item.color_title">
+                    <input type="hidden" :name="'products['+ key +'][size_title]'" v-model="item.size_title">
+                    @{{ item.product_code }}
                 </td>
-                <td>
-                    @{{ item.title }}
-                </td>
-                <td align="center">
-                    @{{ item.colors }}
-                </td>
-                <td align="center">
-                    @{{ item.sizes }}
-                </td>
-                <td align="center"> @{{ formatPrice(item.price) }} </td>
-                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" :class="'form-control validate[required,min[1],max[' + item.store + ']]'" v-model.number="item.qty"> </td>
+                <td>@{{ item.product_title }}</td>
+                <td align="center">@{{ item.color_title }}</td>
+                <td align="center">@{{ item.size_title }}</td>
+                <td align="center"> @{{ formatPrice(item.product_price) }} </td>
+                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" :class="'form-control validate[required,min[1],max[' + item.inventory + ']]'" v-model.number="item.product_qty"> </td>
                 <td align="center"> <span> @{{ formatPrice(subtotal[key]) }} </span> </td>
-                <td align="center"> <span> @{{ item.store }} </span> </td>
+                <td align="center"> <span> @{{ item.inventory }} </span> </td>
                 <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>
             </tr>
             <tr>
@@ -158,12 +155,12 @@
                 computed: {
                     subtotal() {
                         return this.products.map((item) => {
-                            return Number( item.qty * item.price )
+                            return Number( item.product_qty * item.product_price )
                         });
                     },
                     total() {
                         return this.products.reduce((total, item) => {
-                            return total + item.qty * item.price;
+                            return total + item.product_qty * item.product_price;
                         }, 0);
                     }
                 },
@@ -184,24 +181,24 @@
                 for (var i = 0; i < select2data.length; i++) {
                     var flag = false;
                     for (var j = 0; j < this.products.length; j++) {
-                        if( this.products[j].key == select2data[i].id ){
+                        if( this.products[j].id == select2data[i].id ){
                             flag = true;
                             break;
                         }
                     }
                     if(!flag){
                         this.products.push({
-                            "key": select2data[i].id,
-                            "id": select2data[i].pid,
-                            "code": select2data[i].code,
-                            "price": select2data[i].price,
-                            "title": select2data[i].title,
-                            "qty": select2data[i].qty,
-                            "color": select2data[i].color,
-                            "size": select2data[i].size,
-                            "colors": select2data[i].colors,
-                            "sizes": select2data[i].sizes,
-                            "store": select2data[i].store
+                            "id": select2data[i].id,
+                            "product_id": select2data[i].product_id,
+                            "product_code": select2data[i].product_code,
+                            "product_price": select2data[i].product_price,
+                            "product_title": select2data[i].title,
+                            "product_qty": select2data[i].product_qty,
+                            "color_id": select2data[i].color_id,
+                            "size_id": select2data[i].size_id,
+                            "color_title": select2data[i].color_title,
+                            "size_title": select2data[i].size_title,
+                            "inventory": select2data[i].inventory
                         });
                     }
                 }

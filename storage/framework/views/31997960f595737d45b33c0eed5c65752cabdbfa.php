@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="robots" content="index" />
+    <meta name="robots" content="noindex, nofollow" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
     <title><?php echo e(@$meta_seo->title); ?></title>
@@ -38,7 +38,7 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('public/uploads/photos/'.config('settings.favicon'))); ?>">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=vietnamese">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&subset=vietnamese">
     <link rel="stylesheet" href="<?php echo e(asset('public/css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/packages/bootstrap-toastr/toastr.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('public/packages/bootstrap-select/css/bootstrap-select.min.css')); ?>">
@@ -68,7 +68,7 @@
 		<?php echo $__env->make('frontend.default.layouts.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make('frontend.default.layouts.search', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
-		<?php if(Route::currentRouteName() == 'frontend.home.index' || Route::currentRouteName() == 'frontend.home.domain'): ?>
+		<?php if(Route::currentRouteName() == 'frontend.home.index' || Route::currentRouteName() == 'frontend.domain.check_whois'): ?>
 			<?php echo $__env->make('frontend.default.layouts.slideshow', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php else: ?>
 			<?php echo $__env->make('frontend.default.layouts.breadcrumb', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

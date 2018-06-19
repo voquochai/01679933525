@@ -9,7 +9,15 @@
             </div>
             <div class="header-top-right">
                 <ul>
-                    <li><a href="#"><i class="fa fa-user"></i> {{ __('account.account') }} </a>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            @if ( auth()->guard('member')->check() )
+                                {{ auth()->guard('member')->user()->name }}
+                            @else
+                            {{ __('account.account') }}
+                            @endif
+                        </a>
                         <ul>
                             @if ( auth()->guard('member')->check() )
                             <li>

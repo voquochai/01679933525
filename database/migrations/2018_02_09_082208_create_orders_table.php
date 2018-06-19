@@ -15,19 +15,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code',20)->unique();
-            $table->string('coupon_code',20)->nullable();
+            $table->string('code',50)->unique();
+            $table->string('coupon_code',50)->nullable();
             $table->integer('coupon_amount')->default(0);
-            $table->integer('quantity')->default(0);
             $table->integer('shipping')->default(0);
-            $table->integer('subtotal')->default(0);
-            $table->integer('total')->default(0);
-            $table->text('product_id')->nullable();
-            $table->text('product_code')->nullable();
-            $table->text('product_size')->nullable();
-            $table->text('product_color')->nullable();
-            $table->text('product_qty')->nullable();
-            $table->text('product_price')->nullable();
+            $table->double('subtotal')->default(0);
+            $table->integer('order_qty')->default(0);
+            $table->double('order_price')->default(0);
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();

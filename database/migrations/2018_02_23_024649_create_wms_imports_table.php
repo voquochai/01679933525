@@ -15,16 +15,10 @@ class CreateWmsImportsTable extends Migration
     {
         Schema::create('wms_imports', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code',20)->unique();
-            $table->string('store_code',20)->nullable();
-            $table->text('product_id')->nullable();
-            $table->text('product_code')->nullable();
-            $table->text('product_size')->nullable();
-            $table->text('product_color')->nullable();
-            $table->text('product_qty')->nullable();
-            $table->text('product_price')->nullable();
-            $table->integer('quantity')->default(0);
-            $table->integer('total')->default(0);
+            $table->string('code',50)->unique();
+            $table->string('store_code',50)->nullable();
+            $table->integer('import_qty')->default(0);
+            $table->double('import_price')->default(0);
             $table->string('note_cancel')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('priority')->default(1);

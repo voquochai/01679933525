@@ -8,5 +8,4 @@ class WMS_Store extends Model
 {
     protected $table = 'wms_stores';
     protected $guarded = [];
-    public $timestamps = false;
 }

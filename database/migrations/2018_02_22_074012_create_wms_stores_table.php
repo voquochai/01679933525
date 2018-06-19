@@ -15,7 +15,7 @@ class CreateWmsStoresTable extends Migration
     {
         Schema::create('wms_stores', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code',20)->unique();
+            $table->string('code',50)->unique();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();

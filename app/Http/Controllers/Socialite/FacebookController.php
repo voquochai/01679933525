@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Socialite;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Member;
 use Socialite;
+
 class FacebookController extends Controller
 {
     /**
@@ -15,7 +17,6 @@ class FacebookController extends Controller
     public function redirectToProvider()
     {
         return Socialite::driver('facebook')
-            ->scopes(['id','name','email','birthday','gender'])
             ->redirectUrl(route('login.facebook.callback'))
             ->redirect();
     }
@@ -27,8 +28,20 @@ class FacebookController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->user();
-        dd($user);
-        // $user->token;
+        $member = Socialite::driver('facebook')->user();
+        $member = Member::firstOrCreate([
+            'oauth_id' =>  $member->getId(),
+            'oauth_provider' =>  'facebook',
+            'email' =>  $member->getEmail()
+        ], [
+            'name'  =>  $member->getName(),
+            'username'  =>  $member->getEmail(),
+            'email'  =>  $member->getEmail(),
+            'oauth_id' =>  $member->getId(),
+            'oauth_provider' =>  'facebook',
+            'password'  =>  bcrypt($member->getId() . time() . $member->getEmail())
+        ]);
+        auth()->guard('member')->login($member);
+        return redirect()->route('frontend.home.index');
     }
 }

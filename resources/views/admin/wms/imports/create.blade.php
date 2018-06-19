@@ -111,24 +111,29 @@
                 <td align="center">
                     <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.id">
                     <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.code">
+                    <input type="hidden" :name="'products['+ key +'][title]'" v-model="item.title">
+                    <input type="hidden" :name="'products['+ key +'][color_id]'" v-model="item.selectColor.id">
+                    <input type="hidden" :name="'products['+ key +'][size_id]'" v-model="item.selectSize.id">
+                    <input type="hidden" :name="'products['+ key +'][color_title]'" v-model="item.selectColor.title">
+                    <input type="hidden" :name="'products['+ key +'][size_title]'" v-model="item.selectSize.title">
                     @{{ item.code }}
                 </td>
                 <td>
                     @{{ item.title }}
                 </td>
                 <td align="center">
-                    <select v-if="item.colors" :name="'products['+ key +'][color]'" class="form-control">
-                        <option v-for="(color, keyC) in item.colors" :value="'' + color.id + ''"> @{{ color.title }} </option>
+                    <select v-if="item.colors" v-model="item.selectColor" class="form-control">
+                        <option v-for="(color, keyC) in item.colors" v-bind:value="{ id: color.id, title: color.title }" > @{{ color.title }} </option>
                     </select>
                 </td>
                 <td align="center">
-                    <select v-if="item.sizes" :name="'products['+ key +'][size]'" class="form-control">
-                        <option v-for="(size, keyS) in item.sizes" :value="'' + size.id + ''"> @{{ size.title }} </option>
+                    <select v-if="item.sizes" v-model="item.selectSize" class="form-control">
+                        <option v-for="(size, keyS) in item.sizes" v-bind:value="{ id: size.id, title: size.title }"> @{{ size.title }} </option>
                     </select>
                 </td>
                 <td align="center"> <input type="text" :name="'products['+ key +'][price]'" class="form-control validate[required,min[1]]" v-model.number="item.price"> </td>
                 <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" class="form-control validate[required,min[1]]" v-model.number="item.qty"> </td>
-                <td align="center"> <span> @{{ formatPrice(subtotal[key]) }} </span> </td>
+                <td align="center">@{{ formatPrice(subtotal[key]) }}</td>
                 <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>
             </tr>
             <tr>
@@ -188,7 +193,9 @@
                         "title": select2data[i].title,
                         "qty": select2data[i].qty,
                         "colors": select2data[i].colors,
-                        "sizes": select2data[i].sizes
+                        "sizes": select2data[i].sizes,
+                        "selectColor": "",
+                        "selectSize": ""
                     });
                 }
             }

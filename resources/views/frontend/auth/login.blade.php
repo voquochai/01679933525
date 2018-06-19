@@ -14,7 +14,7 @@
 
     <!-- Styles -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link rel="stylesheet" href="{{ asset('http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all') }}">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all">
     <link rel="stylesheet" href="{{ asset('public/packages/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/packages/simple-line-icons/simple-line-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/packages/bootstrap/css/bootstrap.min.css') }}">
@@ -60,7 +60,6 @@
                 </div>
                 
             </div>
-            {{--
             <div class="login-options">
                 <h4>{{ __('account.or_login_by') }}</h4>
                 <ul class="social-icons">
@@ -68,17 +67,10 @@
                         <a class="facebook" data-original-title="facebook" href="{{ route('login.facebook') }}"> </a>
                     </li>
                     <li>
-                        <a class="twitter" data-original-title="Twitter" href="javascript:;"> </a>
-                    </li>
-                    <li>
                         <a class="googleplus" data-original-title="Goole Plus" href="javascript:;"> </a>
-                    </li>
-                    <li>
-                        <a class="linkedin" data-original-title="Linkedin" href="javascript:;"> </a>
                     </li>
                 </ul>
             </div>
-            --}}
             <div class="forget-password">
                 <h4>{{ __('account.forgot_password') }}</h4>
                 <p> {!! __('account.click_here',['attribute'=>route('frontend.password.request')]) !!} </p>

@@ -18,10 +18,10 @@ class CreateCouponsTable extends Migration
             $table->string('code',20)->unique();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->integer('coupon_amount')->default(0);
+            $table->double('coupon_amount')->default(0);
             $table->integer('number_of_uses')->default(0);
-            $table->integer('min_restriction_amount')->default(0);
-            $table->integer('max_restriction_amount')->default(0);
+            $table->double('min_restriction_amount')->default(0);
+            $table->double('max_restriction_amount')->default(0);
             $table->string('change_conditions_type')->default(0);
             $table->timestamp('begin_at')->nullable();
             $table->timestamp('end_at')->nullable();

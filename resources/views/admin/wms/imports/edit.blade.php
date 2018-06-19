@@ -16,7 +16,7 @@
         {{ csrf_field() }}
         {{ method_field('put') }}
         <input type="hidden" name="redirects_to" value="{{ (old('redirects_to')) ? old('redirects_to') : url()->previous() }}" />
-        <div class="col-lg-9 col-xs-12" id="qh-app"> 
+        <div class="col-lg-9 col-xs-12"> 
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"> Chỉnh sửa </div>
@@ -32,7 +32,36 @@
                     </div>
                     --}}
                     <div class="table-responsive">
-                        <qh-products></qh-products>
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th width="7%"> Mã SP </th>
+                                    <th width="15%"> Tên sản phẩm </th>
+                                    <th width="7%"> Màu sắc </th>
+                                    <th width="7%"> Kích cỡ </th>
+                                    <th width="8%"> Giá vốn </th>
+                                    <th width="6%"> Số lượng </th>
+                                    <th width="10%"> Thành tiền </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($products as $product)
+                                <tr>
+                                    <td align="center">{{ $product->product_code }}</td>
+                                    <td>{{ $product->product_title }}</td>
+                                    <td align="center">{{ $product->color_title }}</td>
+                                    <td align="center">{{ $product->size_title }}</td>
+                                    <td align="center">{{ get_currency_vn($product->product_price,'') }}</td>
+                                    <td align="center">{{ $product->product_qty }}</td>
+                                    <td align="center">{{ get_currency_vn($product->product_price*$product->product_qty,'') }}</td>
+                                </tr>
+                                @empty
+                                @endforelse
+                                <tr>
+                                    <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold">{{ get_currency_vn($item->import_price) }}</span> </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -91,117 +120,4 @@
         </div>
     </form>
 </div>
-@endsection
-
-
-@section('custom_script')
-<script type="text/x-template" id="select2-data-template">
-    <table class="table table-bordered table-condensed">
-        <thead>
-            <tr>
-                <th width="7%"> Mã SP </th>
-                <th width="15%"> Tên sản phẩm </th>
-                <th width="7%"> Màu sắc </th>
-                <th width="7%"> Kích cỡ </th>
-                <th width="8%"> Giá vốn </th>
-                <th width="6%"> Số lượng </th>
-                <th width="10%"> Thành tiền </th>
-                {{--<th width="3%"> Xóa </th>--}}
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item, key) in products">
-                <td align="center">
-                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.id">
-                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.code">
-                    @{{ item.code }}
-                </td>
-                <td>
-                    @{{ item.title }}
-                </td>
-                <td align="center">
-                    <select v-if="item.colors" :name="'products['+ key +'][color]'" class="form-control" readonly="" >
-                        <option v-for="(color, keyC) in item.colors" :value="'' + color.id + ''" :selected="item.color && item.color == color.id" > @{{ color.title }} </option>
-                    </select>
-                </td>
-                <td align="center">
-                    <select v-if="item.sizes" :name="'products['+ key +'][size]'" class="form-control" readonly="" >
-                        <option v-for="(size, keyS) in item.sizes" :value="'' + size.id + ''" :selected="item.size && item.size == size.id" > @{{ size.title }} </option>
-                    </select>
-                </td>
-                <td align="center"> <input type="text" :name="'products['+ key +'][price]'" class="form-control validate[required,min[1]]" v-model.number="item.price" readonly="" > </td>
-                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" class="form-control validate[required,min[1]]" v-model.number="item.qty" readonly="" > </td>
-                <td align="center"> <span> @{{ formatPrice(subtotal[key]) }} </span> </td>
-                {{--<td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>--}}
-            </tr>
-            <tr>
-                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> @{{ formatPrice(total) }} </span> </td>
-            </tr>
-        </tbody>
-    </table>
-</script>
-<script type="text/javascript">
-    @php
-    $products = $products ? json_encode($products) : null;
-    @endphp
-    new Vue({
-        el: '#qh-app',
-        data: function () {
-            var products = [];
-            @if($products)
-                products = {!! $products !!};
-            @endif
-            return {
-                products: products
-            };
-        },
-        components: {
-            'qh-products': {
-                template: '#select2-data-template',
-                data: function () {
-                    return {
-                        products: this.$parent.products
-                    };
-                },
-                computed: {
-                    subtotal() {
-                        return this.products.map((item) => {
-                            return Number( item.qty * item.price )
-                        });
-                    },
-                    total() {
-                        return this.products.reduce((total, item) => {
-                            return total + item.qty * item.price;
-                        }, 0);
-                    }
-                },
-                methods: {
-                    deleteProduct: function (item) {
-                        this.products.splice(this.products.indexOf(item) ,1);
-                    },
-                    formatPrice(value) {
-                        let val = (value/1).toFixed(0).replace('.', ',')
-                        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                    }
-                }
-            }
-        },
-        methods: {
-            addProduct: function () {
-                var select2data = $(".select2-data-ajax").select2("data");
-                for (var i = 0; i < select2data.length; i++) {
-                    this.products.push({
-                        "id": select2data[i].id,
-                        "code": select2data[i].code,
-                        "price": select2data[i].price,
-                        "title": select2data[i].title,
-                        "qty": select2data[i].qty,
-                        "colors": select2data[i].colors,
-                        "sizes": select2data[i].sizes
-                    });
-                }
-            }
-        }
-    });
-</script>
 @endsection
