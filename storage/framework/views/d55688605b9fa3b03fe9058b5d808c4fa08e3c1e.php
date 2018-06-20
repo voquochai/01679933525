@@ -1,19 +1,19 @@
-@extends('admin.app')
-@section('breadcrumb')
+<?php $__env->startSection('breadcrumb'); ?>
 <li>
-    <a href="{{ route('admin.wms_export.index', ['type'=>$type]) }}"> {{ $pageTitle }} </a>
+    <a href="<?php echo e(route('admin.wms_export.index', ['type'=>$type])); ?>"> <?php echo e($pageTitle); ?> </a>
     <i class="fa fa-circle"></i>
 </li>
 <li>
     <span> Thêm mới </span>
 </li>
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 <div class="row">
-    @include('admin.blocks.messages')
+    <?php echo $__env->make('admin.blocks.messages', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <!-- BEGIN FORM-->
-    <form role="form" method="POST" action="{{ route('admin.wms_export.store',['type'=>$type]) }}" class="form-validation">
-        {{ csrf_field() }}
+    <form role="form" method="POST" action="<?php echo e(route('admin.wms_export.store',['type'=>$type])); ?>" class="form-validation">
+        <?php echo e(csrf_field()); ?>
+
 
         <div class="col-lg-9 col-xs-12" id="qh-app">
             <div class="portlet box green">
@@ -23,7 +23,7 @@
                 <div class="portlet-body">
                     <div class="form-group">
                         <div class="input-group select2-bootstrap-append">
-                            <select id="select2-button-addons-single-input-group-sm" class="form-control select2-data-ajax"  multiple="" data-label="Mã sản phẩm" data-url="{{ route('admin.wms_import.ajax',['type'=>'default']) }}">
+                            <select id="select2-button-addons-single-input-group-sm" class="form-control select2-data-ajax"  multiple="" data-label="Mã sản phẩm" data-url="<?php echo e(route('admin.wms_import.ajax',['type'=>'default'])); ?>">
                             </select>
                             <span class="input-group-btn"> <button v-on:click="addProduct" type="button" id="btn-select" class="btn btn-info"> Chọn </button> </span>
                         </div>
@@ -41,20 +41,7 @@
                     <div class="caption"> Thông tin chung </div>
                 </div>
                 <div class="portlet-body">
-                    {{--
-                    <div class="form-group">
-                        <label class="control-label"> Kho hàng </label>
-                        <div>
-                            <select name="data[store_code]" class="selectpicker show-tick show-menu-arrow form-control">
-                                <option value=""> -- Chọn kho hàng -- </option>
-                                @forelse($warehouses as $warehouse)
-                                <option value="{{ $warehouse->code }}" {{ (old('store_code')) ? (($warehouse->code == old('store_code')) ? 'selected' : '') : '' }} > {{ $warehouse->name }} </option>
-                                @empty
-                                @endforelse
-                            </select>
-                        </div>
-                    </div>
-                    --}}
+                    
                     <div class="form-group">
                         <label class="control-label">Mã Phiếu</label>
                         <div>
@@ -66,9 +53,9 @@
                         <label class="control-label">Tình trạng</label>
                         <div>
                             <select class="selectpicker show-tick show-menu-arrow form-control" name="status[]">
-                                @foreach($siteconfig[$type]['status'] as $key => $val)
-                                <option value="{{ $key }}" {{ (old('status')) ? ( (in_array($key,old('status'))) ? 'selected' : '') : ($key=='publish')?'selected':'' }} > {{ $val }} </option>
-                                @endforeach
+                                <?php $__currentLoopData = $siteconfig[$type]['status']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($key); ?>" <?php echo e((old('status')) ? ( (in_array($key,old('status'))) ? 'selected' : '') : ($key=='publish')?'selected':''); ?> > <?php echo e($val); ?> </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -76,21 +63,21 @@
                     <div class="form-group">
                         <label class="control-label">Thứ tự</label>
                         <div>
-                            <input type="text" name="priority" class="form-control priceFormat" value="{{ (old('priority')) ? old('priority') : 1 }}">
+                            <input type="text" name="priority" class="form-control priceFormat" value="<?php echo e((old('priority')) ? old('priority') : 1); ?>">
                         </div>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn green"> <i class="fa fa-check"></i> Lưu</button>
-                        <a href="{{ url()->previous() }}" class="btn default" > Thoát </a>
+                        <a href="<?php echo e(url()->previous()); ?>" class="btn default" > Thoát </a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('custom_script')
+<?php $__env->startSection('custom_script'); ?>
 
 <script type="text/x-template" id="select2-data-template">
     <table class="table table-bordered table-condensed">
@@ -118,19 +105,19 @@
                     <input type="hidden" :name="'products['+ key +'][size_id]'" v-model="item.size_id">
                     <input type="hidden" :name="'products['+ key +'][color_title]'" v-model="item.color_title">
                     <input type="hidden" :name="'products['+ key +'][size_title]'" v-model="item.size_title">
-                    @{{ item.product_code }}
+                    {{ item.product_code }}
                 </td>
-                <td>@{{ item.product_title }}</td>
-                <td align="center">@{{ item.color_title }}</td>
-                <td align="center">@{{ item.size_title }}</td>
-                <td align="center"> @{{ formatPrice(item.product_price) }} </td>
+                <td>{{ item.product_title }}</td>
+                <td align="center">{{ item.color_title }}</td>
+                <td align="center">{{ item.size_title }}</td>
+                <td align="center"> {{ formatPrice(item.product_price) }} </td>
                 <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" :class="'form-control validate[required,min[1],max[' + item.inventory + ']]'" v-model.number="item.product_qty"> </td>
-                <td align="center"> <span> @{{ formatPrice(subtotal[key]) }} </span> </td>
-                <td align="center"> <span> @{{ item.inventory }} </span> </td>
+                <td align="center"> <span> {{ formatPrice(subtotal[key]) }} </span> </td>
+                <td align="center"> <span> {{ item.inventory }} </span> </td>
                 <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>
             </tr>
             <tr>
-                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> @{{ formatPrice(total) }} </span> </td>
+                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> {{ formatPrice(total) }} </span> </td>
             </tr>
         </tbody>
     </table>
@@ -220,4 +207,5 @@
     // })
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
