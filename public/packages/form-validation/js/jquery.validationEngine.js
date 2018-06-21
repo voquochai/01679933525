@@ -1648,17 +1648,19 @@
 					if(pos!=-1)
 						positionType=positionType.substring(0,pos);
 				}
-
+				prompt.append(arrow);
 				switch (positionType) {
 					case "bottomLeft":
+						prompt.addClass('bottom-left');
+						break;
 					case "bottomRight":
-						prompt.find(".formErrorContent").before(arrow);
-						arrow.addClass("formErrorArrowBottom").html('<div class="line1"><!-- --></div><div class="line2"><!-- --></div><div class="line3"><!-- --></div><div class="line4"><!-- --></div><div class="line5"><!-- --></div><div class="line6"><!-- --></div><div class="line7"><!-- --></div><div class="line8"><!-- --></div><div class="line9"><!-- --></div><div class="line10"><!-- --></div>');
+						prompt.addClass('bottom-right');
 						break;
 					case "topLeft":
+						prompt.addClass('top-left');
+						break;
 					case "topRight":
-						arrow.html('<div class="line10"><!-- --></div><div class="line9"><!-- --></div><div class="line8"><!-- --></div><div class="line7"><!-- --></div><div class="line6"><!-- --></div><div class="line5"><!-- --></div><div class="line4"><!-- --></div><div class="line3"><!-- --></div><div class="line2"><!-- --></div><div class="line1"><!-- --></div>');
-						prompt.append(arrow);
+						prompt.addClass('top-right');
 						break;
 				}
 			}
@@ -1932,13 +1934,13 @@
 					break;
 
 				case "bottomLeft":
-					promptTopPosition = fieldTop + field.height() + 5;
+					promptTopPosition = fieldTop + field.height() + 13;
 					marginTopSize = 0;
 					promptleftPosition = fieldLeft;
 					break;
 				case "bottomRight":
 					promptleftPosition = fieldLeft + fieldWidth - 27;
-					promptTopPosition =  fieldTop +  field.height() + 5;
+					promptTopPosition =  fieldTop +  field.height() + 13;
 					marginTopSize = 0;
 					break;
 				case "inline":

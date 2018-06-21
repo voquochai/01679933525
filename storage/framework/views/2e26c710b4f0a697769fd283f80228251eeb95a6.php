@@ -168,7 +168,7 @@
                 for (var i = 0; i < select2data.length; i++) {
                     var flag = false;
                     for (var j = 0; j < this.products.length; j++) {
-                        if( this.products[j].id == select2data[i].id ){
+                        if( this.products[j].product_id == select2data[i].product_id && this.products[j].color_id == select2data[i].color_id && this.products[j].size_id == select2data[i].size_id ){
                             flag = true;
                             break;
                         }
@@ -192,6 +192,20 @@
             }
         }
     });
+
+    // $(document).ready(function(){
+    //     var data = $(".select2-data-ajax").select2("data");
+    //     $('.select2-data-ajax').on('select2:select', function (e) {
+    //         var product_id = e.params.data.product_id;
+    //         for (var i = 0; i < data.length; i++) {
+    //             if(product_id == data[i].product_id){
+
+    //             }
+    //         }
+    //         data = $(".select2-data-ajax").select2("data");
+    //     });
+    // })
+
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('admin.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

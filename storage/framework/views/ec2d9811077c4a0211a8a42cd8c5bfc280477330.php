@@ -8,13 +8,13 @@
 </li>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-<div class="row">
+<div class="row" id="qh-app">
     <?php echo $__env->make('admin.blocks.messages', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <!-- BEGIN FORM-->
     <form role="form" method="POST" action="<?php echo e(route('admin.order.store',['type'=>$type])); ?>" class="form-validation">
         <?php echo e(csrf_field()); ?>
 
-        <div class="col-lg-9 col-xs-12" id="qh-app"> 
+        <div class="col-lg-9 col-xs-12"> 
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"> Thêm mới </div>
@@ -22,7 +22,7 @@
                 <div class="portlet-body">
                     <div class="form-group">
                         <div class="input-group select2-bootstrap-append">
-                            <select id="select2-button-addons-single-input-group-sm" class="form-control select2-data-ajax"  multiple="" data-url="<?php echo e(route('admin.wms_import.ajax',['type'=>'default'])); ?>">
+                            <select id="select2-button-addons-single-input-group-sm" class="form-control select2-data-ajax"  multiple="" data-label="Mã sản phẩm" data-url="<?php echo e(route('admin.wms_import.ajax',['type'=>'default'])); ?>">
                             </select>
                             <span class="input-group-btn"> <button v-on:click="addProduct" type="button" id="btn-select" class="btn btn-info"> Chọn </button> </span>
                         </div>
@@ -98,24 +98,25 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Ghi chú</label>
-                        <div>
-                            <textarea name="data[note]" class="form-control" rows="5"><?php echo e(old('data.note')); ?></textarea>
+                        <label class="control-label">Giảm giá</label>
+                        <div class="input-group">
+                            <input type="text" name="coupon_amount" class="form-control" value="<?php echo e(old('coupon_amount')); ?>" v-model.number="coupon_amount">
+                            <span class="input-group-addon"> Đ </span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label">Phí vận chuyển</label>
                         <div class="input-group">
-                            <input type="text" name="shipping" class="form-control priceFormat" value="<?php echo e(old('shipping')); ?>">
-                            <span class="input-group-addon"> VNĐ </span>
+                            <input type="text" name="shipping" class="form-control" value="<?php echo e(old('shipping')); ?>" v-model.number="shipping">
+                            <span class="input-group-addon"> Đ </span>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label">Tổng đơn hàng</label>
                         <div class="input-group">
-                            <input type="text" name="total" class="form-control priceFormat" value="" disabled>
+                            <input type="text" name="total" class="form-control" v-model="formatPrice(total)" disabled>
                             <span class="input-group-addon"> Đ </span>
                         </div>
                     </div>
@@ -123,6 +124,13 @@
                     <div class="form-group">
                         <label class="control-label">Hình thức thanh toán</label>
                         <input type="text" name="data[payment]" class="form-control" value="<?php echo e(old('data.payment')); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Ghi chú</label>
+                        <div>
+                            <textarea name="data[note]" class="form-control" rows="5"><?php echo e(old('data.note')); ?></textarea>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -165,37 +173,32 @@
                 <th width="8%"> Giá bán </th>
                 <th width="6%"> Số lượng </th>
                 <th width="10%"> Thành tiền </th>
-                <th width="8%"> Tồn kho </th>
                 <th width="3%"> Xóa </th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="(item, key) in products" >
                 <td align="center">
-                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.id">
-                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.code">
-                    <input type="hidden" :name="'products['+ key +'][color]'" v-model="item.color">
-                    <input type="hidden" :name="'products['+ key +'][size]'" v-model="item.size">
-                    <input type="hidden" :name="'products['+ key +'][price]'" v-model="item.price">
-                    {{ item.code }}
+                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.product_id">
+                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.product_code">
+                    <input type="hidden" :name="'products['+ key +'][title]'" v-model="item.product_title">
+                    <input type="hidden" :name="'products['+ key +'][price]'" v-model="item.product_price">
+                    <input type="hidden" :name="'products['+ key +'][color_id]'" v-model="item.color_id">
+                    <input type="hidden" :name="'products['+ key +'][size_id]'" v-model="item.size_id">
+                    <input type="hidden" :name="'products['+ key +'][color_title]'" v-model="item.color_title">
+                    <input type="hidden" :name="'products['+ key +'][size_title]'" v-model="item.size_title">
+                    {{ item.product_code }}
                 </td>
-                <td>
-                    {{ item.title }}
-                </td>
-                <td align="center">
-                    {{ item.colors }}
-                </td>
-                <td align="center">
-                    {{ item.sizes }}
-                </td>
-                <td align="center"> {{ formatPrice(item.price) }} </td>
-                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" :class="'form-control validate[required,min[1],max[' + item.store + ']]'" v-model.number="item.qty"> </td>
+                <td>{{ item.product_title }}</td>
+                <td align="center">{{ item.color_title }}</td>
+                <td align="center">{{ item.size_title }}</td>
+                <td align="center"> {{ formatPrice(item.product_price) }} </td>
+                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" :class="'form-control validate[required,min[1]]'" v-model.number="item.product_qty"> </td>
                 <td align="center"> <span> {{ formatPrice(subtotal[key]) }} </span> </td>
-                <td align="center"> <span> {{ item.store }} </span> </td>
                 <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>
             </tr>
             <tr>
-                <td align="right" colspan="30"> Tổng tiền: <span class="font-red-mint font-md bold"> {{ formatPrice(total) }} </span> </td>
+                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> {{ formatPrice(total) }} đ</span> </td>
             </tr>
         </tbody>
     </table>
@@ -206,8 +209,17 @@
         data: function () {
             var products = [];
             return {
+                coupon_amount: 0,
+                shipping: 0,
                 products: products
             };
+        },
+        computed: {
+            total() {
+                return this.products.reduce((total, item) => {
+                    return total + (item.product_qty * item.product_price);
+                }, 0) + this.shipping - this.coupon_amount;
+            }
         },
         components: {
             'qh-products': {
@@ -220,12 +232,12 @@
                 computed: {
                     subtotal() {
                         return this.products.map((item) => {
-                            return Number( item.qty * item.price )
+                            return Number( item.product_qty * item.product_price )
                         });
                     },
                     total() {
                         return this.products.reduce((total, item) => {
-                            return total + item.qty * item.price;
+                            return total + (item.product_qty * item.product_price);
                         }, 0);
                     }
                 },
@@ -237,37 +249,40 @@
                         let val = (value/1).toFixed(0).replace('.', ',')
                         return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
                     }
+                    
                 }
             }
         },
         methods: {
+            formatPrice(value) {
+                let val = (value/1).toFixed(0).replace('.', ',')
+                return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
             addProduct: function () {
                 var select2data = $(".select2-data-ajax").select2("data");
                 for (var i = 0; i < select2data.length; i++) {
                     var flag = false;
                     for (var j = 0; j < this.products.length; j++) {
-                        if( this.products[j].key == select2data[i].id ){
+                        if( this.products[j].product_id == select2data[i].product_id && this.products[j].color_id == select2data[i].color_id && this.products[j].size_id == select2data[i].size_id ){
                             flag = true;
                             break;
                         }
                     }
                     if(!flag){
                         this.products.push({
-                            "key": select2data[i].id,
-                            "id": select2data[i].pid,
-                            "code": select2data[i].code,
-                            "price": select2data[i].price,
-                            "title": select2data[i].title,
-                            "qty": select2data[i].qty,
-                            "color": select2data[i].color,
-                            "size": select2data[i].size,
-                            "colors": select2data[i].colors,
-                            "sizes": select2data[i].sizes,
-                            "store": select2data[i].store
+                            "id": select2data[i].id,
+                            "product_id": select2data[i].product_id,
+                            "product_code": select2data[i].product_code,
+                            "product_price": select2data[i].product_price,
+                            "product_title": select2data[i].title,
+                            "product_qty": select2data[i].product_qty,
+                            "color_id": select2data[i].color_id,
+                            "size_id": select2data[i].size_id,
+                            "color_title": select2data[i].color_title,
+                            "size_title": select2data[i].size_title
                         });
                     }
                 }
-                console.log(this.products);
             }
         }
     });

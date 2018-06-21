@@ -55,6 +55,13 @@
 							</tr>
 						</thead>
 						<tbody>
+                            <tr>
+                                <td colspan="30" align="center">
+                                    Tổng số lượng: <span class="font-red-mint font-md bold"> {{ get_currency_vn($total->qty,'') }} </span>
+                                    -
+                                    Tổng tiền: <span class="font-red-mint font-md bold"> {{ get_currency_vn($total->price,'') }} </span>
+                                </td>
+                            </tr>
                             @forelse($items as $item)
                             <tr id="record-{{ $item->id }}">
                                 <td align="center">
@@ -66,10 +73,10 @@
                                 <td align="center"> <input type="text" name="priority" class="form-control input-mini input-priority" value="{{ $item->priority }}" data-ajax="act=update_priority|table=orders|id={{ $item->id }}|col=priority"> </td>
                                 <td align="center"><a href="{{ route('admin.order.edit',['id'=>$item->id, 'type'=>$type]) }}"> {{ $item->name.' - '.$item->phone }} </a></td>
                                 <td align="center">{{ $item->code }}</td>
-                                <td align="center">{{ $item->quantity }}</td>
-                                <td align="center">{!! get_currency_vn($item->total,'') !!}</td>
-                                <td align="center"> {{ $item->created_at }} </td>
-                                <td align="center">{{ config('siteconfig.order_site_status.'.$item->status_id) }}</td>
+                                <td align="center">{{ $item->order_qty }}</td>
+                                <td align="center">{!! get_currency_vn($item->order_price,'') !!}</td>
+                                <td align="center">{{ $item->created_at }}</td>
+                                <td align="center"> <span class="label label-sm label-{{ config('siteconfig.order_site_labels.'.$item->status_id) }}">{{ config('siteconfig.order_site_status.'.$item->status_id) }}</span></td>
                                 <td align="center">
                                     <a href="{{ route('admin.order.edit',['id'=>$item->id, 'type'=>$type]) }}" class="btn btn-sm blue" title="Chỉnh sửa"> <i class="fa fa-edit"></i> </a>
                                     <form action="{{ route('admin.order.delete',['id'=>$item->id, 'type'=>$type]) }}" method="post">

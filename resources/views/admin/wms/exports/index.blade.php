@@ -77,8 +77,8 @@
                                 <td align="center">{{ $item->username }}</td>
                                 <td align="center">{{ $item->code }}</td>
                                 {{-- <td align="center">{{ $item->store_code }}</td> --}}
-                                <td align="center">{{ $item->quantity }}</td>
-                                <td align="center">{{ get_currency_vn($item->total,'') }}</td>
+                                <td align="center">{{ $item->export_qty }}</td>
+                                <td align="center">{{ get_currency_vn($item->export_price,'') }}</td>
                                 <td align="center"> {{ $item->created_at }} </td>
                                 <td align="center">
                                     @foreach($siteconfig[$type]['status'] as $keyS => $valS)

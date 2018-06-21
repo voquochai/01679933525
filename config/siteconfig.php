@@ -18,6 +18,12 @@ return [
 		'3'	=>	'Đã nhận tiền',
 		'4'	=>	'Hủy đơn hàng',
 	],
+	'order_site_labels' => [
+		'1'	=>	'warning',
+		'2'	=>	'success',
+		'3'	=>	'primary',
+		'4'	=>	'danger',
+	],
 	'order' => [
 		'online' 	=>	[
 			'page-title'	=>	'Đơn hàng',

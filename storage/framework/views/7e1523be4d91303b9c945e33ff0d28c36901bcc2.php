@@ -54,6 +54,13 @@
 							</tr>
 						</thead>
 						<tbody>
+                            <tr>
+                                <td colspan="30" align="center">
+                                    Tổng số lượng: <span class="font-red-mint font-md bold"> <?php echo e(get_currency_vn($total->qty,'')); ?> </span>
+                                    -
+                                    Tổng tiền: <span class="font-red-mint font-md bold"> <?php echo e(get_currency_vn($total->price,'')); ?> </span>
+                                </td>
+                            </tr>
                             <?php $__empty_1 = true; $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <tr id="record-<?php echo e($item->id); ?>">
                                 <td align="center">
@@ -65,10 +72,10 @@
                                 <td align="center"> <input type="text" name="priority" class="form-control input-mini input-priority" value="<?php echo e($item->priority); ?>" data-ajax="act=update_priority|table=orders|id=<?php echo e($item->id); ?>|col=priority"> </td>
                                 <td align="center"><a href="<?php echo e(route('admin.order.edit',['id'=>$item->id, 'type'=>$type])); ?>"> <?php echo e($item->name.' - '.$item->phone); ?> </a></td>
                                 <td align="center"><?php echo e($item->code); ?></td>
-                                <td align="center"><?php echo e($item->quantity); ?></td>
-                                <td align="center"><?php echo get_currency_vn($item->total,''); ?></td>
-                                <td align="center"> <?php echo e($item->created_at); ?> </td>
-                                <td align="center"><?php echo e(config('siteconfig.order_site_status.'.$item->status_id)); ?></td>
+                                <td align="center"><?php echo e($item->order_qty); ?></td>
+                                <td align="center"><?php echo get_currency_vn($item->order_price,''); ?></td>
+                                <td align="center"><?php echo e($item->created_at); ?></td>
+                                <td align="center"> <span class="label label-sm label-<?php echo e(config('siteconfig.order_site_labels.'.$item->status_id)); ?>"><?php echo e(config('siteconfig.order_site_status.'.$item->status_id)); ?></span></td>
                                 <td align="center">
                                     <a href="<?php echo e(route('admin.order.edit',['id'=>$item->id, 'type'=>$type])); ?>" class="btn btn-sm blue" title="Chỉnh sửa"> <i class="fa fa-edit"></i> </a>
                                     <form action="<?php echo e(route('admin.order.delete',['id'=>$item->id, 'type'=>$type])); ?>" method="post">

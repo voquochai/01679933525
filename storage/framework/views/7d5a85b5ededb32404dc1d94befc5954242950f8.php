@@ -124,7 +124,7 @@
                 <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>
             </tr>
             <tr>
-                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> {{ formatPrice(total) }} </span> </td>
+                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> {{ formatPrice(total) }} đ</span> </td>
             </tr>
         </tbody>
     </table>
@@ -154,7 +154,7 @@
                     },
                     total() {
                         return this.products.reduce((total, item) => {
-                            return total + item.qty * item.price;
+                            return total + (item.qty * item.price);
                         }, 0);
                     }
                 },

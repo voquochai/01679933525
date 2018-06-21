@@ -60,8 +60,8 @@
                                 <td align="center"><?php echo e($item->username); ?></td>
                                 <td align="center"><?php echo e($item->code); ?></td>
                                 
-                                <td align="center"><?php echo e($item->quantity); ?></td>
-                                <td align="center"><?php echo e(get_currency_vn($item->total,'')); ?></td>
+                                <td align="center"><?php echo e($item->export_qty); ?></td>
+                                <td align="center"><?php echo e(get_currency_vn($item->export_price,'')); ?></td>
                                 <td align="center"> <?php echo e($item->created_at); ?> </td>
                                 <td align="center">
                                     <?php $__currentLoopData = $siteconfig[$type]['status']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $keyS => $valS): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

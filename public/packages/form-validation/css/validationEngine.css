@@ -78,11 +78,7 @@
 	color: #FFF;
 }
 
-.formError .formErrorArrow {
-	width: 15px;
-	margin: -2px 0 0 13px;
-	position:relative;
-}
+.formError .formErrorArrow {}
 body[dir='rtl'] .formError .formErrorArrow,
 body.rtl .formError .formErrorArrow {
 	margin: -2px 13px 0 0;
@@ -176,4 +172,68 @@ body.rtl .formError .formErrorArrow {
 	width: 0px;
 	/*border: none;
 	background: #ddd;*/
+}
+
+.formErrorArrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.formError.top .formErrorArrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.formError.top-left .formErrorArrow {
+  bottom: 0;
+  right: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.formError.top-right .formErrorArrow {
+  bottom: 0;
+  left: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.formError.right .formErrorArrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-width: 5px 5px 5px 0;
+  border-right-color: #000;
+}
+.formError.left .formErrorArrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #000;
+}
+.formError.bottom .formErrorArrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.formError.bottom-left .formErrorArrow {
+  top: 0;
+  right: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.formError.bottom-right .formErrorArrow {
+  top: 0;
+  left: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
 }

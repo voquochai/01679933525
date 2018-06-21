@@ -33,7 +33,36 @@
                     </div>
                     --}}
                     <div class="table-responsive">
-                        <qh-products></qh-products>
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th width="7%"> Mã SP </th>
+                                    <th width="15%"> Tên sản phẩm </th>
+                                    <th width="7%"> Màu sắc </th>
+                                    <th width="7%"> Kích cỡ </th>
+                                    <th width="8%"> Giá bán </th>
+                                    <th width="6%"> Số lượng </th>
+                                    <th width="10%"> Thành tiền </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($products as $product)
+                                <tr>
+                                    <td align="center">{{ $product->product_code }}</td>
+                                    <td>{{ $product->product_title }}</td>
+                                    <td align="center">{{ $product->color_title }}</td>
+                                    <td align="center">{{ $product->size_title }}</td>
+                                    <td align="center">{{ get_currency_vn($product->product_price,'') }}</td>
+                                    <td align="center">{{ $product->product_qty }}</td>
+                                    <td align="center">{{ get_currency_vn($product->product_price*$product->product_qty,'') }}</td>
+                                </tr>
+                                @empty
+                                @endforelse
+                                <tr>
+                                    <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold">{{ get_currency_vn($item->export_price) }}</span> </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -92,131 +121,4 @@
         </div>
     </form>
 </div>
-@endsection
-
-
-@section('custom_script')
-<script type="text/x-template" id="select2-data-template">
-    <table class="table table-bordered table-condensed">
-        <thead>
-            <tr>
-                <th width="7%"> Mã SP </th>
-                <th width="15%"> Tên sản phẩm </th>
-                <th width="7%"> Màu sắc </th>
-                <th width="7%"> Kích cỡ </th>
-                <th width="8%"> Giá bán </th>
-                <th width="6%"> Số lượng </th>
-                <th width="10%"> Thành tiền </th>
-                {{--<th width="8%"> Tồn kho </th>
-                <th width="3%"> Xóa </th>--}}
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item, key) in products" >
-                <td align="center">
-                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.id">
-                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.code">
-                    <input type="hidden" :name="'products['+ key +'][color]'" v-model="item.color">
-                    <input type="hidden" :name="'products['+ key +'][size]'" v-model="item.size">
-                    <input type="hidden" :name="'products['+ key +'][price]'" v-model="item.price">
-                    @{{ item.code }}
-                </td>
-                <td>
-                    @{{ item.title }}
-                </td>
-                <td align="center">
-                    @{{ item.colors }}
-                </td>
-                <td align="center">
-                    @{{ item.sizes }}
-                </td>
-                <td align="center"> @{{ formatPrice(item.price) }} </td>
-                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" :class="'form-control validate[required,min[1],max[' + item.store + ']]'" v-model.number="item.qty" readonly=""> </td>
-                <td align="center"> <span> @{{ formatPrice(subtotal[key]) }} </span> </td>
-                {{--<td align="center"> <span> @{{ item.store }} </span> </td>
-                <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>--}}
-            </tr>
-            <tr>
-                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> @{{ formatPrice(total) }} </span> </td>
-            </tr>
-        </tbody>
-    </table>
-</script>
-<script type="text/javascript">
-    @php
-    $products = $products ? json_encode($products) : null;
-    @endphp
-    new Vue({
-        el: '#qh-app',
-        data: function () {
-            var products = [];
-            @if($products)
-                products = {!! $products !!};
-            @endif
-            return {
-                products: products
-            };
-        },
-        components: {
-            'qh-products': {
-                template: '#select2-data-template',
-                data: function () {
-                    return {
-                        products: this.$parent.products
-                    };
-                },
-                computed: {
-                    subtotal() {
-                        return this.products.map((item) => {
-                            return Number( item.qty * item.price )
-                        });
-                    },
-                    total() {
-                        return this.products.reduce((total, item) => {
-                            return total + item.qty * item.price;
-                        }, 0);
-                    }
-                },
-                methods: {
-                    deleteProduct: function (item) {
-                        this.products.splice(this.products.indexOf(item) ,1);
-                    },
-                    formatPrice(value) {
-                        let val = (value/1).toFixed(0).replace('.', ',')
-                        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                    }
-                }
-            }
-        },
-        methods: {
-            addProduct: function () {
-                var select2data = $(".select2-data-ajax").select2("data");
-                for (var i = 0; i < select2data.length; i++) {
-                    var flag = false;
-                    for (var j = 0; j < this.products.length; j++) {
-                        if( this.products[j].key == select2data[i].id ){
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if(!flag){
-                        this.products.push({
-                            "key": select2data[i].id,
-                            "id": select2data[i].pid,
-                            "code": select2data[i].code,
-                            "price": select2data[i].price,
-                            "title": select2data[i].title,
-                            "qty": select2data[i].qty,
-                            "color": select2data[i].color,
-                            "size": select2data[i].size,
-                            "colors": select2data[i].colors,
-                            "sizes": select2data[i].sizes,
-                            "store": select2data[i].store
-                        });
-                    }
-                }
-            }
-        }
-    });
-</script>
 @endsection

@@ -47,6 +47,7 @@ class WMS_ImportController extends Controller
 
         $this->_data['total'] = DB::table('wms_imports')
             ->select(DB::raw('sum(import_qty) as qty, sum(import_price) as price'))
+            ->whereRaw('FIND_IN_SET(\'publish\',status)')
             ->where('type',$this->_data['type'])->first();
 
         return view('admin.wms.imports.index',$this->_data);
@@ -114,6 +115,7 @@ class WMS_ImportController extends Controller
             $product  = [];
             $sumPrice = 0;
             $sumQty   = 0;
+            $dataInsert = [];
             foreach($inputProduct as $key => $value){
                 $id    = (int)$value['id'];
                 $color = (int)@$value['color_id'];

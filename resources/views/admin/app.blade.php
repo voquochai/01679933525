@@ -117,7 +117,7 @@
     <script src="{{ asset('public/packages/amcharts/amcharts/themes/chalk.js') }}" type="text/javascript"></script>
     @endif
 
-    @if($routeAction == 'create' || $routeAction == 'edit'){
+    @if($routeAction == 'create' || $routeAction == 'edit')
     <script src="{{ asset('public/packages/vue.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/packages/ckeditor/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/packages/yoast-seo/example-b.js') }}" type="text/javascript"></script>

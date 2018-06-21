@@ -118,7 +118,7 @@
     <script src="<?php echo e(asset('public/packages/amcharts/amcharts/themes/chalk.js')); ?>" type="text/javascript"></script>
     <?php endif; ?>
 
-    <?php if($routeAction == 'create' || $routeAction == 'edit'): ?>{
+    <?php if($routeAction == 'create' || $routeAction == 'edit'): ?>
     <script src="<?php echo e(asset('public/packages/vue.js')); ?>" type="text/javascript"></script>
     <script src="<?php echo e(asset('public/packages/ckeditor/ckeditor/ckeditor.js')); ?>" type="text/javascript"></script>
     <script src="<?php echo e(asset('public/packages/yoast-seo/example-b.js')); ?>" type="text/javascript"></script>
