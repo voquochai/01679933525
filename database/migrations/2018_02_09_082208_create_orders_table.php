@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
             $table->text('note')->nullable();
             $table->integer('district_id')->default(0);
             $table->integer('province_id')->default(0);
-            $table->string('payment')->nullable();
+            $table->integer('payment_id')->default(0);
             $table->integer('member_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('status_id')->default(1);

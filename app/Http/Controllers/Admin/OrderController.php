@@ -120,8 +120,8 @@ class OrderController extends Controller
 
             $order->code          =    time();
             $order->order_qty     =    (int)$sumQty;
-            $order->subtotal      =    (int)$sumPrice;
-            $order->coupon_amount =    (int)$request->coupon_amount;
+            $order->subtotal      =    floatval($sumPrice);
+            $order->coupon_amount =    floatval($request->coupon_amount);
             $order->shipping      =    (int)str_replace('.', '', $request->shipping);
             $order->order_price   =    ($order->subtotal + $order->shipping)-$order->coupon_amount;
             $order->user_id       =    Auth::id();
@@ -209,8 +209,8 @@ class OrderController extends Controller
                     }
                 }
                 $order->order_qty     =    (int)$sumQty;
-                $order->subtotal      =    (int)$sumPrice;
-                $order->coupon_amount =    (int)$request->coupon_amount;
+                $order->subtotal      =    floatval($sumPrice);
+                $order->coupon_amount =    floatval($request->coupon_amount);
                 $order->shipping      =    (int)str_replace('.', '', $request->shipping);
                 $order->order_price   =    ($order->subtotal + $order->shipping)-$order->coupon_amount;
                 $order->priority      =    (int)str_replace('.', '', $request->priority);

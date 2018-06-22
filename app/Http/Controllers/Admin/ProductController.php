@@ -190,9 +190,9 @@ class ProductController extends Controller
                 $product->attachments = implode(',',$media_list_id);
             }
             $product->code           = strtoupper($request->code);
-            $product->original_price = (int)str_replace('.', '', $request->original_price);
-            $product->regular_price  = (int)str_replace('.', '', $request->regular_price);
-            $product->sale_price     = (int)str_replace('.', '', $request->sale_price);
+            $product->original_price = floatval(str_replace('.', '', $request->original_price));
+            $product->regular_price  = floatval(str_replace('.', '', $request->regular_price));
+            $product->sale_price     = floatval(str_replace('.', '', $request->sale_price));
             $product->weight         = (int)str_replace('.', '', $request->weight);
             
             $product->priority       = (int)str_replace('.', '', $request->priority);
@@ -362,9 +362,9 @@ class ProductController extends Controller
                 }
                 $product->code           = strtoupper($request->code);
                 $product->attachments    = implode(',',$media_list_id);
-                $product->original_price = (int)str_replace('.', '', $request->original_price);
-                $product->regular_price  = (int)str_replace('.', '', $request->regular_price);
-                $product->sale_price     = (int)str_replace('.', '', $request->sale_price);
+                $product->original_price = floatval(str_replace('.', '', $request->original_price));
+                $product->regular_price  = floatval(str_replace('.', '', $request->regular_price));
+                $product->sale_price     = floatval(str_replace('.', '', $request->sale_price));
                 $product->weight         = (int)str_replace('.', '', $request->weight);
                 
                 $product->priority       = (int)str_replace('.', '', $request->priority);

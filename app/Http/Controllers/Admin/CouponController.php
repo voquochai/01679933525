@@ -57,10 +57,10 @@ class CouponController extends Controller
                 }
             }
             $coupon->code                   = strtoupper($request->code);
-            $coupon->coupon_amount          = (int)str_replace('.', '', $request->coupon_amount);
+            $coupon->coupon_amount          = floatval(str_replace('.', '', $request->coupon_amount));
             $coupon->number_of_uses         = (int)str_replace('.', '', $request->number_of_uses);
-            $coupon->min_restriction_amount = (int)str_replace('.', '', $request->min_restriction_amount);
-            $coupon->max_restriction_amount = (int)str_replace('.', '', $request->max_restriction_amount);
+            $coupon->min_restriction_amount = floatval(str_replace('.', '', $request->min_restriction_amount));
+            $coupon->max_restriction_amount = floatval(str_replace('.', '', $request->max_restriction_amount));
 
             $coupon->priority       = (int)str_replace('.', '', $request->priority);
             $coupon->status         = ($request->status) ? implode(',',$request->status) : '';
@@ -105,10 +105,10 @@ class CouponController extends Controller
                         $coupon->$field = $value;
                     }
                 }
-                $coupon->coupon_amount          = (int)str_replace('.', '', $request->coupon_amount);
+                $coupon->coupon_amount          = floatval(str_replace('.', '', $request->coupon_amount));
                 $coupon->number_of_uses         = (int)str_replace('.', '', $request->number_of_uses);
-                $coupon->min_restriction_amount = (int)str_replace('.', '', $request->min_restriction_amount);
-                $coupon->max_restriction_amount = (int)str_replace('.', '', $request->max_restriction_amount);
+                $coupon->min_restriction_amount = floatval(str_replace('.', '', $request->min_restriction_amount));
+                $coupon->max_restriction_amount = floatval(str_replace('.', '', $request->max_restriction_amount));
 
                 $coupon->priority       = (int)str_replace('.', '', $request->priority);
                 $coupon->status         = ($request->status) ? implode(',',$request->status) : '';

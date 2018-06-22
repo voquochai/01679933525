@@ -122,14 +122,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Hình thức thanh toán</label>
-                        <input type="text" name="data[payment]" class="form-control" value="<?php echo e(old('data.payment')); ?>">
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label">Ghi chú</label>
                         <div>
                             <textarea name="data[note]" class="form-control" rows="5"><?php echo e(old('data.note')); ?></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Hình thức thanh toán</label>
+                        <div>
+                            <select class="selectpicker show-tick show-menu-arrow form-control" name="data[payment_id]">
+                                <?php $__currentLoopData = config('siteconfig.payment_method'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($key); ?>" <?php echo e((old('data.payment_id')) ? ( (in_array($key,old('data.payment_id'))) ? 'selected' : '') : ($key==1)?'selected':''); ?> > <?php echo e($val); ?> </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
                         </div>
                     </div>
 

@@ -126,7 +126,7 @@ class HomeController extends Controller
                     ->where('A.type',$type)
                     ->orderBy('A.priority','asc')
                     ->orderBy('A.id','desc')
-                    ->paginate(config('settings.product_per_page'));
+                    ->paginate(config('settings.product_per_page') ? config('settings.product_per_page') : 20);
 
                 return view('frontend.default.products',$this->_data);
             }elseif($this->_data['template'] == 'post'){
@@ -139,7 +139,7 @@ class HomeController extends Controller
                     ->where('A.type',$type)
                     ->orderBy('A.priority','asc')
                     ->orderBy('A.id','desc')
-                    ->paginate(config('settings.post_per_page'));
+                    ->paginate(config('settings.post_per_page') ? config('settings.post_per_page') : 10);
                 return view('frontend.default.posts',$this->_data);
             }
         }
@@ -193,7 +193,7 @@ class HomeController extends Controller
                 ->where('A.type',$type)
                 ->orderBy('A.priority','asc')
                 ->orderBy('A.id','desc')
-                ->paginate(config('settings.product_per_page'));
+                ->paginate(config('settings.product_per_page') ? config('settings.product_per_page') : 20);
             $this->_data['products']->withPath( route('frontend.home.archive', $params ) );
             return view('frontend.default.products',$this->_data);
         }elseif($this->_data['template'] == 'post'){
@@ -205,7 +205,7 @@ class HomeController extends Controller
                 ->where('A.type',$type)
                 ->orderBy('A.priority','asc')
                 ->orderBy('A.id','desc')
-                ->paginate(config('settings.post_per_page'));
+                ->paginate(config('settings.post_per_page') ? config('settings.post_per_page') : 10);
             return view('frontend.default.posts',$this->_data);
         }elseif($this->_data['template'] == 'page'){
             
@@ -342,7 +342,7 @@ class HomeController extends Controller
                 ->whereIn('A.id',$viewed)
                 ->orderBy('A.priority','asc')
                 ->orderBy('A.id','desc')
-                ->paginate(config('settings.product_per_page'));
+                ->paginate(config('settings.product_per_page') ? config('settings.product_per_page') : 20);
         }else{
             $this->_data['products'] = [];
         }

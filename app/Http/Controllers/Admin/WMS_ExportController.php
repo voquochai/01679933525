@@ -113,7 +113,7 @@ class WMS_ExportController extends Controller
                     
                     $sumPrice       += $products[$id][$color][$size]['price']*$products[$id][$color][$size]['qty'];
                     $sumQty         += $products[$id][$color][$size]['qty'];
-                    $inventory = (int)@$warehouses[$id][$color][$size]['import'] - (int)@$warehouses[$id][$color][$size]['export'];
+                    $inventory = floatval(@$warehouses[$id][$color][$size]['import']) - floatval(@$warehouses[$id][$color][$size]['export']);
                     if( $inventory <=0 || $value['qty'] > $inventory ){
                         return redirect()->route('admin.wms_export.index',['type'=>$this->_data['type']])->with('danger','Số lượng tồn kho đã có thay đổi vui lòng kiểm tra lại');
                     }
@@ -123,7 +123,7 @@ class WMS_ExportController extends Controller
             }
             $wms_export->code          =    time();
             $wms_export->export_qty    =    (int)$sumQty;
-            $wms_export->export_price  =    (int)$sumPrice;
+            $wms_export->export_price  =    floatval($sumPrice);
             $wms_export->user_id       =    Auth::id();
             $wms_export->priority      =    (int)str_replace('.', '', $request->priority);
             $wms_export->status        =    ($request->status) ? implode(',',$request->status) : '';

@@ -81,7 +81,7 @@ class WMS_ImportController extends Controller
                         $products[$key]['size_id']     =  $idSize;
                         $products[$key]['color_title']   =  $val['color_title'];
                         $products[$key]['size_title']    =  $val['size_title'];
-                        $products[$key]['inventory']    =  (int)@$val['import'] - (int)@$val['export'];
+                        $products[$key]['inventory']    =  floatval(@$val['import']) - floatval(@$val['export']);
                     }
                 }
                 return response()->json(['items'=>$products]);
@@ -156,7 +156,7 @@ class WMS_ImportController extends Controller
 
             $wms_import->code          =    time();
             $wms_import->import_qty    =    (int)$sumQty;
-            $wms_import->import_price  =    (int)$sumPrice;
+            $wms_import->import_price  =    floatval($sumPrice);
             $wms_import->user_id       =    Auth::id();
             $wms_import->priority      =    (int)str_replace('.', '', $request->priority);
             $wms_import->status        =    ($request->status) ? implode(',',$request->status) : '';

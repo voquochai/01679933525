@@ -129,14 +129,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Hình thức thanh toán</label>
-                        <input type="text" name="data[payment]" class="form-control" value="{{ $item->payment }}" disabled>
-                    </div>
-
-                    <div class="form-group">
                         <label class="control-label">Ghi chú</label>
                         <div>
                             <textarea name="data[note]" class="form-control" rows="5">{{ $item->note }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Hình thức thanh toán</label>
+                        <div>
+                            <select class="selectpicker show-tick show-menu-arrow form-control" name="data[payment_id]">
+                                @foreach( config('siteconfig.payment_method') as $key => $val)
+                                <option value="{{ $key }}" {{ ($item->payment_id == $key) ? 'selected' : '' }} > {{ $val }} </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

@@ -12,6 +12,11 @@ return [
 		'vi' => 'vi_VN',
 		'en' => 'en_US'
 	],
+	'payment_method' => [
+		'1'	=>	'Thanh toán tại cửa hàng',
+		'2'	=>	'Thanh toán khi nhận hàng',
+		'3'	=>	'Chuyển khoản ngân hàng',
+	],
 	'order_site_status' => [
 		'1'	=>	'Đơn hàng mới',
 		'2'	=>	'Đang giao hàng',
@@ -289,27 +294,6 @@ return [
 			],
 			'post_tags'	=>	false,
 		],
-		'payment' 	=>	[
-			'page-title'	=>	'Hình thức thanh toán',
-			'category'    =>	false,
-			'description' =>	false,
-			'contents'    =>	true,
-			'link'    =>	false,
-			'seo'	=>	false,
-			'attributes'    =>	false,
-			'image'       =>	false,
-			'images'      =>	false,
-			'thumbs'	=>	[
-				'_small' => [
-					'width'  =>	130,
-					'height' =>	130,
-				]
-			],
-			'status'      => [
-				'publish'     => 'Hiển thị'
-			],
-			'post_tags'	=>	false,
-		],
 		'default' 	=>	[
 			'page-title'	=>	'Bài viết',
 			'category'    =>	false,
@@ -390,91 +374,6 @@ return [
 		]
 	],
 	'page' => [
-        'index' 	=>	[
-            'page-title'	=>	'Trang chủ',
-            'description' =>	false,
-            'contents'    =>	false,
-            'link'    =>	false,
-            'seo'	=>	true,
-            'image'       =>	false,
-            'thumbs'	=>	[
-                '_small' => [
-                    'width'  =>	300,
-                    'height' =>	200,
-                ],
-            ],
-            'status'      => [
-                'publish'     => 'Hiển thị',
-            ]
-        ],
-        'hosting' 	=>	[
-            'page-title'	=>	'Hosting',
-            'description' =>	false,
-            'contents'    =>	false,
-            'link'    =>	false,
-            'seo'	=>	true,
-            'image'       =>	false,
-            'thumbs'	=>	[
-                '_small' => [
-                    'width'  =>	300,
-                    'height' =>	200,
-                ],
-            ],
-            'status'      => [
-                'publish'     => 'Hiển thị',
-            ]
-        ],
-        'san-pham' 	=>	[
-            'page-title'	=>	'Kho web',
-            'description' =>	false,
-            'contents'    =>	false,
-            'link'    =>	false,
-            'seo'	=>	true,
-            'image'       =>	false,
-            'thumbs'	=>	[
-                '_small' => [
-                    'width'  =>	300,
-                    'height' =>	200,
-                ],
-            ],
-            'status'      => [
-                'publish'     => 'Hiển thị',
-            ]
-        ],
-        'dich-vu' 	=>	[
-            'page-title'	=>	'Dịch vụ',
-            'description' =>	false,
-            'contents'    =>	false,
-            'link'    =>	false,
-            'seo'	=>	true,
-            'image'       =>	false,
-            'thumbs'	=>	[
-                '_small' => [
-                    'width'  =>	300,
-                    'height' =>	200,
-                ],
-            ],
-            'status'      => [
-                'publish'     => 'Hiển thị',
-            ]
-        ],
-        'thu-thuat' 	=>	[
-            'page-title'	=>	'Thủ thuật',
-            'description' =>	false,
-            'contents'    =>	false,
-            'link'    =>	false,
-            'seo'	=>	true,
-            'image'       =>	false,
-            'thumbs'	=>	[
-                '_small' => [
-                    'width'  =>	300,
-                    'height' =>	200,
-                ],
-            ],
-            'status'      => [
-                'publish'     => 'Hiển thị',
-            ]
-        ],
 		'gioi-thieu' 	=>	[
 			'page-title'	=>	'Giới thiệu',
 			'description' =>	false,

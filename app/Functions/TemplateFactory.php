@@ -26,7 +26,7 @@ class TemplateFactory {
             <div class="'.$cls.'">
                 <div class="product-item">
                     <div class="image">
-                        <a href="'.$link.'"><img src="'. ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/300x300') ) .'" alt="'.$product->alt.'" /></a>
+                        <a href="'.$link.'"><img src="'. ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.get_thumbnail($product->image, '_medium') ) : asset('noimage/350x350') ) .'" alt="'.$product->alt.'" /></a>
                         <a href="#" class="add-to-wishlist" data-ajax="id='. $product->id .'" title="Wishlist"></a>
                     </div>
                     <div class="info">
