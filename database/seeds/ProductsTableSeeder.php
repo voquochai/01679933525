@@ -11,7 +11,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Product::class, 20)->create()->each(function ($p) {
+        factory(App\Product::class, 10)->create()->each(function ($p) {
             foreach (['vi','en'] as $lang) {
                 $p->languages()->save(factory(App\ProductLanguage::class)->make(['language'=>$lang]));
             }

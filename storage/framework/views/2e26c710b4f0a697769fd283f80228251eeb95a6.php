@@ -117,7 +117,7 @@
                 <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>
             </tr>
             <tr>
-                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> {{ formatPrice(total) }} </span> </td>
+                <td align="right" colspan="30"> Tổng: <span class="font-red-mint font-md bold"> {{ formatPrice(total) }} đ</span> </td>
             </tr>
         </tbody>
     </table>
@@ -147,7 +147,7 @@
                     },
                     total() {
                         return this.products.reduce((total, item) => {
-                            return total + item.product_qty * item.product_price;
+                            return total + (item.product_qty * item.product_price);
                         }, 0);
                     }
                 },
@@ -192,19 +192,6 @@
             }
         }
     });
-
-    // $(document).ready(function(){
-    //     var data = $(".select2-data-ajax").select2("data");
-    //     $('.select2-data-ajax').on('select2:select', function (e) {
-    //         var product_id = e.params.data.product_id;
-    //         for (var i = 0; i < data.length; i++) {
-    //             if(product_id == data[i].product_id){
-
-    //             }
-    //         }
-    //         data = $(".select2-data-ajax").select2("data");
-    //     });
-    // })
 
 </script>
 <?php $__env->stopSection(); ?>

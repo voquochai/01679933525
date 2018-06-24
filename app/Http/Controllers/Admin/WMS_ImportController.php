@@ -128,6 +128,7 @@ class WMS_ImportController extends Controller
                     @$products[$id][$color][$size]['color_title']  =  $value['color_title'];
                     @$products[$id][$color][$size]['size_title']  =  $value['size_title'];
                 }else{
+                    @$products[$id][$color][$size]['qty']  +=  $value['qty'];
                     unset($inputProduct[$key]);
                 }
             }

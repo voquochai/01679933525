@@ -57,6 +57,14 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 			Route::put('/members/{id}', 'MemberController@update')->name('member.update');
 			Route::delete('/members/{id}', 'MemberController@delete')->name('member.delete');
 
+			// Seos
+			Route::get('/seos', 'SeoController@index')->name('seo.index');
+			Route::get('/seos/create', 'SeoController@create')->name('seo.create');
+			Route::post('/seos', 'SeoController@store')->name('seo.store');
+			Route::get('/seos/{id}', 'SeoController@edit')->where('id','[0-9]+')->name('seo.edit');
+			Route::put('/seos/{id}', 'SeoController@update')->name('seo.update');
+			Route::delete('/seos/{id}', 'SeoController@delete')->name('seo.delete');
+
 			Route::get('/settings', 'SettingController@index')->name('setting.index');
         	Route::post('/settings', 'SettingController@store')->name('setting.store');
 
@@ -174,6 +182,7 @@ Route::group(['prefix'=>'admin', 'as'=> 'admin.', 'namespace'=>'Admin'], functio
 		Route::group(['middleware' => ['checkRoles:order']], function(){
 	        // Orders
 	        Route::get('/orders', 'OrderController@index')->name('order.index');
+	        Route::get('/orders/ajax', 'OrderController@ajax')->name('order.ajax');
 	        Route::get('/orders/create', 'OrderController@create')->name('order.create');
 	        Route::post('/orders', 'OrderController@store')->name('order.store');
 	        Route::get('/orders/{id}', 'OrderController@edit')->where('id','[0-9]+')->name('order.edit');

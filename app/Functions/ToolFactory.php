@@ -4,28 +4,6 @@ use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 class ToolFactory {
 
-    public function setMetaTags($seo='',$lang='vi'){
-        $index = get_pages('index',$lang);
-
-        $default_seo = json_decode(@$index->meta_seo);
-        $seodata['title'] = @$default_seo->title;
-        $seodata['keywords'] = @$default_seo->keywords;
-        $seodata['description'] = @$default_seo->description;
-        $seodata['image'] = asset('public/uploads/photos/'.config('settings.logo'));
-
-        if(@$seo->title){
-            $seodata['title'] = $seo->title;
-        }
-        if(@$seo->keywords){
-            $seodata['keywords'] = $seo->keywords;
-        }
-        if(@$seo->description){
-            $seodata['description'] = $seo->description;
-        }
-
-        return (object) $seodata;
-    }
-
     public function setType($type=''){
         $data['type'] = $type;
         switch($type){
@@ -64,6 +42,33 @@ class ToolFactory {
         }
         return $data;
     }
+
+    public function setMetaTags($data='',$lang='vi'){
+        $default_seo = self::getSeos(url()->current(),$lang);
+        if(!$default_seo) $default_seo = self::getSeos(url('/'),$lang);
+        $default_seo = json_decode(@$default_seo->meta_seo);
+
+        $seodata['title'] = @$default_seo->title;
+        $seodata['keywords'] = @$default_seo->keywords;
+        $seodata['description'] = @$default_seo->description;
+        $seodata['image'] = asset('public/uploads/photos/'.config('settings.logo'));
+
+        $current_seo = json_decode(@$data->meta_seo);
+
+        if(@$current_seo->title){
+            $seodata['title'] = $current_seo->title;
+        }
+        if(@$current_seo->keywords){
+            $seodata['keywords'] = $current_seo->keywords;
+        }
+        if(@$current_seo->description){
+            $seodata['description'] = $current_seo->description;
+        }
+
+        return (object) $seodata;
+    }
+
+    
 
     public function getThumbnail($filename, $suffix = '_small') {
         if ($filename) {
@@ -196,6 +201,18 @@ class ToolFactory {
             ->where('B.language',$lang)
             ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
             ->where('A.type',$type)
+            ->orderBy('A.priority','asc')
+            ->orderBy('A.id','desc')
+            ->first();
+    }
+
+    public function getSeos($url,$lang='vi'){
+        return DB::table('seos as A')
+            ->leftjoin('seo_languages as B', 'A.id','=','B.seo_id' )
+            ->select('A.*','B.slug','B.title','B.meta_seo')
+            ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
+            ->where('A.link', $url )
+            ->where('B.language',$lang)
             ->orderBy('A.priority','asc')
             ->orderBy('A.id','desc')
             ->first();

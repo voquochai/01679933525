@@ -71,7 +71,7 @@ class ProductController extends Controller
                 ->select('A.id','A.code','A.original_price as price','B.title')
                 ->where('A.code','like', "%$request->q%")
                 ->orWhere('B.title','like', "%$request->q%")
-                ->where('A.type',$request->type)
+                ->where('A.type',$request->t)
                 ->where('B.language', $this->_data['default_language'])
                 ->orderBy('A.priority','asc')
                 ->orderBy('A.id','desc')

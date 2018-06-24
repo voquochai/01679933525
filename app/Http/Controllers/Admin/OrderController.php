@@ -51,6 +51,50 @@ class OrderController extends Controller
 
         return view('admin.orders.index',$this->_data);
     }
+
+    public function ajax(Request $request){
+        if($request->ajax()){
+            $data['items'] = DB::table('products as A')
+                ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
+                ->select('A.id','A.code','A.regular_price as price','B.title')
+                ->where('A.code','like', "%$request->q%")
+                ->orWhere('B.title','like', "%$request->q%")
+                ->where('A.type',$request->t)
+                ->where('B.language', $this->_data['default_language'])
+                ->orderBy('A.priority','asc')
+                ->orderBy('A.id','desc')
+                ->get();
+
+            if( $data['items'] !== null ){
+                foreach( $data['items'] as $key => $item ){
+                    $colors = DB::table('attributes as A')
+                                ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
+                                ->select('A.id','B.title')
+                                ->whereIn('A.id', DB::table('product_attribute')->where('product_id', $item->id)->where('type','product_colors')->pluck('attribute_id') )
+                                ->where('A.type','product_colors')
+                                ->where('B.language', $this->_data['default_language'])
+                                ->orderBy('A.priority','asc')
+                                ->orderBy('A.id','desc')
+                                ->get();
+                    $sizes = DB::table('attributes as A')
+                                ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
+                                ->select('A.id','B.title')
+                                ->whereIn('A.id', DB::table('product_attribute')->where('product_id', $item->id)->where('type','product_sizes')->pluck('attribute_id') )
+                                ->where('A.type','product_sizes')
+                                ->where('B.language', $this->_data['default_language'])
+                                ->orderBy('A.priority','asc')
+                                ->orderBy('A.id','desc')
+                                ->get();
+                    $data['items'][$key]->qty = 1;
+                    $data['items'][$key]->colors = $colors;
+                    $data['items'][$key]->sizes = $sizes;
+                    $data['items'][$key]->selectColor = '';
+                    $data['items'][$key]->selectSize = '';
+                }
+            }
+            return response()->json($data);
+        }
+    }
     
     public function create(){
         return view('admin.orders.create',$this->_data);
@@ -91,6 +135,7 @@ class OrderController extends Controller
                     @$products[$id][$color][$size]['color_title']  =  $value['color_title'];
                     @$products[$id][$color][$size]['size_title']  =  $value['size_title'];
                 }else{
+                    @$products[$id][$color][$size]['qty']  +=  $value['qty'];
                     unset($inputProduct[$key]);
                 }
             }
@@ -142,6 +187,41 @@ class OrderController extends Controller
         $this->_data['item'] = Order::find($id);
         if ($this->_data['item'] !== null) {
             $this->_data['products'] = $this->_data['item']->details()->get();
+            $products = [];
+            if($this->_data['products'] !== null){
+                foreach($this->_data['products'] as $key => $val){
+                    $colors = DB::table('attributes as A')
+                                ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
+                                ->select('A.id','B.title')
+                                ->whereIn('A.id', DB::table('product_attribute')->where('product_id',$val->product_id)->where('type','product_colors')->pluck('attribute_id') )
+                                ->where('A.type','product_colors')
+                                ->where('B.language', $this->_data['default_language'])
+                                ->orderBy('A.priority','asc')
+                                ->orderBy('A.id','desc')
+                                ->get();
+                    $sizes = DB::table('attributes as A')
+                                ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
+                                ->select('A.id','B.title')
+                                ->whereIn('A.id', DB::table('product_attribute')->where('product_id',$val->product_id)->where('type','product_sizes')->pluck('attribute_id') )
+                                ->where('A.type','product_sizes')
+                                ->where('B.language', $this->_data['default_language'])
+                                ->orderBy('A.priority','asc')
+                                ->orderBy('A.id','desc')
+                                ->get();
+                    $products[$key]['id']       =  $val->product_id;
+                    $products[$key]['code']     =  $val->product_code;
+                    $products[$key]['price']    =  $val->product_price;
+                    $products[$key]['qty']      =  $val->product_qty;
+                    $products[$key]['title']    =  $val->product_title;
+                    $products[$key]['colors']   =  $colors;
+                    $products[$key]['sizes']    =  $sizes;
+                    $products[$key]['selectColor']['id']    =  $val->color_id;
+                    $products[$key]['selectSize']['id']     =  $val->size_id;
+                    $products[$key]['selectColor']['title']    =  $val->color_title;
+                    $products[$key]['selectSize']['title']     =  $val->size_title;
+                }
+                $this->_data['products'] = $products;
+            }
             return view('admin.orders.edit',$this->_data);
         }
         return redirect()->route('admin.order.index',['type'=>$this->_data['type']])->with('danger', 'Dữ liệu không tồn tại');
@@ -183,6 +263,7 @@ class OrderController extends Controller
                         @$products[$id][$color][$size]['color_title']  =  $value['color_title'];
                         @$products[$id][$color][$size]['size_title']  =  $value['size_title'];
                     }else{
+                        @$products[$id][$color][$size]['qty']  +=  $value['qty'];
                         unset($inputProduct[$key]);
                     }
                 }

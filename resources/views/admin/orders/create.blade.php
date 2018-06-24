@@ -22,7 +22,7 @@
                 <div class="portlet-body">
                     <div class="form-group">
                         <div class="input-group select2-bootstrap-append">
-                            <select id="select2-button-addons-single-input-group-sm" class="form-control select2-data-ajax"  multiple="" data-label="Mã sản phẩm" data-url="{{ route('admin.wms_import.ajax',['type'=>'default']) }}">
+                            <select id="select2-button-addons-single-input-group-sm" class="form-control select2-data-ajax"  multiple="" data-label="Tên hoặc mã sản phẩm" data-url="{{ route('admin.order.ajax',['t'=>'san-pham']) }}">
                             </select>
                             <span class="input-group-btn"> <button v-on:click="addProduct" type="button" id="btn-select" class="btn btn-info"> Chọn </button> </span>
                         </div>
@@ -183,22 +183,32 @@
         <tbody>
             <tr v-for="(item, key) in products" >
                 <td align="center">
-                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.product_id">
-                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.product_code">
-                    <input type="hidden" :name="'products['+ key +'][title]'" v-model="item.product_title">
-                    <input type="hidden" :name="'products['+ key +'][price]'" v-model="item.product_price">
-                    <input type="hidden" :name="'products['+ key +'][color_id]'" v-model="item.color_id">
-                    <input type="hidden" :name="'products['+ key +'][size_id]'" v-model="item.size_id">
-                    <input type="hidden" :name="'products['+ key +'][color_title]'" v-model="item.color_title">
-                    <input type="hidden" :name="'products['+ key +'][size_title]'" v-model="item.size_title">
-                    @{{ item.product_code }}
+                    <input type="hidden" :name="'products['+ key +'][id]'" v-model="item.id">
+                    <input type="hidden" :name="'products['+ key +'][code]'" v-model="item.code">
+                    <input type="hidden" :name="'products['+ key +'][title]'" v-model="item.title">
+                    <input type="hidden" :name="'products['+ key +'][price]'" v-model="item.price">
+                    <input type="hidden" :name="'products['+ key +'][color_id]'" v-model="item.selectColor.id">
+                    <input type="hidden" :name="'products['+ key +'][size_id]'" v-model="item.selectSize.id">
+                    <input type="hidden" :name="'products['+ key +'][color_title]'" v-model="item.selectColor.title">
+                    <input type="hidden" :name="'products['+ key +'][size_title]'" v-model="item.selectSize.title">
+                    @{{ item.code }}
                 </td>
-                <td>@{{ item.product_title }}</td>
-                <td align="center">@{{ item.color_title }}</td>
-                <td align="center">@{{ item.size_title }}</td>
-                <td align="center"> @{{ formatPrice(item.product_price) }} </td>
-                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" :class="'form-control validate[required,min[1]]'" v-model.number="item.product_qty"> </td>
-                <td align="center"> <span> @{{ formatPrice(subtotal[key]) }} </span> </td>
+                <td>
+                    @{{ item.title }}
+                </td>
+                <td align="center">
+                    <select v-if="item.colors" v-model="item.selectColor" class="form-control">
+                        <option v-for="(color, keyC) in item.colors" v-bind:value="{ id: color.id, title: color.title }" > @{{ color.title }} </option>
+                    </select>
+                </td>
+                <td align="center">
+                    <select v-if="item.sizes" v-model="item.selectSize" class="form-control">
+                        <option v-for="(size, keyS) in item.sizes" v-bind:value="{ id: size.id, title: size.title }"> @{{ size.title }} </option>
+                    </select>
+                </td>
+                <td align="center"> @{{ formatPrice(item.price) }} </td>
+                <td align="center"> <input type="text" :name="'products['+ key +'][qty]'" class="form-control validate[required,min[1]]" v-model.number="item.qty"> </td>
+                <td align="center">@{{ formatPrice(subtotal[key]) }}</td>
                 <td align="center"> <button type="button" v-on:click="deleteProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-close"></i></button> </td>
             </tr>
             <tr>
@@ -221,7 +231,7 @@
         computed: {
             total() {
                 return this.products.reduce((total, item) => {
-                    return total + (item.product_qty * item.product_price);
+                    return total + (item.qty * item.price);
                 }, 0) + this.shipping - this.coupon_amount;
             }
         },
@@ -236,12 +246,12 @@
                 computed: {
                     subtotal() {
                         return this.products.map((item) => {
-                            return Number( item.product_qty * item.product_price )
+                            return Number( item.qty * item.price )
                         });
                     },
                     total() {
                         return this.products.reduce((total, item) => {
-                            return total + (item.product_qty * item.product_price);
+                            return total + (item.qty * item.price);
                         }, 0);
                     }
                 },
@@ -265,27 +275,17 @@
             addProduct: function () {
                 var select2data = $(".select2-data-ajax").select2("data");
                 for (var i = 0; i < select2data.length; i++) {
-                    var flag = false;
-                    for (var j = 0; j < this.products.length; j++) {
-                        if( this.products[j].product_id == select2data[i].product_id && this.products[j].color_id == select2data[i].color_id && this.products[j].size_id == select2data[i].size_id ){
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if(!flag){
-                        this.products.push({
-                            "id": select2data[i].id,
-                            "product_id": select2data[i].product_id,
-                            "product_code": select2data[i].product_code,
-                            "product_price": select2data[i].product_price,
-                            "product_title": select2data[i].title,
-                            "product_qty": select2data[i].product_qty,
-                            "color_id": select2data[i].color_id,
-                            "size_id": select2data[i].size_id,
-                            "color_title": select2data[i].color_title,
-                            "size_title": select2data[i].size_title
-                        });
-                    }
+                    this.products.push({
+                        "id": select2data[i].id,
+                        "code": select2data[i].code,
+                        "price": select2data[i].price,
+                        "title": select2data[i].title,
+                        "qty": select2data[i].qty,
+                        "colors": select2data[i].colors,
+                        "sizes": select2data[i].sizes,
+                        "selectColor": "",
+                        "selectSize": ""
+                    });
                 }
             }
         }

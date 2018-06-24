@@ -61,14 +61,6 @@ class PostController extends Controller
             ->orderBy('A.priority','asc')
             ->orderBy('A.id','desc')
             ->paginate(25);
-        // $this->_data['items'] = Post::where('type',$this->_data['type'])->orderBy('priority','asc')->orderBy('id','desc')->with([
-        //         'languages' => function($query){
-        //             $query->select('post_id','title')->where('language', $this->_data['default_language'] );
-        //         },
-        //         'category' => function($query){
-        //             $query->select('id');
-        //         }
-        //     ])->paginate(25);
         return view('admin.posts.index',$this->_data);
     }
     

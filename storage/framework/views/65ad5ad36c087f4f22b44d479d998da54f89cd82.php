@@ -415,7 +415,7 @@
                 </div>';
             }
 
-            if( $k == 'product_colors' ){
+            if( config('siteconfig.attribute.'.$k.'.colorpicker') ){
             $colorInput = '<div class="form-group">
                 <label class="control-label">Mã màu</label>
                 <div class="input-group colorpicker-component" data-color="#2b3643">
@@ -427,6 +427,24 @@
                 $colorInput = '';
             }
 
+            if( config('siteconfig.attribute.'.$k.'.price') ){
+            $priceInput = '<div class="form-group">
+                <label class="control-label">Giá bán</label>
+                <div class="input-group">
+                    <input type="text" name="regular_price" value="" class="form-control priceFormat"/>
+                    <span class="input-group-addon">Đ</span>
+                </div>
+            </div><div class="form-group">
+                <label class="control-label">Giá khuyến mãi</label>
+                <div class="input-group">
+                    <input type="text" name="sale_price" value="" class="form-control priceFormat"/>
+                    <span class="input-group-addon">Đ</span>
+                </div>
+            </div>';
+            }else{
+                $priceInput = '';
+            }
+
             echo '<div id="'.$k.'-modal" class="modal fade" tabindex="-1" data-focus-on="input:first">
                 <form role="form" method="POST" action="#">
                     <input type="hidden" name="priority" value="1">
@@ -436,7 +454,7 @@
                         <h4 class="modal-title uppercase">'.config('siteconfig.attribute.'.$k.'.page-title').'</h4>
                     </div>
                     <div class="modal-body">
-                        '.$langInput.$colorInput.'
+                        '.$langInput.$colorInput.$priceInput.'
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-dismiss="modal" class="btn default">Thoát</button>

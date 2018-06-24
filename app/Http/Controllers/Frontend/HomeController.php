@@ -30,9 +30,7 @@ class HomeController extends Controller
         $this->middleware(function($request,$next){
             $this->_data['lang'] = (session('lang')) ? session('lang') : config('settings.language');
             App::setLocale($this->_data['lang']);
-            $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
             View::share('siteconfig', config('siteconfig'));
-
             $this->_data['domain'] = is_array($domain = json_decode($request->cookie('domain'), true)) ? $domain : [];
 
             $cart = is_array($cart = json_decode($request->cookie('cart'), true)) ? $cart : [];
@@ -89,6 +87,7 @@ class HomeController extends Controller
             ->orderBy('A.id','desc')
             ->limit(3)
             ->get();
+        $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
         return view('frontend.default.index', $this->_data);
     }
 
@@ -111,7 +110,7 @@ class HomeController extends Controller
             ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
             ->where('A.type',$type)
             ->first();
-        $this->_data['meta_seo'] = set_meta_tags($this->_data['category']);
+        $this->_data['meta_seo'] = set_meta_tags($this->_data['category'],$this->_data['lang']);
         if( $this->_data['category'] ){
             $category_id = $this->_data['category']->id;
 
@@ -147,8 +146,7 @@ class HomeController extends Controller
     }
 
     public function archive(Request $request,$type){
-        $this->_data['page'] = get_pages($type,$this->_data['lang']);
-        $this->_data['meta_seo'] = set_meta_tags($this->_data['page']);
+        $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
         $params['type'] = $type;
         if($this->_data['template'] == 'product'){
             $whereRaw = 'FIND_IN_SET(\'publish\',A.status)';
@@ -224,6 +222,7 @@ class HomeController extends Controller
                 ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
                 ->where('A.type',$type)
                 ->first();
+            $this->_data['meta_seo'] = set_meta_tags($this->_data['product'],$this->_data['lang']);
             if( $this->_data['product'] ){
                 $client_ip = $request->getClientIp();
                 if(!Cache::has($client_ip.'_product_view_'.$this->_data['product']->id)){
@@ -281,6 +280,7 @@ class HomeController extends Controller
                 ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
                 ->where('A.type',$type)
                 ->first();
+            $this->_data['meta_seo'] = set_meta_tags($this->_data['post'],$this->_data['lang']);
             if( $this->_data['post'] ){
                 $client_ip = $request->getClientIp();
                 if(!Cache::has($client_ip.'_post_view_'.$this->_data['post']->id)){
@@ -332,7 +332,7 @@ class HomeController extends Controller
         $this->_data['page_title'] = __('site.viewed');
         $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
         $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
-
+        $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
         $viewed = is_array($viewed = json_decode($request->cookie('viewed'), true)) ? $viewed : [];
         if( count($viewed) > 0 ){
             $this->_data['products'] = DB::table('products as A')
