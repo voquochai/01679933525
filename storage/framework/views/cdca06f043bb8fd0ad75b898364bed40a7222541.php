@@ -240,6 +240,13 @@
             </li>
 
             <li class="nav-item">
+                <a href="<?php echo e(route('admin.seo.index')); ?>" data-route="seo" class="nav-link">
+                    <i class="icon-exclamation"></i>
+                    <span class="title">Seo page</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="<?php echo e(route('admin.member.index')); ?>" data-route="member" class="nav-link">
                     <i class="icon-people"></i>
                     <span class="title">Thành viên</span>

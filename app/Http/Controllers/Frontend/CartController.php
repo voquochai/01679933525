@@ -1,17 +1,19 @@
 <?php
 namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
-use App\Mail\OrderConfirmation;
-use App\Setting;
-use App\User;
-use App\Order;
-use App\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderConfirmation;
+use App\Setting;
+use App\User;
+use App\Order;
+use App\OrderDetail;
+use App\Coupon;
+
 use DateTime;
 class CartController extends Controller
 {
@@ -225,6 +227,7 @@ class CartController extends Controller
                 $sumCartPrice = $sumOrderPrice = 0;
                 $sumProQty = 0;
                 $product = [];
+                $dataInsert = [];
                 foreach($this->_data['cart'] as $key => $val){
                     $product['id'][]    =   $val['id'];
                     $product['color'][] =   $val['color'];
@@ -235,6 +238,20 @@ class CartController extends Controller
                     
                     $sumCartPrice           += $val['price']*$val['qty'];
                     $sumProQty             += $val['qty'];
+
+                    $product['product_id']    =   $val['id'];
+                    $product['product_code']  =   $val['code'];
+                    $product['product_title'] =   $val['pname'];
+                    $product['product_qty']   =   $val['qty'];
+                    $product['product_price'] =   $val['price'];
+                    $product['color_id']      =   $val['color'];
+                    $product['size_id']       =   $val['size'];
+                    $product['color_title']   =   $val['pcolor'];
+                    $product['size_title']    =   $val['psize'];
+                    
+                    $sumCartPrice           += $val['price']*$val['qty'];
+                    $sumProQty              += $val['qty'];
+                    $dataInsert[]   = new OrderDetail($product);
                 }
                 if( count($this->_data['coupon']) > 0 ){
                     if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -259,16 +276,10 @@ class CartController extends Controller
                     'district_id'   =>  (int)$request->district_id,
                     'note'          =>  $request->order_note,
                     'payment'       =>  $request->payment,
-                    'quantity'      =>  (int)$sumProQty,
+                    'order_qty'      =>  (int)$sumProQty,
                     'shipping'      =>  (int)$shipping,
                     'subtotal'      =>  (int)$sumCartPrice,
-                    'total'         =>  (int)($sumOrderPrice + $shipping),
-                    'product_id'    =>  implode(',',$product['id']),
-                    'product_color' =>  implode(',',$product['color']),
-                    'product_size'  =>  implode(',',$product['size']),
-                    'product_code'  =>  implode(',',$product['code']),
-                    'product_qty'   =>  implode(',',$product['qty']),
-                    'product_price' =>  implode(',',$product['price']),
+                    'order_price'         =>  (int)($sumOrderPrice + $shipping),
                     'member_id'     =>  auth()->guard('member')->check() ? auth()->guard('member')->id() : null,
                     'status_id'     =>  1,
                     'type'          =>  'online',
@@ -277,6 +288,7 @@ class CartController extends Controller
                 ]);
                 $order->code = update_code($order->id,'DH');
                 $order->save();
+                $order->details()->saveMany($dataInsert);
                 $cookieCart = cookie('cart', '', 720);
                 $cookieCoupon = cookie('coupon', '', 720);
                 if(@config('settings.email_username') !='') Mail::to($order->email)->send(new OrderConfirmation($order));

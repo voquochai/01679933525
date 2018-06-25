@@ -1,20 +1,20 @@
-@extends('frontend.default.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- PAGE SECTION START -->
 <section class="page-section section pt-60 pb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row mb-40">
             <div class="col-md-8 col-sm-12 col-xs-12 mb-40">
                 <div class="product-detail">
-                    <h1 class="title">{{ $product->title }}</h1>
+                    <h1 class="title"><?php echo e($product->title); ?></h1>
                     <div class="image">
-                        <img src="{{ ( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.$product->image ) : asset('noimage/600x600') ) }}" alt="{{ $product->alt }}" />
+                        <img src="<?php echo e(( $product->image && file_exists(public_path('/uploads/products/'.$product->image)) ? asset( 'public/uploads/products/'.$product->image ) : asset('noimage/600x600') )); ?>" alt="<?php echo e($product->alt); ?>" />
                     </div>
                     <div class="content">
-                        {!! $product->contents !!}
+                        <?php echo $product->contents; ?>
+
                     </div>
                     <!-- Comments Wrapper -->
-                    @include('frontend.default.blocks.comment')
+                    <?php echo $__env->make('frontend.default.blocks.comment', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
                 </div>
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12 mb-40">
@@ -22,29 +22,29 @@
                     <div class="sidebar-widget mb-40">
                         <div class="product-attributes">
                             <ul>
-                            @forelse($attributes as $attribute)
-                                @if( $attribute['name'] !== null && $attribute['value'] !== null )
-                                <li> {!! $attribute['name'].$attribute['value'] !!} </li>
-                                @endif
-                            @empty
-                            @endforelse
+                            <?php $__empty_1 = true; $__currentLoopData = $attributes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $attribute): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php if( $attribute['name'] !== null && $attribute['value'] !== null ): ?>
+                                <li> <?php echo $attribute['name'].$attribute['value']; ?> </li>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                            <?php endif; ?>
                             </ul>
                         </div>
                     </div>
                     <div class="sidebar-widget mb-40">
                         <div class="product-price">
-                            <div class="float-left"><label>{{ __('site.product_price') }}</label></div>
-                            <div class="float-right">{!! get_template_product_price($product->regular_price,$product->sale_price) !!}</div>
+                            <div class="float-left"><label><?php echo e(__('site.product_price')); ?></label></div>
+                            <div class="float-right"><?php echo get_template_product_price($product->regular_price,$product->sale_price); ?></div>
                         </div>
                         <hr>
                         <div class="product-domain">
                             <div class="float-left"><label> Domain </label></div>
                             <div class="float-right">
-                                @if($domain)
-                                @{{ form.domain_name }} - @{{ formatPrice(form.domain_price) }}
-                                @else
-                                <a href="{{ route('frontend.domain.check_whois') }}"> Chưa có </a>
-                                @endif
+                                <?php if($domain): ?>
+                                {{ form.domain_name }} - {{ formatPrice(form.domain_price) }}
+                                <?php else: ?>
+                                <a href="<?php echo e(route('frontend.domain.check_whois')); ?>"> Chưa có </a>
+                                <?php endif; ?>
                                 
                             </div>
                         </div>
@@ -53,9 +53,9 @@
                             <h5 class="title"> Hosting </h5>
                             <div class="mt-radio-list">
                                 <label class="mt-radio" v-for="(item, key) in form.hosting">
-                                    <input type="radio" name="hosting" v-model="form.hosting_id" v-on:change="changeHosting(item.price,item.title)" :value="item.id">@{{ item.title }}
+                                    <input type="radio" name="hosting" v-model="form.hosting_id" v-on:change="changeHosting(item.price,item.title)" :value="item.id">{{ item.title }}
                                     <span></span>
-                                    <div class="float-right">@{{ formatPrice(item.price) }}</div>
+                                    <div class="float-right">{{ formatPrice(item.price) }}</div>
                                 </label>
                             </div>
                         </div>
@@ -64,25 +64,25 @@
                             <div class="float-left"> <label> Thời hạn </label> </div>
                             <div class="float-right">
                                 <select class="selectpicker show-tick" name="license" v-model="form.license" >
-                                    @for($i=1; $i<=5; $i++)
-                                    <option value="{{ $i }}"> {{ $i.' năm' }} </option>
-                                    @endfor
+                                    <?php for($i=1; $i<=5; $i++): ?>
+                                    <option value="<?php echo e($i); ?>"> <?php echo e($i.' năm'); ?> </option>
+                                    <?php endfor; ?>
                                 </select>
                             </div>
                         </div>
                         <hr>
                         <div class="product-total">
                             <div class="float-left"><label> Tổng tiền </label></div>
-                            <div class="float-right"> <b class="font-red font-hg">@{{ formatPrice(total) }}</b> </div>
+                            <div class="float-right"> <b class="font-red font-hg">{{ formatPrice(total) }}</b> </div>
                         </div>
-                        <button data-toggle="modal" data-target="#modal-product-detail" class="btn btn-block btn-lg uppercase" data-ajax="id={{ $product->id }}">Đăng ký</button>
+                        <button data-toggle="modal" data-target="#modal-product-detail" class="btn btn-block btn-lg uppercase" data-ajax="id=<?php echo e($product->id); ?>">Đăng ký</button>
                     </div>
                     <div id="modal-product-detail" class="modal fade" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                                    <h4 class="modal-title uppercase">{{ $product->title }}</h4>
+                                    <h4 class="modal-title uppercase"><?php echo e($product->title); ?></h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="alert alert-success">
@@ -90,33 +90,33 @@
                                             <tbody>
                                                 <tr>
                                                     <th>Mã số</th>
-                                                    <td align="right">{{ $product->code }}</td>
+                                                    <td align="right"><?php echo e($product->code); ?></td>
                                                 </tr>
                                                 <tr>
                                                     <th>Giá thuê</th>
-                                                    <td align="right">@{{ formatPrice(form.product_price) }}</td>
+                                                    <td align="right">{{ formatPrice(form.product_price) }}</td>
                                                 </tr>
                                                 <tr v-if="form.domain_name != null">
                                                     <th>Tên miền</th>
-                                                    <td align="right">@{{ form.domain_name }} - @{{ formatPrice(form.domain_price) }}</td>
+                                                    <td align="right">{{ form.domain_name }} - {{ formatPrice(form.domain_price) }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Hosting</th>
-                                                    <td align="right">@{{ form.hosting_name }} - @{{ formatPrice(form.hosting_price) }}</td>
+                                                    <td align="right">{{ form.hosting_name }} - {{ formatPrice(form.hosting_price) }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Thời hạn</th>
-                                                    <td align="right">@{{ form.license }} năm</td>
+                                                    <td align="right">{{ form.license }} năm</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Tổng tiền</th>
-                                                    <td align="right"><span class="font-red font-hg bold">@{{ formatPrice(total) }}</span></td>
+                                                    <td align="right"><span class="font-red font-hg bold">{{ formatPrice(total) }}</span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <form>
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="product_id" value="<?php echo e($product->id); ?>">
                                         <input type="hidden" name="domain_name" v-model="form.domain_name">
                                         <input type="hidden" name="domain_price" v-model="form.domain_price">
                                         <input type="hidden" name="hosting_id" v-model="form.hosting_id">
@@ -163,22 +163,23 @@
     <div class="container">
         <div class="row">
             <div class="section-title text-center col-xs-12 mb-70">
-                <h2>{{ __('site.product_other') }}</h2>
+                <h2><?php echo e(__('site.product_other')); ?></h2>
             </div>
         </div>
         <div class="row display-flex">
-            @forelse($products as $item)
-                {!! get_template_product($item,$type,3) !!}
-            @empty
-            @endforelse
+            <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                <?php echo get_template_product($item,$type,3); ?>
+
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+            <?php endif; ?>
         </div>
     </div>
 </section>
 <!-- PRODUCT SECTION END --> 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('custom_script')
-<script src="{{ asset('public/packages/vue.js') }}" type="text/javascript"></script>
+<?php $__env->startSection('custom_script'); ?>
+<script src="<?php echo e(asset('public/packages/vue.js')); ?>" type="text/javascript"></script>
 <script type="text/javascript">
     new Vue({
         el: '#app-cart',
@@ -186,7 +187,7 @@
             return {
                 form: {
                     hosting: [
-                        @php
+                        <?php 
                         if($hosting){
                             foreach($hosting as $key=>$host){
                                 echo "{'id':".$host->id.",'title':'".$host->title."','price':'".$host->regular_price."'},";
@@ -196,12 +197,12 @@
                                 }
                             }
                         }
-                        @endphp
+                         ?>
                     ],
-                    hosting_id: {{ @$hosting_id ? $hosting_id : 0 }},
-                    hosting_name: {{ @$hosting_name ? "'".$hosting_name."'" : 'null' }},
+                    hosting_id: <?php echo e(@$hosting_id ? $hosting_id : 0); ?>,
+                    hosting_name: <?php echo e(@$hosting_name ? "'".$hosting_name."'" : 'null'); ?>,
                     hosting_price: 0,
-                    @php
+                    <?php 
                     if($domain){
                         echo 'domain_name: \''.$domain['name'].'\',';
                         echo 'domain_price: '.$domain['price'].',';
@@ -217,7 +218,7 @@
                     }else{
                         echo 'product_price: 0,';
                     }
-                    @endphp
+                     ?>
                     license: 1
                 }
             }
@@ -239,4 +240,5 @@
         }
     });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontend.default.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

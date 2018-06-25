@@ -12,6 +12,7 @@ use App\Mail\ContactInformation;
 use App\Mail\OrderConfirmation;
 use App\Register;
 use App\Order;
+use App\OrderDetail;
 
 use Cache;
 use DateTime;
@@ -248,15 +249,9 @@ class AjaxController extends Controller
                 'email'         =>  $request->email,
                 'phone'         =>  $request->phone,
                 'note'          =>  $request->note,
-                'quantity'      =>  $license,
+                'order_qty'      =>  $license,
                 'subtotal'      =>  (int)$total,
-                'total'         =>  (int)$total,
-                'product_id'    =>  $request->product_id,
-                'product_code'  =>  $product->code,
-                'product_color' =>  $hosting->title.' - '.number_format($hosting_price,0,',','.'),
-                'product_size'  =>  $request->domain_name ? $request->domain_name.' - '.number_format($domain_price,0,',','.') : null,
-                'product_qty'   =>  $license,
-                'product_price' =>  $product_price,
+                'order_price'         =>  (int)$total,
                 'member_id'     =>  auth()->guard('member')->check() ? auth()->guard('member')->id() : null,
                 'status_id'     =>  1,
                 'type'          =>  'online',
@@ -265,6 +260,14 @@ class AjaxController extends Controller
             ]);
             $order->code = update_code($order->id,'DH');
             $order->save();
+            $order->detail()->save(new OrderDetail([
+                'product_id'    =>  $product->id,
+                'product_code'  =>  $product->code,
+                'product_qty'   =>  $license,
+                'product_price' =>  $product_price,
+                'color_title' =>  $hosting->title.' - '.number_format($hosting_price,0,',','.'),
+                'size_title'  =>  $request->domain_name ? $request->domain_name.' - '.number_format($domain_price,0,',','.') : null,
+            ]));
             if($order){
                 $data['type'] = 'success';
                 $data['icon'] = 'check';
