@@ -54,30 +54,9 @@ class CartController extends Controller
             $sumCartPrice = $sumOrderPrice = 0;
             $countCart = count($this->_data['cart']);
             foreach ($this->_data['cart'] as $key => $val) {
-                $sumCartPrice += $val['price']*$val['qty'];
-                $product = DB::table('products as A')
-                    ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
-                    ->select('A.*','B.title')
-                    ->where('A.id',$val['id'])
-                    ->where('B.language', $this->_data['lang'])
-                    ->first();
-                $color = DB::table('attribute_languages')
-                    ->select('title')
-                    ->where('attribute_id',$val['color'])
-                    ->where('language',$this->_data['lang'])
-                    ->first();
-                $size = DB::table('attribute_languages')
-                    ->select('title')
-                    ->where('attribute_id',$val['size'])
-                    ->where('language',$this->_data['lang'])
-                    ->first();
-                
-                $this->_data['cart'][$key]['pname']    =   $product->title;
-                $this->_data['cart'][$key]['pcolor']   =   @$color->title;
-                $this->_data['cart'][$key]['psize']    =   @$size->title;
-                $this->_data['cart'][$key]['pimage']   =   $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300');
-                $this->_data['cart'][$key]['price'] =   number_format($val['price'], 0, ',', '.');
-                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['price']*$val['qty'], 0, ',', '.');
+                $sumCartPrice += $val['product_price']*$val['product_qty'];
+                $this->_data['cart'][$key]['product_price'] =   number_format($val['product_price'], 0, ',', '.');
+                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['product_price']*$val['product_qty'], 0, ',', '.');
             }
             if( count($this->_data['coupon']) > 0 ){
                 if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -106,42 +85,7 @@ class CartController extends Controller
         $this->_data['breadcrumb'] .= '<li> '.$this->_data['page_title'].' </li>';
         $this->_data['item'] = Order::where('email',$request->email)->where('code',$request->code)->first();
         if ($this->_data['item'] !== null) {
-            $product_id    = explode(',',$this->_data['item']['product_id']);
-            $product_code  = explode(',',$this->_data['item']['product_code']);
-            $product_size  = explode(',',$this->_data['item']['product_size']);
-            $product_color = explode(',',$this->_data['item']['product_color']);
-            $product_qty   = explode(',',$this->_data['item']['product_qty']);
-            $product_price = explode(',',$this->_data['item']['product_price']);
-            $products = [];
-            foreach($product_id as $key => $id){
-                $product = DB::table('product_languages')
-                    ->select('title')
-                    ->where('product_id',$id)
-                    ->where('language',$this->_data['lang'])
-                    ->first();
-                $color = DB::table('attribute_languages')
-                            ->select('title')
-                            ->where('attribute_id',$product_color[$key])
-                            ->where('language',$this->_data['lang'])
-                            ->first();
-                $size = DB::table('attribute_languages')
-                            ->select('title')
-                            ->where('attribute_id',$product_size[$key])
-                            ->where('language',$this->_data['lang'])
-                            ->first();
-                $products[$key]['id']     =  $id;
-                $products[$key]['code']   =  $product_code[$key];
-                $products[$key]['price']  =  $product_price[$key];
-                $products[$key]['qty']    =  $product_qty[$key];
-                $products[$key]['color']  =  $product_color[$key];
-                $products[$key]['size']   =  $product_size[$key];
-                $products[$key]['pname']  =  @$product->title;
-                $products[$key]['pcolor'] =  @$color->title;
-                $products[$key]['psize']  =  @$size->title;
-                $products[$key]['sumProPrice']  =  $product_price[$key]*$product_qty[$key];
-            }
-            $this->_data['products'] = $products;
-            
+            $this->_data['products'] = $this->_data['item']->details()->get();
         }
         return view('frontend.default.tracking',$this->_data);
         
@@ -163,30 +107,9 @@ class CartController extends Controller
             $sumCartPrice = $sumOrderPrice = 0;
             $countCart = count($this->_data['cart']);
             foreach ($this->_data['cart'] as $key => $val) {
-                $sumCartPrice += $val['price']*$val['qty'];
-                $product = DB::table('products as A')
-                    ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
-                    ->select('A.*','B.title')
-                    ->where('A.id',$val['id'])
-                    ->where('B.language', $this->_data['lang'])
-                    ->first();
-                $color = DB::table('attribute_languages')
-                    ->select('title')
-                    ->where('attribute_id',$val['color'])
-                    ->where('language',$this->_data['lang'])
-                    ->first();
-                $size = DB::table('attribute_languages')
-                    ->select('title')
-                    ->where('attribute_id',$val['size'])
-                    ->where('language',$this->_data['lang'])
-                    ->first();
-                
-                $this->_data['cart'][$key]['pname']    =   $product->title;
-                $this->_data['cart'][$key]['pcolor']   =   @$color->title;
-                $this->_data['cart'][$key]['psize']    =   @$size->title;
-                $this->_data['cart'][$key]['pimage']   =   $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300');
-                $this->_data['cart'][$key]['price'] =   number_format($val['price'], 0, ',', '.');
-                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['price']*$val['qty'], 0, ',', '.');
+                $sumCartPrice += $val['product_price']*$val['product_qty'];
+                $this->_data['cart'][$key]['product_price'] =   number_format($val['product_price'], 0, ',', '.');
+                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['product_price']*$val['product_qty'], 0, ',', '.');
             }
             if( count($this->_data['coupon']) > 0 ){
                 if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -226,32 +149,21 @@ class CartController extends Controller
                 $shipping = $request->shipping ? $request->shipping : 0;
                 $sumCartPrice = $sumOrderPrice = 0;
                 $sumProQty = 0;
-                $product = [];
                 $dataInsert = [];
                 foreach($this->_data['cart'] as $key => $val){
-                    $product['id'][]    =   $val['id'];
-                    $product['color'][] =   $val['color'];
-                    $product['size'][]  =   $val['size'];
-                    $product['code'][]  =   $val['code'];
-                    $product['price'][] =   $val['price'];
-                    $product['qty'][]   =   $val['qty'];
-                    
-                    $sumCartPrice           += $val['price']*$val['qty'];
-                    $sumProQty             += $val['qty'];
-
-                    $product['product_id']    =   $val['id'];
-                    $product['product_code']  =   $val['code'];
-                    $product['product_title'] =   $val['pname'];
-                    $product['product_qty']   =   $val['qty'];
-                    $product['product_price'] =   $val['price'];
-                    $product['color_id']      =   $val['color'];
-                    $product['size_id']       =   $val['size'];
-                    $product['color_title']   =   $val['pcolor'];
-                    $product['size_title']    =   $val['psize'];
-                    
-                    $sumCartPrice           += $val['price']*$val['qty'];
-                    $sumProQty              += $val['qty'];
-                    $dataInsert[]   = new OrderDetail($product);
+                    $sumCartPrice           += $val['product_price']*$val['product_qty'];
+                    $sumProQty              += $val['product_qty'];
+                    $dataInsert[]   = new OrderDetail([
+                        'product_id'    =>  $val['product_id'],
+                        'product_title' =>  $val['product_title'],
+                        'product_code'  =>  $val['product_code'],
+                        'product_qty'   =>  $val['product_qty'],
+                        'product_price' =>  $val['product_price'],
+                        'color_id'   =>  $val['color_id'],
+                        'size_id'    =>  $val['size_id'],
+                        'color_title'   =>  $val['color_title'],
+                        'size_title'    =>  $val['size_title'],
+                    ]);
                 }
                 if( count($this->_data['coupon']) > 0 ){
                     if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -275,11 +187,11 @@ class CartController extends Controller
                     'province_id'   =>  (int)$request->province_id,
                     'district_id'   =>  (int)$request->district_id,
                     'note'          =>  $request->order_note,
-                    'payment'       =>  $request->payment,
-                    'order_qty'      =>  (int)$sumProQty,
+                    'payment_id'    =>  (int)$request->payment,
                     'shipping'      =>  (int)$shipping,
-                    'subtotal'      =>  (int)$sumCartPrice,
-                    'order_price'         =>  (int)($sumOrderPrice + $shipping),
+                    'subtotal'      =>  floatval($sumCartPrice),
+                    'order_qty'     =>  (int)$sumProQty,
+                    'order_price'   =>  floatval($sumOrderPrice + $shipping),
                     'member_id'     =>  auth()->guard('member')->check() ? auth()->guard('member')->id() : null,
                     'status_id'     =>  1,
                     'type'          =>  'online',
@@ -308,7 +220,7 @@ class CartController extends Controller
         $data = ['type' =>'success','icon' =>'check'];
         $sumCartPrice = 0;
         foreach ($this->_data['cart'] as $key => $val) {
-            $sumCartPrice += $val['price']*$val['qty'];
+            $sumCartPrice += $val['product_price']*$val['product_qty'];
         }
         if( $this->_data['coupon']['used'] >= $this->_data['coupon']['number_of_uses'] ){
             $data = [
@@ -351,7 +263,7 @@ class CartController extends Controller
     public function getTotalPrice(){
         $sumCartPrice = $sumOrderPrice = 0;
         foreach ($this->_data['cart'] as $key => $val) {
-            $sumCartPrice += $val['price']*$val['qty'];
+            $sumCartPrice += $val['product_price']*$val['product_qty'];
         }
         if( count($this->_data['coupon']) > 0 ){
             if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -401,12 +313,12 @@ class CartController extends Controller
             ]);
         }
     }
-    public function checkInCart($id,$qty,$color=0,$size=0){
+    public function checkInCart($product_id,$product_qty,$color_id=0,$size_id=0){
         $flag = 0;
         $max = count($this->_data['cart']);
         for($i=0; $i<$max; $i++){
-            if( $this->_data['cart'][$i]['id'] == $id && $this->_data['cart'][$i]['color'] == $color && $this->_data['cart'][$i]['size'] == $size ){
-                $this->_data['cart'][$i]['qty'] += $qty;
+            if( $this->_data['cart'][$i]['product_id'] == $product_id && $this->_data['cart'][$i]['color_id'] == $color_id && $this->_data['cart'][$i]['size_id'] == $size_id ){
+                $this->_data['cart'][$i]['product_qty'] += $product_qty;
                 $flag = 1;
             }
         }
@@ -432,38 +344,56 @@ class CartController extends Controller
         }
     }
     public function addToCart(Request $request){
-        $id = $request->id;
-        $color = (int)$request->color;
-        $size = (int)$request->size;
-        $qty = is_numeric($request->qty) && $request->qty > 0 ? $request->qty : 1;
-        if ($request->ajax() && is_numeric($id)) {
+        $product_id = $request->id;
+        $color_id = (int)$request->color;
+        $size_id = (int)$request->size;
+        $product_qty = is_numeric($request->qty) && $request->qty > 0 ? $request->qty : 1;
+        if ($request->ajax() && is_numeric($product_id)) {
             $product = DB::table('products as A')
                 ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
                 ->select('A.*','B.title')
-                ->where('A.id',$id)
+                ->where('A.id',$product_id)
                 ->where('B.language', $this->_data['lang'])
+                ->first();
+            $color = DB::table('attribute_languages')
+                ->select('title')
+                ->where('attribute_id',$color_id)
+                ->where('language',$this->_data['lang'])
+                ->first();
+            $size = DB::table('attribute_languages')
+                ->select('title')
+                ->where('attribute_id',$size_id)
+                ->where('language',$this->_data['lang'])
                 ->first();
             if ($product !== null) {
                 if (count($this->_data['cart']) > 0) {
                     $max = count($this->_data['cart']);
-                    if( !self::checkInCart($id,$qty,$color,$size) ){
+                    if( !self::checkInCart($product_id,$product_qty,$color_id,$size_id) ){
                         $this->_data['cart'][$max] = [
-                            'id' => $id,
-                            'code' => $product->code,
-                            'price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
-                            'qty' => $qty,
-                            'color' => $color,
-                            'size' => $size,
+                            'product_id' => $product_id,
+                            'product_title' => $product->title,
+                            'product_code' => $product->code,
+                            'product_price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
+                            'product_qty' => $product_qty,
+                            'product_image' =>  $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300'),
+                            'color_id' => $color_id,
+                            'size_id' => $size_id,
+                            'color_title' => @$color->title,
+                            'size_title' => @$size->title,
                         ];
                     }
                 }else{
                     $this->_data['cart'][0] = [
-                        'id' => $id,
-                        'code' => $product->code,
-                        'price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
-                        'qty' => $qty,
-                        'color' => $color,
-                        'size' => $size,
+                        'product_id' => $product_id,
+                        'product_title' => $product->title,
+                        'product_code' => $product->code,
+                        'product_price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
+                        'product_qty' => $product_qty,
+                        'product_image' =>  $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300'),
+                        'color_id' => $color_id,
+                        'size_id' => $size_id,
+                        'color_title' => @$color->title,
+                        'size_title' => @$size->title,
                     ];
                 }
                 
@@ -496,11 +426,11 @@ class CartController extends Controller
     }
     public function updateCart(Request $request){
         $key = $request->key;
-        $qty = $request->qty;
-        if ($request->ajax() && is_numeric($key) && is_numeric($qty)) {
-            if (isset($this->_data['cart'][$key]) && $qty > 0) {
-                $this->_data['cart'][$key]['qty'] = $qty;
-                $this->_data['cart'][$key]['sumProPrice'] = $this->_data['cart'][$key]['qty'] * $this->_data['cart'][$key]['price'];
+        $product_qty = $request->qty;
+        if ($request->ajax() && is_numeric($key) && is_numeric($product_qty)) {
+            if (isset($this->_data['cart'][$key]) && $product_qty > 0) {
+                $this->_data['cart'][$key]['product_qty'] = $product_qty;
+                $this->_data['cart'][$key]['sumProPrice'] = $this->_data['cart'][$key]['product_qty'] * $this->_data['cart'][$key]['product_price'];
             } elseif (isset($this->_data['cart'][$key])) {
                 unset($this->_data['cart'][$key]);
             }

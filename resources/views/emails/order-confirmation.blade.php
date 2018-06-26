@@ -10,34 +10,34 @@ Cám ơn bạn đã đặt hàng tại website chúng tôi
 <div class="table">
 	<table>
 		<tr>
-			<th colspan="2">{{ $product['title'] }}</th>
+			<th colspan="2">{{ $product['product_title'] }}</th>
 		</tr>
 		<tr>
 			<td style="width:150px; text-align: left;">Mã số</td>
-			<td>{{ $product['code'] }}</td>
+			<td>{{ $product['product_code'] }}</td>
 		</tr>
 		<tr>
 			<td style="width:150px; text-align: left;">Giá thuê</td>
-			<td>{{ number_format($product['price'],0,',','.') }}</td>
+			<td>{{ number_format($product['product_price'],0,',','.') }}</td>
 		</tr>
-		@if($product['domain'])
+		@if($product['size_title'])
 		<tr>
 			<td style="width:150px; text-align: left;">Domain</td>
-			<td>{{ $product['domain'] }}</td>
+			<td>{{ $product['size_title'] }}</td>
 		</tr>
 		@endif
 		<tr>
 			<td style="width:150px; text-align: left;">Hosting</td>
-			<td>{{ $product['hosting'] }}</td>
+			<td>{{ $product['color_title'] }}</td>
 		</tr>
 		<tr>
 			<td style="width:150px; text-align: left;">Thời hạn</td>
-			<td>{{ $product['qty'] }} năm</td>
+			<td>{{ $product['product_qty'] }} năm</td>
 		</tr>
 	</table>
 </div>
 @component('mail::panel')
-<p style="text-align: center;">Tổng đơn hàng: <b>{{ number_format($order->total, 0, ',', '.') }} đ</b></p>
+<p style="text-align: center;">Tổng đơn hàng: <b>{{ number_format($order->order_price, 0, ',', '.') }} đ</b></p>
 @endcomponent
 
 Thanks,<br>

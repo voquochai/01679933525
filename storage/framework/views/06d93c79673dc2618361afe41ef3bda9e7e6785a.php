@@ -188,20 +188,21 @@
                 form: {
                     hosting: [
                         <?php 
-                        foreach($hosting as $key=>$host){
-                            echo "{'id':".$host->id.",'title':'".$host->title."','price':'".$host->regular_price."'},";
-                            if($key==0){
-                                $hosting_id = $host->id;
-                                $hosting_name = $host->title;
+                        if($hosting){
+                            foreach($hosting as $key=>$host){
+                                echo "{'id':".$host->id.",'title':'".$host->title."','price':'".$host->regular_price."'},";
+                                if($key==0){
+                                    $hosting_id = $host->id;
+                                    $hosting_name = $host->title;
+                                }
                             }
                         }
                          ?>
                     ],
-                    hosting_id: <?php echo e($hosting_id); ?>,
-                    hosting_name: '<?php echo e($hosting_name); ?>',
+                    hosting_id: <?php echo e(@$hosting_id ? $hosting_id : 0); ?>,
+                    hosting_name: '<?php echo e(@$hosting_name ? $hosting_name : null); ?>',
                     hosting_price: 0,
                     <?php 
-
                     if($domain){
                         echo 'domain_name: \''.$domain['name'].'\',';
                         echo 'domain_price: '.$domain['price'].',';

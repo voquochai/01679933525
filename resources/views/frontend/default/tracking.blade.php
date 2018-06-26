@@ -65,10 +65,10 @@
                                     @forelse($products as $key => $val)
                                         <tr>
                                             <td class="product-name">
-                                                {{ $val['pname'].($val['pcolor'] ? ' - '.$val['pcolor'] : '').($val['psize'] ? ' - '.$val['psize'] : '') }} <strong class="product-qty"> × {{ $val['qty'] }} </strong>
+                                                {{ $val['product_title'].($val['color_title'] ? ' - '.$val['color_title'] : '').($val['size_title'] ? ' - '.$val['size_title'] : '') }} <strong class="product-qty"> × {{ $val['product_qty'] }} </strong>
                                             </td>
                                             <td class="product-total">
-                                                <span class="amount">{{ get_currency_vn($val['sumProPrice'],'') }}</span>
+                                                <span class="amount">{{ get_currency_vn($val['product_price']*$val['product_qty'],'') }}</span>
                                             </td>
                                         </tr>
                                     @empty
@@ -82,7 +82,7 @@
                                     </tr>
                                     <tr>
                                         <th>{{ __('cart.order_total') }}</th>
-                                        <td><strong class="sumOrderPrice">{{ get_currency_vn($item->total,'') }}</strong>
+                                        <td><strong class="sumOrderPrice">{{ get_currency_vn($item->order_price,'') }}</strong>
                                         </td>
                                     </tr>                               
                                 </tfoot>

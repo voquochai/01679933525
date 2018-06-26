@@ -21,12 +21,12 @@
                             <tbody>
                                 @forelse($cart as $key => $val)
                                 <tr id="pro-key-{{ $key }}">
-                                    <td class="pro-thumbnail"><a href="#"><img src="{{ $val['pimage'] }}" alt="" /></a></td>
-                                    <td class="pro-title"><a href="#">{{ $val['pname'] }}</a>
-                                        {{ ($val['pcolor'] ? $val['pcolor'].' - ' : '').($val['psize'] ? $val['psize'] : '') }}
+                                    <td class="pro-thumbnail"><a href="#"><img src="{{ $val['product_image'] }}" alt="" /></a></td>
+                                    <td class="pro-title"><a href="#">{{ $val['product_title'] }}</a>
+                                        {{ ($val['color_title'] ? $val['color_title'].' - ' : '').($val['size_title'] ? $val['size_title'] : '') }}
                                     </td>
-                                    <td class="pro-price"><span class="amount">{{ $val['price'] }}</span></td>
-                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="{{ $val['qty'] }}" class="update-cart" data-ajax="key={{ $key }}" /></div></td>
+                                    <td class="pro-price"><span class="amount">{{ $val['product_price'] }}</span></td>
+                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="{{ $val['product_qty'] }}" class="update-cart" data-ajax="key={{ $key }}" /></div></td>
                                     <td class="pro-subtotal sumProPrice">{{ $val['sumProPrice'] }}</td>
                                     <td class="pro-remove"><a href="#" class="delete-cart" data-ajax="key={{ $key }}" >×</a></td>
                                 </tr>

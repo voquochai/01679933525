@@ -282,6 +282,7 @@ Route::group(['as'=>'frontend.', 'namespace'=>'Frontend', 'middleware'=>'checkMa
 	Route::get('/thankyou', 'CartController@thankYou')->name('cart.thankyou');
 
 	Route::get('/gio-hang', 'CartController@index')->name('cart.index');
+	Route::get('/gio-hang/delete-all', 'CartController@deleteAll')->name('cart.delete_all');
 	Route::post('/gio-hang/add', 'CartController@addToCart')->name('cart.add');
 	Route::post('/gio-hang/delete', 'CartController@deleteCart')->name('cart.delete');
 	Route::post('/gio-hang/update', 'CartController@updateCart')->name('cart.update');

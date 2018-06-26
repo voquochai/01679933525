@@ -226,9 +226,10 @@ class AjaxController extends Controller
             return $data;
         } else {
 
-            $product = DB::table('products')
-                ->select('id','code','regular_price','sale_price')
-                ->where('id',$request->product_id)
+            $product = DB::table('products as A')
+                ->leftjoin('product_languages as B', 'A.id', '=', 'B.product_id')
+                ->select('A.id','A.code','A.regular_price','A.sale_price', 'B.title')
+                ->where('A.id',$request->product_id)
                 ->first();
             $hosting = DB::table('attributes as A')
                 ->leftjoin('attribute_languages as B', 'A.id','=','B.attribute_id')
@@ -249,9 +250,9 @@ class AjaxController extends Controller
                 'email'         =>  $request->email,
                 'phone'         =>  $request->phone,
                 'note'          =>  $request->note,
-                'order_qty'      =>  $license,
-                'subtotal'      =>  (int)$total,
-                'order_price'         =>  (int)$total,
+                'order_qty'     =>  $license,
+                'subtotal'      =>  floatval($total),
+                'order_price'   =>  floatval($total),
                 'member_id'     =>  auth()->guard('member')->check() ? auth()->guard('member')->id() : null,
                 'status_id'     =>  1,
                 'type'          =>  'online',
@@ -260,13 +261,14 @@ class AjaxController extends Controller
             ]);
             $order->code = update_code($order->id,'DH');
             $order->save();
-            $order->detail()->save(new OrderDetail([
+            $order->details()->save(new OrderDetail([
                 'product_id'    =>  $product->id,
+                'product_title' =>  $product->title,
                 'product_code'  =>  $product->code,
                 'product_qty'   =>  $license,
                 'product_price' =>  $product_price,
-                'color_title' =>  $hosting->title.' - '.number_format($hosting_price,0,',','.'),
-                'size_title'  =>  $request->domain_name ? $request->domain_name.' - '.number_format($domain_price,0,',','.') : null,
+                'color_title'   =>  $hosting->title.' - '.number_format($hosting_price,0,',','.'),
+                'size_title'    =>  $request->domain_name ? $request->domain_name.' - '.number_format($domain_price,0,',','.') : null,
             ]));
             if($order){
                 $data['type'] = 'success';

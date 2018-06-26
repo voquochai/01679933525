@@ -199,7 +199,7 @@
                         @endphp
                     ],
                     hosting_id: {{ @$hosting_id ? $hosting_id : 0 }},
-                    hosting_name: {{ @$hosting_name ? "'".$hosting_name."'" : 'null' }},
+                    hosting_name: '{{ @$hosting_name ? $hosting_name : null }}',
                     hosting_price: 0,
                     @php
                     if($domain){

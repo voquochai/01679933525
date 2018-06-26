@@ -20,13 +20,13 @@
                             <tbody>
                                 <?php $__empty_1 = true; $__currentLoopData = $cart; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                 <tr id="pro-key-<?php echo e($key); ?>">
-                                    <td class="pro-thumbnail"><a href="#"><img src="<?php echo e($val['pimage']); ?>" alt="" /></a></td>
-                                    <td class="pro-title"><a href="#"><?php echo e($val['pname']); ?></a>
-                                        <?php echo e(($val['pcolor'] ? $val['pcolor'].' - ' : '').($val['psize'] ? $val['psize'] : '')); ?>
+                                    <td class="pro-thumbnail"><a href="#"><img src="<?php echo e($val['product_image']); ?>" alt="" /></a></td>
+                                    <td class="pro-title"><a href="#"><?php echo e($val['product_title']); ?></a>
+                                        <?php echo e(($val['color_title'] ? $val['color_title'].' - ' : '').($val['size_title'] ? $val['size_title'] : '')); ?>
 
                                     </td>
-                                    <td class="pro-price"><span class="amount"><?php echo e($val['price']); ?></span></td>
-                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="<?php echo e($val['qty']); ?>" class="update-cart" data-ajax="key=<?php echo e($key); ?>" /></div></td>
+                                    <td class="pro-price"><span class="amount"><?php echo e($val['product_price']); ?></span></td>
+                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="<?php echo e($val['product_qty']); ?>" class="update-cart" data-ajax="key=<?php echo e($key); ?>" /></div></td>
                                     <td class="pro-subtotal sumProPrice"><?php echo e($val['sumProPrice']); ?></td>
                                     <td class="pro-remove"><a href="#" class="delete-cart" data-ajax="key=<?php echo e($key); ?>" >×</a></td>
                                 </tr>

@@ -77,7 +77,7 @@
                                         @forelse($cart as $key => $val)
                                             <tr>
                                                 <td class="product-name">
-                                                    {{ $val['pname'].($val['pcolor'] ? ' - '.$val['pcolor'] : '').($val['psize'] ? ' - '.$val['psize'] : '') }} <strong class="product-qty"> × {{ $val['qty'] }} </strong>
+                                                    {{ $val['product_title'].($val['color_title'] ? ' - '.$val['color_title'] : '').($val['size_title'] ? ' - '.$val['size_title'] : '') }} <strong class="product-qty"> × {{ $val['product_qty'] }} </strong>
                                                 </td>
                                                 <td class="product-total">
                                                     <span class="amount">{{ $val['sumProPrice'] }}</span>
