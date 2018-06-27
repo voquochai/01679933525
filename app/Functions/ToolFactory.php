@@ -43,28 +43,14 @@ class ToolFactory {
         return $data;
     }
 
-    public function setMetaTags($data='',$lang='vi'){
+    public function setMetaTags($lang='vi'){
         $default_seo = self::getSeos(url()->current(),$lang);
         if(!$default_seo) $default_seo = self::getSeos(url('/'),$lang);
         $default_seo = json_decode(@$default_seo->meta_seo);
-
         $seodata['title'] = @$default_seo->title;
         $seodata['keywords'] = @$default_seo->keywords;
         $seodata['description'] = @$default_seo->description;
         $seodata['image'] = asset('public/uploads/photos/'.config('settings.logo'));
-
-        $current_seo = json_decode(@$data->meta_seo);
-
-        if(@$current_seo->title){
-            $seodata['title'] = $current_seo->title;
-        }
-        if(@$current_seo->keywords){
-            $seodata['keywords'] = $current_seo->keywords;
-        }
-        if(@$current_seo->description){
-            $seodata['description'] = $current_seo->description;
-        }
-
         return (object) $seodata;
     }
 
@@ -112,7 +98,7 @@ class ToolFactory {
                 if($width <= 0) $width = 300;
                 if($height <= 0) $height = 200;
                 Image::make(public_path($path.'/'.$imageName))
-                    ->fit($width, $height, function ($c) {
+                    ->resize($width, $height, function ($c) {
                         $c->aspectRatio();
                         $c->upsize();
                     })

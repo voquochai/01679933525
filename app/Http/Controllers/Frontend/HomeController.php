@@ -29,10 +29,10 @@ class HomeController extends Controller
         $this->_data = set_type($request->type);
         $this->middleware(function($request,$next){
             $this->_data['lang'] = (session('lang')) ? session('lang') : config('settings.language');
+            $this->_data['meta_seo'] = set_meta_tags($this->_data['lang']);
             App::setLocale($this->_data['lang']);
             View::share('siteconfig', config('siteconfig'));
             $this->_data['domain'] = is_array($domain = json_decode($request->cookie('domain'), true)) ? $domain : [];
-
             $cart = is_array($cart = json_decode($request->cookie('cart'), true)) ? $cart : [];
             if (count($cart) > 0) {
                 $this->_data['countCart'] = count($cart);
@@ -87,7 +87,7 @@ class HomeController extends Controller
             ->orderBy('A.id','desc')
             ->limit(3)
             ->get();
-        $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
+        
         return view('frontend.default.index', $this->_data);
     }
 
@@ -96,7 +96,13 @@ class HomeController extends Controller
         $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
         $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
         $this->_data['contact'] = get_pages('lien-he',$this->_data['lang']);
-        $this->_data['meta_seo'] = set_meta_tags($this->_data['contact'],$this->_data['lang']);
+        if( $this->_data['contact'] && $this->_data['contact']->meta_seo !='' ){
+            $current_seo = json_decode($this->_data['contact']->meta_seo);
+            $current_seo->title ? $this->_data['meta_seo']->title = $current_seo->title : '';
+            $current_seo->keywords ? $this->_data['meta_seo']->keywords = $current_seo->keywords : '';
+            $current_seo->description ? $this->_data['meta_seo']->description = $current_seo->description : '';
+        }
+        
         return view('frontend.default.contact',$this->_data);
     }
 
@@ -110,7 +116,14 @@ class HomeController extends Controller
             ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
             ->where('A.type',$type)
             ->first();
-        $this->_data['meta_seo'] = set_meta_tags($this->_data['category'],$this->_data['lang']);
+
+        if( $this->_data['category'] && $this->_data['category']->meta_seo !='' ){
+            $current_seo = json_decode($this->_data['category']->meta_seo);
+            $current_seo->title ? $this->_data['meta_seo']->title = $current_seo->title : '';
+            $current_seo->keywords ? $this->_data['meta_seo']->keywords = $current_seo->keywords : '';
+            $current_seo->description ? $this->_data['meta_seo']->description = $current_seo->description : '';
+        }
+
         if( $this->_data['category'] ){
             $category_id = $this->_data['category']->id;
 
@@ -146,7 +159,6 @@ class HomeController extends Controller
     }
 
     public function archive(Request $request,$type){
-        $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
         $params['type'] = $type;
         if($this->_data['template'] == 'product'){
             $whereRaw = 'FIND_IN_SET(\'publish\',A.status)';
@@ -222,7 +234,15 @@ class HomeController extends Controller
                 ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
                 ->where('A.type',$type)
                 ->first();
-            $this->_data['meta_seo'] = set_meta_tags($this->_data['product'],$this->_data['lang']);
+
+            if( $this->_data['product'] && $this->_data['product']->meta_seo !='' ){
+                $current_seo = json_decode($this->_data['product']->meta_seo);
+                $current_seo->title ? $this->_data['meta_seo']->title = $current_seo->title : '';
+                $current_seo->keywords ? $this->_data['meta_seo']->keywords = $current_seo->keywords : '';
+                $current_seo->description ? $this->_data['meta_seo']->description = $current_seo->description : '';
+                $this->_data['product']->image ? $this->_data['meta_seo']->image = asset('public/uploads/products/'.get_thumbnail($this->_data['product']->image, '_medium')) : '';
+            }
+
             if( $this->_data['product'] ){
                 $client_ip = $request->getClientIp();
                 if(!Cache::has($client_ip.'_product_view_'.$this->_data['product']->id)){
@@ -280,7 +300,7 @@ class HomeController extends Controller
                 ->whereRaw('FIND_IN_SET(\'publish\',A.status)')
                 ->where('A.type',$type)
                 ->first();
-            $this->_data['meta_seo'] = set_meta_tags($this->_data['post'],$this->_data['lang']);
+            $this->_data['meta_seo'] = set_meta_tags($this->_data['lang']);
             if( $this->_data['post'] ){
                 $client_ip = $request->getClientIp();
                 if(!Cache::has($client_ip.'_post_view_'.$this->_data['post']->id)){
@@ -332,7 +352,7 @@ class HomeController extends Controller
         $this->_data['page_title'] = __('site.viewed');
         $this->_data['breadcrumb'] = '<li> <a href="'.url('/').'">'.__('site.home').'</a> </li>';
         $this->_data['breadcrumb'] .= '<li> <a href="'.url('/lien-he').'"> '.$this->_data['page_title'].' </a> </li>';
-        $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
+        $this->_data['meta_seo'] = set_meta_tags($this->_data['lang']);
         $viewed = is_array($viewed = json_decode($request->cookie('viewed'), true)) ? $viewed : [];
         if( count($viewed) > 0 ){
             $this->_data['products'] = DB::table('products as A')

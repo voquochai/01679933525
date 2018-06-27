@@ -54,9 +54,9 @@ class CartController extends Controller
             $sumCartPrice = $sumOrderPrice = 0;
             $countCart = count($this->_data['cart']);
             foreach ($this->_data['cart'] as $key => $val) {
-                $sumCartPrice += $val['product_price']*$val['product_qty'];
-                $this->_data['cart'][$key]['product_price'] =   number_format($val['product_price'], 0, ',', '.');
-                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['product_price']*$val['product_qty'], 0, ',', '.');
+                $sumCartPrice += $val['price']*$val['qty'];
+                $this->_data['cart'][$key]['price'] =   number_format($val['price'], 0, ',', '.');
+                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['price']*$val['qty'], 0, ',', '.');
             }
             if( count($this->_data['coupon']) > 0 ){
                 if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -107,9 +107,9 @@ class CartController extends Controller
             $sumCartPrice = $sumOrderPrice = 0;
             $countCart = count($this->_data['cart']);
             foreach ($this->_data['cart'] as $key => $val) {
-                $sumCartPrice += $val['product_price']*$val['product_qty'];
-                $this->_data['cart'][$key]['product_price'] =   number_format($val['product_price'], 0, ',', '.');
-                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['product_price']*$val['product_qty'], 0, ',', '.');
+                $sumCartPrice += $val['price']*$val['qty'];
+                $this->_data['cart'][$key]['price'] =   number_format($val['price'], 0, ',', '.');
+                $this->_data['cart'][$key]['sumProPrice'] =   number_format($val['price']*$val['qty'], 0, ',', '.');
             }
             if( count($this->_data['coupon']) > 0 ){
                 if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -151,14 +151,14 @@ class CartController extends Controller
                 $sumProQty = 0;
                 $dataInsert = [];
                 foreach($this->_data['cart'] as $key => $val){
-                    $sumCartPrice           += $val['product_price']*$val['product_qty'];
-                    $sumProQty              += $val['product_qty'];
+                    $sumCartPrice           += $val['price']*$val['qty'];
+                    $sumProQty              += $val['qty'];
                     $dataInsert[]   = new OrderDetail([
-                        'product_id'    =>  $val['product_id'],
-                        'product_title' =>  $val['product_title'],
-                        'product_code'  =>  $val['product_code'],
-                        'product_qty'   =>  $val['product_qty'],
-                        'product_price' =>  $val['product_price'],
+                        'product_id'    =>  $val['id'],
+                        'product_title' =>  $val['title'],
+                        'product_code'  =>  $val['code'],
+                        'product_qty'   =>  $val['qty'],
+                        'product_price' =>  $val['price'],
                         'color_id'   =>  $val['color_id'],
                         'size_id'    =>  $val['size_id'],
                         'color_title'   =>  $val['color_title'],
@@ -220,7 +220,7 @@ class CartController extends Controller
         $data = ['type' =>'success','icon' =>'check'];
         $sumCartPrice = 0;
         foreach ($this->_data['cart'] as $key => $val) {
-            $sumCartPrice += $val['product_price']*$val['product_qty'];
+            $sumCartPrice += $val['price']*$val['qty'];
         }
         if( $this->_data['coupon']['used'] >= $this->_data['coupon']['number_of_uses'] ){
             $data = [
@@ -263,7 +263,7 @@ class CartController extends Controller
     public function getTotalPrice(){
         $sumCartPrice = $sumOrderPrice = 0;
         foreach ($this->_data['cart'] as $key => $val) {
-            $sumCartPrice += $val['product_price']*$val['product_qty'];
+            $sumCartPrice += $val['price']*$val['qty'];
         }
         if( count($this->_data['coupon']) > 0 ){
             if($this->_data['coupon']['change_conditions_type'] == 'percentage_discount_from_total_cart'){
@@ -313,12 +313,12 @@ class CartController extends Controller
             ]);
         }
     }
-    public function checkInCart($product_id,$product_qty,$color_id=0,$size_id=0){
+    public function checkInCart($id,$qty,$color_id=0,$size_id=0){
         $flag = 0;
         $max = count($this->_data['cart']);
         for($i=0; $i<$max; $i++){
-            if( $this->_data['cart'][$i]['product_id'] == $product_id && $this->_data['cart'][$i]['color_id'] == $color_id && $this->_data['cart'][$i]['size_id'] == $size_id ){
-                $this->_data['cart'][$i]['product_qty'] += $product_qty;
+            if( $this->_data['cart'][$i]['id'] == $id && $this->_data['cart'][$i]['color_id'] == $color_id && $this->_data['cart'][$i]['size_id'] == $size_id ){
+                $this->_data['cart'][$i]['qty'] += $qty;
                 $flag = 1;
             }
         }
@@ -344,15 +344,15 @@ class CartController extends Controller
         }
     }
     public function addToCart(Request $request){
-        $product_id = $request->id;
+        $id = $request->id;
         $color_id = (int)$request->color;
         $size_id = (int)$request->size;
-        $product_qty = is_numeric($request->qty) && $request->qty > 0 ? $request->qty : 1;
-        if ($request->ajax() && is_numeric($product_id)) {
+        $qty = is_numeric($request->qty) && $request->qty > 0 ? $request->qty : 1;
+        if ($request->ajax() && is_numeric($id)) {
             $product = DB::table('products as A')
                 ->leftjoin('product_languages as B', 'A.id','=','B.product_id')
                 ->select('A.*','B.title')
-                ->where('A.id',$product_id)
+                ->where('A.id',$id)
                 ->where('B.language', $this->_data['lang'])
                 ->first();
             $color = DB::table('attribute_languages')
@@ -368,14 +368,14 @@ class CartController extends Controller
             if ($product !== null) {
                 if (count($this->_data['cart']) > 0) {
                     $max = count($this->_data['cart']);
-                    if( !self::checkInCart($product_id,$product_qty,$color_id,$size_id) ){
+                    if( !self::checkInCart($id,$qty,$color_id,$size_id) ){
                         $this->_data['cart'][$max] = [
-                            'product_id' => $product_id,
-                            'product_title' => $product->title,
-                            'product_code' => $product->code,
-                            'product_price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
-                            'product_qty' => $product_qty,
-                            'product_image' =>  $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300'),
+                            'id' => $id,
+                            'title' => $product->title,
+                            'code' => $product->code,
+                            'price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
+                            'qty' => $qty,
+                            'image' =>  $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300'),
                             'color_id' => $color_id,
                             'size_id' => $size_id,
                             'color_title' => @$color->title,
@@ -384,12 +384,12 @@ class CartController extends Controller
                     }
                 }else{
                     $this->_data['cart'][0] = [
-                        'product_id' => $product_id,
-                        'product_title' => $product->title,
-                        'product_code' => $product->code,
-                        'product_price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
-                        'product_qty' => $product_qty,
-                        'product_image' =>  $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300'),
+                        'id' => $id,
+                        'title' => $product->title,
+                        'code' => $product->code,
+                        'price' => $product->sale_price > 0 ? $product->sale_price : $product->regular_price,
+                        'qty' => $qty,
+                        'image' =>  $product->image ? asset('public/uploads/products/'.get_thumbnail($product->image)) : asset('noimage/300x300'),
                         'color_id' => $color_id,
                         'size_id' => $size_id,
                         'color_title' => @$color->title,
@@ -426,11 +426,11 @@ class CartController extends Controller
     }
     public function updateCart(Request $request){
         $key = $request->key;
-        $product_qty = $request->qty;
-        if ($request->ajax() && is_numeric($key) && is_numeric($product_qty)) {
-            if (isset($this->_data['cart'][$key]) && $product_qty > 0) {
-                $this->_data['cart'][$key]['product_qty'] = $product_qty;
-                $this->_data['cart'][$key]['sumProPrice'] = $this->_data['cart'][$key]['product_qty'] * $this->_data['cart'][$key]['product_price'];
+        $qty = $request->qty;
+        if ($request->ajax() && is_numeric($key) && is_numeric($qty)) {
+            if (isset($this->_data['cart'][$key]) && $qty > 0) {
+                $this->_data['cart'][$key]['qty'] = $qty;
+                $this->_data['cart'][$key]['sumProPrice'] = $this->_data['cart'][$key]['qty'] * $this->_data['cart'][$key]['price'];
             } elseif (isset($this->_data['cart'][$key])) {
                 unset($this->_data['cart'][$key]);
             }
