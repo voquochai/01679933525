@@ -274,7 +274,8 @@ class AjaxController extends Controller
                 $data['type'] = 'success';
                 $data['icon'] = 'check';
                 $data['message'] = "Cám ơn ".$order->name." đã đăng ký dịch vụ. Chúng tôi sẽ phản hồi lại qua ".$order->email." trong thời gian sớm nhất. Trân trọng!";
-                if(@config('settings.email_username') !='') Mail::to($order->email)->send(new OrderConfirmation($order));
+                $data['redirect'] = route('frontend.cart.tracking', ['email'=>$order->email, 'code'=>$order->code]);
+                // if(@config('settings.email_username') !='') Mail::to($order->email)->send(new OrderConfirmation($order));
             }else{
                 $data['message'] = "Hệ thống đang bận. Quý khách vui lòng thử lại sau.";
             }

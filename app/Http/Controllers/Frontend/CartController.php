@@ -33,7 +33,7 @@ class CartController extends Controller
         $this->middleware(function($request,$next){
             $this->_data['lang'] = (session('lang')) ? session('lang') : config('settings.language');
             App::setLocale($this->_data['lang']);
-            $this->_data['meta_seo'] = set_meta_tags('',$this->_data['lang']);
+            $this->_data['meta_seo'] = set_meta_tags($this->_data['lang']);
             View::share('siteconfig', config('siteconfig'));
             $this->_data['cart'] = is_array($cart = json_decode($request->cookie('cart'), true)) ? $cart : [];
             $this->_data['coupon'] = is_array($coupon = json_decode($request->cookie('coupon'), true)) ? $coupon : [];
@@ -85,7 +85,7 @@ class CartController extends Controller
         $this->_data['breadcrumb'] .= '<li> '.$this->_data['page_title'].' </li>';
         $this->_data['item'] = Order::where('email',$request->email)->where('code',$request->code)->first();
         if ($this->_data['item'] !== null) {
-            $this->_data['products'] = $this->_data['item']->details()->get();
+            $this->_data['product'] = $this->_data['item']->details()->get()->first();
         }
         return view('frontend.default.tracking',$this->_data);
         

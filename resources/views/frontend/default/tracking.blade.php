@@ -1,97 +1,114 @@
 @extends('frontend.default.master')
 @section('content')
 <!-- PAGE SECTION START -->
-<div class="page-section section pt-100 pb-60">
+<section class="page-section section pt-60 pb-60 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
     <div class="container">
         <div class="row">
             @if ( $item !== null )
-            <div class="col-md-12 mb-40 mt-element-step">
-                <div class="row step-thin">
-                    @forelse( config('siteconfig.order_site_status') as $key => $val )
-                    <div class="col-lg-3 col-md-6 bg-grey mt-step-col {{ $item->status_id == $key ? 'active' : '' }} ">
-                        <div class="mt-step-number bg-white font-grey">{{ $key }}</div>
-                        <div class="mt-step-title uppercase font-grey-cascade">{{ $val }}</div>
-                    </div>
-                    @empty
-                    @endforelse
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-xs-12 mb-40">
-                        <h3 class="mb-15 uppercase"> {{ __('cart.billing_details') }} </h3>
-                        <div class="row">
-                            <div class="col-xs-12 mb-15">
-                                <label>{{ __('cart.name') }}:</label> {{ $item->name }}
-                            </div>
-                            <div class="col-xs-12 mb-15">
-                                <label>{{ __('cart.address') }}:</label> {{ $item->address }}
-                            </div>
-                            <div class="col-xs-12 mb-15">
-                                <label>Emai</label> {{ $item->email }}
-                            </div>
-                            <div class="col-xs-12 mb-15">
-                                <label>{{ __('cart.phone') }}:</label> {{ $item->phone }}
-                            </div>
-                            <div class="col-xs-12 mb-15">
-                                <label>{{ __('cart.province') }}:</label> <span class="simple-province" data-key="{{ $item->province_id }}"></span>
-                            </div>
-                            <div class="col-xs-12 mb-15">
-                                <label>{{ __('cart.district') }}:</label> <span class="simple-district" data-key="{{ $item->district_id }}"></span>
-                            </div>
-                            <div class="col-xs-12 mb-15">
-                                <label>{{ __('cart.notes') }}:</label> {{ $item->note }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-xs-12 mb-40">
-                        @if( $item->coupon_code )
-                        <h3 class="mb-15 uppercase"> Coupon </h3>
-                        <div class="custom-alerts alert alert-success fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                            <i class="fa-lg fa fa-check"></i> {{ __('cart.sale',['attribute'=>get_currency_vn($item->coupon_amount)]) }}
-                        </div>
-                        @endif
-                        <h3 class="mb-15 uppercase"> {{ __('cart.your_order') }} </h3>
-                        <div class="order-table table-responsive mb-30">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="product-name">{{ __('cart.product_name') }}</th>
-                                        <th class="product-total">{{ __('cart.total') }} (Đ)</th>
-                                    </tr>                           
-                                </thead>
-                                <tbody>
-                                    @forelse($products as $key => $val)
-                                        <tr>
-                                            <td class="product-name">
-                                                {{ $val['product_title'].($val['color_title'] ? ' - '.$val['color_title'] : '').($val['size_title'] ? ' - '.$val['size_title'] : '') }} <strong class="product-qty"> × {{ $val['product_qty'] }} </strong>
-                                            </td>
-                                            <td class="product-total">
-                                                <span class="amount">{{ get_currency_vn($val['product_price']*$val['product_qty'],'') }}</span>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                    <tr> <td colspan="10"> {{ __('cart.no_item') }} </td> </tr>
-                                    @endforelse
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>{{ __('cart.cart_total') }}</th>
-                                        <td><span class="sumCartPrice">{{ get_currency_vn($item->subtotal,'') }}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('cart.order_total') }}</th>
-                                        <td><strong class="sumOrderPrice">{{ get_currency_vn($item->order_price,'') }}</strong>
-                                        </td>
-                                    </tr>                               
-                                </tfoot>
-                            </table>
-                        </div>
+            <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
+                @if( $item->status_id == 1 )
+                <div id="alert-container">
+                    <div class="alert alert-success" role="alert">
+                        <p>Đăng ký hoàn tất! Vui lòng chuyển khoản theo cú pháp dưới đây:</p>
+                        <p>
+                            <b>Chủ tài khoản:</b> Võ Quốc Hải<br/>
+                            <b>Số tài khoản:</b> 0441000721604<br/>
+                            <b>Ngân hàng:</b> Vietcombank - Chi nhánh Tân Bình - TP. HCM<br/>
+                            <b>Nội dung:</b> Thanh toán hợp đồng #{{ $item->code }}
+                        </p>
                     </div>
                 </div>
+                @endif
+                <div class="pb-20">
+                    <p class="text-right font-sm">Hợp đồng #{{ $item->code }} được tạo ngày {{ date('d/m/Y', strtotime($item->created_at) ) }} </p>
+                    <p class="text-right"><button class="btn btn-lg btn-{{config('siteconfig.order_site_labels.'.$item->status_id)}}"> {{ config('siteconfig.order_site_status.'.$item->status_id) }} </button></p>
+                </div>
+                <div class="alert alert-info mb-40">
+                    <h4 class="text-center uppercase bold pt-10">Thông tin hợp đồng</h4>
+                </div>
+                <div>
+                    <p> <b> Kính gửi (Ông/Bà):</b> {{ $item->name }}</p>
+                    <p> Chúng tôi xin chân thành cảm ơn Quý khách đã tín nhiệm sử dụng dịch vụ của {{ config('app.name') }}. Dưới đây là thông tin các dịch vụ Quý khách đã đăng ký.</p>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="active">
+                                <th> Số hợp đồng </th>
+                                <th> Ngày tạo </th>
+                                <th> Ngày thanh toán </th>
+                                <th> Hình thức thanh toán </th>
+                                <th> Thành tiền </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> {{ $item->code }} </td>
+                                <td> {{ date('d/m/Y', strtotime($item->created_at) ) }} </td>
+                                <td> {{ date('d/m/Y', strtotime($item->created_at)+($item->order_qty*31556926) ) }} </td>
+                                <td> {{ config('siteconfig.payment_method.3') }} </td>
+                                <td> {{ get_currency_vn($item->order_price) }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pt-60 pb-20">
+                    <h4 class="uppercase font-red bold">Dịch vụ đăng ký trong hợp đồng</h4>
+                </div>
+                @php
+                    $hosting = $domain = '';
+                    if($product->size_title !== null){
+                        $domain = explode(' - ',$product->size_title);
+                    }
+                    if($product->color_title !== null){
+                        $hosting = explode(' - ',$product->color_title);
+                    }
+                @endphp
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="active">
+                                <th> Stt </th>
+                                <th> Chi tiết dịch vụ </th>
+                                <th> Thành tiền </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> 1 </td>
+                                <td> Website: {{ $product->product_title }} </td>
+                                <td> {{ get_currency_vn($product->product_price) }} </td>
+                            </tr>
+                            @if($domain)
+                            <tr>
+                                <td> 2 </td>
+                                <td> Domain: {{ $domain[0] }} </td>
+                                <td> {{ $domain[1] }} đ </td>
+                            </tr>
+                            @endif
+
+                            @if($hosting)
+                            <tr>
+                                <td> 3 </td>
+                                <td> Hosting: {{ $hosting[0] }} </td>
+                                <td> {{ $hosting[1] }} đ </td>
+                            </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
+            <div class="col-lg-3 col-md-4 col-xs-12">
+                <div class="sidebar">
+                    <div class="sidebar-widget mb-20">
+                        <h4 class="title">Đơn hàng của bạn</h4>
+                        <ul class="category">
+                            <li> <a href="#" class="active"> {{ $item->code }} </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             @else
             <div class="col-md-12" id="alert-container">
                 <div class="alert alert-danger alert-dismissible" role="alert">
@@ -100,9 +117,8 @@
                 </div>
             </div>
             @endif
-            
         </div>
     </div>
-</div>
+</section>
 <!-- PAGE SECTION END --> 
 @endsection

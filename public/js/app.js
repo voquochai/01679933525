@@ -490,6 +490,9 @@ var App = function() {
                 }
             }).done(function(response){
                 btn.button('reset');
+                if(response.redirect != ''){
+                    window.location.href=response.redirect;
+                }
                 if(response.type == 'success'){
                     frm.find('*:not([type="hidden"])').val('');
                 }
