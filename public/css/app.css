@@ -959,3 +959,6 @@ td > .mt-checkbox.mt-checkbox-single {
 .table-borderless > thead > tr > th {
     border: none;
 }
+.table-responsive .table thead tr th{
+    text-align: center;
+}

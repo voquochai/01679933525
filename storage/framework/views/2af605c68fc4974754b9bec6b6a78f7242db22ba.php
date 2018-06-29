@@ -6,17 +6,15 @@
             <?php if( $item !== null ): ?>
             <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
                 <?php if( $item->status_id == 1 ): ?>
-                <div id="alert-container">
-                    <div class="alert alert-success" role="alert">
-                        <p>Đăng ký hoàn tất! Vui lòng chuyển khoản theo cú pháp dưới đây:</p>
-                        <p>
-                            <b>Chủ tài khoản:</b> Võ Quốc Hải<br/>
-                            <b>Số tài khoản:</b> 0441000721604<br/>
-                            <b>Ngân hàng:</b> Vietcombank - Chi nhánh Tân Bình - TP. HCM<br/>
-                            <b>Nội dung:</b> Thanh toán hợp đồng #<?php echo e($item->code); ?>
+                <div class="alert alert-success" role="alert">
+                    <p>Đăng ký hoàn tất! Vui lòng chuyển khoản theo cú pháp dưới đây:</p>
+                    <p>
+                        <b>Chủ tài khoản:</b> Võ Quốc Hải<br/>
+                        <b>Số tài khoản:</b> 0441000721604<br/>
+                        <b>Ngân hàng:</b> Vietcombank - Chi nhánh Tân Bình - TP. HCM<br/>
+                        <b>Nội dung:</b> Thanh toán hợp đồng #<?php echo e($item->code); ?>
 
-                        </p>
-                    </div>
+                    </p>
                 </div>
                 <?php endif; ?>
                 <div class="pb-20">
@@ -34,20 +32,20 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="active">
-                                <th> Số hợp đồng </th>
-                                <th> Ngày tạo </th>
-                                <th> Ngày thanh toán </th>
-                                <th> Hình thức thanh toán </th>
-                                <th> Thành tiền </th>
+                                <th width="15%"> Số hợp đồng </th>
+                                <th width="20%"> Ngày tạo </th>
+                                <th width="20%"> Ngày thanh toán </th>
+                                <th width="25%"> Hình thức thanh toán </th>
+                                <th width="20%"> Tổng tiền </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td> <?php echo e($item->code); ?> </td>
-                                <td> <?php echo e(date('d/m/Y', strtotime($item->created_at) )); ?> </td>
-                                <td> <?php echo e(date('d/m/Y', strtotime($item->created_at)+($item->order_qty*31556926) )); ?> </td>
-                                <td> <?php echo e(config('siteconfig.payment_method.3')); ?> </td>
-                                <td> <?php echo e(get_currency_vn($item->order_price)); ?> </td>
+                                <td align="center"> <?php echo e($item->code); ?> </td>
+                                <td align="center"> <?php echo e(date('d/m/Y', strtotime($item->created_at) )); ?> </td>
+                                <td align="center"> <?php echo e(date('d/m/Y', strtotime($item->created_at)+($item->order_qty*31556926) )); ?> </td>
+                                <td align="center"> <?php echo e(config('siteconfig.payment_method.3')); ?> </td>
+                                <td align="center"> <?php echo e(get_currency_vn($item->order_price)); ?> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,32 +67,36 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="active">
-                                <th> Stt </th>
+                                <th width="5%"> Stt </th>
                                 <th> Chi tiết dịch vụ </th>
-                                <th> Thành tiền </th>
+                                <th width="20%"> Thành tiền </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td> 1 </td>
-                                <td> Website: <?php echo e($product->product_title); ?> </td>
-                                <td> <?php echo e(get_currency_vn($product->product_price)); ?> </td>
+                                <td align="center"> 1 </td>
+                                <td> <span class="bold underline">Website:</span> <?php echo e($product->product_title); ?> </td>
+                                <td align="center"> <?php echo e(get_currency_vn($product->product_price)); ?> </td>
                             </tr>
                             <?php if($domain): ?>
                             <tr>
-                                <td> 2 </td>
-                                <td> Domain: <?php echo e($domain[0]); ?> </td>
-                                <td> <?php echo e($domain[1]); ?> đ </td>
+                                <td align="center"> 2 </td>
+                                <td> <span class="bold underline">Domain:</span> <?php echo e($domain[0]); ?> </td>
+                                <td align="center"> <?php echo e($domain[1]); ?> đ </td>
                             </tr>
                             <?php endif; ?>
 
                             <?php if($hosting): ?>
                             <tr>
-                                <td> 3 </td>
-                                <td> Hosting: <?php echo e($hosting[0]); ?> </td>
-                                <td> <?php echo e($hosting[1]); ?> đ </td>
+                                <td align="center"> <?php echo e($domain ? 3 : 2); ?> </td>
+                                <td> <span class="bold underline">Hosting:</span> <?php echo e($hosting[0]); ?> </td>
+                                <td align="center"> <?php echo e($hosting[1]); ?> đ </td>
                             </tr>
                             <?php endif; ?>
+                            <tr class="active">
+                                <td align="right" colspan="2"> Tổng tiền </td>
+                                <td align="center"> <b class="bold font-red font-lg"><?php echo e(get_currency_vn($item->order_price)); ?></b> </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -7,16 +7,14 @@
             @if ( $item !== null )
             <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
                 @if( $item->status_id == 1 )
-                <div id="alert-container">
-                    <div class="alert alert-success" role="alert">
-                        <p>Đăng ký hoàn tất! Vui lòng chuyển khoản theo cú pháp dưới đây:</p>
-                        <p>
-                            <b>Chủ tài khoản:</b> Võ Quốc Hải<br/>
-                            <b>Số tài khoản:</b> 0441000721604<br/>
-                            <b>Ngân hàng:</b> Vietcombank - Chi nhánh Tân Bình - TP. HCM<br/>
-                            <b>Nội dung:</b> Thanh toán hợp đồng #{{ $item->code }}
-                        </p>
-                    </div>
+                <div class="alert alert-success" role="alert">
+                    <p>Đăng ký hoàn tất! Vui lòng chuyển khoản theo cú pháp dưới đây:</p>
+                    <p>
+                        <b>Chủ tài khoản:</b> Võ Quốc Hải<br/>
+                        <b>Số tài khoản:</b> 0441000721604<br/>
+                        <b>Ngân hàng:</b> Vietcombank - Chi nhánh Tân Bình - TP. HCM<br/>
+                        <b>Nội dung:</b> Thanh toán hợp đồng #{{ $item->code }}
+                    </p>
                 </div>
                 @endif
                 <div class="pb-20">
@@ -34,20 +32,20 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="active">
-                                <th> Số hợp đồng </th>
-                                <th> Ngày tạo </th>
-                                <th> Ngày thanh toán </th>
-                                <th> Hình thức thanh toán </th>
-                                <th> Thành tiền </th>
+                                <th width="15%"> Số hợp đồng </th>
+                                <th width="20%"> Ngày tạo </th>
+                                <th width="20%"> Ngày thanh toán </th>
+                                <th width="25%"> Hình thức thanh toán </th>
+                                <th width="20%"> Tổng tiền </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td> {{ $item->code }} </td>
-                                <td> {{ date('d/m/Y', strtotime($item->created_at) ) }} </td>
-                                <td> {{ date('d/m/Y', strtotime($item->created_at)+($item->order_qty*31556926) ) }} </td>
-                                <td> {{ config('siteconfig.payment_method.3') }} </td>
-                                <td> {{ get_currency_vn($item->order_price) }} </td>
+                                <td align="center"> {{ $item->code }} </td>
+                                <td align="center"> {{ date('d/m/Y', strtotime($item->created_at) ) }} </td>
+                                <td align="center"> {{ date('d/m/Y', strtotime($item->created_at)+($item->order_qty*31556926) ) }} </td>
+                                <td align="center"> {{ config('siteconfig.payment_method.3') }} </td>
+                                <td align="center"> {{ get_currency_vn($item->order_price) }} </td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,32 +67,36 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="active">
-                                <th> Stt </th>
+                                <th width="5%"> Stt </th>
                                 <th> Chi tiết dịch vụ </th>
-                                <th> Thành tiền </th>
+                                <th width="20%"> Thành tiền </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td> 1 </td>
-                                <td> Website: {{ $product->product_title }} </td>
-                                <td> {{ get_currency_vn($product->product_price) }} </td>
+                                <td align="center"> 1 </td>
+                                <td> <span class="bold underline">Website:</span> {{ $product->product_title }} </td>
+                                <td align="center"> {{ get_currency_vn($product->product_price) }} </td>
                             </tr>
                             @if($domain)
                             <tr>
-                                <td> 2 </td>
-                                <td> Domain: {{ $domain[0] }} </td>
-                                <td> {{ $domain[1] }} đ </td>
+                                <td align="center"> 2 </td>
+                                <td> <span class="bold underline">Domain:</span> {{ $domain[0] }} </td>
+                                <td align="center"> {{ $domain[1] }} đ </td>
                             </tr>
                             @endif
 
                             @if($hosting)
                             <tr>
-                                <td> 3 </td>
-                                <td> Hosting: {{ $hosting[0] }} </td>
-                                <td> {{ $hosting[1] }} đ </td>
+                                <td align="center"> {{ $domain ? 3 : 2 }} </td>
+                                <td> <span class="bold underline">Hosting:</span> {{ $hosting[0] }} </td>
+                                <td align="center"> {{ $hosting[1] }} đ </td>
                             </tr>
                             @endif
+                            <tr class="active">
+                                <td align="right" colspan="2"> Tổng tiền </td>
+                                <td align="center"> <b class="bold font-red font-lg">{{ get_currency_vn($item->order_price) }}</b> </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
